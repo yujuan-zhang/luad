@@ -1,0 +1,38 @@
+# ── Raw input data (re-downloadable from GDC) ─────────────────────────────
+data/input/
+
+# ── Large model weights (re-downloadable from HuggingFace) ────────────────
+data/esm/
+
+# ── Single-cell raw data (re-downloadable from GEO) ───────────────────────
+modules/04_single_cell/data/input/
+
+# ── Third-party packages / binaries ───────────────────────────────────────
+packages/
+
+# ── Embedded git repos ─────────────────────────────────────────────────────
+modules/07_drug_mapping/oncokb_annotator/
+
+# ── Build artifacts ────────────────────────────────────────────────────────
+build/
+*.egg-info/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.so
+dist/
+
+# ── IDE / OS ───────────────────────────────────────────────────────────────
+.DS_Store
+.vscode/
+.idea/
+*.swp
+
+# ── Environment / secrets ──────────────────────────────────────────────────
+.env
+*.env
+.claude/
+
+# ── Jupyter ────────────────────────────────────────────────────────────────
+.ipynb_checkpoints/
