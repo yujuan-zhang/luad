@@ -19,38 +19,31 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# ── Top navigation bar ─────────────────────────────────────────────────────
+# ── Bottom-left site link ───────────────────────────────────────────────────
 st.markdown("""
 <style>
-.top-navbar {
+.bottom-link {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
+    bottom: 16px;
+    left: 24px;
     z-index: 9999;
     background-color: #1565c0;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    padding: 0 24px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+    border-radius: 8px;
+    padding: 8px 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.30);
 }
-.top-navbar a {
+.bottom-link a {
     color: #ffffff !important;
     text-decoration: none !important;
-    font-size: 1.0rem;
+    font-size: 0.88rem;
     font-weight: 600;
     letter-spacing: 0.2px;
 }
-.top-navbar a:hover {
+.bottom-link a:hover {
     color: #bbdefb !important;
 }
-/* Push page content below the fixed navbar */
-section[data-testid="stSidebar"] { top: 48px !important; }
-.stApp > header { top: 48px !important; }
-.block-container { padding-top: 64px !important; }
 </style>
-<div class="top-navbar">
+<div class="bottom-link">
     <a href="https://yujuan-zhang.github.io/" title="Yujuan Zhang, PhD">Yujuan Zhang, PhD</a>
 </div>
 """, unsafe_allow_html=True)
