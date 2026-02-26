@@ -10,7 +10,6 @@ Run with:  streamlit run streamlit_app.py
 import streamlit as st
 import pandas as pd
 from pathlib import Path
-import io
 
 # ── Page config (must be first Streamlit call) ─────────────────────────────
 st.set_page_config(
@@ -19,6 +18,42 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded",
 )
+
+# ── Top navigation bar ─────────────────────────────────────────────────────
+st.markdown("""
+<style>
+.top-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    background-color: #1565c0;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+}
+.top-navbar a {
+    color: #ffffff !important;
+    text-decoration: none !important;
+    font-size: 1.0rem;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+}
+.top-navbar a:hover {
+    color: #bbdefb !important;
+}
+/* Push page content below the fixed navbar */
+section[data-testid="stSidebar"] { top: 48px !important; }
+.stApp > header { top: 48px !important; }
+.block-container { padding-top: 64px !important; }
+</style>
+<div class="top-navbar">
+    <a href="https://yujuan-zhang.github.io/" title="Yujuan Zhang, PhD">Yujuan Zhang, PhD</a>
+</div>
+""", unsafe_allow_html=True)
 
 # ── Paths ──────────────────────────────────────────────────────────────────
 # All output files live under data/output/, relative to this script
@@ -63,99 +98,6 @@ def show_table(path: Path, sep: str = "\t", nrows: int = 200, caption: str = "")
         st.error(f"Could not load `{path.name}`: {e}")
 
 
-# ── Pipeline architecture figure ───────────────────────────────────────────
-@st.cache_data
-def make_pipeline_figure():
-    """Generate the 7-module pipeline architecture diagram. Returns a PNG BytesIO."""
-    try:
-        import matplotlib
-        matplotlib.use("Agg")
-        import matplotlib.pyplot as plt
-        from matplotlib.patches import FancyBboxPatch
-    except ImportError:
-        return None
-
-    fig, ax = plt.subplots(figsize=(11, 9))
-    ax.set_xlim(0, 11)
-    ax.set_ylim(0, 11)
-    ax.axis("off")
-    fig.patch.set_facecolor("#ffffff")
-
-    def fbox(x, y, w, h, bg, bd, lw=1.5):
-        ax.add_patch(FancyBboxPatch(
-            (x, y), w, h, boxstyle="round,pad=0.12",
-            facecolor=bg, edgecolor=bd, linewidth=lw, zorder=3,
-        ))
-
-    def txt(x, y, s, size=9, color="#1a1a2e", bold=False, ha="center", va="center"):
-        ax.text(x, y, s, fontsize=size, color=color,
-                fontweight="bold" if bold else "normal",
-                ha=ha, va=va, zorder=4, multialignment="center")
-
-    def arrow_dn(x, y_start, y_end):
-        ax.annotate("", xy=(x, y_end), xytext=(x, y_start),
-                    arrowprops=dict(arrowstyle="-|>", color="#607d8b",
-                                   lw=1.8, mutation_scale=16), zorder=2)
-
-    # Title
-    txt(5.5, 10.6, "Pipeline Architecture", size=13, bold=True, color="#1a1a2e")
-
-    # INPUT
-    fbox(1.2, 9.2, 8.6, 0.85, "#f5f5f5", "#9e9e9e", lw=1.5)
-    txt(5.5, 9.73, "INPUT", size=8.5, bold=True, color="#555")
-    txt(5.5, 9.38,
-        "MAF (somatic variants)   ·   RNA-seq TPM matrix   ·   GDC clinical metadata",
-        size=7.5, color="#777")
-    arrow_dn(5.5, 9.20, 8.47)
-
-    # STAGE 1
-    fbox(0.2, 6.75, 10.6, 1.70, "#e3f2fd", "#1565c0", lw=2)
-    txt(0.55, 8.28, "STAGE 1  —  Independent modules (run in parallel)",
-        size=8.5, bold=True, color="#1565c0", ha="left")
-    bw, bh1 = 2.2, 1.05
-    for i, (num, name) in enumerate([
-        ("01", "Patient\nContext"), ("02", "Variation\nAnnotation"),
-        ("03", "Expression\nAnalysis"), ("04", "Single-Cell\nTME"),
-    ]):
-        xi = 0.5 + i * 2.6
-        fbox(xi, 6.90, bw, bh1, "white", "#1565c0", lw=1.5)
-        txt(xi + bw / 2, 6.90 + bh1 * 0.70, f"M{num}", size=10.5, bold=True, color="#1565c0")
-        txt(xi + bw / 2, 6.90 + bh1 * 0.28, name, size=7.5, color="#333")
-    arrow_dn(5.5, 6.75, 6.02)
-
-    # STAGE 2
-    fbox(1.3, 4.35, 8.4, 1.65, "#e8f5e9", "#2e7d32", lw=2)
-    txt(1.65, 5.83, "STAGE 2  —  Depends on Stage 1 outputs",
-        size=8.5, bold=True, color="#2e7d32", ha="left")
-    bh2 = 1.08
-    for (num, name), xi in zip(
-        [("05", "Pathway\nEnrichment"), ("07", "Drug\nMapping")], [2.7, 6.1]
-    ):
-        fbox(xi, 4.52, bw, bh2, "white", "#2e7d32", lw=1.5)
-        txt(xi + bw / 2, 4.52 + bh2 * 0.70, f"M{num}", size=10.5, bold=True, color="#2e7d32")
-        txt(xi + bw / 2, 4.52 + bh2 * 0.28, name, size=7.5, color="#333")
-    arrow_dn(5.5, 4.35, 3.67)
-
-    # STAGE 3
-    fbox(2.8, 2.20, 5.4, 1.45, "#fff3e0", "#e65100", lw=2)
-    txt(3.10, 3.50, "STAGE 3  —  GPU recommended (optional)",
-        size=8.5, bold=True, color="#e65100", ha="left")
-    fbox(4.4, 2.35, bw, 0.95, "white", "#e65100", lw=1.5)
-    txt(4.4 + bw / 2, 2.35 + 0.95 * 0.70, "M06", size=10.5, bold=True, color="#e65100")
-    txt(4.4 + bw / 2, 2.35 + 0.95 * 0.28, "ESM2\nEmbeddings", size=7.5, color="#333")
-    arrow_dn(5.5, 2.20, 1.52)
-
-    # DASHBOARD
-    fbox(1.8, 0.55, 7.4, 0.95, "#1565c0", "#0d47a1", lw=2)
-    txt(5.5, 1.08, "STREAMLIT DASHBOARD", size=10.5, bold=True, color="white")
-    txt(5.5, 0.73, "Interactive multi-omics results explorer", size=7.5, color="#bbdefb")
-
-    buf = io.BytesIO()
-    fig.savefig(buf, format="png", dpi=150, bbox_inches="tight",
-                facecolor="white", edgecolor="none")
-    buf.seek(0)
-    plt.close(fig)
-    return buf
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -567,16 +509,6 @@ that patient.
         </div>
     </div>
     """, unsafe_allow_html=True)
-
-    # ── Pipeline Architecture Figure ──────────────────────────────────────────
-    st.markdown('<div class="section-heading">Pipeline Architecture</div>', unsafe_allow_html=True)
-    _fig_buf = make_pipeline_figure()
-    if _fig_buf is not None:
-        _, _fig_mid, _ = st.columns([0.05, 0.90, 0.05])
-        with _fig_mid:
-            st.image(_fig_buf, use_container_width=True)
-    else:
-        st.info("Install `matplotlib` to render the pipeline diagram.")
 
     # ── Sample Coverage Table ────────────────────────────────────────────────
     st.markdown('<div class="section-heading">Demo Samples</div>', unsafe_allow_html=True)
