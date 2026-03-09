@@ -435,10 +435,11 @@ def _panel_km(ax, pop_df: pd.DataFrame, sample_clin: dict):
         return
 
     kmf = KaplanMeierFitter()
+    _km_df = pop_df.dropna(subset=["os_months", "event"])
     kmf.fit(
-        pop_df["os_months"],
-        pop_df["event"],
-        label=f"TCGA-LUAD (n={len(pop_df):,})"
+        _km_df["os_months"],
+        _km_df["event"],
+        label=f"TCGA-LUAD (n={len(_km_df):,})"
     )
     kmf.plot_survival_function(
         ax=ax,

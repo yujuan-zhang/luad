@@ -253,13 +253,23 @@ def run_sample(rnaseq_path: Path, dry_run: bool = False):
     out_dir.mkdir(parents=True, exist_ok=True)
 
     # 1. Parse expression data
+    # Strip Ensembl version numbers (ENSG00000000003.15 → ENSG00000000003)
+    # because PCGR refdata maps against unversioned IDs
     logger.info("Step 1: Parsing expression data...")
+    import tempfile, pandas as pd
+    _rna_df = pd.read_csv(rnaseq_path, sep="\t")
+    if "TargetID" in _rna_df.columns:
+        _rna_df["TargetID"] = _rna_df["TargetID"].str.split(".").str[0]
+    _tmp = tempfile.NamedTemporaryFile(suffix=".tsv.gz", delete=False)
+    _rna_df.to_csv(_tmp.name, sep="\t", index=False, compression="gzip")
+    _tmp.close()
     expression_map = parse_expression(
-        expression_fname_tsv = str(rnaseq_path),
+        expression_fname_tsv = _tmp.name,
         sample_id            = sample_id,
         refdata_assembly_dir = str(REFDATA_DIR),
         logger               = logger,
     )
+    import os; os.unlink(_tmp.name)
 
     if expression_map is None or expression_map.get("gene") is None:
         logger.warning(f"  Expression parsing failed for {sample_id}, skipping.")

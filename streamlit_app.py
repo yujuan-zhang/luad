@@ -677,7 +677,12 @@ elif page == "01 · Patient Context":
     st.header("01 · Patient Context")
     st.caption("GDC clinical data · survival analysis · patient summary card")
 
-    _m01_samples = discover_module_samples(OUTPUT / "01_patient_context", "_patient_card.png")
+    # M01 saves cards flat: 01_patient_context/{id}_patient_card.png (no subdirs)
+    _m01_dir = OUTPUT / "01_patient_context"
+    _m01_samples = sorted([
+        f.stem.replace("_patient_card", "")
+        for f in _m01_dir.glob("*_patient_card.png")
+    ]) if _m01_dir.exists() else []
     if not _m01_samples:
         _m01_samples = discover_clinical_samples() or SAMPLES
     sample = st.selectbox("Patient", _m01_samples, key="sel_m01",
