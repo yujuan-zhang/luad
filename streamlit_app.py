@@ -228,6 +228,7 @@ with st.sidebar:
             "06 · ESM2 Features",
             "07 · Drug Mapping",
             "08 · Pathology",
+            "09 · Integration",
         ],
         label_visibility="collapsed",
     )
@@ -235,7 +236,7 @@ with st.sidebar:
     st.divider()
 
     # Sample selector (not shown for pages that are sample-independent)
-    sample_independent_pages = {"Home", "04 · Single-Cell TME", "07 · Drug Mapping"}
+    sample_independent_pages = {"Home", "04 · Single-Cell TME", "07 · Drug Mapping", "09 · Integration"}
     if page not in sample_independent_pages:
         sample = st.selectbox(
             "Sample",
@@ -1095,3 +1096,121 @@ elif page == "08 · Pathology":
         Cross-reference with M04 (single-cell TME) and M07 (drug mapping) for integrated
         treatment decision support.
         """)
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# 09 · MULTI-OMICS INTEGRATION
+# ══════════════════════════════════════════════════════════════════════════════
+
+elif page == "09 · Integration":
+    st.header("09 · Multi-Omics Integration")
+    st.caption("M02 variants + M08 TME phenotype → rule-based treatment recommendations")
+
+    st.markdown("""
+    **Integration logic (NCCN NSCLC 2024 + FDA approvals):**
+
+    | Priority | Signal | Action |
+    |----------|--------|--------|
+    | 1 | Targetable driver mutation (EGFR/KRAS/ALK/ROS1/RET/MET/BRAF/ERBB2/NTRK) | Matched targeted therapy |
+    | 2 | Inflamed TME or High TMB (≥10 mut/Mb) | Immunotherapy (Pembrolizumab) |
+    | 3 | No driver + Desert TME | Platinum-based chemotherapy |
+    """)
+
+    st.divider()
+
+    # ── Cohort summary ────────────────────────────────────────────────────────
+    summary_path = OUTPUT / "09_integration" / "integration_summary.tsv"
+    if summary_path.exists():
+        st.subheader("Cohort Integration Summary")
+        df_sum = pd.read_csv(summary_path, sep="\t")
+
+        # Top-level metrics
+        col1, col2, col3, col4 = st.columns(4)
+        n = len(df_sum)
+        n_targeted   = (df_sum["top_category"] == "Targeted Therapy").sum()
+        n_immuno     = (df_sum["top_category"] == "Immunotherapy").sum()
+        n_chemo      = (df_sum["top_category"] == "Chemotherapy").sum()
+        n_tmb_high   = df_sum["tmb_high"].sum() if "tmb_high" in df_sum.columns else 0
+        col1.metric("Total Patients", n)
+        col2.metric("Targeted Therapy", f"{n_targeted} ({n_targeted/n:.0%})")
+        col3.metric("Immunotherapy First", f"{n_immuno} ({n_immuno/n:.0%})")
+        col4.metric("High TMB (≥10)", f"{n_tmb_high} ({n_tmb_high/n:.0%})")
+
+        st.divider()
+
+        # Driver gene distribution
+        st.subheader("Driver Mutation Distribution")
+        driver_counts = {}
+        for genes in df_sum["driver_genes"].dropna():
+            for g in genes.split("; "):
+                g = g.strip()
+                if g and g != "None":
+                    driver_counts[g] = driver_counts.get(g, 0) + 1
+
+        if driver_counts:
+            driver_df = pd.DataFrame(
+                sorted(driver_counts.items(), key=lambda x: -x[1]),
+                columns=["Gene", "Patients"]
+            )
+            st.dataframe(driver_df, use_container_width=False, hide_index=True)
+        else:
+            st.info("No driver mutations found in current cohort.")
+
+        st.divider()
+
+        # Full table
+        with st.expander("Full Cohort Integration Table"):
+            st.dataframe(df_sum, use_container_width=True, hide_index=True)
+
+    else:
+        st.info(
+            "Integration summary not yet generated.\n\n"
+            "**Step 1:** Run M02 variant annotation:\n"
+            "```bash\npython modules/02_variation_annotation/luad_pcgr.py\n```\n\n"
+            "**Step 2:** Run M08 pathology (optional, for TME):\n"
+            "```bash\npython modules/08_pathology/luad_pathology.py\n```\n\n"
+            "**Step 3:** Run M09 integration:\n"
+            "```bash\npython modules/09_integration/luad_integration.py\n```"
+        )
+
+    st.divider()
+
+    # ── Per-patient recommendation ────────────────────────────────────────────
+    st.subheader("Per-Patient Recommendation")
+
+    integration_dir = OUTPUT / "09_integration"
+    available = sorted([
+        d.name for d in integration_dir.iterdir()
+        if d.is_dir() and (d / f"{d.name}_recommendation.tsv").exists()
+    ]) if integration_dir.exists() else []
+
+    if available:
+        selected = st.selectbox("Select patient", options=available)
+
+        rec_tsv    = integration_dir / selected / f"{selected}_recommendation.tsv"
+        report_png = integration_dir / selected / f"{selected}_integration_report.png"
+
+        if report_png.exists():
+            st.image(str(report_png), use_container_width=True)
+
+        if rec_tsv.exists():
+            st.subheader("Ranked Recommendations")
+            df_rec = pd.read_csv(rec_tsv, sep="\t")
+            # Color-code by category
+            category_colors = {
+                "Targeted Therapy": "🔵",
+                "Immunotherapy":    "🟢",
+                "Combination":      "🟣",
+                "Chemotherapy":     "🔴",
+            }
+            df_rec["category"] = df_rec["category"].apply(
+                lambda c: f"{category_colors.get(c, '⚪')} {c}"
+            )
+            display_cols = ["rank", "category", "drug", "drug_class", "evidence", "rationale"]
+            st.dataframe(
+                df_rec[[c for c in display_cols if c in df_rec.columns]],
+                use_container_width=True,
+                hide_index=True,
+            )
+    else:
+        st.caption("No per-patient integration reports found. Run M09 to generate them.")
