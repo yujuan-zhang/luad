@@ -53,14 +53,18 @@ st.markdown("""
 OUTPUT = Path(__file__).parent / "data" / "output"
 
 # ── Sample registry ────────────────────────────────────────────────────────
-# Maps sample ID → which modules produced output for that sample
-SAMPLES = [
-    "TCGA-86-A4D0",   # most complete sample — all modules
-    "TCGA-49-4507",
-    "TCGA-73-4666",
-    "TCGA-78-7158",
-    "TCGA-86-8358",
-]
+# Auto-discover all patients with M02 variant output
+def _discover_samples() -> list:
+    variant_dir = OUTPUT / "02_variation_annotation"
+    if not variant_dir.exists():
+        return ["TCGA-86-A4D0", "TCGA-49-4507", "TCGA-73-4666", "TCGA-78-7158", "TCGA-86-8358"]
+    samples = sorted([
+        d.name for d in variant_dir.iterdir()
+        if d.is_dir() and (d / f"{d.name}_variants.tsv.gz").exists()
+    ])
+    return samples if samples else ["TCGA-86-A4D0", "TCGA-49-4507"]
+
+SAMPLES = _discover_samples()
 
 # ── Helper: safe image display ─────────────────────────────────────────────
 def show_image(path: Path, caption: str = "", width: int = None):
