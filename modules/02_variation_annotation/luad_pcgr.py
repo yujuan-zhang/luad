@@ -21,6 +21,8 @@ Usage:
 import argparse
 import logging
 import warnings
+from io import StringIO
+import requests
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
@@ -49,6 +51,10 @@ TUMOR_DP_MIN     = 10       # min sequencing depth
 TUMOR_AF_MIN     = 0.05     # min allele frequency
 TUMOR_AD_MIN     = 3        # min alt allele depth
 
+# CIViC evidence database (Plan B)
+CIVIC_CACHE_PATH = PROJECT_DIR / "data/civic_evidence.tsv.gz"
+CIVIC_URL = "https://civicdb.org/downloads/nightly/nightly-ClinicalEvidenceSummaries.tsv"
+
 # Non-synonymous variant classes to keep
 NONSYNONYMOUS = [
     "Missense_Mutation", "Nonsense_Mutation",
@@ -76,6 +82,124 @@ MAF_TO_PCGR = {
 def get_logger(name: str) -> logging.Logger:
     logging.basicConfig(format="[%(levelname)s] %(message)s", level=logging.INFO)
     return logging.getLogger(name)
+
+
+# ── Functional annotation ──────────────────────────────────────────────────────
+
+# Variant classes that are structurally/functionally disruptive
+_HIGH_IMPACT_CLASSES = {
+    "Nonsense_Mutation", "Frame_Shift_Del", "Frame_Shift_Ins",
+    "Splice_Site", "Nonstop_Mutation", "Translation_Start_Site",
+}
+
+
+def classify_functional_impact(df: pd.DataFrame) -> pd.Series:
+    """
+    Plan A: Rule-based functional classification using existing annotation fields.
+    Priority: hotspot > variant class > IMPACT > SIFT+PolyPhen
+
+    Returns a Series with one of:
+      Likely_Oncogenic   — known cancer hotspot
+      Likely_Functional  — truncating / splice / HIGH impact
+      Possibly_Functional — deleterious missense (SIFT + PolyPhen both harmful)
+      VUS                — variant of uncertain significance
+    """
+    def _classify(row):
+        vclass   = str(row.get("VARIANT_CLASS_TCGA", ""))
+        impact   = str(row.get("IMPACT", ""))
+        sift     = str(row.get("SIFT", "")).lower()
+        polyphen = str(row.get("PolyPhen", "")).lower()
+        hotspot  = row.get("hotspot", False)
+        is_hotspot = (hotspot is True) or (str(hotspot).lower() == "true")
+
+        if is_hotspot:
+            return "Likely_Oncogenic"
+        if vclass in _HIGH_IMPACT_CLASSES or impact == "HIGH":
+            return "Likely_Functional"
+        if (impact == "MODERATE"
+                and "deleterious" in sift
+                and "probably_damaging" in polyphen):
+            return "Possibly_Functional"
+        if impact == "MODERATE":
+            return "VUS"
+        return "VUS"
+
+    return df.apply(_classify, axis=1)
+
+
+def load_civic_db(logger) -> dict:
+    """
+    Plan B: Load CIViC clinical evidence summary (free bulk download, no token).
+    Caches to data/civic_evidence.tsv.gz after first download.
+
+    Returns dict: (GENE_UPPER, VARIANT_UPPER) -> {level, significance}
+    Evidence levels: A (strongest) → E (weakest)
+    """
+    if CIVIC_CACHE_PATH.exists():
+        logger.info("  Loading CIViC DB from local cache...")
+        try:
+            civic_df = pd.read_csv(CIVIC_CACHE_PATH, sep="\t",
+                                   compression="gzip", low_memory=False)
+        except Exception as e:
+            logger.warning(f"  CIViC cache read failed: {e}")
+            return {}
+    else:
+        logger.info("  Downloading CIViC evidence database (~5 MB)...")
+        try:
+            resp = requests.get(CIVIC_URL, timeout=60)
+            resp.raise_for_status()
+            civic_df = pd.read_csv(StringIO(resp.text), sep="\t", low_memory=False)
+            CIVIC_CACHE_PATH.parent.mkdir(parents=True, exist_ok=True)
+            civic_df.to_csv(CIVIC_CACHE_PATH, sep="\t", index=False, compression="gzip")
+            logger.info(f"  CIViC DB cached → {CIVIC_CACHE_PATH}")
+        except Exception as e:
+            logger.warning(f"  CIViC download failed: {e}. Skipping CIViC annotation.")
+            return {}
+
+    level_rank = {"A": 0, "B": 1, "C": 2, "D": 3, "E": 4}
+    lookup = {}
+    for _, row in civic_df.iterrows():
+        # CIViC nightly file uses 'molecular_profile' ("GENE VARIANT") not separate columns
+        mp = str(row.get("molecular_profile", "")).strip()
+        if not mp or mp == "nan":
+            continue
+        parts = mp.split(" ", 1)   # split on first space: "EGFR L858R" → ["EGFR", "L858R"]
+        if len(parts) < 2:
+            continue
+        gene    = parts[0].strip().upper()
+        variant = parts[1].strip().upper()
+        level   = str(row.get("evidence_level",  "")).strip()
+        sig     = str(row.get("significance",    "")).strip()   # CIViC field is 'significance'
+        if not gene or not variant:
+            continue
+        key = (gene, variant)
+        # Keep the strongest (lowest rank) evidence level per variant
+        if key not in lookup or level_rank.get(level, 9) < level_rank.get(lookup[key]["level"], 9):
+            lookup[key] = {"level": level, "significance": sig}
+
+    logger.info(f"  CIViC DB: {len(lookup):,} variant records loaded")
+    return lookup
+
+
+def annotate_civic(df: pd.DataFrame, civic_lookup: dict) -> pd.DataFrame:
+    """
+    Plan B: Add CIVIC_LEVEL and CIVIC_SIGNIFICANCE columns.
+    Matches on (SYMBOL, aa_change) where aa_change is HGVSp_Short minus 'p.' prefix.
+    """
+    civic_levels = []
+    civic_sigs   = []
+    for _, row in df.iterrows():
+        gene      = str(row.get("SYMBOL", "")).strip().upper()
+        hgvsp     = str(row.get("HGVSp_Short", ""))
+        aa_change = hgvsp.replace("p.", "").strip().upper()
+        hit = civic_lookup.get((gene, aa_change), {})
+        civic_levels.append(hit.get("level",        ""))
+        civic_sigs.append(hit.get("significance",   ""))
+
+    df = df.copy()
+    df["CIVIC_LEVEL"]        = civic_levels
+    df["CIVIC_SIGNIFICANCE"] = civic_sigs
+    return df
 
 
 def get_maf_files(sample_id: str = None):
@@ -168,15 +292,18 @@ def _build_sbs96(df: pd.DataFrame) -> pd.Series:
 def plot_variant_summary(df_coding: pd.DataFrame, df_all: pd.DataFrame,
                           tmb: float, sample_id: str, out_dir: Path, logger):
     """
-    6-panel variant summary figure (pcgr-inspired):
+    8-panel variant summary figure:
       [0,0] Variant class donut
       [0,1] VAF distribution histogram
       [0,2] Sequencing depth (DP) histogram
       [1,0] Top 15 mutated genes (bar)
       [1,1] TMB vs TCGA-LUAD (violin)
       [1,2] SBS trinucleotide spectrum
+      [2,0] Functional impact classification (Plan A)
+      [2,1] CIViC evidence level distribution (Plan B)
+      [2,2] CIViC evidence details table (Plan B)
     """
-    fig, axes = plt.subplots(2, 3, figsize=(16, 9))
+    fig, axes = plt.subplots(3, 3, figsize=(16, 14))
     fig.patch.set_facecolor("#f8f9fa")
     fig.suptitle(f"Variant Summary — {sample_id}", fontsize=14,
                  fontweight="bold", y=1.01)
@@ -310,6 +437,100 @@ def plot_variant_summary(df_coding: pd.DataFrame, df_all: pd.DataFrame,
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
 
+    # ── Panel [2,0]: Functional impact classification (Plan A) ──────────────────
+    ax = axes[2, 0]
+    fi_colors = {
+        "Likely_Oncogenic":    "#d62728",
+        "Likely_Functional":   "#ff7f0e",
+        "Possibly_Functional": "#1f77b4",
+        "VUS":                 "#aaaaaa",
+    }
+    if "FUNCTIONAL_IMPACT" in df_coding.columns:
+        fi_order  = ["Likely_Oncogenic", "Likely_Functional", "Possibly_Functional", "VUS"]
+        fi_counts = df_coding["FUNCTIONAL_IMPACT"].value_counts()
+        vals   = [fi_counts.get(k, 0) for k in fi_order]
+        colors = [fi_colors[k] for k in fi_order]
+        bars = ax.barh(fi_order, vals, color=colors, alpha=0.85, edgecolor="white")
+        for bar, v in zip(bars, vals):
+            if v > 0:
+                ax.text(v + 0.3, bar.get_y() + bar.get_height() / 2,
+                        str(v), va="center", fontsize=9)
+        ax.set_xlabel("# Variants", fontsize=9)
+        ax.set_title("Functional Impact Classification", fontsize=10, fontweight="bold")
+    else:
+        ax.text(0.5, 0.5, "No functional impact data\n(re-run pipeline to generate)",
+                ha="center", va="center", transform=ax.transAxes, fontsize=9, color="gray")
+        ax.set_title("Functional Impact Classification", fontsize=10, fontweight="bold")
+    ax.spines["top"].set_visible(False)
+    ax.spines["right"].set_visible(False)
+
+    # ── Panel [2,1]: CIViC evidence level distribution (Plan B) ─────────────────
+    ax = axes[2, 1]
+    level_colors = {"A": "#2ca02c", "B": "#1f77b4", "C": "#ff7f0e", "D": "#9467bd", "E": "#aaaaaa"}
+    if "CIVIC_LEVEL" in df_coding.columns:
+        civic_hits = df_coding[df_coding["CIVIC_LEVEL"].notna() & (df_coding["CIVIC_LEVEL"] != "")]
+        if not civic_hits.empty:
+            lv_counts = civic_hits["CIVIC_LEVEL"].value_counts().sort_index()
+            colors = [level_colors.get(l, "#aaaaaa") for l in lv_counts.index]
+            bars = ax.bar(lv_counts.index, lv_counts.values, color=colors, alpha=0.85, edgecolor="white")
+            for bar, v in zip(bars, lv_counts.values):
+                ax.text(bar.get_x() + bar.get_width() / 2, v + 0.05,
+                        str(v), ha="center", va="bottom", fontsize=9)
+            ax.set_xlabel("CIViC Evidence Level  (A=strongest → E=weakest)", fontsize=8)
+            ax.set_ylabel("# Variants", fontsize=9)
+            ax.set_title(f"CIViC Clinical Evidence\n({len(civic_hits)} variants annotated)",
+                         fontsize=10, fontweight="bold")
+        else:
+            ax.text(0.5, 0.5, "No CIViC evidence\nfound for this sample",
+                    ha="center", va="center", transform=ax.transAxes, fontsize=9, color="gray")
+            ax.set_title("CIViC Clinical Evidence", fontsize=10, fontweight="bold")
+    else:
+        ax.text(0.5, 0.5, "No CIViC data\n(re-run pipeline to generate)",
+                ha="center", va="center", transform=ax.transAxes, fontsize=9, color="gray")
+        ax.set_title("CIViC Clinical Evidence", fontsize=10, fontweight="bold")
+    ax.spines["top"].set_visible(False)
+    ax.spines["right"].set_visible(False)
+
+    # ── Panel [2,2]: CIViC evidence details table (Plan B) ──────────────────────
+    ax = axes[2, 2]
+    ax.axis("off")
+    if "CIVIC_LEVEL" in df_coding.columns:
+        civic_tbl = (
+            df_coding[df_coding["CIVIC_LEVEL"].notna() & (df_coding["CIVIC_LEVEL"] != "")]
+            [["SYMBOL", "HGVSp_Short", "CIVIC_LEVEL", "CIVIC_SIGNIFICANCE"]]
+            .drop_duplicates()
+            .sort_values("CIVIC_LEVEL")
+            .head(10)
+        )
+        if not civic_tbl.empty:
+            tbl = ax.table(
+                cellText=civic_tbl.values.tolist(),
+                colLabels=["Gene", "Change", "Level", "Significance"],
+                loc="center",
+                cellLoc="left",
+            )
+            tbl.auto_set_font_size(False)
+            tbl.set_fontsize(8)
+            tbl.scale(1, 1.5)
+            for (r, c), cell in tbl.get_celld().items():
+                cell.set_edgecolor("#dddddd")
+                if r == 0:
+                    cell.set_facecolor("#4393c3")
+                    cell.set_text_props(color="white", fontweight="bold")
+                elif r % 2 == 0:
+                    cell.set_facecolor("#f0f4f8")
+                else:
+                    cell.set_facecolor("white")
+            ax.set_title("CIViC Evidence Details", fontsize=10, fontweight="bold", pad=8)
+        else:
+            ax.text(0.5, 0.5, "No CIViC evidence\nfound for this sample",
+                    ha="center", va="center", transform=ax.transAxes, fontsize=9, color="gray")
+            ax.set_title("CIViC Evidence Details", fontsize=10, fontweight="bold")
+    else:
+        ax.text(0.5, 0.5, "No CIViC data\n(re-run pipeline to generate)",
+                ha="center", va="center", transform=ax.transAxes, fontsize=9, color="gray")
+        ax.set_title("CIViC Evidence Details", fontsize=10, fontweight="bold")
+
     plt.tight_layout()
     out_png = out_dir / f"{sample_id}_variant_summary.png"
     plt.savefig(out_png, dpi=150, bbox_inches="tight", facecolor=fig.get_facecolor())
@@ -340,6 +561,27 @@ def run_sample(maf_path: Path, dry_run: bool = False):
 
     # 4. Filter non-synonymous
     df_coding = filter_nonsynonymous(df, logger)
+
+    # Guard: empty MAF → skip sample
+    if df_coding.empty:
+        logger.warning(f"  No coding variants found for {sample_id}, skipping.")
+        return {"sample_id": sample_id, "tmb": 0, "n_variants": 0}
+
+    # 4b. Functional impact annotation (Plan A + Plan B)
+    logger.info("Step 4b: Annotating functional impact...")
+    df_coding["FUNCTIONAL_IMPACT"] = classify_functional_impact(df_coding)
+    n_functional = (df_coding["FUNCTIONAL_IMPACT"] != "VUS").sum()
+    logger.info(
+        f"  Likely_Oncogenic={( df_coding['FUNCTIONAL_IMPACT']=='Likely_Oncogenic').sum()}  "
+        f"Likely_Functional={(df_coding['FUNCTIONAL_IMPACT']=='Likely_Functional').sum()}  "
+        f"Possibly_Functional={(df_coding['FUNCTIONAL_IMPACT']=='Possibly_Functional').sum()}  "
+        f"VUS={(df_coding['FUNCTIONAL_IMPACT']=='VUS').sum()}"
+    )
+    civic_lookup = load_civic_db(logger)
+    if civic_lookup:
+        df_coding = annotate_civic(df_coding, civic_lookup)
+        n_civic = (df_coding["CIVIC_LEVEL"] != "").sum()
+        logger.info(f"  CIViC annotated: {n_civic} variants with clinical evidence")
 
     # 5. Calculate TMB via pcgr
     out_dir = OUT_DIR / sample_id
@@ -372,6 +614,7 @@ def run_sample(maf_path: Path, dry_run: bool = False):
         "HGVSp_Short", "HGVSc",
         "DP_TUMOR", "AD_TUMOR", "VAF_TUMOR", "SAMPLE_ID",
         "gnomAD_AF", "IMPACT", "SIFT", "PolyPhen", "hotspot",
+        "FUNCTIONAL_IMPACT", "CIVIC_LEVEL", "CIVIC_SIGNIFICANCE",
     ] if c in df_coding.columns]
 
     out_tsv = out_dir / f"{sample_id}_variants.tsv.gz"

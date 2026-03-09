@@ -66,7 +66,7 @@ def show_table(path: Path, sep: str = "\t", nrows: int = 200, caption: str = "")
 # ── Pipeline architecture figure ───────────────────────────────────────────
 @st.cache_data
 def make_pipeline_figure():
-    """Generate the 7-module pipeline architecture diagram. Returns a PNG BytesIO."""
+    """Generate the 8-module pipeline architecture diagram. Returns a PNG BytesIO."""
     try:
         import matplotlib
         matplotlib.use("Agg")
@@ -75,9 +75,9 @@ def make_pipeline_figure():
     except ImportError:
         return None
 
-    fig, ax = plt.subplots(figsize=(11, 9))
-    ax.set_xlim(0, 11)
-    ax.set_ylim(0, 11)
+    fig, ax = plt.subplots(figsize=(12, 11))
+    ax.set_xlim(0, 12)
+    ax.set_ylim(0, 12)
     ax.axis("off")
     fig.patch.set_facecolor("#ffffff")
 
@@ -97,58 +97,78 @@ def make_pipeline_figure():
                     arrowprops=dict(arrowstyle="-|>", color="#607d8b",
                                    lw=1.8, mutation_scale=16), zorder=2)
 
+    def arrow_rt(x_start, x_end, y):
+        ax.annotate("", xy=(x_end, y), xytext=(x_start, y),
+                    arrowprops=dict(arrowstyle="-|>", color="#9c27b0",
+                                   lw=1.5, mutation_scale=14), zorder=2)
+
     # Title
-    txt(5.5, 10.6, "Pipeline Architecture", size=13, bold=True, color="#1a1a2e")
+    txt(6.0, 11.55, "Pipeline Architecture", size=13, bold=True, color="#1a1a2e")
 
-    # INPUT
-    fbox(1.2, 9.2, 8.6, 0.85, "#f5f5f5", "#9e9e9e", lw=1.5)
-    txt(5.5, 9.73, "INPUT", size=8.5, bold=True, color="#555")
-    txt(5.5, 9.38,
-        "MAF (somatic variants)   ·   RNA-seq TPM matrix   ·   GDC clinical metadata",
+    # INPUT — two data sources
+    fbox(0.3, 10.05, 11.4, 0.95, "#f5f5f5", "#9e9e9e", lw=1.5)
+    txt(6.0, 10.65, "INPUT", size=8.5, bold=True, color="#555")
+    txt(6.0, 10.25,
+        "MAF (somatic variants)  ·  RNA-seq TPM  ·  GDC clinical  ·  H&E WSI slides",
         size=7.5, color="#777")
-    arrow_dn(5.5, 9.20, 8.47)
+    arrow_dn(6.0, 10.05, 9.32)
 
-    # STAGE 1
-    fbox(0.2, 6.75, 10.6, 1.70, "#e3f2fd", "#1565c0", lw=2)
-    txt(0.55, 8.28, "STAGE 1  —  Independent modules (run in parallel)",
+    # STAGE 1 — M01–M04 molecular + M08 imaging (parallel)
+    fbox(0.2, 7.60, 11.6, 1.70, "#e3f2fd", "#1565c0", lw=2)
+    txt(0.55, 9.13, "STAGE 1  —  Independent modules (run in parallel)",
         size=8.5, bold=True, color="#1565c0", ha="left")
-    bw, bh1 = 2.2, 1.05
+    bw, bh1 = 2.0, 1.05
+
+    # M01–M04
     for i, (num, name) in enumerate([
         ("01", "Patient\nContext"), ("02", "Variation\nAnnotation"),
         ("03", "Expression\nAnalysis"), ("04", "Single-Cell\nTME"),
     ]):
-        xi = 0.5 + i * 2.6
-        fbox(xi, 6.90, bw, bh1, "white", "#1565c0", lw=1.5)
-        txt(xi + bw / 2, 6.90 + bh1 * 0.70, f"M{num}", size=10.5, bold=True, color="#1565c0")
-        txt(xi + bw / 2, 6.90 + bh1 * 0.28, name, size=7.5, color="#333")
-    arrow_dn(5.5, 6.75, 6.02)
+        xi = 0.4 + i * 2.3
+        fbox(xi, 7.75, bw, bh1, "white", "#1565c0", lw=1.5)
+        txt(xi + bw / 2, 7.75 + bh1 * 0.70, f"M{num}", size=10, bold=True, color="#1565c0")
+        txt(xi + bw / 2, 7.75 + bh1 * 0.28, name, size=7.5, color="#333")
+
+    # M08 — imaging module (purple, same stage)
+    fbox(9.6, 7.75, bw, bh1, "#f3e5f5", "#6a1b9a", lw=1.8)
+    txt(9.6 + bw / 2, 7.75 + bh1 * 0.70, "M08", size=10, bold=True, color="#6a1b9a")
+    txt(9.6 + bw / 2, 7.75 + bh1 * 0.28, "Computational\nPathology", size=7.5, color="#333")
+
+    arrow_dn(5.6, 7.60, 6.87)
 
     # STAGE 2
-    fbox(1.3, 4.35, 8.4, 1.65, "#e8f5e9", "#2e7d32", lw=2)
-    txt(1.65, 5.83, "STAGE 2  —  Depends on Stage 1 outputs",
+    fbox(1.3, 5.20, 8.4, 1.65, "#e8f5e9", "#2e7d32", lw=2)
+    txt(1.65, 6.68, "STAGE 2  —  Depends on Stage 1 outputs",
         size=8.5, bold=True, color="#2e7d32", ha="left")
     bh2 = 1.08
     for (num, name), xi in zip(
-        [("05", "Pathway\nEnrichment"), ("07", "Drug\nMapping")], [2.7, 6.1]
+        [("05", "Pathway\nEnrichment"), ("07", "Drug\nMapping")], [2.5, 5.9]
     ):
-        fbox(xi, 4.52, bw, bh2, "white", "#2e7d32", lw=1.5)
-        txt(xi + bw / 2, 4.52 + bh2 * 0.70, f"M{num}", size=10.5, bold=True, color="#2e7d32")
-        txt(xi + bw / 2, 4.52 + bh2 * 0.28, name, size=7.5, color="#333")
-    arrow_dn(5.5, 4.35, 3.67)
+        fbox(xi, 5.37, bw, bh2, "white", "#2e7d32", lw=1.5)
+        txt(xi + bw / 2, 5.37 + bh2 * 0.70, f"M{num}", size=10, bold=True, color="#2e7d32")
+        txt(xi + bw / 2, 5.37 + bh2 * 0.28, name, size=7.5, color="#333")
+
+    # M08 feeds into Stage 2 via arrow
+    arrow_rt(10.6, 9.7, 6.28)
+    fbox(9.6, 5.37, bw, bh2, "#f3e5f5", "#6a1b9a", lw=1.5)
+    txt(9.6 + bw / 2, 5.37 + bh2 * 0.70, "M08", size=10, bold=True, color="#6a1b9a")
+    txt(9.6 + bw / 2, 5.37 + bh2 * 0.28, "Pathology\nReport", size=7.5, color="#333")
+
+    arrow_dn(5.6, 5.20, 4.52)
 
     # STAGE 3
-    fbox(2.8, 2.20, 5.4, 1.45, "#fff3e0", "#e65100", lw=2)
-    txt(3.10, 3.50, "STAGE 3  —  GPU recommended (optional)",
+    fbox(2.8, 3.05, 5.4, 1.45, "#fff3e0", "#e65100", lw=2)
+    txt(3.10, 4.35, "STAGE 3  —  GPU recommended (optional)",
         size=8.5, bold=True, color="#e65100", ha="left")
-    fbox(4.4, 2.35, bw, 0.95, "white", "#e65100", lw=1.5)
-    txt(4.4 + bw / 2, 2.35 + 0.95 * 0.70, "M06", size=10.5, bold=True, color="#e65100")
-    txt(4.4 + bw / 2, 2.35 + 0.95 * 0.28, "ESM2\nEmbeddings", size=7.5, color="#333")
-    arrow_dn(5.5, 2.20, 1.52)
+    fbox(4.4, 3.20, bw, 0.95, "white", "#e65100", lw=1.5)
+    txt(4.4 + bw / 2, 3.20 + 0.95 * 0.70, "M06", size=10, bold=True, color="#e65100")
+    txt(4.4 + bw / 2, 3.20 + 0.95 * 0.28, "ESM2\nEmbeddings", size=7.5, color="#333")
+    arrow_dn(5.6, 3.05, 2.37)
 
     # DASHBOARD
-    fbox(1.8, 0.55, 7.4, 0.95, "#1565c0", "#0d47a1", lw=2)
-    txt(5.5, 1.08, "STREAMLIT DASHBOARD", size=10.5, bold=True, color="white")
-    txt(5.5, 0.73, "Interactive multi-omics results explorer", size=7.5, color="#bbdefb")
+    fbox(2.0, 1.40, 8.0, 0.95, "#1565c0", "#0d47a1", lw=2)
+    txt(6.0, 1.93, "STREAMLIT DASHBOARD", size=10.5, bold=True, color="white")
+    txt(6.0, 1.58, "Interactive multi-omics + pathology results explorer", size=7.5, color="#bbdefb")
 
     buf = io.BytesIO()
     fig.savefig(buf, format="png", dpi=150, bbox_inches="tight",
@@ -179,6 +199,7 @@ with st.sidebar:
             "05 · Pathway Enrichment",
             "06 · ESM2 Features",
             "07 · Drug Mapping",
+            "08 · Pathology",
         ],
         label_visibility="collapsed",
     )
@@ -490,7 +511,7 @@ that patient.
     st.markdown("""
     <div class="stat-grid">
         <div class="stat-card" style="border-left-color:#1565c0;">
-            <div class="stat-number">7</div>
+            <div class="stat-number">8</div>
             <div class="stat-label">Analysis Modules</div>
         </div>
         <div class="stat-card" style="border-left-color:#2e7d32;">
@@ -565,6 +586,15 @@ that patient.
             <span class="module-tag">NCCN</span>
             <span class="module-tag">CIViC</span>
         </div>
+        <div class="module-card">
+            <span class="module-id" style="background:#6a1b9a;">08</span>
+            <span class="module-name">Computational Pathology</span>
+            <div class="module-desc">H&E slide analysis · tissue segmentation · TIL density scoring · TME phenotype classification (Inflamed / Excluded / Desert)</div>
+            <span class="module-tag" style="background:#f3e5f5;color:#6a1b9a;">Pathology</span>
+            <span class="module-tag">H&amp;E</span>
+            <span class="module-tag">TIL</span>
+            <span class="module-tag">WSI</span>
+        </div>
     </div>
     """, unsafe_allow_html=True)
 
@@ -587,6 +617,7 @@ that patient.
         "Pathway":    ["✅", "✅", "✅", "✅", "✅"],
         "Drug Report":["✅", "✅", "—", "✅", "—"],
         "ESM2":       ["⏳ GPU", "—", "—", "—", "—"],
+        "Pathology":  ["—", "—", "—", "—", "✅"],
     }
     st.dataframe(pd.DataFrame(demo_data), use_container_width=True, hide_index=True)
 
@@ -928,4 +959,121 @@ elif page == "07 · Drug Mapping":
         | HER2 mutation | Trastuzumab deruxtecan | FDA approved |
         | TMB ≥10 mut/Mb | Pembrolizumab (IO) | FDA approved |
         | STK11 loss | IO resistance — prefer chemo | NCCN note |
+        """)
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# 08 · COMPUTATIONAL PATHOLOGY
+# ══════════════════════════════════════════════════════════════════════════════
+
+elif page == "08 · Pathology":
+    st.header("08 · Computational Pathology")
+    st.caption("H&E slide analysis · tissue segmentation · TIL scoring · TME phenotype")
+
+    st.markdown("""
+    **What this module does:**
+
+    Analyzes H&E-stained whole slide image (WSI) thumbnails downloaded from GDC using
+    classical computer vision (no GPU required):
+
+    1. **Tissue segmentation** — Otsu thresholding to separate tissue from background
+    2. **H&E color deconvolution** — separate hematoxylin (nuclei) and eosin (cytoplasm) channels
+    3. **Nuclear density** — estimate tumor cellularity from nuclear staining intensity
+    4. **TIL scoring** — quantify tumor-infiltrating lymphocyte density (small dark nuclei)
+    5. **TME phenotype** — classify as **Inflamed** / **Excluded** / **Desert**
+    """)
+
+    st.divider()
+
+    # ── Cohort-level summary ─────────────────────────────────────────────────
+    summary_path = OUTPUT / "08_pathology" / "pathology_summary.tsv"
+    if summary_path.exists():
+        st.subheader("Cohort Pathology Summary")
+        df_summary = pd.read_csv(summary_path, sep="\t")
+
+        # TME phenotype distribution
+        col1, col2, col3 = st.columns(3)
+        tme_counts = df_summary["tme_phenotype"].value_counts() if "tme_phenotype" in df_summary.columns else {}
+        tme_colors = {"Inflamed": "🟢", "Excluded": "🟡", "Desert": "🔴"}
+        for col, phenotype in zip([col1, col2, col3], ["Inflamed", "Excluded", "Desert"]):
+            count = tme_counts.get(phenotype, 0)
+            pct   = count / len(df_summary) * 100 if len(df_summary) > 0 else 0
+            col.metric(
+                label=f"{tme_colors.get(phenotype, '⚪')} {phenotype}",
+                value=f"{count}",
+                delta=f"{pct:.0f}% of slides",
+            )
+
+        st.dataframe(df_summary, use_container_width=True, hide_index=True)
+    else:
+        st.info(
+            "No cohort summary yet. Run M08 to generate:\n"
+            "```bash\npython modules/08_pathology/luad_pathology.py\n```"
+        )
+
+    st.divider()
+
+    # ── Per-sample pathology report ──────────────────────────────────────────
+    st.subheader("Per-Sample Pathology Report")
+
+    # Discover which samples have pathology results
+    path_out = OUTPUT / "08_pathology"
+    available = sorted([
+        d.name for d in path_out.iterdir()
+        if d.is_dir() and (d / f"{d.name}_pathology_report.png").exists()
+    ]) if path_out.exists() else []
+
+    if available:
+        selected_path = st.selectbox(
+            "Select sample",
+            options=available,
+            index=0,
+        )
+
+        report_png   = path_out / selected_path / f"{selected_path}_pathology_report.png"
+        scores_tsv   = path_out / selected_path / f"{selected_path}_pathology_scores.tsv"
+
+        # Report figure
+        show_image(report_png, caption=f"Pathology report — {selected_path}")
+
+        # Scores table
+        if scores_tsv.exists():
+            st.subheader("Quantitative Scores")
+            df_scores = pd.read_csv(scores_tsv, sep="\t")
+            # Drop internal columns
+            display_cols = [c for c in df_scores.columns if not c.startswith("_")]
+            st.dataframe(df_scores[display_cols], use_container_width=True, hide_index=True)
+
+            # Highlight TME phenotype
+            if "tme_phenotype" in df_scores.columns:
+                tme = df_scores["tme_phenotype"].iloc[0]
+                tme_info = {
+                    "Inflamed":  ("🟢", "High immune infiltration — potential IO responder"),
+                    "Excluded":  ("🟡", "Immune cells present but confined to stroma — partial IO resistance"),
+                    "Desert":    ("🔴", "Low immune infiltration — IO likely ineffective"),
+                }
+                icon, desc = tme_info.get(tme, ("⚪", ""))
+                st.info(f"**{icon} TME Phenotype: {tme}** — {desc}")
+    else:
+        st.info(
+            "No pathology reports generated yet.\n\n"
+            "**Step 1:** Download WSI thumbnails:\n"
+            "```bash\npython data/scripts/download_wsi.py --thumbnail --test\n```\n\n"
+            "**Step 2:** Run M08 analysis:\n"
+            "```bash\npython modules/08_pathology/luad_pathology.py\n```"
+        )
+
+    st.divider()
+
+    # TME × Molecular cross-reference
+    with st.expander("TME Phenotype — Clinical Significance"):
+        st.markdown("""
+        | TME Phenotype | TIL Density | IO Response | Recommended Strategy |
+        |---------------|-------------|-------------|----------------------|
+        | **Inflamed** | > 15% | Likely responder | Pembrolizumab / Atezolizumab |
+        | **Excluded** | 5–15% | Partial resistance | IO + anti-VEGF combination |
+        | **Desert** | < 5% | Unlikely responder | Targeted therapy / Chemotherapy |
+
+        Cross-reference with M04 (single-cell TME) and M07 (drug mapping) for integrated
+        treatment decision support.
         """)

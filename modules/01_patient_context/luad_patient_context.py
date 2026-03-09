@@ -48,16 +48,33 @@ from pathlib import Path
 warnings.filterwarnings("ignore")
 
 # ── Paths ─────────────────────────────────────────────────────────────────────
-SCRIPT_DIR  = Path(__file__).parent
-PROJECT_DIR = SCRIPT_DIR.parent.parent
-VARIANT_DIR = PROJECT_DIR / "data/output/02_variation_annotation"
-OUT_DIR     = PROJECT_DIR / "data/output/01_patient_context"
+SCRIPT_DIR   = Path(__file__).parent
+PROJECT_DIR  = SCRIPT_DIR.parent.parent
+VARIANT_DIR  = PROJECT_DIR / "data/output/02_variation_annotation"
+OUT_DIR      = PROJECT_DIR / "data/output/01_patient_context"
+CLINICAL_DIR = PROJECT_DIR / "data/clinical"
+CLINICAL_TSV = CLINICAL_DIR / "tcga_luad_clinical.tsv"
+SURVIVAL_TSV = CLINICAL_DIR / "tcga_luad_survival.tsv"
 
-# ── GDC API ───────────────────────────────────────────────────────────────────
+# ── GDC API (fallback if local file missing) ──────────────────────────────────
 GDC_CASES_URL = "https://api.gdc.cancer.gov/cases"
 
-# All samples across modules 02 + 03
-ALL_SAMPLES = [
+
+def _discover_samples() -> list:
+    """Auto-detect all unique patient IDs from data/input/*.maf.gz."""
+    import re
+    maf_dir = PROJECT_DIR / "data/input"
+    ids = set()
+    for f in maf_dir.glob("*.maf.gz"):
+        # Strip trailing _2 _3 … suffix
+        name = re.sub(r"_\d+$", "", f.stem.replace(".maf", ""))
+        if name.startswith("TCGA-"):
+            ids.add(name)
+    return sorted(ids)
+
+
+# All samples — auto-discovered from MAF files; fallback to known test set
+ALL_SAMPLES = _discover_samples() or [
     "TCGA-49-4507",
     "TCGA-73-4666",
     "TCGA-78-7158",
@@ -88,8 +105,22 @@ def get_logger(name: str) -> logging.Logger:
 # ── GDC data fetching ─────────────────────────────────────────────────────────
 
 def fetch_gdc_clinical(sample_ids: list, logger) -> pd.DataFrame:
-    """Fetch clinical data for specific TCGA case IDs from GDC API."""
-    logger.info(f"Fetching GDC clinical data for {len(sample_ids)} samples...")
+    """Load clinical data — local file first, GDC API as fallback."""
+
+    # ── Try local file first ──────────────────────────────────────────────────
+    if CLINICAL_TSV.exists():
+        logger.info(f"Loading clinical data from local file: {CLINICAL_TSV}")
+        df = pd.read_csv(CLINICAL_TSV, sep="\t", low_memory=False)
+        subset = df[df["sample_id"].isin(sample_ids)].copy()
+        logger.info(f"  Matched {len(subset)} / {len(sample_ids)} samples in local file")
+        return subset
+
+    # ── Fallback: GDC API ────────────────────────────────────────────────────
+    logger.warning(
+        f"Local clinical file not found at {CLINICAL_TSV}. "
+        "Run data/scripts/download_clinical.py to download it. "
+        "Falling back to GDC API..."
+    )
     payload = {
         "filters": json.dumps({
             "op": "in",
@@ -111,16 +142,14 @@ def fetch_gdc_clinical(sample_ids: list, logger) -> pd.DataFrame:
     for h in hits:
         row = {"sample_id": h.get("submitter_id", "")}
 
-        # Demographics
         demo = h.get("demographic", {})
         row["gender"]       = demo.get("gender", "Unknown")
         row["vital_status"] = demo.get("vital_status", "Unknown")
         row["race"]         = demo.get("race", "Unknown")
 
-        # Survival
-        days_death  = demo.get("days_to_death")
-        diag_list   = h.get("diagnoses", [{}])
-        diag        = diag_list[0] if diag_list else {}
+        days_death    = demo.get("days_to_death")
+        diag_list     = h.get("diagnoses", [{}])
+        diag          = diag_list[0] if diag_list else {}
         days_followup = diag.get("days_to_last_follow_up")
 
         if days_death and str(days_death).lstrip("-").isdigit():
@@ -134,30 +163,41 @@ def fetch_gdc_clinical(sample_ids: list, logger) -> pd.DataFrame:
             row["event"]   = 0
 
         row["os_months"] = round(row["os_days"] / 30.44, 1) if not np.isnan(row.get("os_days", np.nan)) else np.nan
-
-        # Diagnosis
         row["age_at_diagnosis"] = round(
             float(diag.get("age_at_diagnosis", 0)) / 365.25, 1
         ) if diag.get("age_at_diagnosis") else np.nan
-        row["stage"]  = diag.get("ajcc_pathologic_stage", "Unknown")
+        row["stage"]             = diag.get("ajcc_pathologic_stage", "Unknown")
         row["primary_diagnosis"] = diag.get("primary_diagnosis", "LUAD")
 
-        # Smoking
         exp_list = h.get("exposures", [{}])
         exp = exp_list[0] if exp_list else {}
-        row["pack_years"] = exp.get("pack_years_smoked", np.nan)
+        row["pack_years"]      = exp.get("pack_years_smoked", np.nan)
         row["smoking_history"] = exp.get("smoking_history", "Unknown")
 
         rows.append(row)
 
     df = pd.DataFrame(rows)
-    logger.info(f"  Retrieved {len(df)} records")
+    logger.info(f"  Retrieved {len(df)} records from GDC API")
     return df
 
 
 def fetch_gdc_luad_population(logger, max_cases=600) -> pd.DataFrame:
-    """Fetch TCGA-LUAD population survival data for KM reference curve."""
-    logger.info("Fetching TCGA-LUAD population survival data...")
+    """Load TCGA-LUAD population survival data — local file first, API fallback."""
+
+    # ── Try local survival file ───────────────────────────────────────────────
+    if SURVIVAL_TSV.exists():
+        logger.info(f"Loading population survival from local file: {SURVIVAL_TSV}")
+        df = pd.read_csv(SURVIVAL_TSV, sep="\t", low_memory=False)
+        logger.info(f"  Population: {len(df)} TCGA-LUAD cases")
+        return df
+
+    # ── Fallback: GDC API ────────────────────────────────────────────────────
+    logger.warning(
+        f"Local survival file not found at {SURVIVAL_TSV}. "
+        "Run data/scripts/download_clinical.py to generate it. "
+        "Falling back to GDC API..."
+    )
+    logger.info("Fetching TCGA-LUAD population survival data from GDC API...")
     payload = {
         "filters": json.dumps({
             "op": "and",
@@ -430,22 +470,87 @@ def _panel_km(ax, pop_df: pd.DataFrame, sample_clin: dict):
     ax.legend(fontsize=8, framealpha=0.7)
 
 
+def _panel_km_by_stage(ax, pop_df: pd.DataFrame, sample_clin: dict):
+    """Panel C: Stage-stratified KM curves with sample's stage highlighted."""
+    if pop_df.empty:
+        ax.text(0.5, 0.5, "No population data", ha="center", va="center",
+                transform=ax.transAxes, fontsize=10, color="gray")
+        ax.axis("off")
+        ax.set_title("Survival by Stage (TCGA-LUAD)", fontsize=11, fontweight="bold")
+        return
+
+    def simplify_stage(s):
+        s = str(s)
+        if "IV"  in s: return "Stage IV"
+        if "III" in s: return "Stage III"
+        if "II"  in s: return "Stage II"
+        if "I"   in s: return "Stage I"
+        return None
+
+    stage_colors = {
+        "Stage I":   "#2ca02c",
+        "Stage II":  "#1f77b4",
+        "Stage III": "#ff7f0e",
+        "Stage IV":  "#d62728",
+    }
+
+    pop = pop_df.copy()
+    pop["stage_group"] = pop["stage"].apply(simplify_stage)
+
+    fitted = {}
+    for stage in ["Stage I", "Stage II", "Stage III", "Stage IV"]:
+        sub = pop[pop["stage_group"] == stage].dropna(subset=["os_months", "event"])
+        if len(sub) < 5:
+            continue
+        kmf = KaplanMeierFitter()
+        kmf.fit(sub["os_months"], sub["event"], label=f"{stage} (n={len(sub)})")
+        kmf.plot_survival_function(
+            ax=ax,
+            color=stage_colors[stage],
+            ci_show=False,
+            linewidth=1.8,
+        )
+        fitted[stage] = kmf
+
+    # Mark sample on its stage-specific curve
+    sample_stage = simplify_stage(sample_clin.get("stage", ""))
+    os_mo = sample_clin.get("os_months")
+    event = sample_clin.get("event", 0)
+    if sample_stage in fitted and pd.notna(os_mo) and os_mo > 0:
+        surv_at_t = fitted[sample_stage].survival_function_at_times(os_mo).values[0]
+        color  = stage_colors[sample_stage]
+        marker = "D" if event else "+"
+        label  = "Deceased" if event else "Censored"
+        ax.scatter([os_mo], [surv_at_t], color=color, s=150, zorder=7,
+                   marker=marker, edgecolors="black", linewidth=1,
+                   label=f"{sample_clin['sample_id']} ({label})")
+        ax.axvline(x=os_mo, color=color, linestyle="--", linewidth=1, alpha=0.5)
+
+    ax.set_xlabel("Time (months)", fontsize=9)
+    ax.set_ylabel("Survival probability", fontsize=9)
+    ax.set_title("Survival by Stage (TCGA-LUAD)", fontsize=11, fontweight="bold")
+    ax.set_ylim(0, 1.05)
+    ax.spines["top"].set_visible(False)
+    ax.spines["right"].set_visible(False)
+    ax.legend(fontsize=7, framealpha=0.7, loc="upper right")
+
+
 def make_patient_card(clin: dict, pop_df: pd.DataFrame,
-                      pop_tmb: pd.Series, mut_df: pd.DataFrame,
+                      pop_tmb: pd.Series,
                       out_path: Path):
     """Generate 4-panel patient card figure."""
     fig = plt.figure(figsize=(14, 10))
     fig.patch.set_facecolor("#fafafa")
     gs = GridSpec(2, 2, figure=fig, hspace=0.45, wspace=0.35)
 
-    ax_clin = fig.add_subplot(gs[0, 0])
-    ax_tmb  = fig.add_subplot(gs[0, 1])
-    ax_mut  = fig.add_subplot(gs[1, 0])
-    ax_km   = fig.add_subplot(gs[1, 1])
+    ax_clin     = fig.add_subplot(gs[0, 0])
+    ax_tmb      = fig.add_subplot(gs[0, 1])
+    ax_km_stage = fig.add_subplot(gs[1, 0])
+    ax_km       = fig.add_subplot(gs[1, 1])
 
     _panel_clinical(ax_clin, clin)
     _panel_tmb(ax_tmb, clin.get("tmb", np.nan), pop_tmb, clin["sample_id"])
-    _panel_mutations(ax_mut, mut_df, clin["sample_id"])
+    _panel_km_by_stage(ax_km_stage, pop_df, clin)
     _panel_km(ax_km, pop_df, clin)
 
     fig.suptitle(
@@ -520,9 +625,8 @@ def main():
         clin = row.iloc[0].to_dict() if not row.empty else {"sample_id": sample_id}
         clin["sample_id"] = sample_id
 
-        mut_df  = load_top_mutations(sample_id)
         out_png = OUT_DIR / f"{sample_id}_patient_card.png"
-        make_patient_card(clin, pop_df, pop_tmb, mut_df, out_png)
+        make_patient_card(clin, pop_df, pop_tmb, out_png)
 
     print(f"\n[Module 01 Complete] {len(samples)} patient cards → {OUT_DIR}")
 
