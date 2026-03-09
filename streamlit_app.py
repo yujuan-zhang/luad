@@ -52,19 +52,30 @@ st.markdown("""
 # All output files live under data/output/, relative to this script
 OUTPUT = Path(__file__).parent / "data" / "output"
 
-# ── Sample registry ────────────────────────────────────────────────────────
-# Auto-discover all patients with M02 variant output
-def _discover_samples() -> list:
-    variant_dir = OUTPUT / "02_variation_annotation"
-    if not variant_dir.exists():
-        return ["TCGA-86-A4D0", "TCGA-49-4507", "TCGA-73-4666", "TCGA-78-7158", "TCGA-86-8358"]
-    samples = sorted([
-        d.name for d in variant_dir.iterdir()
-        if d.is_dir() and (d / f"{d.name}_variants.tsv.gz").exists()
+# ── Per-module sample discovery ────────────────────────────────────────────
+def discover_module_samples(module_out_dir: Path, file_suffix: str) -> list:
+    """Return sorted list of patient IDs that have output for a given module."""
+    if not module_out_dir.exists():
+        return []
+    return sorted([
+        d.name for d in module_out_dir.iterdir()
+        if d.is_dir() and (d / f"{d.name}{file_suffix}").exists()
     ])
-    return samples if samples else ["TCGA-86-A4D0", "TCGA-49-4507"]
 
-SAMPLES = _discover_samples()
+def discover_clinical_samples() -> list:
+    """Return patient IDs from the clinical TSV (broadest list)."""
+    tsv = Path(__file__).parent / "data" / "clinical" / "tcga_luad_clinical.tsv"
+    if not tsv.exists():
+        return []
+    try:
+        df = pd.read_csv(tsv, sep="\t", usecols=["sample_id"])
+        return sorted(df["sample_id"].dropna().tolist())
+    except Exception:
+        return []
+
+# Global fallback (used when page doesn't have its own selector)
+SAMPLES = discover_module_samples(OUTPUT / "02_variation_annotation", "_variants.tsv.gz") \
+          or ["TCGA-86-A4D0", "TCGA-49-4507"]
 
 # ── Helper: safe image display ─────────────────────────────────────────────
 def show_image(path: Path, caption: str = "", width: int = None):
@@ -236,20 +247,6 @@ with st.sidebar:
         ],
         label_visibility="collapsed",
     )
-
-    st.divider()
-
-    # Sample selector (not shown for pages that are sample-independent)
-    sample_independent_pages = {"Home", "04 · Single-Cell TME", "07 · Drug Mapping", "09 · Integration"}
-    if page not in sample_independent_pages:
-        sample = st.selectbox(
-            "Sample",
-            options=SAMPLES,
-            index=0,
-            help="Select a TCGA-LUAD sample to view results for",
-        )
-    else:
-        sample = SAMPLES[0]   # default; not used for these pages
 
     st.divider()
     st.caption("Data: TCGA-LUAD · GSE131907")
@@ -680,6 +677,12 @@ elif page == "01 · Patient Context":
     st.header("01 · Patient Context")
     st.caption("GDC clinical data · survival analysis · patient summary card")
 
+    _m01_samples = discover_module_samples(OUTPUT / "01_patient_context", "_patient_card.png")
+    if not _m01_samples:
+        _m01_samples = discover_clinical_samples() or SAMPLES
+    sample = st.selectbox("Patient", _m01_samples, key="sel_m01",
+                          help=f"{len(_m01_samples)} patients available")
+
     # Patient card image
     img = OUTPUT / "01_patient_context" / f"{sample}_patient_card.png"
     show_image(img, caption=f"Patient summary card — {sample}")
@@ -701,6 +704,10 @@ elif page == "01 · Patient Context":
 elif page == "02 · Variation Annotation":
     st.header("02 · Variation Annotation")
     st.caption("Somatic variants annotated with VEP/PCGR · tumor mutational burden · SBS spectrum")
+
+    _m02_samples = discover_module_samples(OUTPUT / "02_variation_annotation", "_variants.tsv.gz")
+    sample = st.selectbox("Patient", _m02_samples or SAMPLES, key="sel_m02",
+                          help=f"{len(_m02_samples)} patients with variant output")
 
     # Variant summary image
     img = OUTPUT / "02_variation_annotation" / sample / f"{sample}_variant_summary.png"
@@ -741,6 +748,10 @@ elif page == "02 · Variation Annotation":
 elif page == "03 · Expression Analysis":
     st.header("03 · Expression Analysis")
     st.caption("Bulk RNA-seq TPM normalization · cohort-level outlier detection")
+
+    _m03_samples = discover_module_samples(OUTPUT / "03_expression", "_expression_outliers.tsv")
+    sample = st.selectbox("Patient", _m03_samples or SAMPLES, key="sel_m03",
+                          help=f"{len(_m03_samples)} patients with expression output")
 
     # Expression summary image
     img = OUTPUT / "03_expression" / sample / f"{sample}_expression_summary.png"
@@ -821,6 +832,10 @@ elif page == "05 · Pathway Enrichment":
     st.header("05 · Pathway Enrichment")
     st.caption("Over-representation analysis (ORA) on mutated genes · GSEA prerank on expression")
 
+    _m05_samples = discover_module_samples(OUTPUT / "05_pathway", "_gsea.tsv")
+    sample = st.selectbox("Patient", _m05_samples or SAMPLES, key="sel_m05",
+                          help=f"{len(_m05_samples)} patients with pathway output")
+
     # GSEA plot
     img = OUTPUT / "05_pathway" / sample / f"{sample}_gsea.png"
     show_image(img, caption=f"GSEA enrichment plot — {sample}")
@@ -859,6 +874,10 @@ elif page == "05 · Pathway Enrichment":
 elif page == "06 · ESM2 Features":
     st.header("06 · ESM2 Protein Site Features")
     st.caption("Per-site 1280-dim embeddings · masked-marginal log-odds · variant effect prediction")
+
+    _m06_samples = discover_module_samples(OUTPUT / "06_esm", "_esm2_summary.png")
+    sample = st.selectbox("Patient", _m06_samples or SAMPLES, key="sel_m06",
+                          help=f"{len(_m06_samples)} patients with ESM2 output")
 
     st.warning(
         "**Module 06 requires GPU acceleration and is excluded from the default pipeline run.** "
