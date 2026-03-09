@@ -10,7 +10,6 @@ Run with:  streamlit run streamlit_app.py
 import streamlit as st
 import pandas as pd
 from pathlib import Path
-import io
 
 # ── Page config (must be first Streamlit call) ─────────────────────────────
 st.set_page_config(
@@ -19,6 +18,35 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded",
 )
+
+# ── Bottom-left site link ───────────────────────────────────────────────────
+st.markdown("""
+<style>
+.bottom-link {
+    position: fixed;
+    bottom: 16px;
+    left: 24px;
+    z-index: 9999;
+    background-color: #1565c0;
+    border-radius: 8px;
+    padding: 8px 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.30);
+}
+.bottom-link a {
+    color: #ffffff !important;
+    text-decoration: none !important;
+    font-size: 0.88rem;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+}
+.bottom-link a:hover {
+    color: #bbdefb !important;
+}
+</style>
+<div class="bottom-link">
+    <a href="https://yujuan-zhang.github.io/" title="Yujuan Zhang, PhD">Yujuan Zhang, PhD</a>
+</div>
+""", unsafe_allow_html=True)
 
 # ── Paths ──────────────────────────────────────────────────────────────────
 # All output files live under data/output/, relative to this script
@@ -597,16 +625,6 @@ that patient.
         </div>
     </div>
     """, unsafe_allow_html=True)
-
-    # ── Pipeline Architecture Figure ──────────────────────────────────────────
-    st.markdown('<div class="section-heading">Pipeline Architecture</div>', unsafe_allow_html=True)
-    _fig_buf = make_pipeline_figure()
-    if _fig_buf is not None:
-        _, _fig_mid, _ = st.columns([0.05, 0.90, 0.05])
-        with _fig_mid:
-            st.image(_fig_buf, use_container_width=True)
-    else:
-        st.info("Install `matplotlib` to render the pipeline diagram.")
 
     # ── Sample Coverage Table ────────────────────────────────────────────────
     st.markdown('<div class="section-heading">Demo Samples</div>', unsafe_allow_html=True)
