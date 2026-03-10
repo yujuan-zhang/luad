@@ -837,9 +837,11 @@ elif page == "05 · Pathway Enrichment":
     st.header("05 · Pathway Enrichment")
     st.caption("Over-representation analysis (ORA) on mutated genes · GSEA prerank on expression")
 
-    _m05_samples = discover_module_samples(OUTPUT / "05_pathway", "_gsea.tsv")
+    _m05_gsea = discover_module_samples(OUTPUT / "05_pathway", "_gsea.tsv")
+    _m05_ora  = discover_module_samples(OUTPUT / "05_pathway", "_ora.tsv")
+    _m05_samples = sorted(set(_m05_gsea) | set(_m05_ora))
     sample = st.selectbox("Patient", _m05_samples or SAMPLES, key="sel_m05",
-                          help=f"{len(_m05_samples)} patients with pathway output")
+                          help=f"{len(_m05_samples)} patients with pathway output ({len(_m05_gsea)} with GSEA)")
 
     # GSEA plot
     img = OUTPUT / "05_pathway" / sample / f"{sample}_gsea.png"
@@ -948,11 +950,8 @@ elif page == "07 · Drug Mapping":
 
     st.divider()
 
-    # Per-sample selector — only show samples that have a drug report file
-    drug_samples = [
-        s for s in SAMPLES
-        if (OUTPUT / "07_drug_mapping" / s / f"{s}_drug_report.png").exists()
-    ]
+    # Per-sample selector — discover all samples that have a drug report file
+    drug_samples = discover_module_samples(OUTPUT / "07_drug_mapping", "_drug_report.tsv")
 
     st.subheader("Per-Sample Drug Report")
     if not drug_samples:
@@ -960,8 +959,7 @@ elif page == "07 · Drug Mapping":
         st.stop()
 
     st.caption(
-        f"Drug reports available for {len(drug_samples)} of {len(SAMPLES)} samples. "
-        "Samples without a drug report lack somatic variant (MAF) input data."
+        f"Drug reports available for {len(drug_samples)} samples."
     )
     selected = st.selectbox(
         "Select sample",
