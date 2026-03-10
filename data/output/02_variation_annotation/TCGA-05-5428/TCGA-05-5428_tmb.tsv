@@ -1,0 +1,4 @@
+sample_id	n_somatic_variants	tmb_measure	tmb_csq_regex	tmb_target_size_mb	tmb_dp_min	tmb_af_min	tmb_n_variants	tmb_estimate	tmb_unit
+TCGA-05-5428	303	TMB_missense_only	^missense_variant	34.0	10	0.05	257	7.5588	mutations/Mb
+TCGA-05-5428	303	TMB_coding_and_silent	^(stop_(lost|gained)|start_lost|frameshift_|missense_|splice_(donor|acceptor)|protein_altering|inframe_|synonymous|(start|stop)_retained)	34.0	10	0.05	300	8.8235	mutations/Mb
+TCGA-05-5428	303	TMB_coding_non_silent	^(stop_(lost|gained)|start_lost|frameshift_|missense_|splice_(donor|acceptor)|protein_altering|inframe_)	34.0	10	0.05	300	8.8235	mutations/Mb

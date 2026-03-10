@@ -1,4 +1,273 @@
 sample_id	n_driver_genes	n_targeted_drugs	n_fda_approved	tmb	top_drugs
-TCGA-49-4507	2	0	0	4.74	—
-TCGA-78-7158	2	0	0	5.74	—
-TCGA-86-A4D0	3	0	0	6.15	—
+TCGA-05-4244	1.0	3.0	3.0	5.26	Sotorasib; Adagrasib; Adagrasib+Cetuximab
+TCGA-05-4249	3.0	4.0	3.0	8.0	Alpelisib; Sotorasib; Adagrasib
+TCGA-05-4250	1.0	3.0	3.0	8.68	Sotorasib; Adagrasib; Adagrasib+Cetuximab
+TCGA-05-4382	4.0	3.0	3.0	40.62	Entrectinib; Crizotinib; Lorlatinib
+TCGA-05-4384	2.0	1.0	1.0	3.03	Trastuzumab deruxtecan
+TCGA-05-4389	2.0	0.0	0.0	5.09	—
+TCGA-05-4390	1.0	0.0	0.0	13.12	—
+TCGA-05-4395	4.0	0.0	0.0	5.94	—
+TCGA-05-4396	1.0	0.0	0.0	5.97	—
+TCGA-05-4397	4.0	4.0	3.0	20.53	Alectinib; Brigatinib; Lorlatinib
+TCGA-05-4398	3.0	2.0	2.0	16.5	Larotrectinib; Entrectinib
+TCGA-05-4402	2.0	0.0	0.0	2.71	—
+TCGA-05-4403	1.0	0.0	0.0	3.26	—
+TCGA-05-4405	1.0	1.0	0.0	8.53	Eprenetapopt (APR-246)
+TCGA-05-4410	5.0	3.0	3.0	25.35	Alectinib; Brigatinib; Lorlatinib
+TCGA-05-4415	3.0	3.0	3.0	4.71	Sotorasib; Adagrasib; Adagrasib+Cetuximab
+TCGA-05-4417	2.0	3.0	3.0	7.35	Sotorasib; Adagrasib; Adagrasib+Cetuximab
+TCGA-05-4418	2.0	3.0	3.0	6.62	Sotorasib; Adagrasib; Adagrasib+Cetuximab
+TCGA-05-4420	1.0	0.0	0.0	6.62	—
+TCGA-05-4422	1.0	0.0	0.0	1.0	—
+TCGA-05-4424	3.0	2.0	2.0	15.68	Larotrectinib; Entrectinib
+TCGA-05-4425	1.0	0.0	0.0	0.94	—
+TCGA-05-4426	1.0	0.0	0.0	1.18	—
+TCGA-05-4427	2.0	0.0	0.0	24.71	—
+TCGA-05-4430	1.0	0.0	0.0	6.32	—
+TCGA-05-4432	3.0	8.0	8.0	13.24	Alectinib; Brigatinib; Lorlatinib
+TCGA-05-4433	3.0	0.0	0.0	0.88	—
+TCGA-05-4434	1.0	1.0	1.0	1.03	Trastuzumab deruxtecan
+TCGA-05-5420	0.0	0.0	0.0	1.82	—
+TCGA-05-5423	2.0	4.0	3.0	3.68	Osimertinib; Erlotinib; Afatinib
+TCGA-05-5425	2.0	2.0	0.0	13.06	Trametinib; Cobimetinib
+TCGA-05-5428	2.0	0.0	0.0	8.82	—
+TCGA-05-5429	0.0	0.0	0.0	0.79	—
+TCGA-05-5715	1.0	1.0	1.0	2.65	Trastuzumab deruxtecan
+TCGA-17-Z000	0.0	0.0	0.0	3.0	—
+TCGA-17-Z001	2.0	0.0	0.0	4.74	—
+TCGA-17-Z002	0.0	0.0	0.0	0.24	—
+TCGA-17-Z003	1.0	0.0	0.0	5.53	—
+TCGA-17-Z004	0.0	0.0	0.0	0.41	—
+TCGA-17-Z005	1.0	0.0	0.0	1.88	—
+TCGA-17-Z007	1.0	0.0	0.0	1.44	—
+TCGA-17-Z009	0.0	0.0	0.0	0.85	—
+TCGA-17-Z010	2.0	0.0	0.0	6.47	—
+TCGA-17-Z011	1.0	0.0	0.0	2.44	—
+TCGA-17-Z013	0.0	0.0	0.0	1.47	—
+TCGA-17-Z015	2.0	0.0	0.0	12.38	—
+TCGA-17-Z016	0.0	0.0	0.0	7.26	—
+TCGA-17-Z017	2.0	0.0	0.0	5.32	—
+TCGA-17-Z018	1.0	0.0	0.0	6.03	—
+TCGA-17-Z019	0.0	0.0	0.0	0.06	—
+TCGA-17-Z020	2.0	0.0	0.0	2.59	—
+TCGA-17-Z021	1.0	0.0	0.0	2.71	—
+TCGA-17-Z022	3.0	3.0	3.0	28.97	Sotorasib; Adagrasib; Adagrasib+Cetuximab
+TCGA-17-Z023	3.0	3.0	3.0	9.82	Entrectinib; Crizotinib; Lorlatinib
+TCGA-17-Z025	1.0	3.0	3.0	5.71	Alectinib; Brigatinib; Lorlatinib
+TCGA-17-Z026	4.0	0.0	0.0	21.76	—
+TCGA-17-Z027	2.0	0.0	0.0	2.21	—
+TCGA-17-Z028	2.0	0.0	0.0	11.24	—
+TCGA-17-Z032	2.0	0.0	0.0	2.47	—
+TCGA-17-Z033	1.0	0.0	0.0	3.56	—
+TCGA-17-Z036	3.0	6.0	6.0	1.82	Alectinib; Brigatinib; Lorlatinib
+TCGA-17-Z037	2.0	0.0	0.0	3.12	—
+TCGA-17-Z041	1.0	2.0	2.0	1.12	Selpercatinib; Pralsetinib
+TCGA-17-Z042	3.0	3.0	3.0	11.29	Sotorasib; Adagrasib; Adagrasib+Cetuximab
+TCGA-17-Z043	3.0	3.0	3.0	4.53	Alectinib; Brigatinib; Lorlatinib
+TCGA-17-Z044	2.0	0.0	0.0	2.53	—
+TCGA-17-Z045	1.0	0.0	0.0	16.21	—
+TCGA-17-Z047	2.0	4.0	4.0	0.38	Osimertinib; Erlotinib; Afatinib
+TCGA-17-Z048	1.0	0.0	0.0	0.71	—
+TCGA-17-Z049	3.0	1.0	1.0	11.76	Trastuzumab deruxtecan
+TCGA-17-Z050	1.0	0.0	0.0	3.74	—
+TCGA-17-Z051	1.0	0.0	0.0	3.18	—
+TCGA-17-Z052	1.0	0.0	0.0	2.68	—
+TCGA-17-Z053	1.0	1.0	0.0	5.74	Eprenetapopt (APR-246)
+TCGA-17-Z054	0.0	0.0	0.0	0.12	—
+TCGA-17-Z055	1.0	0.0	0.0	12.59	—
+TCGA-17-Z056	1.0	0.0	0.0	10.32	—
+TCGA-17-Z057	3.0	0.0	0.0	9.47	—
+TCGA-17-Z058	0.0	0.0	0.0	1.79	—
+TCGA-17-Z059	0.0	0.0	0.0	3.65	—
+TCGA-17-Z061	2.0	0.0	0.0	4.0	—
+TCGA-17-Z062	3.0	2.0	2.0	9.56	Larotrectinib; Entrectinib
+TCGA-35-4122	1.0	0.0	0.0	7.32	—
+TCGA-35-4123	1.0	0.0	0.0	6.5	—
+TCGA-35-5375	3.0	0.0	0.0	10.24	—
+TCGA-38-4625	2.0	2.0	0.0	13.88	Trametinib; Cobimetinib
+TCGA-38-4626	1.0	3.0	3.0	4.41	Alectinib; Brigatinib; Lorlatinib
+TCGA-38-4627	1.0	4.0	4.0	0.74	Osimertinib; Erlotinib; Afatinib
+TCGA-38-4628	1.0	0.0	0.0	3.03	—
+TCGA-38-4629	4.0	1.0	1.0	6.62	Trastuzumab deruxtecan
+TCGA-38-4630	1.0	0.0	0.0	2.68	—
+TCGA-38-4631	2.0	0.0	0.0	17.44	—
+TCGA-38-4632	1.0	0.0	0.0	12.41	—
+TCGA-38-6178	2.0	0.0	0.0	1.24	—
+TCGA-38-7271	0.0	0.0	0.0	1.15	—
+TCGA-38-A44F	0.0	0.0	0.0	0.24	—
+TCGA-44-2655	1.0	0.0	0.0	4.18	—
+TCGA-44-2656	3.0	4.0	4.0	19.74	Alectinib; Brigatinib; Lorlatinib
+TCGA-44-2656_3	3.0	4.0	4.0	20.59	Alectinib; Brigatinib; Lorlatinib
+TCGA-44-2656_4	2.0	4.0	4.0	18.03	Alectinib; Brigatinib; Lorlatinib
+TCGA-44-2656_5	3.0	1.0	1.0	18.97	Trastuzumab deruxtecan
+TCGA-44-2657	2.0	0.0	0.0	9.59	—
+TCGA-44-2661	1.0	0.0	0.0	0.82	—
+TCGA-44-2662	2.0	0.0	0.0	4.82	—
+TCGA-44-2662_3	2.0	0.0	0.0	4.06	—
+TCGA-44-2662_4	2.0	0.0	0.0	4.65	—
+TCGA-44-2665	0.0	0.0	0.0	1.03	—
+TCGA-44-2665_3	0.0	0.0	0.0	0.91	—
+TCGA-44-2666	1.0	0.0	0.0	0.74	—
+TCGA-44-2666_3	1.0	0.0	0.0	0.68	—
+TCGA-44-2666_4	1.0	0.0	0.0	0.76	—
+TCGA-44-2668	3.0	4.0	3.0	9.12	Copanlisib; Sotorasib; Adagrasib
+TCGA-44-2668_3	2.0	1.0	0.0	8.26	Copanlisib
+TCGA-44-3396	1.0	0.0	0.0	4.44	—
+TCGA-44-3398	1.0	0.0	0.0	4.0	—
+TCGA-44-3917	5.0	6.0	5.0	5.21	Larotrectinib; Entrectinib; Entrectinib
+TCGA-44-3918	2.0	0.0	0.0	22.53	—
+TCGA-44-3918_3	3.0	0.0	0.0	22.18	—
+TCGA-44-3919	1.0	1.0	1.0	0.79	Trastuzumab deruxtecan
+TCGA-44-4112	1.0	3.0	3.0	10.24	Alectinib; Brigatinib; Lorlatinib
+TCGA-44-4112_3	1.0	3.0	3.0	10.88	Alectinib; Brigatinib; Lorlatinib
+TCGA-44-4112_4	1.0	3.0	3.0	11.32	Alectinib; Brigatinib; Lorlatinib
+TCGA-44-4112_5	1.0	3.0	3.0	10.53	Alectinib; Brigatinib; Lorlatinib
+TCGA-44-4112_6	1.0	3.0	3.0	10.06	Alectinib; Brigatinib; Lorlatinib
+TCGA-44-5643	2.0	1.0	0.0	3.06	Alpelisib
+TCGA-44-5644	3.0	0.0	0.0	23.41	—
+TCGA-44-5645	4.0	1.0	0.0	0.91	Alpelisib
+TCGA-44-5645_3	4.0	1.0	0.0	0.88	Alpelisib
+TCGA-44-5645_4	4.0	1.0	0.0	0.94	Alpelisib
+TCGA-44-5645_5	4.0	1.0	0.0	0.97	Alpelisib
+TCGA-44-6144	2.0	0.0	0.0	5.18	—
+TCGA-44-6145	4.0	2.0	2.0	7.41	Selpercatinib; Pralsetinib
+TCGA-44-6146	1.0	0.0	0.0	1.0	—
+TCGA-44-6146_3	1.0	0.0	0.0	1.06	—
+TCGA-44-6146_4	1.0	0.0	0.0	0.97	—
+TCGA-44-6146_5	1.0	0.0	0.0	0.97	—
+TCGA-44-6147	2.0	4.0	3.0	3.03	Osimertinib; Erlotinib; Afatinib
+TCGA-44-6147_3	2.0	4.0	3.0	3.76	Osimertinib; Erlotinib; Afatinib
+TCGA-44-6147_4	2.0	4.0	3.0	4.53	Osimertinib; Erlotinib; Afatinib
+TCGA-44-6147_5	2.0	4.0	3.0	2.32	Osimertinib; Erlotinib; Afatinib
+TCGA-44-6148	0.0	0.0	0.0	0.15	—
+TCGA-44-6774	2.0	0.0	0.0	6.85	—
+TCGA-44-6775	4.0	2.0	2.0	1.38	Tepotinib; Capmatinib
+TCGA-44-6775_3	4.0	2.0	2.0	1.26	Tepotinib; Capmatinib
+TCGA-44-6775_4	3.0	0.0	0.0	1.29	—
+TCGA-44-6775_5	2.0	2.0	2.0	1.24	Tepotinib; Capmatinib
+TCGA-44-6776	3.0	0.0	0.0	4.74	—
+TCGA-44-6777	2.0	3.0	3.0	8.62	Alectinib; Brigatinib; Lorlatinib
+TCGA-44-6778	3.0	2.0	0.0	9.09	Trametinib; Cobimetinib
+TCGA-44-6779	2.0	0.0	0.0	2.26	—
+TCGA-44-7659	1.0	2.0	2.0	3.53	Larotrectinib; Entrectinib
+TCGA-44-7660	3.0	0.0	0.0	7.85	—
+TCGA-44-7661	3.0	0.0	0.0	6.03	—
+TCGA-44-7662	3.0	0.0	0.0	13.68	—
+TCGA-44-7667	3.0	2.0	2.0	10.97	Selpercatinib; Pralsetinib
+TCGA-44-7669	3.0	0.0	0.0	11.29	—
+TCGA-44-7670	3.0	4.0	3.0	26.5	Copanlisib; Entrectinib; Crizotinib
+TCGA-44-7671	4.0	3.0	3.0	5.53	Sotorasib; Adagrasib; Adagrasib+Cetuximab
+TCGA-44-8117	2.0	0.0	0.0	18.59	—
+TCGA-44-8119	2.0	3.0	3.0	15.29	Entrectinib; Crizotinib; Lorlatinib
+TCGA-44-8120	2.0	0.0	0.0	14.5	—
+TCGA-44-A479	1.0	0.0	0.0	7.0	—
+TCGA-44-A47A	1.0	0.0	0.0	5.0	—
+TCGA-44-A47B	1.0	1.0	1.0	1.15	Trastuzumab deruxtecan
+TCGA-44-A47G	2.0	2.0	2.0	1.62	Tepotinib; Capmatinib
+TCGA-44-A4SS	2.0	0.0	0.0	11.21	—
+TCGA-44-A4SU	2.0	8.0	6.0	3.18	Osimertinib; Erlotinib; Afatinib
+TCGA-49-4486	1.0	0.0	0.0	2.97	—
+TCGA-49-4487	2.0	0.0	0.0	7.88	—
+TCGA-49-4488	2.0	0.0	0.0	6.94	—
+TCGA-49-4490	2.0	4.0	4.0	0.88	Osimertinib; Erlotinib; Afatinib
+TCGA-49-4494	2.0	7.0	7.0	4.32	Larotrectinib; Entrectinib; Osimertinib
+TCGA-49-4501	1.0	0.0	0.0	0.97	—
+TCGA-49-4505	4.0	5.0	5.0	4.85	Selpercatinib; Pralsetinib; Sotorasib
+TCGA-49-4506	1.0	0.0	0.0	2.65	—
+TCGA-49-4507	2.0	0.0	0.0	4.74	—
+TCGA-49-4507_3	2.0	0.0	0.0	4.74	—
+TCGA-49-4510	1.0	0.0	0.0	1.12	—
+TCGA-49-4512	0.0	0.0	0.0	0.88	—
+TCGA-49-4514	2.0	1.0	0.0	7.38	Eprenetapopt (APR-246)
+TCGA-49-6742	1.0	0.0	0.0	6.06	—
+TCGA-49-6743	2.0	1.0	0.0	17.26	Copanlisib
+TCGA-49-6744	0.0	0.0	0.0	4.76	—
+TCGA-49-6745	2.0	4.0	4.0	2.82	Tepotinib; Capmatinib; Selpercatinib
+TCGA-49-6761	1.0	0.0	0.0	4.18	—
+TCGA-49-6767	3.0	3.0	3.0	10.79	Entrectinib; Crizotinib; Lorlatinib
+TCGA-49-AAQV	1.0	1.0	0.0	1.38	Eprenetapopt (APR-246)
+TCGA-49-AAR0	3.0	0.0	0.0	2.85	—
+TCGA-49-AAR2	2.0	0.0	0.0	9.62	—
+TCGA-49-AAR3	3.0	0.0	0.0	2.68	—
+TCGA-49-AAR4	3.0	3.0	3.0	12.97	Entrectinib; Crizotinib; Lorlatinib
+TCGA-49-AAR9	3.0	0.0	0.0	15.38	—
+TCGA-49-AARE	4.0	3.0	3.0	29.5	Entrectinib; Crizotinib; Lorlatinib
+TCGA-49-AARN	2.0	0.0	0.0	17.38	—
+TCGA-49-AARO	2.0	0.0	0.0	14.09	—
+TCGA-49-AARQ	4.0	2.0	2.0	17.21	Selpercatinib; Pralsetinib
+TCGA-49-AARR	0.0	0.0	0.0	0.03	—
+TCGA-4B-A93V	4.0	3.0	3.0	3.41	Sotorasib; Adagrasib; Adagrasib+Cetuximab
+TCGA-50-5044	2.0	1.0	0.0	2.56	Alpelisib
+TCGA-50-5045	2.0	0.0	0.0	6.88	—
+TCGA-50-5049	2.0	2.0	2.0	18.32	Selpercatinib; Pralsetinib
+TCGA-50-5051	2.0	3.0	3.0	2.59	Sotorasib; Adagrasib; Adagrasib+Cetuximab
+TCGA-50-5066	0.0	0.0	0.0	6.35	—
+TCGA-50-5068	1.0	0.0	0.0	2.15	—
+TCGA-50-5072	1.0	0.0	0.0	3.91	—
+TCGA-50-5930	4.0	13.0	11.0	26.41	Alectinib; Brigatinib; Lorlatinib
+TCGA-50-5931	1.0	0.0	0.0	7.41	—
+TCGA-50-5932	1.0	3.0	3.0	2.0	Sotorasib; Adagrasib; Adagrasib+Cetuximab
+TCGA-50-5933	2.0	0.0	0.0	11.71	—
+TCGA-50-5935	1.0	0.0	0.0	1.94	—
+TCGA-50-5936	1.0	0.0	0.0	2.82	—
+TCGA-50-5939	2.0	0.0	0.0	1.74	—
+TCGA-50-5941	2.0	0.0	0.0	8.62	—
+TCGA-50-5942	1.0	0.0	0.0	1.29	—
+TCGA-50-5944	2.0	4.0	4.0	1.35	Osimertinib; Erlotinib; Afatinib
+TCGA-50-5946	4.0	3.0	3.0	15.65	Alectinib; Brigatinib; Lorlatinib
+TCGA-50-6590	3.0	1.0	0.0	20.5	Copanlisib
+TCGA-50-6591	2.0	0.0	0.0	1.21	—
+TCGA-50-6592	2.0	1.0	0.0	7.0	Copanlisib
+TCGA-50-6593	2.0	0.0	0.0	7.21	—
+TCGA-50-6594	2.0	0.0	0.0	13.26	—
+TCGA-50-6595	2.0	8.0	6.0	1.82	Osimertinib; Erlotinib; Afatinib
+TCGA-50-6597	1.0	2.0	2.0	1.09	Tepotinib; Capmatinib
+TCGA-50-6673	2.0	0.0	0.0	1.35	—
+TCGA-50-7109	0.0	0.0	0.0	5.79	—
+TCGA-50-8457	1.0	0.0	0.0	1.32	—
+TCGA-50-8459	1.0	3.0	3.0	1.82	Sotorasib; Adagrasib; Adagrasib+Cetuximab
+TCGA-50-8460	1.0	0.0	0.0	0.74	—
+TCGA-53-7624	2.0	0.0	0.0	19.35	—
+TCGA-53-7626	1.0	0.0	0.0	8.53	—
+TCGA-53-7813	2.0	0.0	0.0	3.88	—
+TCGA-53-A4EZ	4.0	0.0	0.0	12.03	—
+TCGA-55-1592	3.0	3.0	3.0	12.29	Alectinib; Brigatinib; Lorlatinib
+TCGA-55-1594	2.0	0.0	0.0	3.5	—
+TCGA-55-1595	1.0	3.0	3.0	7.41	Sotorasib; Adagrasib; Adagrasib+Cetuximab
+TCGA-55-1596	2.0	0.0	0.0	4.68	—
+TCGA-55-5899	3.0	2.0	2.0	10.53	Selpercatinib; Pralsetinib
+TCGA-55-6543	0.0	0.0	0.0	0.53	—
+TCGA-55-6642	1.0	0.0	0.0	2.91	—
+TCGA-55-6712	2.0	0.0	0.0	2.91	—
+TCGA-55-6968	3.0	0.0	0.0	11.44	—
+TCGA-55-6970	3.0	0.0	0.0	4.32	—
+TCGA-55-6971	1.0	0.0	0.0	2.03	—
+TCGA-55-6972	1.0	0.0	0.0	6.29	—
+TCGA-55-6975	2.0	0.0	0.0	1.76	—
+TCGA-55-6978	0.0	0.0	0.0	0.68	—
+TCGA-55-6979	0.0	0.0	0.0	2.74	—
+TCGA-55-6980	2.0	0.0	0.0	0.24	—
+TCGA-55-6981	2.0	0.0	0.0	1.29	—
+TCGA-55-6982	1.0	2.0	2.0	4.88	Tepotinib; Capmatinib
+TCGA-55-6983	1.0	3.0	3.0	2.71	Sotorasib; Adagrasib; Adagrasib+Cetuximab
+TCGA-55-6984	1.0	0.0	0.0	0.5	—
+TCGA-55-6985	1.0	0.0	0.0	10.5	—
+TCGA-55-6986	0.0	0.0	0.0	0.44	—
+TCGA-55-6987	1.0	0.0	0.0	4.18	—
+TCGA-55-7227	2.0	2.0	0.0	3.85	Trametinib; Cobimetinib
+TCGA-55-7281	1.0	3.0	3.0	10.94	Sotorasib; Adagrasib; Adagrasib+Cetuximab
+TCGA-55-7283	2.0	0.0	0.0	5.21	—
+TCGA-55-7284	1.0	0.0	0.0	0.88	—
+TCGA-55-7570	2.0	0.0	0.0	9.24	—
+TCGA-55-7573	1.0	0.0	0.0	1.24	—
+TCGA-55-7574	1.0	0.0	0.0	5.32	—
+TCGA-55-7576	2.0	0.0	0.0	8.74	—
+TCGA-55-7724	0.0	0.0	0.0	4.76	—
+TCGA-55-7725	1.0	0.0	0.0	3.26	—
+TCGA-55-7726	2.0	3.0	3.0	2.62	Sotorasib; Adagrasib; Adagrasib+Cetuximab
+TCGA-55-7727	1.0	0.0	0.0	5.71	—
+TCGA-55-7728	2.0	6.0	6.0	2.15	Alectinib; Brigatinib; Lorlatinib
+TCGA-55-7815	2.0	0.0	0.0	3.35	—
+TCGA-55-7816					
+TCGA-78-7158	2.0	0.0	0.0	5.74	—
+TCGA-86-A4D0	3.0	0.0	0.0	6.15	—

@@ -1,6 +1,547 @@
-sample_id	gender	vital_status	race	os_days	event	os_months	age_at_diagnosis	stage	primary_diagnosis	pack_years	smoking_history	tmb
-TCGA-49-4507	female	Dead	white	268.0	1	8.8	73.5	Stage IIIA	Adenocarcinoma, NOS	78.0	Unknown	4.7353
-TCGA-73-4666	female	Alive	white		0		52.2	Stage IV	Adenocarcinoma, NOS	10.0	Unknown	
-TCGA-78-7158	female	Dead	white	179.0	1	5.9	59.5	Stage IIIB	Adenocarcinoma with mixed subtypes	14.0	Unknown	5.7353
-TCGA-86-8358	male	Alive	white		0		44.9	Stage IB	Adenocarcinoma, NOS	20.0	Unknown	
-TCGA-86-A4D0	male	Dead	white	116.0	1	3.8	48.2	Stage IIA	Adenocarcinoma, NOS		Unknown	6.1471
+sample_id	gender	vital_status	race	ethnicity	year_of_birth	os_days	event	os_months	age_at_diagnosis	stage	stage_t	stage_n	stage_m	primary_diagnosis	morphology	pack_years	cigarettes_per_day	smoking_history	years_smoked	tmb
+TCGA-05-4244	male	Alive	not reported	not reported			0		70.5	Stage IV	T2	N2	M1	Adenocarcinoma, NOS	8140/3	38.0		unknown		5.2647
+TCGA-05-4249	male	Alive	not reported	not reported		1523.0	0	50.03	67.2	Stage IB	T2	N0	M0	Adenocarcinoma, NOS	8140/3	52.0		unknown		8.0
+TCGA-05-4250	female	Dead	not reported	not reported		121.0	1	3.98	79.6	Stage IIIA	T3	N1	M0	Adenocarcinoma, NOS	8140/3	47.0		unknown		8.6765
+TCGA-05-4382	male	Alive	not reported	not reported			0			unknown	unknown	unknown	unknown	Carcinoma in situ, NOS	8010/2	62.0		unknown		40.6176
+TCGA-05-4384	male	Alive	not reported	not reported			0		67.3	unknown	unknown	unknown	unknown	Adenocarcinoma with mixed subtypes	8255/3	20.0		unknown		3.0294
+TCGA-05-4389	male	Alive	not reported	not reported		1369.0	0	44.97	70.3	Stage IA	T1	N0	M0	Adenocarcinoma with mixed subtypes	8255/3	43.0		unknown		5.0882
+TCGA-05-4390	female	Alive	not reported	not reported		1126.0	0	36.99	58.7	Stage IB	T2	N0	M0	Adenocarcinoma with mixed subtypes	8255/3	15.0		unknown		13.1176
+TCGA-05-4395	male	Dead	not reported	not reported			0		76.6	Stage IIIB	T4	N2	M0	Adenocarcinoma with mixed subtypes	8255/3			unknown		5.9412
+TCGA-05-4396	male	Dead	not reported	not reported		303.0	1	9.95	76.9	Stage IIIB	T4	N1	M0	Adenocarcinoma with mixed subtypes	8255/3	19.0		unknown		5.9706
+TCGA-05-4397	male	Dead	not reported	not reported		731.0	1	24.01	65.3	Stage IIB	T2	N1	M0	Adenocarcinoma with mixed subtypes	8255/3	45.0		unknown		20.5294
+TCGA-05-4398	female	Alive	not reported	not reported		1431.0	0	47.01	47.8	Stage IIIB	T4	N3	M0	Adenocarcinoma with mixed subtypes	8255/3	72.0		unknown		16.5
+TCGA-05-4402	female	Dead	not reported	not reported		244.0	1	8.02	57.0	Stage IV	T2	NX	M1	Adenocarcinoma with mixed subtypes	8255/3			unknown		2.7059
+TCGA-05-4403	male	Alive	not reported	not reported		578.0	0	18.99	76.3	Stage IB	T2	N0	M0	Adenocarcinoma with mixed subtypes	8255/3			unknown		3.2647
+TCGA-05-4405	female	Alive	not reported	not reported			0			unknown	unknown	unknown	unknown	Not Reported	Not Reported	65.0		unknown		8.5294
+TCGA-05-4410	male	Alive	not reported	not reported			0		62.7	Stage IB	T2	N0	M0	Adenocarcinoma with mixed subtypes	8255/3	98.0		unknown		25.3529
+TCGA-05-4415	male	Dead	not reported	not reported		91.0	1	2.99	57.3	unknown	unknown	unknown	unknown	Not Reported	Not Reported	29.0		unknown		4.7059
+TCGA-05-4417	female	Alive	not reported	not reported		455.0	0	14.95	51.4	Stage IB	T2	N0	M0	Adenocarcinoma with mixed subtypes	8255/3	56.0		unknown		7.3529
+TCGA-05-4418	male	Dead	not reported	not reported		274.0	1	9.0		unknown	unknown	unknown	unknown	Not Reported	Not Reported	25.0		unknown		6.6176
+TCGA-05-4420	male	Alive	not reported	not reported		912.0	0	29.96	41.5	Stage IB	T2	N0	M0	Adenocarcinoma with mixed subtypes	8255/3	38.0		unknown		6.6176
+TCGA-05-4422	male	Alive	not reported	not reported		365.0	0	11.99	68.0	Stage IB	T2	N0	M0	Adenocarcinoma with mixed subtypes	8255/3	147.0		unknown		1.0
+TCGA-05-4424	male	Alive	not reported	not reported		913.0	0	29.99	70.3	Stage IIB	T3	N0	M0	Adenocarcinoma with mixed subtypes	8255/3	50.0		unknown		15.6765
+TCGA-05-4425	female	Alive	not reported	not reported		669.0	0	21.98	70.9	Stage IV	T2	N0	M1	Adenocarcinoma with mixed subtypes	8255/3	28.0		unknown		0.9412
+TCGA-05-4426	male	Alive	not reported	not reported		791.0	0	25.99	71.4	Stage IB	T2	N0	M0	Adenocarcinoma with mixed subtypes	8255/3	20.0		unknown		1.1765
+TCGA-05-4427	female	Alive	not reported	not reported		791.0	0	25.99	65.4	Stage IIB	T2	N1	M0	Adenocarcinoma with mixed subtypes	8255/3	8.0		unknown		24.7059
+TCGA-05-4430	female	Alive	not reported	not reported		761.0	0	25.0	59.9	Stage IB	T2	N0	M0	Adenocarcinoma with mixed subtypes	8255/3	80.0		unknown		6.3235
+TCGA-05-4432	male	Alive	not reported	not reported		761.0	0	25.0	66.7	Stage IIB	T2	N1	M0	Adenocarcinoma with mixed subtypes	8255/3	58.0		unknown		13.2353
+TCGA-05-4433	male	Alive	not reported	not reported		730.0	0	23.98	82.7	Stage IB	T2	N0	M0	Adenocarcinoma with mixed subtypes	8255/3	1.0		unknown		0.8824
+TCGA-05-4434	female	Dead	not reported	not reported		457.0	1	15.01		unknown	unknown	unknown	unknown	Not Reported	Not Reported	15.0		unknown		1.0294
+TCGA-05-5420	male	Alive	not reported	not reported			0			unknown	unknown	unknown	M1	Not Reported	Not Reported	40.0		unknown		1.8235
+TCGA-05-5423	male	Alive	not reported	not reported		151.0	0	4.96	65.3	Stage IIB	T2	N1	M0	Adenocarcinoma with mixed subtypes	8255/3	72.0		unknown		3.6765
+TCGA-05-5425	male	Alive	not reported	not reported			0		69.8	unknown	unknown	unknown	unknown	Not Reported	Not Reported	40.0		unknown		13.0588
+TCGA-05-5428	male	Alive	not reported	not reported		670.0	0	22.01	57.7	Stage IIA	T1b	N1	M0	Adenocarcinoma with mixed subtypes	8255/3	30.0		unknown		8.8235
+TCGA-05-5429	male	Dead	not reported	not reported		275.0	1	9.03	60.4	Stage IIIA	T3	N2	M0	Adenocarcinoma, NOS	8140/3			unknown		0.7941
+TCGA-05-5715	female	Alive	not reported	not reported		62.0	0	2.04	69.5	Stage IB	T2a	N0	M0	Adenocarcinoma with mixed subtypes	8255/3			unknown		2.6471
+TCGA-17-Z000	unknown	unknown	unknown	unknown			0			unknown	unknown	unknown	unknown	Adenocarcinoma, NOS				unknown		3.0
+TCGA-17-Z001	unknown	unknown	unknown	unknown			0			unknown	unknown	unknown	unknown	Adenocarcinoma, NOS				unknown		4.7353
+TCGA-17-Z002	unknown	unknown	unknown	unknown			0			unknown	unknown	unknown	unknown	Adenocarcinoma, NOS				unknown		0.2353
+TCGA-17-Z003	unknown	unknown	unknown	unknown			0			unknown	unknown	unknown	unknown	Adenocarcinoma, NOS				unknown		5.5294
+TCGA-17-Z004	unknown	unknown	unknown	unknown			0			unknown	unknown	unknown	unknown	Adenocarcinoma, NOS				unknown		0.4118
+TCGA-17-Z005	unknown	unknown	unknown	unknown			0			unknown	unknown	unknown	unknown	Adenocarcinoma, NOS				unknown		1.8824
+TCGA-17-Z007	unknown	unknown	unknown	unknown			0			unknown	unknown	unknown	unknown	Adenocarcinoma, NOS				unknown		1.4412
+TCGA-17-Z009	unknown	unknown	unknown	unknown			0			unknown	unknown	unknown	unknown	Adenocarcinoma, NOS				unknown		0.8529
+TCGA-17-Z010	unknown	unknown	unknown	unknown			0			unknown	unknown	unknown	unknown	Adenocarcinoma, NOS				unknown		6.4706
+TCGA-17-Z011	unknown	unknown	unknown	unknown			0			unknown	unknown	unknown	unknown	Adenocarcinoma, NOS				unknown		2.4412
+TCGA-17-Z013	unknown	unknown	unknown	unknown			0			unknown	unknown	unknown	unknown	Adenocarcinoma, NOS				unknown		1.4706
+TCGA-17-Z015	unknown	unknown	unknown	unknown			0			unknown	unknown	unknown	unknown	Adenocarcinoma, NOS				unknown		12.3824
+TCGA-17-Z016	unknown	unknown	unknown	unknown			0			unknown	unknown	unknown	unknown	Adenocarcinoma, NOS				unknown		7.2647
+TCGA-17-Z017	unknown	unknown	unknown	unknown			0			unknown	unknown	unknown	unknown	Adenocarcinoma, NOS				unknown		5.3235
+TCGA-17-Z018	unknown	unknown	unknown	unknown			0			unknown	unknown	unknown	unknown	Adenocarcinoma, NOS				unknown		6.0294
+TCGA-17-Z019	unknown	unknown	unknown	unknown			0			unknown	unknown	unknown	unknown	Adenocarcinoma, NOS				unknown		0.0588
+TCGA-17-Z020	unknown	unknown	unknown	unknown			0			unknown	unknown	unknown	unknown	Adenocarcinoma, NOS				unknown		2.5882
+TCGA-17-Z021	unknown	unknown	unknown	unknown			0			unknown	unknown	unknown	unknown	Adenocarcinoma, NOS				unknown		2.7059
+TCGA-17-Z022	unknown	unknown	unknown	unknown			0			unknown	unknown	unknown	unknown	Adenocarcinoma, NOS				unknown		28.9706
+TCGA-17-Z023	unknown	unknown	unknown	unknown			0			unknown	unknown	unknown	unknown	Adenocarcinoma, NOS				unknown		9.8235
+TCGA-17-Z025	unknown	unknown	unknown	unknown			0			unknown	unknown	unknown	unknown	Adenocarcinoma, NOS				unknown		5.7059
+TCGA-17-Z026	unknown	unknown	unknown	unknown			0			unknown	unknown	unknown	unknown	Adenocarcinoma, NOS				unknown		21.7647
+TCGA-17-Z027	unknown	unknown	unknown	unknown			0			unknown	unknown	unknown	unknown	Adenocarcinoma, NOS				unknown		2.2059
+TCGA-17-Z028	unknown	unknown	unknown	unknown			0			unknown	unknown	unknown	unknown	Adenocarcinoma, NOS				unknown		11.2353
+TCGA-17-Z032	unknown	unknown	unknown	unknown			0			unknown	unknown	unknown	unknown	Adenocarcinoma, NOS				unknown		2.4706
+TCGA-17-Z033	unknown	unknown	unknown	unknown			0			unknown	unknown	unknown	unknown	Adenocarcinoma, NOS				unknown		3.5588
+TCGA-17-Z036	unknown	unknown	unknown	unknown			0			unknown	unknown	unknown	unknown	Adenocarcinoma, NOS				unknown		1.8235
+TCGA-17-Z037	unknown	unknown	unknown	unknown			0			unknown	unknown	unknown	unknown	Adenocarcinoma, NOS				unknown		3.1176
+TCGA-17-Z041	unknown	unknown	unknown	unknown			0			unknown	unknown	unknown	unknown	Adenocarcinoma, NOS				unknown		1.1176
+TCGA-17-Z042	unknown	unknown	unknown	unknown			0			unknown	unknown	unknown	unknown	Adenocarcinoma, NOS				unknown		11.2941
+TCGA-17-Z043	unknown	unknown	unknown	unknown			0			unknown	unknown	unknown	unknown	Adenocarcinoma, NOS				unknown		4.5294
+TCGA-17-Z044	unknown	unknown	unknown	unknown			0			unknown	unknown	unknown	unknown	Adenocarcinoma, NOS				unknown		2.5294
+TCGA-17-Z045	unknown	unknown	unknown	unknown			0			unknown	unknown	unknown	unknown	Adenocarcinoma, NOS				unknown		16.2059
+TCGA-17-Z047	unknown	unknown	unknown	unknown			0			unknown	unknown	unknown	unknown	Adenocarcinoma, NOS				unknown		0.3824
+TCGA-17-Z048	unknown	unknown	unknown	unknown			0			unknown	unknown	unknown	unknown	Adenocarcinoma, NOS				unknown		0.7059
+TCGA-17-Z049	unknown	unknown	unknown	unknown			0			unknown	unknown	unknown	unknown	Adenocarcinoma, NOS				unknown		11.7647
+TCGA-17-Z050	unknown	unknown	unknown	unknown			0			unknown	unknown	unknown	unknown	Adenocarcinoma, NOS				unknown		3.7353
+TCGA-17-Z051	unknown	unknown	unknown	unknown			0			unknown	unknown	unknown	unknown	Adenocarcinoma, NOS				unknown		3.1765
+TCGA-17-Z052	unknown	unknown	unknown	unknown			0			unknown	unknown	unknown	unknown	Adenocarcinoma, NOS				unknown		2.6765
+TCGA-17-Z053	unknown	unknown	unknown	unknown			0			unknown	unknown	unknown	unknown	Adenocarcinoma, NOS				unknown		5.7353
+TCGA-17-Z054	unknown	unknown	unknown	unknown			0			unknown	unknown	unknown	unknown	Adenocarcinoma, NOS				unknown		0.1176
+TCGA-17-Z055	unknown	unknown	unknown	unknown			0			unknown	unknown	unknown	unknown	Adenocarcinoma, NOS				unknown		12.5882
+TCGA-17-Z056	unknown	unknown	unknown	unknown			0			unknown	unknown	unknown	unknown	Adenocarcinoma, NOS				unknown		10.3235
+TCGA-17-Z057	unknown	unknown	unknown	unknown			0			unknown	unknown	unknown	unknown	Adenocarcinoma, NOS				unknown		9.4706
+TCGA-17-Z058	unknown	unknown	unknown	unknown			0			unknown	unknown	unknown	unknown	Adenocarcinoma, NOS				unknown		1.7941
+TCGA-17-Z059	unknown	unknown	unknown	unknown			0			unknown	unknown	unknown	unknown	Adenocarcinoma, NOS				unknown		3.6471
+TCGA-17-Z061	unknown	unknown	unknown	unknown			0			unknown	unknown	unknown	unknown	Adenocarcinoma, NOS				unknown		4.0
+TCGA-17-Z062	unknown	unknown	unknown	unknown			0			unknown	unknown	unknown	unknown	Adenocarcinoma, NOS				unknown		9.5588
+TCGA-35-4122	male	Alive	white	not hispanic or latino		225.0	0	7.39	69.8	Stage IA	T1	N0	M0	Adenocarcinoma, NOS	8140/3	45.0		unknown		7.3235
+TCGA-35-4123	male	Alive	white	not hispanic or latino		182.0	0	5.98	38.5	Stage IA	T1	N0	M0	Adenocarcinoma, NOS	8140/3	20.0		unknown		6.5
+TCGA-35-5375	male	Alive	white	not hispanic or latino		264.0	0	8.67	62.0	Stage IIIA	T2	N2	M0	Adenocarcinoma, NOS	8140/3	35.0		unknown		10.2353
+TCGA-38-4625	female	Alive	white	not hispanic or latino		2973.0	0	97.67	66.4	Stage IB	T2a	N0	M0	Adenocarcinoma, NOS	8140/3	50.0		unknown		13.8824
+TCGA-38-4626	female	Alive	white	not hispanic or latino			0		64.1	unknown	unknown	unknown	unknown	Not Reported	Not Reported	40.0		unknown		4.4118
+TCGA-38-4627	female	Dead	white	not hispanic or latino		1147.0	1	37.68	64.4	Stage IIA	T1b	N1	M0	Adenocarcinoma, NOS	8140/3			unknown		0.7353
+TCGA-38-4628	female	Dead	white	not hispanic or latino		1492.0	1	49.01	68.8	unknown	unknown	unknown	unknown	Not Reported	Not Reported			unknown		3.0294
+TCGA-38-4629	male	Dead	white	not hispanic or latino		864.0	1	28.38	68.7	Stage IIB	T3	N0	M0	Adenocarcinoma, NOS	8140/3	100.0		unknown		6.6176
+TCGA-38-4630	female	Dead	white	not hispanic or latino		1073.0	1	35.25	77.8	unknown	unknown	unknown	unknown	Not Reported	Not Reported			unknown		2.6765
+TCGA-38-4631	female	Dead	white	not hispanic or latino		354.0	1	11.63	72.7	Stage IB	T2	N0	M0	Adenocarcinoma, NOS	8140/3	40.0		unknown		17.4412
+TCGA-38-4632	male	Dead	black or african american	not hispanic or latino		1357.0	1	44.58	44.1	unknown	unknown	unknown	unknown	Not Reported	Not Reported	10.0		unknown		12.4118
+TCGA-38-6178	female	Alive	white	not hispanic or latino			0			unknown	unknown	unknown	unknown	Granulosa cell tumor, malignant	8620/3			unknown		1.2353
+TCGA-38-7271	female	Dead	white	not hispanic or latino		800.0	1	26.28	73.2	unknown	unknown	unknown	unknown	Not Reported	Not Reported	25.0		unknown		1.1471
+TCGA-38-A44F	male	Alive	white	not hispanic or latino		133.0	0	4.37	80.9	Stage IB	T2a	N0	M0	Acinar cell carcinoma	8550/3	12.0		unknown		0.2353
+TCGA-44-2655	female	Alive	white	not hispanic or latino		1324.0	0	43.5	65.3	Stage IA	T1	N0	M0	Adenocarcinoma, NOS	8140/3	30.0		unknown		4.1765
+TCGA-44-2656	male	Alive	white	not hispanic or latino			0		61.1	unknown	unknown	unknown	unknown	Not Reported	Not Reported	23.0		unknown		19.7353
+TCGA-44-2657	female	Alive	white	not hispanic or latino		1351.0	0	44.38	74.7	Stage IB	T2	NX	M0	Adenocarcinoma, NOS	8140/3	25.0		unknown		9.5882
+TCGA-44-2661	female	Alive	white	not hispanic or latino		1159.0	0	38.07	69.3	Stage IA	T1	N0	M0	Adenocarcinoma, NOS	8140/3			unknown		0.8235
+TCGA-44-2662	male	Alive	white	not hispanic or latino			0		66.4	unknown	unknown	unknown	unknown	Not Reported	Not Reported	56.0		unknown		4.8235
+TCGA-44-2665	female	Alive	white	not hispanic or latino		1301.0	0	42.74	55.7	Stage IIB	T2	N1	M0	Adenocarcinoma, NOS	8140/3			unknown		1.0294
+TCGA-44-2666	male	Dead	white	hispanic or latino		97.0	1	3.19	43.7	Stage IB	T2	N0	M0	Adenocarcinoma, NOS	8140/3	30.0		unknown		0.7353
+TCGA-44-2668	male	Dead	white	not hispanic or latino		761.0	1	25.0	51.6	Stage IB	T2	N0	M0	Adenocarcinoma, NOS	8140/3	60.0		unknown		9.1176
+TCGA-44-3396	female	Alive	white	not hispanic or latino		1130.0	0	37.12	74.1	Stage IIIA	T2	N2	M0	Adenocarcinoma, NOS	8140/3	50.0		unknown		4.4412
+TCGA-44-3398	female	Alive	white	not hispanic or latino		1163.0	0	38.21	77.7	Stage IA	T1b	N0	M0	Adenocarcinoma, NOS	8140/3	60.0		unknown		4.0
+TCGA-44-3917	female	Alive	white	not hispanic or latino		1183.0	0	38.86	33.3	Stage IB	T2	N0	M0	Adenocarcinoma, NOS	8140/3	16.0		unknown		5.2059
+TCGA-44-3918	female	Alive	white	not hispanic or latino		1036.0	0	34.03	60.9	Stage IA	T1	N0	M0	Adenocarcinoma, NOS	8140/3	20.0		unknown		22.5294
+TCGA-44-3919	female	Dead	white	not hispanic or latino		1026.0	1	33.71	71.4	Stage IA	T1	N0	M0	Adenocarcinoma, NOS	8140/3			unknown		0.7941
+TCGA-44-4112	female	Dead	white	not hispanic or latino		808.0	1	26.54	60.5	Stage IB	T2a	N0	M0	Adenocarcinoma, NOS	8140/3	30.0		unknown		10.2353
+TCGA-44-5643	male	Alive	black or african american	not hispanic or latino		1013.0	0	33.28	53.2	Stage IIIA	T2b	N2	M0	Adenocarcinoma, NOS	8140/3	20.0		unknown		3.0588
+TCGA-44-5644	female	Alive	white	not hispanic or latino		863.0	0	28.35	51.0	Stage IB	T2a	N0	unknown	Adenocarcinoma, NOS	8140/3	17.5		unknown		23.4118
+TCGA-44-5645	female	Alive	black or african american	not hispanic or latino		852.0	0	27.99	61.5	Stage IA	T1	NX	unknown	Adenocarcinoma, NOS	8140/3	5.0		unknown		0.9118
+TCGA-44-6144	male	Alive	white	not hispanic or latino			0		59.4	unknown	unknown	unknown	unknown	Adenocarcinoma, NOS	8140/3	67.5		unknown		5.1765
+TCGA-44-6145	female	Alive	white	not hispanic or latino		595.0	0	19.55	62.3	Stage IA	T1	N0	M0	Adenocarcinoma, NOS	8140/3	75.0		unknown		7.4118
+TCGA-44-6146	male	Alive	white	not hispanic or latino			0		65.7	unknown	unknown	unknown	unknown	Mucinous adenocarcinoma	8480/3	15.0		unknown		1.0
+TCGA-44-6147	female	Alive	white	not hispanic or latino		845.0	0	27.76	67.4	Stage IA	T1b	NX	M0	Adenocarcinoma, NOS	8140/3			unknown		3.0294
+TCGA-44-6148	male	Alive	white	not hispanic or latino		704.0	0	23.13	60.6	Stage IA	T1b	N0	M0	Mucinous adenocarcinoma	8480/3	60.0		unknown		0.1471
+TCGA-44-6774	female	Alive	white	not hispanic or latino		658.0	0	21.62	56.0	Stage IIIA	T1	N2	M0	Adenocarcinoma, NOS	8140/3	20.0		unknown		6.8529
+TCGA-44-6775	female	Alive	white	hispanic or latino			0		74.2	unknown	unknown	unknown	unknown	Adenocarcinoma, NOS	8140/3	25.0		unknown		1.3824
+TCGA-44-6776	female	Alive	white	not reported		2616.0	0	85.94	60.6	Stage IA	T1	N0	MX	Adenocarcinoma, NOS	8140/3	45.0		unknown		4.7353
+TCGA-44-6777	female	Dead	white	not reported		987.0	1	32.42	85.5	Stage IB	T2	NX	MX	Adenocarcinoma, NOS	8140/3	64.0		unknown		8.6176
+TCGA-44-6778	male	Alive	black or african american	not reported		1864.0	0	61.24	59.5	Stage IA	T1	N0	MX	Adenocarcinoma, NOS	8140/3	15.0		unknown		9.0882
+TCGA-44-6779	female	Dead	white	not reported		500.0	1	16.43	51.2	unknown	unknown	unknown	unknown	Not Reported	Not Reported	15.0		unknown		2.2647
+TCGA-44-7659	male	Alive	white	not hispanic or latino		691.0	0	22.7	70.4	Stage IA	T1b	N0	MX	Adenocarcinoma, NOS	8140/3	40.0		unknown		3.5294
+TCGA-44-7660	male	Alive	white	not hispanic or latino		592.0	0	19.45	72.8	Stage IB	T2	N0	MX	Adenocarcinoma, NOS	8140/3	124.0		unknown		7.8529
+TCGA-44-7661	female	Dead	white	not hispanic or latino		557.0	1	18.3	70.7	unknown	unknown	unknown	unknown	Adenocarcinoma, NOS	8140/3	22.0		unknown		6.0294
+TCGA-44-7662	male	Alive	white	not hispanic or latino		218.0	0	7.16	61.7	Stage IB	T2a	N0	MX	Adenocarcinoma, NOS	8140/3	50.0		unknown		13.6765
+TCGA-44-7667	female	Alive	white	not hispanic or latino		1097.0	0	36.04	49.5	Stage IIB	T3	N0	MX	Adenocarcinoma, NOS	8140/3	50.0		unknown		10.9706
+TCGA-44-7669	male	Dead	black or african american	not hispanic or latino		574.0	1	18.86	61.4	unknown	unknown	unknown	unknown	Not Reported	Not Reported	20.0		unknown		11.2941
+TCGA-44-7670	female	Alive	white	hispanic or latino			0			unknown	unknown	unknown	unknown	Not Reported	Not Reported	30.0		unknown		26.5
+TCGA-44-7671	male	Alive	black or african american	not hispanic or latino		889.0	0	29.2	64.4	Stage IB	T2a	N0	M0	Adenocarcinoma with mixed subtypes	8255/3			unknown		5.5294
+TCGA-44-8117	female	Alive	white	not hispanic or latino		385.0	0	12.65	54.4	Stage IB	T2a	N0	M0	Adenocarcinoma, NOS	8140/3	54.0		unknown		18.5882
+TCGA-44-8119	male	Alive	white	not hispanic or latino		285.0	0	9.36	73.9	Stage IIB	T3	N0	M0	Adenocarcinoma, NOS	8140/3	50.0		unknown		15.2941
+TCGA-44-8120	male	Alive	black or african american	not hispanic or latino		260.0	0	8.54	58.0	Stage IB	T2a	N0	M0	Adenocarcinoma, NOS	8140/3	30.0		unknown		14.5
+TCGA-44-A479	female	Alive	black or african american	not hispanic or latino		486.0	0	15.97	74.0	Stage IB	T2	N0	MX	Adenocarcinoma, NOS	8140/3	40.0		unknown		7.0
+TCGA-44-A47A	female	Alive	white	not hispanic or latino		466.0	0	15.31	78.8	Stage IB	T2a	N0	MX	Adenocarcinoma, NOS	8140/3	80.0		unknown		5.0
+TCGA-44-A47B	male	Alive	white	not hispanic or latino		287.0	0	9.43	79.0	Stage IB	T2a	N0	M0	Adenocarcinoma, NOS	8140/3	4.5		unknown		1.1471
+TCGA-44-A47G	female	Alive	white	not hispanic or latino		351.0	0	11.53	73.4	Stage IA	T1	N0	M0	Adenocarcinoma, NOS	8140/3	28.0		unknown		1.6176
+TCGA-44-A4SS	male	Alive	white	not hispanic or latino		415.0	0	13.63	73.9	Stage IA	T1b	N0	M0	Adenocarcinoma, NOS	8140/3	90.0		unknown		11.2059
+TCGA-44-A4SU	female	Dead	white	not hispanic or latino		409.0	1	13.44	68.0	Stage IA	T1a	N0	MX	Adenocarcinoma, NOS	8140/3	50.0		unknown		3.1765
+TCGA-49-4486	male	Dead	white	not hispanic or latino		2318.0	1	76.15	77.9	unknown	unknown	unknown	unknown	Adenocarcinoma, NOS	8140/3	17.5		unknown		2.9706
+TCGA-49-4487	female	Dead	white	not hispanic or latino		855.0	1	28.09	72.8	Stage IA	T1	N0	M0	Adenocarcinoma, NOS	8140/3	40.0		unknown		7.8824
+TCGA-49-4488	female	Dead	white	not hispanic or latino		869.0	1	28.55	74.8	Stage IA	T1	N0	MX	Adenocarcinoma, NOS	8140/3			unknown		6.9412
+TCGA-49-4490	female	Dead	white	not hispanic or latino		385.0	1	12.65	45.5	Stage IIIA	T3	N2	M0	Adenocarcinoma, NOS	8140/3	5.0		unknown		0.8824
+TCGA-49-4494	male	Dead	white	not hispanic or latino		1081.0	1	35.51	77.7	Stage IIIA	T3	N2	M0	Adenocarcinoma, NOS	8140/3	50.0		unknown		4.3235
+TCGA-49-4501	female	Dead	white	not hispanic or latino		1421.0	1	46.68	69.4	unknown	unknown	unknown	unknown	Not Reported	Not Reported			unknown		0.9706
+TCGA-49-4505	female	Dead	white	not hispanic or latino		428.0	1	14.06	62.0	Stage IIB	T2	N1	M0	Adenocarcinoma, NOS	8140/3	74.0		unknown		4.8529
+TCGA-49-4506	female	Dead	white	not hispanic or latino		999.0	1	32.82	68.8	Stage IIB	T2	N1	M0	Adenocarcinoma, NOS	8140/3	100.0		unknown		2.6471
+TCGA-49-4507	female	Dead	white	not hispanic or latino		268.0	1	8.8	73.5	Stage IIIA	T3	N1	M0	Adenocarcinoma, NOS	8140/3	78.0		unknown		4.7353
+TCGA-49-4510	female	Dead	black or african american	not hispanic or latino		896.0	1	29.43	51.4	Stage IIB	T2	N1	M0	Adenocarcinoma, NOS	8140/3	55.5		unknown		1.1176
+TCGA-49-4512	female	Dead	white	not hispanic or latino		905.0	1	29.73	69.8	Stage IIIA	T2	N2	MX	Adenocarcinoma, NOS	8140/3			unknown		0.8824
+TCGA-49-4514	female	Alive	white	not reported		1700.0	0	55.85	79.1	Stage IA	T1	N0	M0	Papillary adenocarcinoma, NOS	8260/3	65.0		unknown		7.3824
+TCGA-49-6742	male	Dead	white	not hispanic or latino		488.0	1	16.03	71.3	unknown	unknown	unknown	unknown	Mucinous adenocarcinoma	8480/3	10.0		unknown		6.0588
+TCGA-49-6743	female	Alive	white	not reported		1621.0	0	53.25	81.6	Stage IIIA	T1	N2	MX	Clear cell adenocarcinoma, NOS	8310/3	50.0		unknown		17.2647
+TCGA-49-6744	female	Alive	white	not reported		1683.0	0	55.29	64.3	Stage IIA	T2a	N1	MX	Adenocarcinoma with mixed subtypes	8255/3	20.0		unknown		4.7647
+TCGA-49-6745	male	Alive	white	not reported			0			unknown	unknown	unknown	unknown	Not Reported	Not Reported	20.0		unknown		2.8235
+TCGA-49-6761	female	Alive	white	not hispanic or latino			0		56.1	unknown	unknown	unknown	unknown	Not Reported	Not Reported	50.0		unknown		4.1765
+TCGA-49-6767	female	Alive	white	not reported		677.0	0	22.24	46.8	Stage IIB	T3	N0	MX	Adenocarcinoma, NOS	8140/3	30.0		unknown		10.7941
+TCGA-49-AAQV	female	Dead	black or african american	not hispanic or latino		677.0	1	22.24	65.4	unknown	unknown	unknown	unknown	Adenocarcinoma with mixed subtypes	8255/3			unknown		1.3824
+TCGA-49-AAR0	male	Alive	black or african american	not hispanic or latino			0		56.3	unknown	unknown	unknown	unknown	Adenocarcinoma, NOS	8140/3	37.0		unknown		2.8529
+TCGA-49-AAR2	male	Alive	black or african american	not hispanic or latino		2224.0	0	73.06	64.3	Stage IB	T2	N0	MX	Acinar cell carcinoma	8550/3			unknown		9.6176
+TCGA-49-AAR3	male	Alive	black or african american	not hispanic or latino			0		74.9	unknown	unknown	unknown	unknown	Adenocarcinoma, NOS	8140/3			unknown		2.6765
+TCGA-49-AAR4	male	Dead	black or african american	not hispanic or latino		879.0	1	28.88	51.9	Stage IIIA	T2	N2	MX	Adenocarcinoma, NOS	8140/3	35.0		unknown		12.9706
+TCGA-49-AAR9	male	Dead	black or african american	not hispanic or latino		260.0	1	8.54	61.6	Stage IIB	T3	N0	MX	Adenocarcinoma, NOS	8140/3			unknown		15.3824
+TCGA-49-AARE	female	Dead	black or african american	not hispanic or latino		1229.0	1	40.37	52.8	unknown	unknown	unknown	unknown	Adenocarcinoma, NOS	8140/3	15.0		unknown		29.5
+TCGA-49-AARN	female	Dead	black or african american	not hispanic or latino		1135.0	1	37.29	56.3	unknown	unknown	unknown	unknown	Not Reported	Not Reported			unknown		17.3824
+TCGA-49-AARO	female	Alive	black or african american	not hispanic or latino		3759.0	0	123.49	39.8	Stage IA	T1a	N0	MX	Papillary adenocarcinoma, NOS	8260/3			unknown		14.0882
+TCGA-49-AARQ	female	Alive	black or african american	not hispanic or latino		6732.0	0	221.16	41.2	Stage I	T2	N0	MX	Adenocarcinoma, NOS	8140/3	60.0		unknown		17.2059
+TCGA-49-AARR	male	Alive	black or african american	not hispanic or latino		4992.0	0	163.99	68.3	Stage IA	T1	N0	MX	Adenocarcinoma, NOS	8140/3			unknown		0.0294
+TCGA-4B-A93V	female	Dead	black or african american	not hispanic or latino		300.0	1	9.86	52.1	Stage IA	T1b	N0	M0	Adenocarcinoma, NOS	8140/3	30.0		unknown		3.4118
+TCGA-50-5044	female	Dead	white	not hispanic or latino		624.0	1	20.5	72.7	Stage IIIB	T4	N1	M0	Adenocarcinoma, NOS	8140/3			unknown		2.5588
+TCGA-50-5045	female	Dead	black or african american	not hispanic or latino		2174.0	1	71.42	57.4	unknown	T2	N1	M0	Adenocarcinoma, NOS	8140/3			unknown		6.8824
+TCGA-50-5049	male	Alive	white	not hispanic or latino			0		77.0	unknown	unknown	unknown	unknown	Adenocarcinoma, NOS	8140/3			unknown		18.3235
+TCGA-50-5051	female	Dead	white	not hispanic or latino		478.0	1	15.7	42.7	Stage IIIA	T2	N2	M0	Adenocarcinoma, NOS	8140/3	30.0		unknown		2.5882
+TCGA-50-5066	male	Alive	black or african american	not hispanic or latino			0		73.5	unknown	unknown	unknown	unknown	Adenocarcinoma with mixed subtypes	8255/3			unknown		6.3529
+TCGA-50-5068	female	Dead	white	not hispanic or latino		1499.0	1	49.24	59.5	Stage IIB	T2	N1	MX	Adenocarcinoma, NOS	8140/3			unknown		2.1471
+TCGA-50-5072	male	Dead	white	not hispanic or latino		250.0	1	8.21	74.6	unknown	unknown	unknown	unknown	Adenocarcinoma, NOS	8140/3	15.0		unknown		3.9118
+TCGA-50-5930	male	Dead	white	not hispanic or latino		282.0	1	9.26	47.2	Stage IIIA	T2	N2	M0	Adenocarcinoma with mixed subtypes	8255/3			unknown		26.4118
+TCGA-50-5931	female	Dead	white	not hispanic or latino		434.0	1	14.26	75.9	Stage IB	T2	N0	M0	Adenocarcinoma, NOS	8140/3	40.0		unknown		7.4118
+TCGA-50-5932	male	Dead	white	not hispanic or latino		1235.0	1	40.57		Stage IA	T1a	N0	M0	Adenocarcinoma, NOS	8140/3			unknown		2.0
+TCGA-50-5933	male	Dead	white	not hispanic or latino		2393.0	1	78.61	72.2	Stage IIIB	T4	N2	M0	Adenocarcinoma, NOS	8140/3			unknown		11.7059
+TCGA-50-5935	female	Dead	white	not hispanic or latino		653.0	1	21.45		unknown	unknown	unknown	unknown	Not Reported	Not Reported			unknown		1.9412
+TCGA-50-5936	male	Dead	white	not hispanic or latino		257.0	1	8.44	58.6	unknown	unknown	unknown	unknown	Not Reported	Not Reported			unknown		2.8235
+TCGA-50-5939	male	Dead	white	not hispanic or latino		460.0	1	15.11	85.5	Stage IB	T2	N0	M0	Adenocarcinoma with mixed subtypes	8255/3	15.0		unknown		1.7353
+TCGA-50-5941	female	Alive	white	not reported		1474.0	0	48.42	55.7	Stage IIIA	T2a	N2	M0	Adenocarcinoma, NOS	8140/3	25.0		unknown		8.6176
+TCGA-50-5942	female	Alive	white	not hispanic or latino			0		71.6	unknown	unknown	unknown	unknown	Adenocarcinoma, NOS	8140/3	30.0		unknown		1.2941
+TCGA-50-5944	female	Alive	white	not reported		1750.0	0	57.49	69.7	Stage IA	T1	N0	M0	Acinar cell carcinoma	8550/3			unknown		1.3529
+TCGA-50-5946	male	Alive	white	not reported			0		63.2	unknown	unknown	unknown	unknown	Adenocarcinoma with mixed subtypes	8255/3			unknown		15.6471
+TCGA-50-6590	female	Dead	white	not hispanic or latino		1288.0	1	42.31	72.4	Stage IB	T2	N0	M0	Adenocarcinoma, NOS	8140/3	50.0		unknown		20.5
+TCGA-50-6591	female	Dead	white	not hispanic or latino		119.0	1	3.91	63.2	Stage IV	T2	N0	M1	Adenocarcinoma, NOS	8140/3			unknown		1.2059
+TCGA-50-6592	female	Dead	white	not hispanic or latino		777.0	1	25.53	71.7	Stage IB	T2	N0	M0	Adenocarcinoma, NOS	8140/3			unknown		7.0
+TCGA-50-6593	female	Dead	white	not hispanic or latino		336.0	1	11.04	49.7	Stage IIIA	T1	N2	M0	Adenocarcinoma with mixed subtypes	8255/3			unknown		7.2059
+TCGA-50-6594	female	Dead	black or african american	not hispanic or latino		370.0	1	12.16	80.0	unknown	unknown	unknown	unknown	Adenocarcinoma, NOS	8140/3			unknown		13.2647
+TCGA-50-6595	female	Dead	white	not hispanic or latino		189.0	1	6.21	74.5	Stage IIIA	T2	N2	M0	Adenocarcinoma, NOS	8140/3			unknown		1.8235
+TCGA-50-6597	female	Dead	white	not hispanic or latino		1268.0	1	41.66		unknown	unknown	unknown	unknown	Carcinoid tumor, NOS	8240/3			unknown		1.0882
+TCGA-50-6673	female	Dead	white	not reported		22.0	1	0.72	84.0	Stage I	T1	N0	M0	Adenocarcinoma, NOS	8140/3			unknown		1.3529
+TCGA-50-7109	male	Dead	white	not hispanic or latino		308.0	1	10.12	60.2	Stage IA	T1	N0	M0	Adenocarcinoma, NOS	8140/3	120.0		unknown		5.7941
+TCGA-50-8457	female	Alive	black or african american	not hispanic or latino		1125.0	0	36.96	63.1	Stage IA	T1a	N0	M0	Adenocarcinoma with mixed subtypes	8255/3	30.0		unknown		1.3235
+TCGA-50-8459	male	Alive	white	not hispanic or latino		1119.0	0	36.76	68.1	Stage IIB	T3	N0	M0	Mucinous adenocarcinoma	8480/3	10.0		unknown		1.8235
+TCGA-50-8460	male	Alive	white	not hispanic or latino		829.0	0	27.23	74.7	Stage IA	T1a	N0	M0	Papillary adenocarcinoma, NOS	8260/3			unknown		0.7353
+TCGA-53-7624	female	Dead	white	hispanic or latino		1043.0	1	34.26	41.6	unknown	unknown	unknown	unknown	Adenocarcinoma, NOS	8140/3	50.0		unknown		19.3529
+TCGA-53-7626	female	Dead	white	not hispanic or latino		929.0	1	30.52	76.7	Stage IIA	T1	N1	M0	Adenocarcinoma, NOS	8140/3	35.0		unknown		8.5294
+TCGA-53-7813	female	Alive	white	not hispanic or latino		424.0	0	13.93	51.7	Stage IIIB	T4	N0	M0	Bronchiolo-alveolar carcinoma, non-mucinous	8252/3	35.0		unknown		3.8824
+TCGA-53-A4EZ	male	Alive	white	hispanic or latino		1071.0	0	35.18	63.5	Stage IIA	T2a	N1	MX	Acinar cell carcinoma	8550/3	40.0		unknown		12.0294
+TCGA-55-1592	male	Dead	white	not hispanic or latino		701.0	1	23.03		Stage IA	unknown	unknown	unknown	Adenocarcinoma, NOS	8140/3			unknown		12.2941
+TCGA-55-1594	male	Alive	white	not hispanic or latino		1178.0	0	38.7	68.5	Stage IIIA	T2	N2	M0	Adenocarcinoma, NOS	8140/3			unknown		3.5
+TCGA-55-1595	female	Alive	asian	not hispanic or latino			0			unknown	T1c	N0	M0	Infiltrating duct carcinoma, NOS	8500/3			unknown		7.4118
+TCGA-55-1596	male	Alive	asian	not hispanic or latino		2065.0	0	67.84	55.8	Stage IIB	T2	N1	M0	Adenocarcinoma, NOS	8140/3	50.0		unknown		4.6765
+TCGA-55-5899	male	Alive	white	not hispanic or latino		930.0	0	30.55		unknown	T1a	N1	M0	Adenocarcinoma, NOS	8140/3			unknown		10.5294
+TCGA-55-6543	female	Alive	white	not reported		435.0	0	14.29		Stage IA	T1b	N0	MX	Bronchio-alveolar carcinoma, mucinous	8253/3	60.0		unknown		0.5294
+TCGA-55-6642	male	Alive	white	not reported		2449.0	0	80.45	63.3	Stage IB	T2	N0	MX	Adenocarcinoma, NOS	8140/3			unknown		2.9118
+TCGA-55-6712	male	Dead	white	not reported		171.0	1	5.62		Stage IIA	T2a	N1	MX	Adenocarcinoma, NOS	8140/3			unknown		2.9118
+TCGA-55-6968	male	Dead	white	not hispanic or latino		1293.0	1	42.48	61.2	Stage IV	T1	N0	M1	Adenocarcinoma, NOS	8140/3			unknown		11.4412
+TCGA-55-6970	female	Dead	white	not reported		464.0	1	15.24	67.8	Stage IIIA	T2	N2	MX	Papillary adenocarcinoma, NOS	8260/3			unknown		4.3235
+TCGA-55-6971	female	Alive	white	not reported		1400.0	0	45.99	59.5	Stage IB	T2	N0	MX	Adenocarcinoma, NOS	8140/3	60.0		unknown		2.0294
+TCGA-55-6972	male	Dead	white	not hispanic or latino		1632.0	1	53.61	72.9	Stage IB	T2	N0	M0	Papillary adenocarcinoma, NOS	8260/3			unknown		6.2941
+TCGA-55-6975	male	Dead	white	not hispanic or latino		118.0	1	3.88		Stage IIB	T2	N1	M0	Adenocarcinoma with mixed subtypes	8255/3			unknown		1.7647
+TCGA-55-6978	male	Dead	white	not hispanic or latino		176.0	1	5.78		unknown	unknown	unknown	unknown	Not Reported	Not Reported			unknown		0.6765
+TCGA-55-6979	female	Dead	white	not reported		237.0	1	7.79	60.2	unknown	unknown	unknown	unknown	Adenocarcinoma, NOS	8140/3			unknown		2.7353
+TCGA-55-6980	male	Alive	white	not reported		2109.0	0	69.28		Stage IA	T1	N0	M0	Bronchiolo-alveolar carcinoma, non-mucinous	8252/3			unknown		0.2353
+TCGA-55-6981	female	Dead	white	not hispanic or latino		1379.0	1	45.3	53.4	Stage IIIA	T1	N2	M0	Adenocarcinoma, NOS	8140/3			unknown		1.2941
+TCGA-55-6982	female	Dead	white	not reported		995.0	1	32.69		unknown	unknown	unknown	unknown	Adenocarcinoma, NOS	8140/3			unknown		4.8824
+TCGA-55-6983	male	Alive	white	not hispanic or latino		2823.0	0	92.74		Stage IIB	T2	N1	M0	Mucinous adenocarcinoma	8480/3	60.0		unknown		2.7059
+TCGA-55-6984	female	Dead	white	not hispanic or latino		760.0	1	24.97		Stage IIB	T2	N1	M0	Adenocarcinoma, NOS	8140/3			unknown		0.5
+TCGA-55-6985	female	Alive	white	not reported		1233.0	0	40.51	58.5	Stage IB	T2	N0	MX	Adenocarcinoma, NOS	8140/3	50.0		unknown		10.5
+TCGA-55-6986	female	Alive	white	not reported		3261.0	0	107.13		Stage IB	T2	N0	M0	Bronchiolo-alveolar carcinoma, non-mucinous	8252/3			unknown		0.4412
+TCGA-55-6987	male	Alive	white	not hispanic or latino		2137.0	0	70.2	77.7	Stage IA	T1	N0	M0	Adenocarcinoma, NOS	8140/3			unknown		4.1765
+TCGA-55-7227	male	Dead	white	not hispanic or latino		952.0	1	31.27	77.9	Stage IIIA	T3	N1	MX	Adenocarcinoma, NOS	8140/3			unknown		3.8529
+TCGA-55-7281	female	Alive	white	not reported		872.0	0	28.65	70.8	Stage IA	T1b	N0	M0	Adenocarcinoma, NOS	8140/3	20.0		unknown		10.9412
+TCGA-55-7283	female	Alive	white	not hispanic or latino		609.0	0	20.01	76.5	Stage IIIA	T3	N2	MX	Bronchiolo-alveolar carcinoma, non-mucinous	8252/3	5.0		unknown		5.2059
+TCGA-55-7284	male	Dead	white	not hispanic or latino		243.0	1	7.98	74.2	Stage IIB	T3	N0	MX	Bronchiolo-alveolar carcinoma, non-mucinous	8252/3			unknown		0.8824
+TCGA-55-7570	male	Alive	black or african american	not hispanic or latino		824.0	0	27.07	60.8	Stage IA	T1a	N0	MX	Adenocarcinoma, NOS	8140/3			unknown		9.2353
+TCGA-55-7573	female	Alive	white	not hispanic or latino		487.0	0	16.0	72.0	Stage IA	T1b	N0	MX	Adenocarcinoma, NOS	8140/3			unknown		1.2353
+TCGA-55-7574	female	Dead	white	not hispanic or latino		995.0	1	32.69	64.9	Stage IB	T2a	N0	M0	Adenocarcinoma, NOS	8140/3	2.0		unknown		5.3235
+TCGA-55-7576	male	Alive	black or african american	not hispanic or latino		670.0	0	22.01	54.5	Stage IB	T2a	N0	M0	Adenocarcinoma, NOS	8140/3			unknown		8.7353
+TCGA-55-7724	female	Alive	white	not hispanic or latino		705.0	0	23.16	76.4	Stage IB	T2a	N0	MX	Adenocarcinoma, NOS	8140/3	50.0		unknown		4.7647
+TCGA-55-7725	female	Alive	white	not hispanic or latino			0			unknown	unknown	unknown	unknown	Not Reported	Not Reported	16.0		unknown		3.2647
+TCGA-55-7726	female	Alive	white	not hispanic or latino		652.0	0	21.42	72.4	Stage IA	T1b	N0	MX	Adenocarcinoma, NOS	8140/3	30.0		unknown		2.6176
+TCGA-55-7727	male	Alive	white	not hispanic or latino		119.0	0	3.91	71.0	Stage IIIA	T1a	N2	MX	Adenocarcinoma, NOS	8140/3			unknown		5.7059
+TCGA-55-7728	female	Alive	white	not hispanic or latino		704.0	0	23.13	64.4	Stage IB	T2a	N0	MX	Mucinous adenocarcinoma	8480/3	30.0		unknown		2.1471
+TCGA-55-7815	male	Alive	not reported	not reported			0		78.6	unknown	unknown	unknown	unknown	Adenocarcinoma, NOS	8140/3			unknown		3.3529
+TCGA-55-7816	female	Dead	white	not hispanic or latino		468.0	1	15.37	49.7	Stage IV	TX	NX	MX	Adenocarcinoma, NOS	8140/3			unknown		
+TCGA-55-7903	male	Alive	white	not hispanic or latino		567.0	0	18.63	64.4	Stage IA	T1b	N0	MX	Adenocarcinoma, NOS	8140/3	40.0		unknown		
+TCGA-55-7907	male	Dead	white	not hispanic or latino		343.0	1	11.27	78.0	unknown	unknown	unknown	unknown	Adenocarcinoma, NOS	8140/3	80.0		unknown		
+TCGA-55-7910	female	Alive	black or african american	not hispanic or latino		1040.0	0	34.17	50.1	Stage IIA	T2b	N0	M0	Adenocarcinoma, NOS	8140/3	15.0		unknown		
+TCGA-55-7911	female	Alive	white	not hispanic or latino		537.0	0	17.64	70.5	Stage IA	T1a	N0	MX	Adenocarcinoma, NOS	8140/3	96.0		unknown		
+TCGA-55-7913	female	Dead	black or african american	not hispanic or latino		561.0	1	18.43	62.4	unknown	unknown	unknown	unknown	Adenocarcinoma, NOS	8140/3	40.0		unknown		
+TCGA-55-7914	female	Dead	white	not hispanic or latino		187.0	1	6.14	71.5	Stage IIA	T1b	N1	MX	Adenocarcinoma, NOS	8140/3	5.0		unknown		
+TCGA-55-7994	male	Alive	white	not hispanic or latino		603.0	0	19.81	81.7	Stage IIB	T3	N0	MX	Adenocarcinoma, NOS	8140/3	28.0		unknown		
+TCGA-55-7995	female	Alive	white	not hispanic or latino			0		74.8	unknown	unknown	unknown	unknown	Adenocarcinoma, NOS	8140/3	60.0		unknown		
+TCGA-55-8085	male	Alive	white	not hispanic or latino		904.0	0	29.7	64.6	Stage IA	T1b	N0	M0	Papillary adenocarcinoma, NOS	8260/3			unknown		
+TCGA-55-8087	female	Alive	white	not hispanic or latino		462.0	0	15.18	59.3	Stage IB	T2a	N0	MX	Adenocarcinoma, NOS	8140/3			unknown		
+TCGA-55-8089	male	Dead	white	not hispanic or latino		702.0	1	23.06	56.3	Stage IA	T1a	N0	M0	Adenocarcinoma, NOS	8140/3	97.0		unknown		
+TCGA-55-8090	male	Dead	white	not hispanic or latino		598.0	1	19.65	81.5	unknown	unknown	unknown	unknown	Adenocarcinoma, NOS	8140/3			unknown		
+TCGA-55-8091	male	Alive	white	not hispanic or latino			0			unknown	unknown	unknown	unknown	Adenocarcinoma, NOS	8140/3			unknown		
+TCGA-55-8092	male	Dead	white	not hispanic or latino		154.0	1	5.06	75.6	Stage IIB	T3	N0	MX	Adenocarcinoma, NOS	8140/3	40.0		unknown		
+TCGA-55-8094	male	Alive	white	not hispanic or latino		541.0	0	17.77	51.8	Stage IV	T2b	N0	M1b	Adenocarcinoma, NOS	8140/3	70.0		unknown		
+TCGA-55-8096	female	Dead	white	not hispanic or latino		719.0	1	23.62	67.6	Stage IB	T2a	N0	MX	Adenocarcinoma, NOS	8140/3	104.0		unknown		
+TCGA-55-8097	female	Alive	white	not hispanic or latino		476.0	0	15.64	60.9	Stage IA	T1a	N0	MX	Adenocarcinoma, NOS	8140/3	35.0		unknown		
+TCGA-55-8203	female	Alive	white	not hispanic or latino		547.0	0	17.97	69.8	Stage IA	T1b	N0	M0	Adenocarcinoma, NOS	8140/3	50.0		unknown		
+TCGA-55-8204	female	Alive	white	not hispanic or latino		515.0	0	16.92	87.1	Stage IB	T2a	N0	MX	Adenocarcinoma, NOS	8140/3			unknown		
+TCGA-55-8205	female	Alive	white	not hispanic or latino			0			unknown	unknown	unknown	unknown	Basal cell carcinoma, NOS	8090/3	30.0		unknown		
+TCGA-55-8206	male	Alive	white	not hispanic or latino		888.0	0	29.17	56.6	Stage IA	T1b	N0	M0	Adenocarcinoma, NOS	8140/3			unknown		
+TCGA-55-8207	male	Alive	white	not hispanic or latino			0			unknown	unknown	unknown	unknown	Adenocarcinoma, NOS	8140/3			unknown		
+TCGA-55-8208	female	Alive	white	not hispanic or latino		674.0	0	22.14	73.1	Stage IA	T1b	N0	M0	Adenocarcinoma, NOS	8140/3	50.0		unknown		
+TCGA-55-8299	female	Dead	white	not hispanic or latino		469.0	1	15.41	61.9	Stage IA	T1b	N0	MX	Adenocarcinoma, NOS	8140/3	20.0		unknown		
+TCGA-55-8301	male	Alive	white	not hispanic or latino			0		59.6	unknown	unknown	unknown	unknown	Adenocarcinoma, NOS	8140/3	100.0		unknown		
+TCGA-55-8302	male	Alive	white	not reported		478.0	0	15.7	54.8	Stage IB	T2	N0	MX	Adenocarcinoma, NOS	8140/3	59.0		unknown		
+TCGA-55-8507	male	Alive	white	not hispanic or latino		418.0	0	13.73	53.1	Stage IA	T1a	N0	MX	Adenocarcinoma, NOS	8140/3	120.0		unknown		
+TCGA-55-8508	female	Alive	black or african american	not hispanic or latino		617.0	0	20.27	60.7	Stage IIA	T2a	N1	MX	Mucinous adenocarcinoma	8480/3			unknown		
+TCGA-55-8510	female	Alive	white	not hispanic or latino		539.0	0	17.71	55.9	Stage IB	T2a	N0	MX	Adenocarcinoma, NOS	8140/3			unknown		
+TCGA-55-8511	female	Alive	white	not hispanic or latino			0			unknown	unknown	unknown	unknown	Not Reported	Not Reported	58.0		unknown		
+TCGA-55-8512	male	Dead	white	not hispanic or latino		607.0	1	19.94	41.8	Stage IV	T1a	N1	M1b	Bronchiolo-alveolar carcinoma, non-mucinous	8252/3	19.0		unknown		
+TCGA-55-8513	female	Alive	white	not hispanic or latino			0		78.3	unknown	unknown	unknown	unknown	Mucinous adenocarcinoma	8480/3			unknown		
+TCGA-55-8514	female	Alive	black or african american	not hispanic or latino		520.0	0	17.08	70.1	Stage IB	T2a	N0	MX	Adenocarcinoma, NOS	8140/3	20.0		unknown		
+TCGA-55-8614	male	Alive	white	not hispanic or latino		536.0	0	17.61	76.5	Stage IB	T2a	N0	MX	Adenocarcinoma, NOS	8140/3	40.0		unknown		
+TCGA-55-8615	male	Alive	white	not hispanic or latino			0		68.5	unknown	unknown	unknown	unknown	Adenocarcinoma, NOS	8140/3	67.0		unknown		
+TCGA-55-8616	female	Alive	white	not hispanic or latino		48.0	0	1.58	58.1	Stage IB	T2a	N0	M0	Adenocarcinoma, NOS	8140/3			unknown		
+TCGA-55-8619	female	Alive	white	not hispanic or latino		416.0	0	13.67	72.9	Stage IIB	T3	N0	MX	Mucinous adenocarcinoma	8480/3			unknown		
+TCGA-55-8620	male	Dead	white	not hispanic or latino		375.0	1	12.32	60.5	Stage IV	T1a	N1	M1b	Adenocarcinoma, NOS	8140/3	154.0		unknown		
+TCGA-55-8621	female	Alive	white	not hispanic or latino			0		73.9	unknown	unknown	unknown	unknown	Clear cell carcinoma	8310/3	30.0		unknown		
+TCGA-55-A48X	female	Alive	white	not hispanic or latino			0		65.6	unknown	unknown	unknown	unknown	Not Reported	Not Reported	36.0		unknown		
+TCGA-55-A48Y	male	Alive	white	not hispanic or latino		630.0	0	20.7	69.5	Stage IIA	T2b	N0	M0	Adenocarcinoma, NOS	8140/3	50.0		unknown		
+TCGA-55-A48Z	female	Alive	white	not hispanic or latino			0		61.9	unknown	unknown	unknown	unknown	Adenocarcinoma with mixed subtypes	8255/3	40.0		unknown		
+TCGA-55-A490	male	Dead	white	not hispanic or latino		99.0	1	3.25	78.7	Stage IIA	T2b	N0	MX	Adenocarcinoma, NOS	8140/3	34.0		unknown		
+TCGA-55-A491	female	Alive	white	not hispanic or latino			0		80.7	unknown	unknown	unknown	unknown	Squamous cell carcinoma, NOS	8070/3	45.0		unknown		
+TCGA-55-A492	female	Alive	white	not hispanic or latino			0		68.7	Stage IIA	T3	N0	M0	Medullary carcinoma, NOS	8510/3	35.0		unknown		
+TCGA-55-A493	female	Alive	white	not hispanic or latino		28.0	0	0.92	54.8	Stage IB	T2a	N0	M0	Adenocarcinoma, NOS	8140/3	53.0		unknown		
+TCGA-55-A494	female	Alive	white	not hispanic or latino		481.0	0	15.8	61.7	Stage IB	T2a	N0	MX	Adenocarcinoma, NOS	8140/3	7.0		unknown		
+TCGA-55-A4DF	male	Dead	white	not hispanic or latino		440.0	1	14.45	88.9	Stage IA	T1a	N0	MX	Squamous cell carcinoma, NOS	8070/3	60.0		unknown		
+TCGA-55-A4DG	male	Alive	white	not hispanic or latino		608.0	0	19.97	71.3	Stage IA	T1b	N0	MX	Adenocarcinoma, NOS	8140/3	100.0		unknown		
+TCGA-55-A57B	female	Alive	black or african american	not hispanic or latino		546.0	0	17.94	80.6	Stage IA	T1b	N0	M0	Adenocarcinoma with mixed subtypes	8255/3			unknown		
+TCGA-62-8394	female	Dead	white	not hispanic or latino		139.0	1	4.57	65.0	Stage IIIB	T4	N2	M0	Adenocarcinoma with mixed subtypes	8255/3			unknown		
+TCGA-62-8395	female	Alive	white	not hispanic or latino			0		81.6	unknown	unknown	unknown	unknown	Adenocarcinoma with mixed subtypes	8255/3			unknown		
+TCGA-62-8397	female	Alive	white	not hispanic or latino		1289.0	0	42.35	70.4	Stage IIB	T3	N0	M0	Adenocarcinoma with mixed subtypes	8255/3			unknown		
+TCGA-62-8398	male	Dead	white	not hispanic or latino		444.0	1	14.59	55.3	Stage IIIA	T2	N2	M0	Adenocarcinoma with mixed subtypes	8255/3	20.0		unknown		
+TCGA-62-8399	male	Alive	white	not hispanic or latino		2696.0	0	88.57	62.8	Stage IIIA	T2	N2	M0	Adenocarcinoma with mixed subtypes	8255/3	70.0		unknown		
+TCGA-62-8402	female	Dead	white	not hispanic or latino		1498.0	1	49.21	73.7	Stage IIIA	T2	N2	M0	Adenocarcinoma with mixed subtypes	8255/3			unknown		
+TCGA-62-A46O	female	Dead	white	not hispanic or latino		1454.0	1	47.77	68.4	unknown	unknown	unknown	unknown	Adenocarcinoma, NOS	8140/3	48.0		unknown		
+TCGA-62-A46P	male	Dead	white	not hispanic or latino		594.0	1	19.51	66.4	unknown	unknown	unknown	unknown	Adenocarcinoma with mixed subtypes	8255/3	40.0		unknown		
+TCGA-62-A46R	female	Dead	white	not hispanic or latino		1725.0	1	56.67	54.9	Stage IB	T2	N0	M0	Adenocarcinoma with mixed subtypes	8255/3	25.0		unknown		
+TCGA-62-A46S	male	Dead	white	not hispanic or latino		1653.0	1	54.3	73.4	Stage IB	T2	N0	M0	Papillary adenocarcinoma, NOS	8260/3	40.0		unknown		
+TCGA-62-A46U	female	Alive	white	not hispanic or latino		2067.0	0	67.9	71.2	Stage IIB	T2	N1	M0	Adenocarcinoma with mixed subtypes	8255/3			unknown		
+TCGA-62-A46V	female	Alive	white	not hispanic or latino		2199.0	0	72.24	78.0	Stage IB	T2	N0	M0	Adenocarcinoma with mixed subtypes	8255/3			unknown		
+TCGA-62-A46Y	female	Dead	white	not hispanic or latino		414.0	1	13.6	71.8	unknown	unknown	unknown	unknown	Adenocarcinoma with mixed subtypes	8255/3			unknown		
+TCGA-62-A470	male	Dead	white	not hispanic or latino		1194.0	1	39.22	85.5	unknown	unknown	unknown	unknown	Acinar cell carcinoma	8550/3	30.0		unknown		
+TCGA-62-A471	male	Alive	white	not hispanic or latino		1246.0	0	40.93	64.9	Stage IIB	T2b	N1	M0	Adenocarcinoma, NOS	8140/3	30.0		unknown		
+TCGA-62-A472	male	Alive	white	not hispanic or latino			0		71.7	unknown	unknown	unknown	unknown	Adenocarcinoma, NOS	8140/3	60.0		unknown		
+TCGA-64-1676	male	Alive	white	not hispanic or latino		1728.0	0	56.77	58.7	Stage IA	T1a	N0	M0	Adenocarcinoma, NOS	8140/3	60.0		unknown		
+TCGA-64-1677	female	Dead	white	not hispanic or latino		628.0	1	20.63	79.0	unknown	unknown	unknown	unknown	Not Reported	Not Reported	50.0		unknown		
+TCGA-64-1678	female	Alive	white	not hispanic or latino		1189.0	0	39.06	71.0	unknown	T2b	N0	M0	Adenocarcinoma, NOS	8140/3	20.0		unknown		
+TCGA-64-1679	female	Alive	white	not hispanic or latino		2488.0	0	81.73	58.3	Stage IIIA	T1	N2	M0	Adenocarcinoma, NOS	8140/3	40.0		unknown		
+TCGA-64-1680	male	Alive	white	not hispanic or latino		1126.0	0	36.99	63.7	Stage IV	T2a	N2	M1	Adenocarcinoma with mixed subtypes	8255/3	50.0		unknown		
+TCGA-64-1681	female	Dead	white	not hispanic or latino		1167.0	1	38.34	61.7	Stage IA	T1	N0	M0	Adenocarcinoma, NOS	8140/3			unknown		
+TCGA-64-5774	male	Alive	white	not hispanic or latino			0		61.1	unknown	unknown	unknown	unknown	Not Reported	Not Reported	45.0		unknown		
+TCGA-64-5775	male	Dead	white	not hispanic or latino		62.0	1	2.04	71.3	Stage IIIA	T4	N0	M0	Adenocarcinoma, NOS	8140/3	110.0		unknown		
+TCGA-64-5778	male	Alive	white	not hispanic or latino		1305.0	0	42.87	60.0	Stage IB	T2	N0	M0	Bronchiolo-alveolar carcinoma, non-mucinous	8252/3	68.0		unknown		
+TCGA-64-5779	male	Alive	white	not hispanic or latino		864.0	0	28.38	61.1	Stage IIIA	T2	N2	M0	Acinar cell carcinoma	8550/3	40.0		unknown		
+TCGA-64-5815	male	Alive	white	not hispanic or latino		866.0	0	28.45	74.7	Stage IIB	T2	N1	M0	Adenocarcinoma with mixed subtypes	8255/3	30.0		unknown		
+TCGA-67-3770	female	Alive	white	not hispanic or latino		610.0	0	20.04	70.2	Stage IA	T1	N0	M0	Adenocarcinoma, NOS	8140/3			unknown		
+TCGA-67-3771	female	Alive	black or african american	not hispanic or latino		610.0	0	20.04	77.8	Stage IA	T1	N0	M0	Adenocarcinoma, NOS	8140/3			unknown		
+TCGA-67-3773	female	Alive	white	not hispanic or latino		427.0	0	14.03	84.1	Stage IB	T2	N0	M0	Adenocarcinoma, NOS	8140/3			unknown		
+TCGA-67-3774	female	Alive	white	not hispanic or latino		385.0	0	12.65	73.1	Stage IB	T2	N0	M0	Adenocarcinoma, NOS	8140/3			unknown		
+TCGA-67-4679	male	Alive	white	not hispanic or latino		448.0	0	14.72	69.0	unknown	T3	N0	M0	Adenocarcinoma, NOS	8140/3			unknown		
+TCGA-67-6215	female	Alive	white	not hispanic or latino		174.0	0	5.72	52.9	Stage IB	T2a	N0	M0	Adenocarcinoma, NOS	8140/3			unknown		
+TCGA-67-6217	female	Alive	white	not hispanic or latino			0			unknown	unknown	unknown	unknown	Not Reported	Not Reported			unknown		
+TCGA-69-7760	male	Alive	white	not hispanic or latino		202.0	0	6.64	73.3	Stage IIB	T3	N0	M0	Adenocarcinoma with mixed subtypes	8255/3			unknown		
+TCGA-69-7761	male	Alive	white	not hispanic or latino		186.0	0	6.11	85.0	Stage IB	T2a	N0	MX	Acinar cell carcinoma	8550/3	20.0		unknown		
+TCGA-69-7763	male	Alive	white	not hispanic or latino		690.0	0	22.67	69.3	Stage IA	T1b	N0	M0	Acinar cell carcinoma	8550/3	7.5		unknown		
+TCGA-69-7764	male	Alive	white	not hispanic or latino		414.0	0	13.6	75.8	Stage IA	T1b	N0	M0	Adenocarcinoma with mixed subtypes	8255/3	30.0		unknown		
+TCGA-69-7765	male	Alive	black or african american	not hispanic or latino		165.0	0	5.42	56.5	unknown	T4	N0	MX	Adenocarcinoma with mixed subtypes	8255/3			unknown		
+TCGA-69-7973	female	Alive	white	not hispanic or latino		230.0	0	7.56	42.0	Stage IB	T2a	N0	M0	Adenocarcinoma with mixed subtypes	8255/3	25.0		unknown		
+TCGA-69-7974	female	Alive	white	not hispanic or latino		184.0	0	6.04	54.8	Stage IIIA	T2a	N2	MX	Adenocarcinoma with mixed subtypes	8255/3	30.0		unknown		
+TCGA-69-7978	male	Alive	white	not hispanic or latino		134.0	0	4.4	59.6	Stage IIB	T2b	N1	MX	Adenocarcinoma with mixed subtypes	8255/3	80.0		unknown		
+TCGA-69-7979	female	Alive	white	not hispanic or latino		408.0	0	13.4	71.7	Stage IB	T2a	N0	MX	Acinar cell carcinoma	8550/3	28.0		unknown		
+TCGA-69-7980	female	Alive	white	not hispanic or latino		411.0	0	13.5	70.0	Stage I	T1b	N0	M0	Acinar cell carcinoma	8550/3	80.0		unknown		
+TCGA-69-8253	female	Alive	black or african american	not hispanic or latino		426.0	0	13.99	59.6	Stage IIA	T1a	N1	MX	Adenocarcinoma with mixed subtypes	8255/3	7.8		unknown		
+TCGA-69-8254	male	Alive	white	not hispanic or latino		409.0	0	13.44	85.2	unknown	T2b	unknown	unknown	Adenocarcinoma with mixed subtypes	8255/3	40.0		unknown		
+TCGA-69-8255	male	Alive	white	hispanic or latino		129.0	0	4.24	72.0	Stage IA	T1a	N0	M0	Solid carcinoma, NOS	8230/3	40.0		unknown		
+TCGA-69-A59K	female	Alive	black or african american	not hispanic or latino		591.0	0	19.42	60.5	Stage IIB	T3	N0	M0	Adenocarcinoma with mixed subtypes	8255/3	25.0		unknown		
+TCGA-71-6725	female	Alive	asian	not hispanic or latino			0		49.2	unknown	unknown	unknown	unknown	Papillary adenocarcinoma, NOS	8260/3			unknown		
+TCGA-71-8520	female	Dead	asian	not hispanic or latino		210.0	1	6.9	60.0	Stage IB	T2	N0	M0	Adenocarcinoma, NOS	8140/3			unknown		
+TCGA-73-4658	female	Dead	white	not hispanic or latino		1600.0	1	52.56	80.8	Stage IB	T2	N0	M0	Adenocarcinoma, NOS	8140/3	25.0		unknown		
+TCGA-73-4659	male	Dead	white	not hispanic or latino		711.0	1	23.36	66.4	Stage IIIA	T2	N2	M0	Adenocarcinoma, NOS	8140/3	12.0		unknown		
+TCGA-73-4662	female	Alive	white	not hispanic or latino			0			Stage I	T1c	N0	M0	Infiltrating duct carcinoma, NOS	8500/3	10.0		unknown		
+TCGA-73-4666	female	Alive	white	not hispanic or latino		800.0	0	26.28	52.2	Stage IV	T1	N0	M1	Adenocarcinoma, NOS	8140/3	10.0		unknown		
+TCGA-73-4668	female	Alive	american indian or alaska native	not hispanic or latino		467.0	0	15.34	66.4	Stage IIB	T2	N1	M0	Invasive micropapillary carcinoma	8507/3	55.0		unknown		
+TCGA-73-4670	female	Alive	white	not hispanic or latino		131.0	0	4.3	69.9	Stage IV	T2	N0	M1	Adenocarcinoma, NOS	8140/3	30.0		unknown		
+TCGA-73-4675	male	Dead	white	not hispanic or latino		922.0	1	30.29	59.2	Stage IIIA	T3	N1	M0	Adenocarcinoma, NOS	8140/3	41.0		unknown		
+TCGA-73-4676	male	Dead	white	not hispanic or latino		281.0	1	9.23	45.8	Stage IIA	T2a	N1	M0	Adenocarcinoma, NOS	8140/3	48.0		unknown		
+TCGA-73-4677	male	Dead	white	not hispanic or latino		38.0	1	1.25	75.0	unknown	T2a	N0	M0	Adenocarcinoma, NOS	8140/3			unknown		
+TCGA-73-7498	female	Alive	white	not hispanic or latino		1189.0	0	39.06	58.9	Stage IA	T1b	N0	M0	Bronchiolo-alveolar carcinoma, non-mucinous	8252/3	28.0		unknown		
+TCGA-73-7499	female	Dead	white	not hispanic or latino		1531.0	1	50.3	81.3	Stage IB	T2a	N0	M0	Adenocarcinoma with mixed subtypes	8255/3			unknown		
+TCGA-73-A9RS	male	Dead	black or african american	not hispanic or latino		340.0	1	11.17	41.5	Stage IIB	T3	N0	M0	Mucinous adenocarcinoma	8480/3	11.0		unknown		
+TCGA-75-5122	male	Dead	not reported	not reported			0			Stage IB	T2	N0	M0	Adenocarcinoma, NOS	8140/3	20.0		unknown		
+TCGA-75-5125	male	Dead	not reported	not reported		2027.0	1	66.59		unknown	unknown	unknown	unknown	Not Reported	Not Reported	25.0		unknown		
+TCGA-75-5126	female	Alive	not reported	not reported			0			Stage IIIA	T3	N2	M0	Papillary adenocarcinoma, NOS	8260/3	40.0		unknown		
+TCGA-75-5146	male	Alive	not reported	not reported		2368.0	0	77.79		Stage IB	T2	N0	M0	Bronchiolo-alveolar carcinoma, non-mucinous	8252/3			unknown		
+TCGA-75-5147	female	Alive	not reported	not reported		1333.0	0	43.79		Stage IB	T2	N0	M0	Bronchiolo-alveolar carcinoma, non-mucinous	8252/3			unknown		
+TCGA-75-6203	female	Alive	not reported	not reported			0			Stage IIIA	T2	N2	M0	Adenocarcinoma, NOS	8140/3			unknown		
+TCGA-75-6205	female	Dead	not reported	not reported			0			unknown	unknown	unknown	unknown	Not Reported	Not Reported			unknown		
+TCGA-75-6206	male	Alive	not reported	not reported		2590.0	0	85.09		Stage IB	T2	N0	M0	Adenocarcinoma, NOS	8140/3	20.0		unknown		
+TCGA-75-6207	male	Dead	not reported	not reported			0			Stage IIIA	T2	N2	M0	Adenocarcinoma, NOS	8140/3	10.0		unknown		
+TCGA-75-6211	female	Dead	not reported	not reported			0			Stage IB	T2	N0	M0	Adenocarcinoma, NOS	8140/3	34.0		unknown		
+TCGA-75-6212	female	Dead	not reported	not reported		1516.0	1	49.8		unknown	unknown	unknown	unknown	Not Reported	Not Reported			unknown		
+TCGA-75-6214	female	Dead	not reported	not reported		1115.0	1	36.63		unknown	unknown	unknown	unknown	Adenocarcinoma, NOS	8140/3	40.0		unknown		
+TCGA-75-7025	male	Alive	not reported	not reported			0			unknown	unknown	unknown	unknown	Adenocarcinoma, NOS	8140/3			unknown		
+TCGA-75-7027	male	Alive	not reported	not reported		3059.0	0	100.49		Stage IB	T2	N0	M0	Adenocarcinoma, NOS	8140/3	50.0		unknown		
+TCGA-75-7030	male	Alive	not reported	not reported			0			Stage IIB	T3	N0	M0	Adenocarcinoma, NOS	8140/3			unknown		
+TCGA-75-7031	female	Alive	not reported	not reported			0			Stage IB	T2	N0	M0	Adenocarcinoma, NOS	8140/3	5.0		unknown		
+TCGA-78-7145	female	Dead	white	not reported		826.0	1	27.14	52.2	Stage IV	T4	N1	M1	Adenocarcinoma, NOS	8140/3	25.0		unknown		
+TCGA-78-7147	female	Dead	white	not reported		586.0	1	19.25	67.9	Stage IIB	T2	N1	M0	Adenocarcinoma, NOS	8140/3	50.0		unknown		
+TCGA-78-7148	male	Dead	white	not reported		626.0	1	20.57	71.2	Stage IIB	T2	N1	M0	Adenocarcinoma with mixed subtypes	8255/3	57.0		unknown		
+TCGA-78-7149	male	Alive	white	not reported		3940.0	0	129.43	72.0	Stage IIIB	T4	N0	M0	Adenocarcinoma with mixed subtypes	8255/3	115.0		unknown		
+TCGA-78-7150	male	Dead	white	not reported		666.0	1	21.88	59.9	Stage IIB	T2	N1	M0	Adenocarcinoma, NOS	8140/3	37.0		unknown		
+TCGA-78-7152	male	Dead	white	not reported		1215.0	1	39.91	68.4	unknown	unknown	unknown	unknown	Adenocarcinoma with mixed subtypes	8255/3	40.0		unknown		
+TCGA-78-7153	female	Alive	white	not reported		3635.0	0	119.42	65.5	Stage IB	T2	N0	M0	Adenocarcinoma with mixed subtypes	8255/3	20.0		unknown		
+TCGA-78-7155	male	Dead	white	not reported		1171.0	1	38.47	68.6	unknown	unknown	unknown	unknown	Not Reported	Not Reported	48.0		unknown		
+TCGA-78-7156	male	Dead	white	not reported		976.0	1	32.06	62.2	Stage IV	T4	N1	M1	Adenocarcinoma with mixed subtypes	8255/3	84.0		unknown		
+TCGA-78-7158	female	Dead	white	not reported		179.0	1	5.88	59.5	Stage IIIB	T4	N2	M0	Adenocarcinoma with mixed subtypes	8255/3	14.0		unknown		5.7353
+TCGA-78-7159	female	Alive	white	not reported		1974.0	0	64.85	60.9	Stage IA	T1	NX	M0	Adenocarcinoma with mixed subtypes	8255/3	21.0		unknown		
+TCGA-78-7160	male	Dead	white	not reported		697.0	1	22.9	61.3	Stage IV	T4	N2	M1	Adenocarcinoma with mixed subtypes	8255/3	43.8		unknown		
+TCGA-78-7161	female	Dead	white	not reported		291.0	1	9.56	69.3	Stage IIB	T3	N0	M0	Adenocarcinoma with mixed subtypes	8255/3	27.8		unknown		
+TCGA-78-7162	male	Dead	white	not reported		3169.0	1	104.11	81.6	unknown	unknown	unknown	unknown	Not Reported	Not Reported	12.0		unknown		
+TCGA-78-7163	male	Alive	white	not reported		7248.0	0	238.11	60.2	Stage IB	T2	N0	M0	Adenocarcinoma, NOS	8140/3	41.0		unknown		
+TCGA-78-7166	male	Dead	white	not reported		258.0	1	8.48		unknown	unknown	unknown	unknown	Basal cell carcinoma, NOS	8090/3	38.0		unknown		
+TCGA-78-7220	female	Dead	white	not reported		807.0	1	26.51	54.8	unknown	unknown	unknown	unknown	Not Reported	Not Reported	35.0		unknown		
+TCGA-78-7535	male	Dead	white	not reported		949.0	1	31.18	47.6	unknown	unknown	unknown	unknown	Not Reported	Not Reported	35.0		unknown		
+TCGA-78-7537	male	Dead	not reported	not reported		1622.0	1	53.29	72.9	Stage IB	T2	N0	M0	Adenocarcinoma with mixed subtypes	8255/3	20.0		unknown		
+TCGA-78-7539	female	Alive	white	not reported			0		77.0	unknown	unknown	unknown	unknown	Adenocarcinoma with mixed subtypes	8255/3	2.2		unknown		
+TCGA-78-7540	female	Dead	white	not reported		1197.0	1	39.32	66.9	Stage IB	T2	N0	M0	Bronchio-alveolar carcinoma, mucinous	8253/3			unknown		
+TCGA-78-7542	male	Dead	white	not reported		321.0	1	10.55	56.8	Stage IB	T2	N0	M0	Adenocarcinoma, NOS	8140/3	60.0		unknown		
+TCGA-78-7633	male	Dead	white	not reported		1528.0	1	50.2	67.7	Stage IB	T2	N0	M0	Adenocarcinoma with mixed subtypes	8255/3	94.0		unknown		
+TCGA-78-8640	male	Alive	not reported	not reported		7062.0	0	232.0	59.8	Stage IIA	T1	N1	M0	Adenocarcinoma, NOS	8140/3	45.0		unknown		
+TCGA-78-8648	female	Dead	not reported	not reported		1209.0	1	39.72	58.7	Stage IIB	T3	N0	M0	Adenocarcinoma, NOS	8140/3	45.0		unknown		
+TCGA-78-8655	female	Alive	not reported	not reported		2360.0	0	77.53	77.7	Stage IA	T1	N0	M0	Adenocarcinoma with mixed subtypes	8255/3	10.0		unknown		
+TCGA-78-8660	male	Dead	not reported	not reported		321.0	1	10.55	70.3	unknown	unknown	unknown	unknown	Adenocarcinoma, NOS	8140/3	11.0		unknown		
+TCGA-78-8662	female	Dead	not reported	not reported		3361.0	1	110.41	53.6	Stage IB	T2	N0	M0	Adenocarcinoma, NOS	8140/3	45.0		unknown		
+TCGA-80-5607	female	Alive	not reported	not reported			0			Stage IIB	T2	N1	M0	Adenocarcinoma, NOS	8140/3	15.0		unknown		
+TCGA-80-5608	female	Alive	not reported	not reported		2832.0	0	93.04		Stage IA	T1	N0	M0	Adenocarcinoma, NOS	8140/3	26.0		unknown		
+TCGA-80-5611	male	Alive	not reported	not reported			0			unknown	unknown	unknown	unknown	Not Reported	Not Reported	60.0		unknown		
+TCGA-83-5908	female	Alive	white	not hispanic or latino		824.0	0	27.07	59.6	Stage IA	T1	N0	M0	Adenocarcinoma, NOS	8140/3	69.0		unknown		
+TCGA-86-6562	male	Dead	white	not hispanic or latino		376.0	1	12.35	52.8	Stage IIA	T2a	N1	M0	Adenocarcinoma, NOS	8140/3			unknown		
+TCGA-86-6851	female	Alive	white	not hispanic or latino		179.0	0	5.88	73.4	Stage IIA	T1b	N1	M0	Adenocarcinoma with mixed subtypes	8255/3	52.0		unknown		
+TCGA-86-7701	male	Alive	white	not hispanic or latino		947.0	0	31.11	66.3	Stage IV	T2	N0	M1	Adenocarcinoma, NOS	8140/3			unknown		
+TCGA-86-7711	male	Dead	white	hispanic or latino		1046.0	1	34.36	70.4	Stage IIA	T2a	N1	M0	Adenocarcinoma, NOS	8140/3	50.0		unknown		
+TCGA-86-7713	male	Alive	white	not hispanic or latino		1157.0	0	38.01	70.6	Stage IIA	T2b	N0	M0	Adenocarcinoma, NOS	8140/3			unknown		
+TCGA-86-7714	female	Dead	black or african american	not hispanic or latino		625.0	1	20.53	61.9	Stage IIIA	T1b	N2	M0	Adenocarcinoma with mixed subtypes	8255/3	43.0		unknown		
+TCGA-86-7953	female	Alive	white	not hispanic or latino		997.0	0	32.75	69.3	Stage IA	T1b	N0	M0	Bronchiolo-alveolar adenocarcinoma, NOS	8250/3			unknown		
+TCGA-86-7954	female	Alive	white	not hispanic or latino		605.0	0	19.88	68.6	Stage IB	T2	N0	M0	Bronchiolo-alveolar adenocarcinoma, NOS	8250/3	8.0		unknown		
+TCGA-86-7955	male	Alive	white	not hispanic or latino			0		64.6	unknown	unknown	unknown	unknown	Adenocarcinoma, NOS	8140/3			unknown		
+TCGA-86-8054	male	Alive	white	not hispanic or latino		1148.0	0	37.71	61.8	Stage IIB	T2b	N1	M0	Acinar cell carcinoma	8550/3	9.0		unknown		
+TCGA-86-8055	male	Dead	white	not hispanic or latino		124.0	1	4.07	79.7	Stage IIA	T2a	N1	M0	Adenocarcinoma, NOS	8140/3	60.0		unknown		
+TCGA-86-8056	female	Alive	white	not hispanic or latino		139.0	0	4.57	64.0	Stage IIIA	T4	N0	M0	Adenocarcinoma with mixed subtypes	8255/3	36.0		unknown		
+TCGA-86-8073	male	Alive	white	not hispanic or latino		740.0	0	24.31	58.1	Stage IB	T2a	N0	M0	Bronchiolo-alveolar adenocarcinoma, NOS	8250/3	40.0		unknown		
+TCGA-86-8074	female	Alive	white	not hispanic or latino		24.0	0	0.79	62.6	Stage IIA	T1b	N1	M0	Papillary adenocarcinoma, NOS	8260/3	40.0		unknown		
+TCGA-86-8075	female	Dead	white	not hispanic or latino		694.0	1	22.8	66.8	Stage IB	T2	N0	M0	Adenocarcinoma, NOS	8140/3			unknown		
+TCGA-86-8076	male	Alive	white	not hispanic or latino		993.0	0	32.62	42.7	Stage IA	T1	N0	M0	Papillary adenocarcinoma, NOS	8260/3			unknown		
+TCGA-86-8278	female	Alive	white	not hispanic or latino		944.0	0	31.01	63.3	Stage IIB	T2	N1	M0	Mucinous adenocarcinoma	8480/3			unknown		
+TCGA-86-8279	male	Alive	white	not hispanic or latino		949.0	0	31.18	46.6	Stage IIA	T2a	N1	M0	Adenocarcinoma, NOS	8140/3			unknown		
+TCGA-86-8280	female	Alive	white	not hispanic or latino		701.0	0	23.03	54.7	Stage IIA	T2b	N0	M0	Bronchiolo-alveolar carcinoma, non-mucinous	8252/3			unknown		
+TCGA-86-8281	male	Alive	white	not hispanic or latino			0		75.0	Stage IA	T1	NX	M0	Adenocarcinoma, NOS	8140/3	30.0		unknown		
+TCGA-86-8359	male	Dead	white	not hispanic or latino		444.0	1	14.59	52.3	Stage IIIA	T3	N2	M0	Adenocarcinoma, NOS	8140/3	36.0		unknown		
+TCGA-86-8585	male	Alive	white	not hispanic or latino		353.0	0	11.6	57.3	Stage IB	T2a	N0	M0	Solid carcinoma, NOS	8230/3			unknown		
+TCGA-86-8668	female	Alive	white	not hispanic or latino		423.0	0	13.9	61.3	Stage IA	T1b	N0	M0	Bronchio-alveolar carcinoma, mucinous	8253/3			unknown		
+TCGA-86-8669	male	Alive	white	not hispanic or latino		938.0	0	30.81	64.2	Stage IA	T1b	N0	M0	Adenocarcinoma, NOS	8140/3	47.0		unknown		
+TCGA-86-8671	female	Alive	white	not hispanic or latino		839.0	0	27.56	72.4	Stage IIB	T2b	N1	M0	Papillary adenocarcinoma, NOS	8260/3			unknown		
+TCGA-86-8672	male	Dead	white	not hispanic or latino		19.0	1	0.62	59.4	Stage IIB	T3	N0	M0	Adenocarcinoma, NOS	8140/3			unknown		
+TCGA-86-8674	male	Alive	white	not hispanic or latino		806.0	0	26.48	50.6	Stage IIA	T2a	N1	M0	Papillary adenocarcinoma, NOS	8260/3	37.5		unknown		
+TCGA-86-A456	female	Alive	asian	not hispanic or latino		896.0	0	29.43	78.1	Stage IA	T1a	N0	M0	Papillary adenocarcinoma, NOS	8260/3			unknown		
+TCGA-86-A4D0	male	Dead	white	not hispanic or latino		116.0	1	3.81	48.2	Stage IIA	T2b	N0	M0	Adenocarcinoma, NOS	8140/3			unknown		6.1471
+TCGA-86-A4JF	male	Dead	white	not hispanic or latino		737.0	1	24.21	57.3	unknown	unknown	unknown	unknown	Adenocarcinoma, NOS	8140/3			unknown		
+TCGA-86-A4P7	female	Alive	white	not hispanic or latino		415.0	0	13.63	63.9	Stage IB	T2a	N0	M0	Adenocarcinoma, NOS	8140/3			unknown		
+TCGA-86-A4P8	female	Alive	white	not hispanic or latino		805.0	0	26.45	59.5	Stage IIIA	T1b	N2	MX	Adenocarcinoma, NOS	8140/3			unknown		
+TCGA-91-6828	male	Alive	white	not hispanic or latino		323.0	0	10.61	70.8	Stage IA	T1a	N0	M0	Adenocarcinoma, NOS	8140/3			unknown		
+TCGA-91-6829	male	Dead	white	not hispanic or latino		1258.0	1	41.33	79.0	Stage IB	T2	N0	MX	Bronchiolo-alveolar carcinoma, non-mucinous	8252/3	94.5		unknown		
+TCGA-91-6830	female	Alive	white	not hispanic or latino		60.0	0	1.97	65.5	Stage IIA	T1	N1	MX	Adenocarcinoma, NOS	8140/3	12.0		unknown		
+TCGA-91-6831	male	Alive	white	not hispanic or latino		310.0	0	10.18	66.9	Stage IB	T2	N0	MX	Adenocarcinoma, NOS	8140/3			unknown		
+TCGA-91-6835	female	Alive	white	not hispanic or latino		79.0	0	2.6	81.8	Stage IA	T1	N0	M0	Adenocarcinoma, NOS	8140/3	25.0		unknown		
+TCGA-91-6836	female	Alive	white	not hispanic or latino			0		52.6	unknown	unknown	unknown	unknown	Papillary adenocarcinoma, NOS	8260/3	50.0		unknown		
+TCGA-91-6840	female	Alive	white	not hispanic or latino		372.0	0	12.22	59.8	Stage IA	T1b	N0	M0	Adenocarcinoma, NOS	8140/3	50.0		unknown		
+TCGA-91-6847	female	Alive	white	not hispanic or latino			0		64.7	unknown	unknown	unknown	unknown	Adenocarcinoma, NOS	8140/3			unknown		
+TCGA-91-6848	male	Alive	white	not hispanic or latino		224.0	0	7.36	59.8	Stage IIIA	T2	N2	MX	Adenocarcinoma, NOS	8140/3			unknown		
+TCGA-91-6849	female	Alive	black or african american	not hispanic or latino		35.0	0	1.15	75.8	Stage IIIA	T2	N2	MX	Adenocarcinoma, NOS	8140/3	30.0		unknown		
+TCGA-91-7771	male	Alive	white	not hispanic or latino		492.0	0	16.16	62.8	Stage IIB	T3	N0	MX	Adenocarcinoma, NOS	8140/3	75.0		unknown		
+TCGA-91-8496	female	Alive	white	not hispanic or latino		505.0	0	16.59	64.0	Stage IB	T2a	NX	MX	Bronchiolo-alveolar carcinoma, non-mucinous	8252/3			unknown		
+TCGA-91-8497	female	Dead	white	not hispanic or latino		434.0	1	14.26	75.7	Stage IA	T1a	N0	MX	Adenocarcinoma, NOS	8140/3			unknown		
+TCGA-91-8499	female	Alive	white	not hispanic or latino		36.0	0	1.18	76.3	Stage IA	T1b	N0	MX	Adenocarcinoma, NOS	8140/3	90.0		unknown		
+TCGA-91-A4BC	male	Alive	white	not hispanic or latino		44.0	0	1.45	59.0	Stage IIA	T2b	N0	MX	Adenocarcinoma, NOS	8140/3	30.0		unknown		
+TCGA-91-A4BD	male	Alive	white	not hispanic or latino		603.0	0	19.81	78.1	Stage IIA	T1b	N1	MX	Adenocarcinoma, NOS	8140/3			unknown		
+TCGA-93-7347	female	Alive	white	not hispanic or latino		683.0	0	22.44	76.5	Stage IA	T1a	N0	MX	Adenocarcinoma with mixed subtypes	8255/3	11.0		unknown		
+TCGA-93-7348	female	Alive	white	not hispanic or latino		531.0	0	17.44	75.2	Stage IA	T1a	N0	MX	Adenocarcinoma, NOS	8140/3	42.0		unknown		
+TCGA-93-8067	male	Alive	asian	not hispanic or latino		186.0	0	6.11	77.9	Stage IB	T2a	N0	MX	Adenocarcinoma, NOS	8140/3	20.0		unknown		
+TCGA-93-A4JN	male	Alive	white	not hispanic or latino		718.0	0	23.59	71.9	Stage IV	T2a	N0	M1a	Acinar cell carcinoma	8550/3	40.0		unknown		
+TCGA-93-A4JO	male	Dead	white	not hispanic or latino		33.0	1	1.08	70.9	Stage IA	T1a	N0	MX	Adenocarcinoma with mixed subtypes	8255/3	50.0		unknown		
+TCGA-93-A4JP	male	Alive	asian	not hispanic or latino		578.0	0	18.99	64.7	Stage IV	TX	NX	M1b	Papillary adenocarcinoma, NOS	8260/3			unknown		
+TCGA-93-A4JQ	male	Alive	white	not hispanic or latino		526.0	0	17.28	49.1	Stage IA	T1b	N0	MX	Acinar cell carcinoma	8550/3			unknown		
+TCGA-95-7039	female	Alive	white	not hispanic or latino			0		58.1	unknown	unknown	unknown	unknown	Adenocarcinoma, NOS	8140/3	34.0		unknown		
+TCGA-95-7043	female	Dead	white	not hispanic or latino		503.0	1	16.52		unknown	T1a	NX	unknown	Adenocarcinoma with mixed subtypes	8255/3	40.0		unknown		
+TCGA-95-7562	male	Dead	black or african american	not hispanic or latino		87.0	1	2.86	71.2	Stage IIA	T2a	N1	M0	Adenocarcinoma, NOS	8140/3	10.0		unknown		
+TCGA-95-7567	male	Alive	white	not hispanic or latino		568.0	0	18.66	61.4	Stage IIB	T2b	N1	M0	Adenocarcinoma with mixed subtypes	8255/3			unknown		
+TCGA-95-7944	male	Alive	white	not hispanic or latino		377.0	0	12.39	71.2	Stage IA	T1a	N0	M0	Adenocarcinoma, NOS	8140/3	50.0		unknown		
+TCGA-95-7947	male	Alive	white	not hispanic or latino		477.0	0	15.67	67.8	Stage IA	T1a	N0	M0	Adenocarcinoma with mixed subtypes	8255/3	100.0		unknown		
+TCGA-95-7948	female	Alive	white	not hispanic or latino			0			unknown	unknown	unknown	unknown	Hodgkin lymphoma, NOS	9650/3	0.15		unknown		
+TCGA-95-8039	male	Alive	white	not hispanic or latino		830.0	0	27.27	72.1	Stage IA	T1	N0	MX	Acinar cell carcinoma	8550/3			unknown		
+TCGA-95-8494	male	Alive	white	not hispanic or latino		84.0	0	2.76	67.8	Stage IIA	T2a	N1	M0	Adenocarcinoma, NOS	8140/3			unknown		
+TCGA-95-A4VK	female	Alive	white	not hispanic or latino		651.0	0	21.39	74.0	Stage IIIA	T2b	N2	M0	Adenocarcinoma with mixed subtypes	8255/3	45.0		unknown		
+TCGA-95-A4VN	female	Alive	white	not hispanic or latino			0			unknown	unknown	unknown	unknown	Not Reported	Not Reported	42.0		unknown		
+TCGA-95-A4VP	female	Alive	white	not reported			0		66.7	unknown	unknown	unknown	unknown	Acinar cell carcinoma	8550/3	20.0		unknown		
+TCGA-97-7546	female	Alive	white	not hispanic or latino		1285.0	0	42.21	76.4	Stage IA	T1	N0	MX	Acinar cell carcinoma	8550/3	25.0		unknown		
+TCGA-97-7547	female	Alive	white	not hispanic or latino		1965.0	0	64.55	67.7	Stage IB	T2	N0	MX	Papillary adenocarcinoma, NOS	8260/3	30.0		unknown		
+TCGA-97-7552	male	Alive	white	not hispanic or latino		1932.0	0	63.47	70.0	Stage IB	T2	N0	MX	Bronchio-alveolar carcinoma, mucinous	8253/3	40.0		unknown		
+TCGA-97-7553	female	Alive	white	not hispanic or latino		1870.0	0	61.43	58.9	Stage IA	T1	N0	MX	Bronchiolo-alveolar carcinoma, non-mucinous	8252/3	20.0		unknown		
+TCGA-97-7554	female	Alive	white	not hispanic or latino		775.0	0	25.46	83.0	Stage IIIA	T2a	N2	M0	Papillary adenocarcinoma, NOS	8260/3	30.0		unknown		
+TCGA-97-7937	male	Alive	white	not hispanic or latino		564.0	0	18.53	65.5	Stage IB	T2a	N0	MX	Invasive micropapillary carcinoma	8507/3	35.0		unknown		
+TCGA-97-7938	female	Dead	white	not hispanic or latino		18.0	1	0.59	76.6	Stage IA	T1a	N0	MX	Bronchiolo-alveolar carcinoma, non-mucinous	8252/3	40.0		unknown		
+TCGA-97-7941	female	Alive	white	not hispanic or latino		484.0	0	15.9	72.0	Stage IA	T1b	N0	MX	Acinar cell carcinoma	8550/3	22.5		unknown		
+TCGA-97-8171	male	Alive	asian	not hispanic or latino		568.0	0	18.66	81.1	Stage IV	T2a	N2	M1a	Papillary adenocarcinoma, NOS	8260/3	65.0		unknown		
+TCGA-97-8172	female	Alive	white	not hispanic or latino		545.0	0	17.9	75.1	Stage IB	T2a	N0	M0	Acinar cell carcinoma	8550/3	20.0		unknown		
+TCGA-97-8174	male	Dead	white	not hispanic or latino		164.0	1	5.39	67.7	Stage IIA	T2b	N0	M0	Papillary adenocarcinoma, NOS	8260/3	40.0		unknown		
+TCGA-97-8175	female	Alive	white	not hispanic or latino		551.0	0	18.1	55.3	Stage IB	T2a	N0	M0	Solid carcinoma, NOS	8230/3			unknown		
+TCGA-97-8176	male	Dead	white	not hispanic or latino		468.0	1	15.37	63.4	Stage IIIA	T3	N1	M0	Acinar cell carcinoma	8550/3	40.0		unknown		
+TCGA-97-8177	female	Alive	white	not hispanic or latino		499.0	0	16.39	59.3	Stage IB	T2a	N0	M0	Adenocarcinoma with mixed subtypes	8255/3			unknown		
+TCGA-97-8179	male	Alive	white	not hispanic or latino		435.0	0	14.29	72.0	Stage IA	T1a	N0	M0	Acinar cell carcinoma	8550/3	60.0		unknown		
+TCGA-97-8547	female	Alive	not reported	not reported		657.0	0	21.58	78.9	Stage IIIA	T2a	N2	MX	Acinar cell carcinoma	8550/3			unknown		
+TCGA-97-8552	female	Alive	white	not hispanic or latino		626.0	0	20.57	55.7	Stage I	T1a	N0	MX	Bronchiolo-alveolar carcinoma, non-mucinous	8252/3			unknown		
+TCGA-97-A4LX	male	Alive	white	not hispanic or latino		614.0	0	20.17	81.9	Stage IB	T2a	N0	M0	Adenocarcinoma with mixed subtypes	8255/3	120.0		unknown		
+TCGA-97-A4M0	female	Alive	white	not hispanic or latino		652.0	0	21.42	60.8	Stage IB	T2a	N0	M0	Adenocarcinoma with mixed subtypes	8255/3	34.0		unknown		
+TCGA-97-A4M1	female	Alive	white	not hispanic or latino		601.0	0	19.74	52.8	Stage IA	T1a	N0	M0	Adenocarcinoma with mixed subtypes	8255/3	3.0		unknown		
+TCGA-97-A4M3	female	Alive	white	not hispanic or latino			0			unknown	unknown	unknown	unknown	Basal cell carcinoma, NOS	8090/3	37.5		unknown		
+TCGA-97-A4M5	male	Alive	white	not hispanic or latino		634.0	0	20.83	84.0	Stage IA	T1b	N0	M0	Adenocarcinoma with mixed subtypes	8255/3	6.0		unknown		
+TCGA-97-A4M6	female	Alive	white	not hispanic or latino		568.0	0	18.66	45.9	Stage IA	T1a	N0	M0	Adenocarcinoma with mixed subtypes	8255/3			unknown		
+TCGA-97-A4M7	male	Alive	white	not hispanic or latino			0		74.1	unknown	unknown	unknown	unknown	Adenocarcinoma with mixed subtypes	8255/3	40.0		unknown		
+TCGA-99-7458	female	Alive	white	not hispanic or latino		747.0	0	24.54	74.9	Stage IIIA	T4	N0	M0	Bronchiolo-alveolar carcinoma, non-mucinous	8252/3	52.0		unknown		
+TCGA-99-8025	female	Alive	black or african american	not hispanic or latino		1060.0	0	34.82	72.9	Stage IIIA	T3	N2	M0	Adenocarcinoma, NOS	8140/3	20.0		unknown		
+TCGA-99-8028	female	Alive	black or african american	not hispanic or latino		1118.0	0	36.73	50.8	Stage IA	T1a	N0	M0	Adenocarcinoma, NOS	8140/3	30.0		unknown		
+TCGA-99-8032	male	Alive	white	not hispanic or latino		44.0	0	1.45	62.0	Stage IA	T1a	N0	M0	Adenocarcinoma, NOS	8140/3	90.0		unknown		
+TCGA-99-8033	female	Dead	white	not hispanic or latino		656.0	1	21.55	74.9	Stage IV	TX	NX	M1	Adenocarcinoma, NOS	8140/3			unknown		
+TCGA-99-AA5R	female	Alive	black or african american	not hispanic or latino		658.0	0	21.62	70.6	Stage IA	T1a	N0	M0	Adenocarcinoma, NOS	8140/3	46.0		unknown		
+TCGA-J2-8192	female	Alive	white	not hispanic or latino		739.0	0	24.28	65.4	Stage IIA	T2a	N1	MX	Adenocarcinoma, NOS	8140/3			unknown		
+TCGA-J2-8194	female	Alive	white	not hispanic or latino			0		70.9	unknown	unknown	unknown	unknown	Adenocarcinoma with mixed subtypes	8255/3	20.0		unknown		
+TCGA-J2-A4AD	female	Dead	white	not hispanic or latino		550.0	1	18.07	62.8	unknown	unknown	unknown	unknown	Adenocarcinoma, NOS	8140/3	120.0		unknown		
+TCGA-J2-A4AE	female	Alive	white	not hispanic or latino		1079.0	0	35.45	77.1	Stage IA	T1a	N0	MX	Adenocarcinoma, NOS	8140/3			unknown		
+TCGA-J2-A4AG	female	Alive	white	not hispanic or latino		988.0	0	32.46	66.3	Stage IA	T1b	N0	MX	Adenocarcinoma, NOS	8140/3	25.0		unknown		
+TCGA-L4-A4E5	female	Alive	white	not hispanic or latino		578.0	0	18.99	48.4	Stage I	T1	N0	M0	Adenocarcinoma, NOS	8140/3	33.0		unknown		
+TCGA-L4-A4E6	male	Alive	white	not hispanic or latino		435.0	0	14.29	67.4	Stage IA	T1	N0	M0	Adenocarcinoma, NOS	8140/3	30.0		unknown		
+TCGA-L9-A443	female	Dead	white	not hispanic or latino		193.0	1	6.34		unknown	unknown	unknown	unknown	Not Reported	Not Reported	90.0		unknown		
+TCGA-L9-A444	female	Alive	white	not hispanic or latino			0		56.4	Stage IB	T1b	NX	MX	Endometrioid adenocarcinoma, NOS	8380/3	10.0		unknown		
+TCGA-L9-A50W	male	Dead	black or african american	not hispanic or latino		442.0	1	14.52	75.1	Stage IIA	T1b	N1	MX	Adenocarcinoma with mixed subtypes	8255/3	19.0		unknown		
+TCGA-L9-A5IP	female	Dead	black or african american	not hispanic or latino		58.0	1	1.91	40.2	Stage IV	T3	N2	M1b	Adenocarcinoma, NOS	8140/3			unknown		
+TCGA-L9-A743	male	Alive	black or african american	not hispanic or latino			0		56.7	Stage IIA	T1c	NX	MX	Adenocarcinoma, NOS	8140/3	40.5		unknown		
+TCGA-L9-A7SV	male	Alive	black or african american	not hispanic or latino		565.0	0	18.56	69.3	Stage IIA	T2a	N1	M0	Adenocarcinoma, NOS	8140/3	93.0		unknown		
+TCGA-L9-A8F4	female	Alive	black or african american	not hispanic or latino		476.0	0	15.64	64.7	Stage IB	T2a	N0	MX	Adenocarcinoma, NOS	8140/3	14.0		unknown		
+TCGA-MN-A4N1	male	Alive	black or african american	not hispanic or latino			0		52.5	Stage II	T2	N0	MX	Squamous cell carcinoma, NOS	8070/3			unknown		
+TCGA-MN-A4N4	male	Alive	white	not hispanic or latino		1175.0	0	38.6	57.2	Stage IA	T1b	N0	M0	Adenocarcinoma, NOS	8140/3			unknown		
+TCGA-MN-A4N5	male	Alive	white	not hispanic or latino		84.0	0	2.76	63.7	Stage IA	T1a	N0	M0	Adenocarcinoma, NOS	8140/3			unknown		
+TCGA-MP-A4SV	male	Dead	Unknown	Unknown		2620.0	1	86.07	67.1	Stage IB	T2	N0	M0	Adenocarcinoma, NOS	8140/3	110.0		unknown		
+TCGA-MP-A4SW	male	Dead	white	Unknown		1778.0	1	58.41	53.8	Stage IIB	T2	N1	M0	Adenocarcinoma, NOS	8140/3	15.0		unknown		
+TCGA-MP-A4SY	male	Dead	white	not hispanic or latino		1501.0	1	49.31	62.8	unknown	unknown	unknown	unknown	Adenocarcinoma, NOS	8140/3	40.0		unknown		
+TCGA-MP-A4T2	male	Dead	white	not hispanic or latino		1136.0	1	37.32	74.3	unknown	unknown	unknown	unknown	Adenocarcinoma, NOS	8140/3	75.0		unknown		
+TCGA-MP-A4T4	female	Dead	white	Unknown		2617.0	1	85.97	68.6	Stage IIB	T2	N1	M0	Adenocarcinoma, NOS	8140/3	50.0		unknown		
+TCGA-MP-A4T6	female	Dead	white	not hispanic or latino		1790.0	1	58.8	76.6	Stage IIIA	T1	N2	MX	Adenocarcinoma, NOS	8140/3	50.0		unknown		
+TCGA-MP-A4T7	female	Dead	Unknown	Unknown		167.0	1	5.49	75.6	Stage IV	T2	N0	M1	Adenocarcinoma, NOS	8140/3	50.0		unknown		
+TCGA-MP-A4T8	male	Dead	Unknown	Unknown		161.0	1	5.29	68.6	Stage IIIA	T2	N2	M0	Adenocarcinoma, NOS	8140/3	25.0		unknown		
+TCGA-MP-A4T9	female	Dead	white	not hispanic or latino		1265.0	1	41.56	55.3	unknown	unknown	unknown	unknown	Adenocarcinoma, NOS	8140/3	24.0		unknown		
+TCGA-MP-A4TA	female	Dead	white	not hispanic or latino		950.0	1	31.21	72.7	unknown	unknown	unknown	unknown	Papillary transitional cell carcinoma	8130/3	55.0		unknown		
+TCGA-MP-A4TC	male	Dead	white	not hispanic or latino		74.0	1	2.43	70.4	unknown	unknown	unknown	unknown	Squamous cell carcinoma, NOS	8070/3	125.0		unknown		
+TCGA-MP-A4TD	male	Dead	white	Unknown		307.0	1	10.09	71.8	unknown	unknown	unknown	unknown	Adenocarcinoma, NOS	8140/3	20.0		unknown		
+TCGA-MP-A4TE	male	Dead	white	not hispanic or latino		896.0	1	29.43	57.1	unknown	unknown	unknown	unknown	Adenocarcinoma, NOS	8140/3	40.0		unknown		
+TCGA-MP-A4TF	female	Dead	white	not hispanic or latino		336.0	1	11.04	58.6	Stage IIA	T2b	N0	M0	Adenocarcinoma, NOS	8140/3	40.0		unknown		
+TCGA-MP-A4TH	female	Alive	white	not hispanic or latino		741.0	0	24.34	70.5	Stage IA	T1a	N0	M0	Adenocarcinoma, NOS	8140/3	20.0		unknown		
+TCGA-MP-A4TJ	female	Dead	Unknown	Unknown		339.0	1	11.14	62.6	Stage IA	T1	N0	M0	Signet ring cell carcinoma	8490/3			unknown		
+TCGA-MP-A4TK	female	Dead	Unknown	Unknown		582.0	1	19.12	57.8	unknown	unknown	unknown	unknown	Adenocarcinoma, NOS	8140/3	28.0		unknown		
+TCGA-MP-A5C7	female	Alive	white	not hispanic or latino		2248.0	0	73.85	76.7	Stage IB	T2	N0	M0	Adenocarcinoma, NOS	8140/3	15.0		unknown		
+TCGA-NJ-A4YF	female	Alive	black or african american	not hispanic or latino		2161.0	0	70.99	50.9	Stage IA	T1	N0	M0	Adenocarcinoma with mixed subtypes	8255/3	30.0		unknown		
+TCGA-NJ-A4YG	male	Alive	white	not reported		2261.0	0	74.28	65.2	Stage IB	T2	N0	M0	Adenocarcinoma with mixed subtypes	8255/3	104.0		unknown		
+TCGA-NJ-A4YI	female	Dead	white	not reported		4.0	1	0.13	87.2	Stage IIIA	T2	N2	M0	Acinar cell carcinoma	8550/3	3.0		unknown		
+TCGA-NJ-A4YP	male	Alive	white	not hispanic or latino		50.0	0	1.64	52.3	Stage IB	T2a	N0	M0	Adenocarcinoma with mixed subtypes	8255/3	60.0		unknown		
+TCGA-NJ-A4YQ	female	Alive	white	not hispanic or latino		1432.0	0	47.04	69.6	Stage IA	T1b	N0	M0	Adenocarcinoma with mixed subtypes	8255/3	40.0		unknown		
+TCGA-NJ-A55A	female	Alive	white	not hispanic or latino		15.0	0	0.49	76.7	Stage IB	T2	N0	M0	Acinar cell carcinoma	8550/3	25.0		unknown		
+TCGA-NJ-A55O	female	Alive	white	not hispanic or latino		13.0	0	0.43	56.5	Stage IIA	T1b	N1	M0	Mucinous adenocarcinoma	8480/3	30.0		unknown		
+TCGA-NJ-A55R	male	Alive	white	not hispanic or latino		603.0	0	19.81	67.7	Stage IA	T1b	N0	MX	Solid carcinoma, NOS	8230/3	5.0		unknown		
+TCGA-NJ-A7XG	male	Alive	black or african american	not hispanic or latino		617.0	0	20.27	49.6	Stage IIIA	T4	N1	M0	Adenocarcinoma, NOS	8140/3			unknown		
+TCGA-O1-A52J	female	Dead	white	not hispanic or latino		1798.0	1	59.07	77.0	unknown	unknown	unknown	unknown	Adenocarcinoma, NOS	8140/3	45.0		unknown		
+TCGA-S2-AA1A	female	Alive	black or african american	not hispanic or latino		513.0	0	16.85	68.2	Stage IA	T1b	N0	M0	Bronchio-alveolar carcinoma, mucinous	8253/3	95.0		unknown		

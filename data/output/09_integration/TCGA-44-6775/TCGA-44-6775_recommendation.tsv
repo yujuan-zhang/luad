@@ -1,0 +1,5 @@
+rank	category	drug	drug_class	evidence	rationale	priority
+1	Targeted Therapy	Capmatinib	MET inhibitor	FDA-Approved	MET exon 14 skipping detected (p.X1007_splice)	1
+2	Targeted Therapy	Tepotinib	MET inhibitor	FDA-Approved	MET exon 14 skipping detected (p.X1007_splice)	1
+3	Immunotherapy	Pembrolizumab ± chemotherapy	PD-1 inhibitor	FDA-Approved	Excluded TME — consider combination to overcome exclusion	2
+4	Chemotherapy	Carboplatin + Pemetrexed	Platinum-based doublet	Standard of Care	No targetable driver detected; Tumor suppressor alterations: RB1 p.K616Ifs*37, TP53 p.H168L	3

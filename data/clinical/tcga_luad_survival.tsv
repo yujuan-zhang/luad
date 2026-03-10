@@ -1,0 +1,586 @@
+sample_id	os_days	os_months	event	stage	vital_status	age_at_diagnosis	gender
+TCGA-05-4244			0	Stage IV	Alive	70.5	male
+TCGA-05-4245			0	unknown	Alive		male
+TCGA-05-4249	1523.0	50.03	0	Stage IB	Alive	67.2	male
+TCGA-05-4250	121.0	3.98	1	Stage IIIA	Dead	79.6	female
+TCGA-05-4382			0	unknown	Alive		male
+TCGA-05-4384			0	unknown	Alive	67.3	male
+TCGA-05-4389	1369.0	44.97	0	Stage IA	Alive	70.3	male
+TCGA-05-4390	1126.0	36.99	0	Stage IB	Alive	58.7	female
+TCGA-05-4395			0	Stage IIIB	Dead	76.6	male
+TCGA-05-4396	303.0	9.95	1	Stage IIIB	Dead	76.9	male
+TCGA-05-4397	731.0	24.01	1	Stage IIB	Dead	65.3	male
+TCGA-05-4398	1431.0	47.01	0	Stage IIIB	Alive	47.8	female
+TCGA-05-4402	244.0	8.02	1	Stage IV	Dead	57.0	female
+TCGA-05-4403	578.0	18.99	0	Stage IB	Alive	76.3	male
+TCGA-05-4405			0	unknown	Alive		female
+TCGA-05-4410			0	Stage IB	Alive	62.7	male
+TCGA-05-4415	91.0	2.99	1	unknown	Dead	57.3	male
+TCGA-05-4417	455.0	14.95	0	Stage IB	Alive	51.4	female
+TCGA-05-4418	274.0	9.0	1	unknown	Dead		male
+TCGA-05-4420	912.0	29.96	0	Stage IB	Alive	41.5	male
+TCGA-05-4422	365.0	11.99	0	Stage IB	Alive	68.0	male
+TCGA-05-4424	913.0	29.99	0	Stage IIB	Alive	70.3	male
+TCGA-05-4425	669.0	21.98	0	Stage IV	Alive	70.9	female
+TCGA-05-4426	791.0	25.99	0	Stage IB	Alive	71.4	male
+TCGA-05-4427	791.0	25.99	0	Stage IIB	Alive	65.4	female
+TCGA-05-4430	761.0	25.0	0	Stage IB	Alive	59.9	female
+TCGA-05-4432	761.0	25.0	0	Stage IIB	Alive	66.7	male
+TCGA-05-4433	730.0	23.98	0	Stage IB	Alive	82.7	male
+TCGA-05-4434	457.0	15.01	1	unknown	Dead		female
+TCGA-05-5420			0	unknown	Alive		male
+TCGA-05-5423	151.0	4.96	0	Stage IIB	Alive	65.3	male
+TCGA-05-5425			0	unknown	Alive	69.8	male
+TCGA-05-5428	670.0	22.01	0	Stage IIA	Alive	57.7	male
+TCGA-05-5429	275.0	9.03	1	Stage IIIA	Dead	60.4	male
+TCGA-05-5715	62.0	2.04	0	Stage IB	Alive	69.5	female
+TCGA-17-Z000			0	unknown	unknown		unknown
+TCGA-17-Z001			0	unknown	unknown		unknown
+TCGA-17-Z002			0	unknown	unknown		unknown
+TCGA-17-Z003			0	unknown	unknown		unknown
+TCGA-17-Z004			0	unknown	unknown		unknown
+TCGA-17-Z005			0	unknown	unknown		unknown
+TCGA-17-Z006			0	unknown	unknown		unknown
+TCGA-17-Z007			0	unknown	unknown		unknown
+TCGA-17-Z008			0	unknown	unknown		unknown
+TCGA-17-Z009			0	unknown	unknown		unknown
+TCGA-17-Z010			0	unknown	unknown		unknown
+TCGA-17-Z011			0	unknown	unknown		unknown
+TCGA-17-Z012			0	unknown	unknown		unknown
+TCGA-17-Z013			0	unknown	unknown		unknown
+TCGA-17-Z014			0	unknown	unknown		unknown
+TCGA-17-Z015			0	unknown	unknown		unknown
+TCGA-17-Z016			0	unknown	unknown		unknown
+TCGA-17-Z017			0	unknown	unknown		unknown
+TCGA-17-Z018			0	unknown	unknown		unknown
+TCGA-17-Z019			0	unknown	unknown		unknown
+TCGA-17-Z020			0	unknown	unknown		unknown
+TCGA-17-Z021			0	unknown	unknown		unknown
+TCGA-17-Z022			0	unknown	unknown		unknown
+TCGA-17-Z023			0	unknown	unknown		unknown
+TCGA-17-Z024			0	unknown	unknown		unknown
+TCGA-17-Z025			0	unknown	unknown		unknown
+TCGA-17-Z026			0	unknown	unknown		unknown
+TCGA-17-Z027			0	unknown	unknown		unknown
+TCGA-17-Z028			0	unknown	unknown		unknown
+TCGA-17-Z029			0	unknown	unknown		unknown
+TCGA-17-Z030			0	unknown	unknown		unknown
+TCGA-17-Z031			0	unknown	unknown		unknown
+TCGA-17-Z032			0	unknown	unknown		unknown
+TCGA-17-Z033			0	unknown	unknown		unknown
+TCGA-17-Z034			0	unknown	unknown		unknown
+TCGA-17-Z035			0	unknown	unknown		unknown
+TCGA-17-Z036			0	unknown	unknown		unknown
+TCGA-17-Z037			0	unknown	unknown		unknown
+TCGA-17-Z038			0	unknown	unknown		unknown
+TCGA-17-Z039			0	unknown	unknown		unknown
+TCGA-17-Z040			0	unknown	unknown		unknown
+TCGA-17-Z041			0	unknown	unknown		unknown
+TCGA-17-Z042			0	unknown	unknown		unknown
+TCGA-17-Z043			0	unknown	unknown		unknown
+TCGA-17-Z044			0	unknown	unknown		unknown
+TCGA-17-Z045			0	unknown	unknown		unknown
+TCGA-17-Z046			0	unknown	unknown		unknown
+TCGA-17-Z047			0	unknown	unknown		unknown
+TCGA-17-Z048			0	unknown	unknown		unknown
+TCGA-17-Z049			0	unknown	unknown		unknown
+TCGA-17-Z050			0	unknown	unknown		unknown
+TCGA-17-Z051			0	unknown	unknown		unknown
+TCGA-17-Z052			0	unknown	unknown		unknown
+TCGA-17-Z053			0	unknown	unknown		unknown
+TCGA-17-Z054			0	unknown	unknown		unknown
+TCGA-17-Z055			0	unknown	unknown		unknown
+TCGA-17-Z056			0	unknown	unknown		unknown
+TCGA-17-Z057			0	unknown	unknown		unknown
+TCGA-17-Z058			0	unknown	unknown		unknown
+TCGA-17-Z059			0	unknown	unknown		unknown
+TCGA-17-Z060			0	unknown	unknown		unknown
+TCGA-17-Z061			0	unknown	unknown		unknown
+TCGA-17-Z062			0	unknown	unknown		unknown
+TCGA-35-3615	14.0	0.46	0	Stage IB	Alive	57.7	male
+TCGA-35-4122	225.0	7.39	0	Stage IA	Alive	69.8	male
+TCGA-35-4123	182.0	5.98	0	Stage IA	Alive	38.5	male
+TCGA-35-5375	264.0	8.67	0	Stage IIIA	Alive	62.0	male
+TCGA-38-4625	2973.0	97.67	0	Stage IB	Alive	66.4	female
+TCGA-38-4626			0	unknown	Alive	64.1	female
+TCGA-38-4627	1147.0	37.68	1	Stage IIA	Dead	64.4	female
+TCGA-38-4628	1492.0	49.01	1	unknown	Dead	68.8	female
+TCGA-38-4629	864.0	28.38	1	Stage IIB	Dead	68.7	male
+TCGA-38-4630	1073.0	35.25	1	unknown	Dead	77.8	female
+TCGA-38-4631	354.0	11.63	1	Stage IB	Dead	72.7	female
+TCGA-38-4632	1357.0	44.58	1	unknown	Dead	44.1	male
+TCGA-38-6178			0	unknown	Alive		female
+TCGA-38-7271	800.0	26.28	1	unknown	Dead	73.2	female
+TCGA-38-A44F	133.0	4.37	0	Stage IB	Alive	80.9	male
+TCGA-44-2655	1324.0	43.5	0	Stage IA	Alive	65.3	female
+TCGA-44-2656			0	unknown	Alive	61.1	male
+TCGA-44-2657	1351.0	44.38	0	Stage IB	Alive	74.7	female
+TCGA-44-2659	1367.0	44.91	0	Stage IIB	Alive	65.2	female
+TCGA-44-2661	1159.0	38.07	0	Stage IA	Alive	69.3	female
+TCGA-44-2662			0	unknown	Alive	66.4	male
+TCGA-44-2664			0	unknown	Alive	69.2	female
+TCGA-44-2665	1301.0	42.74	0	Stage IIB	Alive	55.7	female
+TCGA-44-2666	97.0	3.19	1	Stage IB	Dead	43.7	male
+TCGA-44-2668	761.0	25.0	1	Stage IB	Dead	51.6	male
+TCGA-44-3396	1130.0	37.12	0	Stage IIIA	Alive	74.1	female
+TCGA-44-3398	1163.0	38.21	0	Stage IA	Alive	77.7	female
+TCGA-44-3917	1183.0	38.86	0	Stage IB	Alive	33.3	female
+TCGA-44-3918	1036.0	34.03	0	Stage IA	Alive	60.9	female
+TCGA-44-3919	1026.0	33.71	1	Stage IA	Dead	71.4	female
+TCGA-44-4112	808.0	26.54	1	Stage IB	Dead	60.5	female
+TCGA-44-5643	1013.0	33.28	0	Stage IIIA	Alive	53.2	male
+TCGA-44-5644	863.0	28.35	0	Stage IB	Alive	51.0	female
+TCGA-44-5645	852.0	27.99	0	Stage IA	Alive	61.5	female
+TCGA-44-6144			0	unknown	Alive	59.4	male
+TCGA-44-6145	595.0	19.55	0	Stage IA	Alive	62.3	female
+TCGA-44-6146			0	unknown	Alive	65.7	male
+TCGA-44-6147	845.0	27.76	0	Stage IA	Alive	67.4	female
+TCGA-44-6148	704.0	23.13	0	Stage IA	Alive	60.6	male
+TCGA-44-6774	658.0	21.62	0	Stage IIIA	Alive	56.0	female
+TCGA-44-6775			0	unknown	Alive	74.2	female
+TCGA-44-6776	2616.0	85.94	0	Stage IA	Alive	60.6	female
+TCGA-44-6777	987.0	32.42	1	Stage IB	Dead	85.5	female
+TCGA-44-6778	1864.0	61.24	0	Stage IA	Alive	59.5	male
+TCGA-44-6779	500.0	16.43	1	unknown	Dead	51.2	female
+TCGA-44-7659	691.0	22.7	0	Stage IA	Alive	70.4	male
+TCGA-44-7660	592.0	19.45	0	Stage IB	Alive	72.8	male
+TCGA-44-7661	557.0	18.3	1	unknown	Dead	70.7	female
+TCGA-44-7662	218.0	7.16	0	Stage IB	Alive	61.7	male
+TCGA-44-7667	1097.0	36.04	0	Stage IIB	Alive	49.5	female
+TCGA-44-7669	574.0	18.86	1	unknown	Dead	61.4	male
+TCGA-44-7670			0	unknown	Alive		female
+TCGA-44-7671	889.0	29.2	0	Stage IB	Alive	64.4	male
+TCGA-44-7672	719.0	23.62	0	Stage IA	Alive	52.6	female
+TCGA-44-8117	385.0	12.65	0	Stage IB	Alive	54.4	female
+TCGA-44-8119	285.0	9.36	0	Stage IIB	Alive	73.9	male
+TCGA-44-8120	260.0	8.54	0	Stage IB	Alive	58.0	male
+TCGA-44-A479	486.0	15.97	0	Stage IB	Alive	74.0	female
+TCGA-44-A47A	466.0	15.31	0	Stage IB	Alive	78.8	female
+TCGA-44-A47B	287.0	9.43	0	Stage IB	Alive	79.0	male
+TCGA-44-A47F	337.0	11.07	0	Stage IIB	Alive	74.3	male
+TCGA-44-A47G	351.0	11.53	0	Stage IA	Alive	73.4	female
+TCGA-44-A4SS	415.0	13.63	0	Stage IA	Alive	73.9	male
+TCGA-44-A4SU	409.0	13.44	1	Stage IA	Dead	68.0	female
+TCGA-49-4486	2318.0	76.15	1	unknown	Dead	77.9	male
+TCGA-49-4487	855.0	28.09	1	Stage IA	Dead	72.8	female
+TCGA-49-4488	869.0	28.55	1	Stage IA	Dead	74.8	female
+TCGA-49-4490	385.0	12.65	1	Stage IIIA	Dead	45.5	female
+TCGA-49-4494	1081.0	35.51	1	Stage IIIA	Dead	77.7	male
+TCGA-49-4501	1421.0	46.68	1	unknown	Dead	69.4	female
+TCGA-49-4505	428.0	14.06	1	Stage IIB	Dead	62.0	female
+TCGA-49-4506	999.0	32.82	1	Stage IIB	Dead	68.8	female
+TCGA-49-4507	268.0	8.8	1	Stage IIIA	Dead	73.5	female
+TCGA-49-4510	896.0	29.43	1	Stage IIB	Dead	51.4	female
+TCGA-49-4512	905.0	29.73	1	Stage IIIA	Dead	69.8	female
+TCGA-49-4514	1700.0	55.85	0	Stage IA	Alive	79.1	female
+TCGA-49-6742	488.0	16.03	1	unknown	Dead	71.3	male
+TCGA-49-6743	1621.0	53.25	0	Stage IIIA	Alive	81.6	female
+TCGA-49-6744	1683.0	55.29	0	Stage IIA	Alive	64.3	female
+TCGA-49-6745			0	unknown	Alive		male
+TCGA-49-6761			0	unknown	Alive	56.1	female
+TCGA-49-6767	677.0	22.24	0	Stage IIB	Alive	46.8	female
+TCGA-49-AAQV	677.0	22.24	1	unknown	Dead	65.4	female
+TCGA-49-AAR0			0	unknown	Alive	56.3	male
+TCGA-49-AAR2	2224.0	73.06	0	Stage IB	Alive	64.3	male
+TCGA-49-AAR3			0	unknown	Alive	74.9	male
+TCGA-49-AAR4	879.0	28.88	1	Stage IIIA	Dead	51.9	male
+TCGA-49-AAR9	260.0	8.54	1	Stage IIB	Dead	61.6	male
+TCGA-49-AARE	1229.0	40.37	1	unknown	Dead	52.8	female
+TCGA-49-AARN	1135.0	37.29	1	unknown	Dead	56.3	female
+TCGA-49-AARO	3759.0	123.49	0	Stage IA	Alive	39.8	female
+TCGA-49-AARQ	6732.0	221.16	0	Stage I	Alive	41.2	female
+TCGA-49-AARR	4992.0	163.99	0	Stage IA	Alive	68.3	male
+TCGA-4B-A93V	300.0	9.86	1	Stage IA	Dead	52.1	female
+TCGA-50-5044	624.0	20.5	1	Stage IIIB	Dead	72.7	female
+TCGA-50-5045	2174.0	71.42	1	unknown	Dead	57.4	female
+TCGA-50-5049			0	unknown	Alive	77.0	male
+TCGA-50-5051	478.0	15.7	1	Stage IIIA	Dead	42.7	female
+TCGA-50-5055	1830.0	60.12	1	Stage IIA	Dead	79.4	female
+TCGA-50-5066			0	unknown	Alive	73.5	male
+TCGA-50-5068	1499.0	49.24	1	Stage IIB	Dead	59.5	female
+TCGA-50-5072	250.0	8.21	1	unknown	Dead	74.6	male
+TCGA-50-5930	282.0	9.26	1	Stage IIIA	Dead	47.2	male
+TCGA-50-5931	434.0	14.26	1	Stage IB	Dead	75.9	female
+TCGA-50-5932	1235.0	40.57	1	Stage IA	Dead		male
+TCGA-50-5933	2393.0	78.61	1	Stage IIIB	Dead	72.2	male
+TCGA-50-5935	653.0	21.45	1	unknown	Dead		female
+TCGA-50-5936	257.0	8.44	1	unknown	Dead	58.6	male
+TCGA-50-5939	460.0	15.11	1	Stage IB	Dead	85.5	male
+TCGA-50-5941	1474.0	48.42	0	Stage IIIA	Alive	55.7	female
+TCGA-50-5942			0	unknown	Alive	71.6	female
+TCGA-50-5944	1750.0	57.49	0	Stage IA	Alive	69.7	female
+TCGA-50-5946			0	unknown	Alive	63.2	male
+TCGA-50-6590	1288.0	42.31	1	Stage IB	Dead	72.4	female
+TCGA-50-6591	119.0	3.91	1	Stage IV	Dead	63.2	female
+TCGA-50-6592	777.0	25.53	1	Stage IB	Dead	71.7	female
+TCGA-50-6593	336.0	11.04	1	Stage IIIA	Dead	49.7	female
+TCGA-50-6594	370.0	12.16	1	unknown	Dead	80.0	female
+TCGA-50-6595	189.0	6.21	1	Stage IIIA	Dead	74.5	female
+TCGA-50-6597	1268.0	41.66	1	unknown	Dead		female
+TCGA-50-6673	22.0	0.72	1	Stage I	Dead	84.0	female
+TCGA-50-7109	308.0	10.12	1	Stage IA	Dead	60.2	male
+TCGA-50-8457	1125.0	36.96	0	Stage IA	Alive	63.1	female
+TCGA-50-8459	1119.0	36.76	0	Stage IIB	Alive	68.1	male
+TCGA-50-8460	829.0	27.23	0	Stage IA	Alive	74.7	male
+TCGA-53-7624	1043.0	34.26	1	unknown	Dead	41.6	female
+TCGA-53-7626	929.0	30.52	1	Stage IIA	Dead	76.7	female
+TCGA-53-7813	424.0	13.93	0	Stage IIIB	Alive	51.7	female
+TCGA-53-A4EZ	1071.0	35.18	0	Stage IIA	Alive	63.5	male
+TCGA-55-1592	701.0	23.03	1	Stage IA	Dead		male
+TCGA-55-1594	1178.0	38.7	0	Stage IIIA	Alive	68.5	male
+TCGA-55-1595			0	unknown	Alive		female
+TCGA-55-1596	2065.0	67.84	0	Stage IIB	Alive	55.8	male
+TCGA-55-5899	930.0	30.55	0	unknown	Alive		male
+TCGA-55-6543	435.0	14.29	0	Stage IA	Alive		female
+TCGA-55-6642	2449.0	80.45	0	Stage IB	Alive	63.3	male
+TCGA-55-6712	171.0	5.62	1	Stage IIA	Dead		male
+TCGA-55-6968	1293.0	42.48	1	Stage IV	Dead	61.2	male
+TCGA-55-6969	1239.0	40.7	0	Stage IB	Alive	52.8	male
+TCGA-55-6970	464.0	15.24	1	Stage IIIA	Dead	67.8	female
+TCGA-55-6971	1400.0	45.99	0	Stage IB	Alive	59.5	female
+TCGA-55-6972	1632.0	53.61	1	Stage IB	Dead	72.9	male
+TCGA-55-6975	118.0	3.88	1	Stage IIB	Dead		male
+TCGA-55-6978	176.0	5.78	1	unknown	Dead		male
+TCGA-55-6979	237.0	7.79	1	unknown	Dead	60.2	female
+TCGA-55-6980	2109.0	69.28	0	Stage IA	Alive		male
+TCGA-55-6981	1379.0	45.3	1	Stage IIIA	Dead	53.4	female
+TCGA-55-6982	995.0	32.69	1	unknown	Dead		female
+TCGA-55-6983	2823.0	92.74	0	Stage IIB	Alive		male
+TCGA-55-6984	760.0	24.97	1	Stage IIB	Dead		female
+TCGA-55-6985	1233.0	40.51	0	Stage IB	Alive	58.5	female
+TCGA-55-6986	3261.0	107.13	0	Stage IB	Alive		female
+TCGA-55-6987	2137.0	70.2	0	Stage IA	Alive	77.7	male
+TCGA-55-7227	952.0	31.27	1	Stage IIIA	Dead	77.9	male
+TCGA-55-7281	872.0	28.65	0	Stage IA	Alive	70.8	female
+TCGA-55-7283	609.0	20.01	0	Stage IIIA	Alive	76.5	female
+TCGA-55-7284	243.0	7.98	1	Stage IIB	Dead	74.2	male
+TCGA-55-7570	824.0	27.07	0	Stage IA	Alive	60.8	male
+TCGA-55-7573	487.0	16.0	0	Stage IA	Alive	72.0	female
+TCGA-55-7574	995.0	32.69	1	Stage IB	Dead	64.9	female
+TCGA-55-7576	670.0	22.01	0	Stage IB	Alive	54.5	male
+TCGA-55-7724	705.0	23.16	0	Stage IB	Alive	76.4	female
+TCGA-55-7725			0	unknown	Alive		female
+TCGA-55-7726	652.0	21.42	0	Stage IA	Alive	72.4	female
+TCGA-55-7727	119.0	3.91	0	Stage IIIA	Alive	71.0	male
+TCGA-55-7728	704.0	23.13	0	Stage IB	Alive	64.4	female
+TCGA-55-7815			0	unknown	Alive	78.6	male
+TCGA-55-7816	468.0	15.37	1	Stage IV	Dead	49.7	female
+TCGA-55-7903	567.0	18.63	0	Stage IA	Alive	64.4	male
+TCGA-55-7907	343.0	11.27	1	unknown	Dead	78.0	male
+TCGA-55-7910	1040.0	34.17	0	Stage IIA	Alive	50.1	female
+TCGA-55-7911	537.0	17.64	0	Stage IA	Alive	70.5	female
+TCGA-55-7913	561.0	18.43	1	unknown	Dead	62.4	female
+TCGA-55-7914	187.0	6.14	1	Stage IIA	Dead	71.5	female
+TCGA-55-7994	603.0	19.81	0	Stage IIB	Alive	81.7	male
+TCGA-55-7995			0	unknown	Alive	74.8	female
+TCGA-55-8085	904.0	29.7	0	Stage IA	Alive	64.6	male
+TCGA-55-8087	462.0	15.18	0	Stage IB	Alive	59.3	female
+TCGA-55-8089	702.0	23.06	1	Stage IA	Dead	56.3	male
+TCGA-55-8090	598.0	19.65	1	unknown	Dead	81.5	male
+TCGA-55-8091			0	unknown	Alive		male
+TCGA-55-8092	154.0	5.06	1	Stage IIB	Dead	75.6	male
+TCGA-55-8094	541.0	17.77	0	Stage IV	Alive	51.8	male
+TCGA-55-8096	719.0	23.62	1	Stage IB	Dead	67.6	female
+TCGA-55-8097	476.0	15.64	0	Stage IA	Alive	60.9	female
+TCGA-55-8203	547.0	17.97	0	Stage IA	Alive	69.8	female
+TCGA-55-8204	515.0	16.92	0	Stage IB	Alive	87.1	female
+TCGA-55-8205			0	unknown	Alive		female
+TCGA-55-8206	888.0	29.17	0	Stage IA	Alive	56.6	male
+TCGA-55-8207			0	unknown	Alive		male
+TCGA-55-8208	674.0	22.14	0	Stage IA	Alive	73.1	female
+TCGA-55-8299	469.0	15.41	1	Stage IA	Dead	61.9	female
+TCGA-55-8301			0	unknown	Alive	59.6	male
+TCGA-55-8302	478.0	15.7	0	Stage IB	Alive	54.8	male
+TCGA-55-8505	440.0	14.45	0	Stage IIIA	Alive	62.1	male
+TCGA-55-8506	11.0	0.36	0	Stage IIB	Alive	62.6	female
+TCGA-55-8507	418.0	13.73	0	Stage IA	Alive	53.1	male
+TCGA-55-8508	617.0	20.27	0	Stage IIA	Alive	60.7	female
+TCGA-55-8510	539.0	17.71	0	Stage IB	Alive	55.9	female
+TCGA-55-8511			0	unknown	Alive		female
+TCGA-55-8512	607.0	19.94	1	Stage IV	Dead	41.8	male
+TCGA-55-8513			0	unknown	Alive	78.3	female
+TCGA-55-8514	520.0	17.08	0	Stage IB	Alive	70.1	female
+TCGA-55-8614	536.0	17.61	0	Stage IB	Alive	76.5	male
+TCGA-55-8615			0	unknown	Alive	68.5	male
+TCGA-55-8616	48.0	1.58	0	Stage IB	Alive	58.1	female
+TCGA-55-8619	416.0	13.67	0	Stage IIB	Alive	72.9	female
+TCGA-55-8620	375.0	12.32	1	Stage IV	Dead	60.5	male
+TCGA-55-8621			0	unknown	Alive	73.9	female
+TCGA-55-A48X			0	unknown	Alive	65.6	female
+TCGA-55-A48Y	630.0	20.7	0	Stage IIA	Alive	69.5	male
+TCGA-55-A48Z			0	unknown	Alive	61.9	female
+TCGA-55-A490	99.0	3.25	1	Stage IIA	Dead	78.7	male
+TCGA-55-A491			0	unknown	Alive	80.7	female
+TCGA-55-A492			0	Stage IIA	Alive	68.7	female
+TCGA-55-A493	28.0	0.92	0	Stage IB	Alive	54.8	female
+TCGA-55-A494	481.0	15.8	0	Stage IB	Alive	61.7	female
+TCGA-55-A4DF	440.0	14.45	1	Stage IA	Dead	88.9	male
+TCGA-55-A4DG	608.0	19.97	0	Stage IA	Alive	71.3	male
+TCGA-55-A57B	546.0	17.94	0	Stage IA	Alive	80.6	female
+TCGA-62-8394	139.0	4.57	1	Stage IIIB	Dead	65.0	female
+TCGA-62-8395			0	unknown	Alive	81.6	female
+TCGA-62-8397	1289.0	42.35	0	Stage IIB	Alive	70.4	female
+TCGA-62-8398	444.0	14.59	1	Stage IIIA	Dead	55.3	male
+TCGA-62-8399	2696.0	88.57	0	Stage IIIA	Alive	62.8	male
+TCGA-62-8402	1498.0	49.21	1	Stage IIIA	Dead	73.7	female
+TCGA-62-A46O	1454.0	47.77	1	unknown	Dead	68.4	female
+TCGA-62-A46P	594.0	19.51	1	unknown	Dead	66.4	male
+TCGA-62-A46R	1725.0	56.67	1	Stage IB	Dead	54.9	female
+TCGA-62-A46S	1653.0	54.3	1	Stage IB	Dead	73.4	male
+TCGA-62-A46U	2067.0	67.9	0	Stage IIB	Alive	71.2	female
+TCGA-62-A46V	2199.0	72.24	0	Stage IB	Alive	78.0	female
+TCGA-62-A46Y	414.0	13.6	1	unknown	Dead	71.8	female
+TCGA-62-A470	1194.0	39.22	1	unknown	Dead	85.5	male
+TCGA-62-A471	1246.0	40.93	0	Stage IIB	Alive	64.9	male
+TCGA-62-A472			0	unknown	Alive	71.7	male
+TCGA-64-1676	1728.0	56.77	0	Stage IA	Alive	58.7	male
+TCGA-64-1677	628.0	20.63	1	unknown	Dead	79.0	female
+TCGA-64-1678	1189.0	39.06	0	unknown	Alive	71.0	female
+TCGA-64-1679	2488.0	81.73	0	Stage IIIA	Alive	58.3	female
+TCGA-64-1680	1126.0	36.99	0	Stage IV	Alive	63.7	male
+TCGA-64-1681	1167.0	38.34	1	Stage IA	Dead	61.7	female
+TCGA-64-5774			0	unknown	Alive	61.1	male
+TCGA-64-5775	62.0	2.04	1	Stage IIIA	Dead	71.3	male
+TCGA-64-5778	1305.0	42.87	0	Stage IB	Alive	60.0	male
+TCGA-64-5779	864.0	28.38	0	Stage IIIA	Alive	61.1	male
+TCGA-64-5781			0	unknown	Alive	55.6	female
+TCGA-64-5815	866.0	28.45	0	Stage IIB	Alive	74.7	male
+TCGA-67-3770	610.0	20.04	0	Stage IA	Alive	70.2	female
+TCGA-67-3771	610.0	20.04	0	Stage IA	Alive	77.8	female
+TCGA-67-3772	573.0	18.82	0	Stage IB	Alive	82.1	female
+TCGA-67-3773	427.0	14.03	0	Stage IB	Alive	84.1	female
+TCGA-67-3774	385.0	12.65	0	Stage IB	Alive	73.1	female
+TCGA-67-3776	61.0	2.0	0	Stage IIB	Alive	57.3	female
+TCGA-67-4679	448.0	14.72	0	unknown	Alive	69.0	male
+TCGA-67-6215	174.0	5.72	0	Stage IB	Alive	52.9	female
+TCGA-67-6216	141.0	4.63	0	Stage IA	Alive	57.4	female
+TCGA-67-6217			0	unknown	Alive		female
+TCGA-69-7760	202.0	6.64	0	Stage IIB	Alive	73.3	male
+TCGA-69-7761	186.0	6.11	0	Stage IB	Alive	85.0	male
+TCGA-69-7763	690.0	22.67	0	Stage IA	Alive	69.3	male
+TCGA-69-7764	414.0	13.6	0	Stage IA	Alive	75.8	male
+TCGA-69-7765	165.0	5.42	0	unknown	Alive	56.5	male
+TCGA-69-7973	230.0	7.56	0	Stage IB	Alive	42.0	female
+TCGA-69-7974	184.0	6.04	0	Stage IIIA	Alive	54.8	female
+TCGA-69-7978	134.0	4.4	0	Stage IIB	Alive	59.6	male
+TCGA-69-7979	408.0	13.4	0	Stage IB	Alive	71.7	female
+TCGA-69-7980	411.0	13.5	0	Stage I	Alive	70.0	female
+TCGA-69-8253	426.0	13.99	0	Stage IIA	Alive	59.6	female
+TCGA-69-8254	409.0	13.44	0	unknown	Alive	85.2	male
+TCGA-69-8255	129.0	4.24	0	Stage IA	Alive	72.0	male
+TCGA-69-8453	813.0	26.71	0	Stage IIB	Alive	77.8	male
+TCGA-69-A59K	591.0	19.42	0	Stage IIB	Alive	60.5	female
+TCGA-71-6725			0	unknown	Alive	49.2	female
+TCGA-71-8520	210.0	6.9	1	Stage IB	Dead	60.0	female
+TCGA-73-4658	1600.0	52.56	1	Stage IB	Dead	80.8	female
+TCGA-73-4659	711.0	23.36	1	Stage IIIA	Dead	66.4	male
+TCGA-73-4662			0	Stage I	Alive		female
+TCGA-73-4666	800.0	26.28	0	Stage IV	Alive	52.2	female
+TCGA-73-4668	467.0	15.34	0	Stage IIB	Alive	66.4	female
+TCGA-73-4670	131.0	4.3	0	Stage IV	Alive	69.9	female
+TCGA-73-4675	922.0	30.29	1	Stage IIIA	Dead	59.2	male
+TCGA-73-4676	281.0	9.23	1	Stage IIA	Dead	45.8	male
+TCGA-73-4677	38.0	1.25	1	unknown	Dead	75.0	male
+TCGA-73-7498	1189.0	39.06	0	Stage IA	Alive	58.9	female
+TCGA-73-7499	1531.0	50.3	1	Stage IB	Dead	81.3	female
+TCGA-73-A9RS	340.0	11.17	1	Stage IIB	Dead	41.5	male
+TCGA-75-5122			0	Stage IB	Dead		male
+TCGA-75-5125	2027.0	66.59	1	unknown	Dead		male
+TCGA-75-5126			0	Stage IIIA	Alive		female
+TCGA-75-5146	2368.0	77.79	0	Stage IB	Alive		male
+TCGA-75-5147	1333.0	43.79	0	Stage IB	Alive		female
+TCGA-75-6203			0	Stage IIIA	Alive		female
+TCGA-75-6205			0	unknown	Dead		female
+TCGA-75-6206	2590.0	85.09	0	Stage IB	Alive		male
+TCGA-75-6207			0	Stage IIIA	Dead		male
+TCGA-75-6211			0	Stage IB	Dead		female
+TCGA-75-6212	1516.0	49.8	1	unknown	Dead		female
+TCGA-75-6214	1115.0	36.63	1	unknown	Dead		female
+TCGA-75-7025			0	unknown	Alive		male
+TCGA-75-7027	3059.0	100.49	0	Stage IB	Alive		male
+TCGA-75-7030			0	Stage IIB	Alive		male
+TCGA-75-7031			0	Stage IB	Alive		female
+TCGA-78-7143	4961.0	162.98	1	Stage IB	Dead	62.1	female
+TCGA-78-7145	826.0	27.14	1	Stage IV	Dead	52.2	female
+TCGA-78-7146	173.0	5.68	1	Stage IIIA	Dead	71.9	female
+TCGA-78-7147	586.0	19.25	1	Stage IIB	Dead	67.9	female
+TCGA-78-7148	626.0	20.57	1	Stage IIB	Dead	71.2	male
+TCGA-78-7149	3940.0	129.43	0	Stage IIIB	Alive	72.0	male
+TCGA-78-7150	666.0	21.88	1	Stage IIB	Dead	59.9	male
+TCGA-78-7152	1215.0	39.91	1	unknown	Dead	68.4	male
+TCGA-78-7153	3635.0	119.42	0	Stage IB	Alive	65.5	female
+TCGA-78-7154	593.0	19.48	1	Stage IIIA	Dead	72.5	male
+TCGA-78-7155	1171.0	38.47	1	unknown	Dead	68.6	male
+TCGA-78-7156	976.0	32.06	1	Stage IV	Dead	62.2	male
+TCGA-78-7158	179.0	5.88	1	Stage IIIB	Dead	59.5	female
+TCGA-78-7159	1974.0	64.85	0	Stage IA	Alive	60.9	female
+TCGA-78-7160	697.0	22.9	1	Stage IV	Dead	61.3	male
+TCGA-78-7161	291.0	9.56	1	Stage IIB	Dead	69.3	female
+TCGA-78-7162	3169.0	104.11	1	unknown	Dead	81.6	male
+TCGA-78-7163	7248.0	238.11	0	Stage IB	Alive	60.2	male
+TCGA-78-7166	258.0	8.48	1	unknown	Dead		male
+TCGA-78-7167	2681.0	88.07	1	unknown	Dead	79.5	male
+TCGA-78-7220	807.0	26.51	1	unknown	Dead	54.8	female
+TCGA-78-7535	949.0	31.18	1	unknown	Dead	47.6	male
+TCGA-78-7536	244.0	8.02	1	unknown	Dead	70.6	male
+TCGA-78-7537	1622.0	53.29	1	Stage IB	Dead	72.9	male
+TCGA-78-7539			0	unknown	Alive	77.0	female
+TCGA-78-7540	1197.0	39.32	1	Stage IB	Dead	66.9	female
+TCGA-78-7542	321.0	10.55	1	Stage IB	Dead	56.8	male
+TCGA-78-7633	1528.0	50.2	1	Stage IB	Dead	67.7	male
+TCGA-78-8640	7062.0	232.0	0	Stage IIA	Alive	59.8	male
+TCGA-78-8648	1209.0	39.72	1	Stage IIB	Dead	58.7	female
+TCGA-78-8655	2360.0	77.53	0	Stage IA	Alive	77.7	female
+TCGA-78-8660	321.0	10.55	1	unknown	Dead	70.3	male
+TCGA-78-8662	3361.0	110.41	1	Stage IB	Dead	53.6	female
+TCGA-80-5607			0	Stage IIB	Alive		female
+TCGA-80-5608	2832.0	93.04	0	Stage IA	Alive		female
+TCGA-80-5611			0	unknown	Alive		male
+TCGA-83-5908	824.0	27.07	0	Stage IA	Alive	59.6	female
+TCGA-86-6562	376.0	12.35	1	Stage IIA	Dead	52.8	male
+TCGA-86-6851	179.0	5.88	0	Stage IIA	Alive	73.4	female
+TCGA-86-7701	947.0	31.11	0	Stage IV	Alive	66.3	male
+TCGA-86-7711	1046.0	34.36	1	Stage IIA	Dead	70.4	male
+TCGA-86-7713	1157.0	38.01	0	Stage IIA	Alive	70.6	male
+TCGA-86-7714	625.0	20.53	1	Stage IIIA	Dead	61.9	female
+TCGA-86-7953	997.0	32.75	0	Stage IA	Alive	69.3	female
+TCGA-86-7954	605.0	19.88	0	Stage IB	Alive	68.6	female
+TCGA-86-7955			0	unknown	Alive	64.6	male
+TCGA-86-8054	1148.0	37.71	0	Stage IIB	Alive	61.8	male
+TCGA-86-8055	124.0	4.07	1	Stage IIA	Dead	79.7	male
+TCGA-86-8056	139.0	4.57	0	Stage IIIA	Alive	64.0	female
+TCGA-86-8073	740.0	24.31	0	Stage IB	Alive	58.1	male
+TCGA-86-8074	24.0	0.79	0	Stage IIA	Alive	62.6	female
+TCGA-86-8075	694.0	22.8	1	Stage IB	Dead	66.8	female
+TCGA-86-8076	993.0	32.62	0	Stage IA	Alive	42.7	male
+TCGA-86-8278	944.0	31.01	0	Stage IIB	Alive	63.3	female
+TCGA-86-8279	949.0	31.18	0	Stage IIA	Alive	46.6	male
+TCGA-86-8280	701.0	23.03	0	Stage IIA	Alive	54.7	female
+TCGA-86-8281			0	Stage IA	Alive	75.0	male
+TCGA-86-8358	653.0	21.45	0	Stage IB	Alive	44.9	male
+TCGA-86-8359	444.0	14.59	1	Stage IIIA	Dead	52.3	male
+TCGA-86-8585	353.0	11.6	0	Stage IB	Alive	57.3	male
+TCGA-86-8668	423.0	13.9	0	Stage IA	Alive	61.3	female
+TCGA-86-8669	938.0	30.81	0	Stage IA	Alive	64.2	male
+TCGA-86-8671	839.0	27.56	0	Stage IIB	Alive	72.4	female
+TCGA-86-8672	19.0	0.62	1	Stage IIB	Dead	59.4	male
+TCGA-86-8673	862.0	28.32	0	Stage IB	Alive	61.8	male
+TCGA-86-8674	806.0	26.48	0	Stage IIA	Alive	50.6	male
+TCGA-86-A456	896.0	29.43	0	Stage IA	Alive	78.1	female
+TCGA-86-A4D0	116.0	3.81	1	Stage IIA	Dead	48.2	male
+TCGA-86-A4JF	737.0	24.21	1	unknown	Dead	57.3	male
+TCGA-86-A4P7	415.0	13.63	0	Stage IB	Alive	63.9	female
+TCGA-86-A4P8	805.0	26.45	0	Stage IIIA	Alive	59.5	female
+TCGA-91-6828	323.0	10.61	0	Stage IA	Alive	70.8	male
+TCGA-91-6829	1258.0	41.33	1	Stage IB	Dead	79.0	male
+TCGA-91-6830	60.0	1.97	0	Stage IIA	Alive	65.5	female
+TCGA-91-6831	310.0	10.18	0	Stage IB	Alive	66.9	male
+TCGA-91-6835	79.0	2.6	0	Stage IA	Alive	81.8	female
+TCGA-91-6836			0	unknown	Alive	52.6	female
+TCGA-91-6840	372.0	12.22	0	Stage IA	Alive	59.8	female
+TCGA-91-6847			0	unknown	Alive	64.7	female
+TCGA-91-6848	224.0	7.36	0	Stage IIIA	Alive	59.8	male
+TCGA-91-6849	35.0	1.15	0	Stage IIIA	Alive	75.8	female
+TCGA-91-7771	492.0	16.16	0	Stage IIB	Alive	62.8	male
+TCGA-91-8496	505.0	16.59	0	Stage IB	Alive	64.0	female
+TCGA-91-8497	434.0	14.26	1	Stage IA	Dead	75.7	female
+TCGA-91-8499	36.0	1.18	0	Stage IA	Alive	76.3	female
+TCGA-91-A4BC	44.0	1.45	0	Stage IIA	Alive	59.0	male
+TCGA-91-A4BD	603.0	19.81	0	Stage IIA	Alive	78.1	male
+TCGA-93-7347	683.0	22.44	0	Stage IA	Alive	76.5	female
+TCGA-93-7348	531.0	17.44	0	Stage IA	Alive	75.2	female
+TCGA-93-8067	186.0	6.11	0	Stage IB	Alive	77.9	male
+TCGA-93-A4JN	718.0	23.59	0	Stage IV	Alive	71.9	male
+TCGA-93-A4JO	33.0	1.08	1	Stage IA	Dead	70.9	male
+TCGA-93-A4JP	578.0	18.99	0	Stage IV	Alive	64.7	male
+TCGA-93-A4JQ	526.0	17.28	0	Stage IA	Alive	49.1	male
+TCGA-95-7039			0	unknown	Alive	58.1	female
+TCGA-95-7043	503.0	16.52	1	unknown	Dead		female
+TCGA-95-7562	87.0	2.86	1	Stage IIA	Dead	71.2	male
+TCGA-95-7567	568.0	18.66	0	Stage IIB	Alive	61.4	male
+TCGA-95-7944	377.0	12.39	0	Stage IA	Alive	71.2	male
+TCGA-95-7947	477.0	15.67	0	Stage IA	Alive	67.8	male
+TCGA-95-7948			0	unknown	Alive		female
+TCGA-95-8039	830.0	27.27	0	Stage IA	Alive	72.1	male
+TCGA-95-8494	84.0	2.76	0	Stage IIA	Alive	67.8	male
+TCGA-95-A4VK	651.0	21.39	0	Stage IIIA	Alive	74.0	female
+TCGA-95-A4VN			0	unknown	Alive		female
+TCGA-95-A4VP			0	unknown	Alive	66.7	female
+TCGA-97-7546	1285.0	42.21	0	Stage IA	Alive	76.4	female
+TCGA-97-7547	1965.0	64.55	0	Stage IB	Alive	67.7	female
+TCGA-97-7552	1932.0	63.47	0	Stage IB	Alive	70.0	male
+TCGA-97-7553	1870.0	61.43	0	Stage IA	Alive	58.9	female
+TCGA-97-7554	775.0	25.46	0	Stage IIIA	Alive	83.0	female
+TCGA-97-7937	564.0	18.53	0	Stage IB	Alive	65.5	male
+TCGA-97-7938	18.0	0.59	1	Stage IA	Dead	76.6	female
+TCGA-97-7941	484.0	15.9	0	Stage IA	Alive	72.0	female
+TCGA-97-8171	568.0	18.66	0	Stage IV	Alive	81.1	male
+TCGA-97-8172	545.0	17.9	0	Stage IB	Alive	75.1	female
+TCGA-97-8174	164.0	5.39	1	Stage IIA	Dead	67.7	male
+TCGA-97-8175	551.0	18.1	0	Stage IB	Alive	55.3	female
+TCGA-97-8176	468.0	15.37	1	Stage IIIA	Dead	63.4	male
+TCGA-97-8177	499.0	16.39	0	Stage IB	Alive	59.3	female
+TCGA-97-8179	435.0	14.29	0	Stage IA	Alive	72.0	male
+TCGA-97-8547	657.0	21.58	0	Stage IIIA	Alive	78.9	female
+TCGA-97-8552	626.0	20.57	0	Stage I	Alive	55.7	female
+TCGA-97-A4LX	614.0	20.17	0	Stage IB	Alive	81.9	male
+TCGA-97-A4M0	652.0	21.42	0	Stage IB	Alive	60.8	female
+TCGA-97-A4M1	601.0	19.74	0	Stage IA	Alive	52.8	female
+TCGA-97-A4M2			0	unknown	Alive		male
+TCGA-97-A4M3			0	unknown	Alive		female
+TCGA-97-A4M5	634.0	20.83	0	Stage IA	Alive	84.0	male
+TCGA-97-A4M6	568.0	18.66	0	Stage IA	Alive	45.9	female
+TCGA-97-A4M7			0	unknown	Alive	74.1	male
+TCGA-99-7458	747.0	24.54	0	Stage IIIA	Alive	74.9	female
+TCGA-99-8025	1060.0	34.82	0	Stage IIIA	Alive	72.9	female
+TCGA-99-8028	1118.0	36.73	0	Stage IA	Alive	50.8	female
+TCGA-99-8032	44.0	1.45	0	Stage IA	Alive	62.0	male
+TCGA-99-8033	656.0	21.55	1	Stage IV	Dead	74.9	female
+TCGA-99-AA5R	658.0	21.62	0	Stage IA	Alive	70.6	female
+TCGA-J2-8192	739.0	24.28	0	Stage IIA	Alive	65.4	female
+TCGA-J2-8194			0	unknown	Alive	70.9	female
+TCGA-J2-A4AD	550.0	18.07	1	unknown	Dead	62.8	female
+TCGA-J2-A4AE	1079.0	35.45	0	Stage IA	Alive	77.1	female
+TCGA-J2-A4AG	988.0	32.46	0	Stage IA	Alive	66.3	female
+TCGA-L4-A4E5	578.0	18.99	0	Stage I	Alive	48.4	female
+TCGA-L4-A4E6	435.0	14.29	0	Stage IA	Alive	67.4	male
+TCGA-L9-A443	193.0	6.34	1	unknown	Dead		female
+TCGA-L9-A444			0	Stage IB	Alive	56.4	female
+TCGA-L9-A50W	442.0	14.52	1	Stage IIA	Dead	75.1	male
+TCGA-L9-A5IP	58.0	1.91	1	Stage IV	Dead	40.2	female
+TCGA-L9-A743			0	Stage IIA	Alive	56.7	male
+TCGA-L9-A7SV	565.0	18.56	0	Stage IIA	Alive	69.3	male
+TCGA-L9-A8F4	476.0	15.64	0	Stage IB	Alive	64.7	female
+TCGA-MN-A4N1			0	Stage II	Alive	52.5	male
+TCGA-MN-A4N4	1175.0	38.6	0	Stage IA	Alive	57.2	male
+TCGA-MN-A4N5	84.0	2.76	0	Stage IA	Alive	63.7	male
+TCGA-MP-A4SV	2620.0	86.07	1	Stage IB	Dead	67.1	male
+TCGA-MP-A4SW	1778.0	58.41	1	Stage IIB	Dead	53.8	male
+TCGA-MP-A4SY	1501.0	49.31	1	unknown	Dead	62.8	male
+TCGA-MP-A4T2	1136.0	37.32	1	unknown	Dead	74.3	male
+TCGA-MP-A4T4	2617.0	85.97	1	Stage IIB	Dead	68.6	female
+TCGA-MP-A4T6	1790.0	58.8	1	Stage IIIA	Dead	76.6	female
+TCGA-MP-A4T7	167.0	5.49	1	Stage IV	Dead	75.6	female
+TCGA-MP-A4T8	161.0	5.29	1	Stage IIIA	Dead	68.6	male
+TCGA-MP-A4T9	1265.0	41.56	1	unknown	Dead	55.3	female
+TCGA-MP-A4TA	950.0	31.21	1	unknown	Dead	72.7	female
+TCGA-MP-A4TC	74.0	2.43	1	unknown	Dead	70.4	male
+TCGA-MP-A4TD	307.0	10.09	1	unknown	Dead	71.8	male
+TCGA-MP-A4TE	896.0	29.43	1	unknown	Dead	57.1	male
+TCGA-MP-A4TF	336.0	11.04	1	Stage IIA	Dead	58.6	female
+TCGA-MP-A4TH	741.0	24.34	0	Stage IA	Alive	70.5	female
+TCGA-MP-A4TI	429.0	14.09	1	Stage IIA	Dead	72.7	male
+TCGA-MP-A4TJ	339.0	11.14	1	Stage IA	Dead	62.6	female
+TCGA-MP-A4TK	582.0	19.12	1	unknown	Dead	57.8	female
+TCGA-MP-A5C7	2248.0	73.85	0	Stage IB	Alive	76.7	female
+TCGA-NJ-A4YF	2161.0	70.99	0	Stage IA	Alive	50.9	female
+TCGA-NJ-A4YG	2261.0	74.28	0	Stage IB	Alive	65.2	male
+TCGA-NJ-A4YI	4.0	0.13	1	Stage IIIA	Dead	87.2	female
+TCGA-NJ-A4YP	50.0	1.64	0	Stage IB	Alive	52.3	male
+TCGA-NJ-A4YQ	1432.0	47.04	0	Stage IA	Alive	69.6	female
+TCGA-NJ-A55A	15.0	0.49	0	Stage IB	Alive	76.7	female
+TCGA-NJ-A55O	13.0	0.43	0	Stage IIA	Alive	56.5	female
+TCGA-NJ-A55R	603.0	19.81	0	Stage IA	Alive	67.7	male
+TCGA-NJ-A7XG	617.0	20.27	0	Stage IIIA	Alive	49.6	male
+TCGA-O1-A52J	1798.0	59.07	1	unknown	Dead	77.0	female
+TCGA-S2-AA1A	513.0	16.85	0	Stage IA	Alive	68.2	female
