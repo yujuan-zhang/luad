@@ -630,8 +630,10 @@ that patient.
 
     # ── Sample Coverage Table ────────────────────────────────────────────────
     st.markdown('<div class="section-heading">Demo Samples</div>', unsafe_allow_html=True)
+    _demo_ids = (SAMPLES[:5] if len(SAMPLES) >= 5
+                 else SAMPLES + ["—"] * (5 - len(SAMPLES)))
     demo_data = {
-        "Sample ID":  SAMPLES,
+        "Sample ID":  _demo_ids,
         "Variants":   ["✅", "✅", "—", "✅", "—"],
         "RNA-seq":    ["✅", "—", "✅", "—", "✅"],
         "Pathway":    ["✅", "✅", "✅", "✅", "✅"],
@@ -752,23 +754,60 @@ elif page == "02 · Variation Annotation":
 
 elif page == "03 · Expression Analysis":
     st.header("03 · Expression Analysis")
-    st.caption("Bulk RNA-seq TPM normalization · cohort-level outlier detection")
+    st.caption("Bulk RNA-seq · GTEx normal lung baseline · per-patient & cohort-level figures")
 
     _m03_samples = discover_module_samples(OUTPUT / "03_expression", "_expression_outliers.tsv")
     sample = st.selectbox("Patient", _m03_samples or SAMPLES, key="sel_m03",
                           help=f"{len(_m03_samples)} patients with expression output")
 
-    # Expression summary image
-    img = OUTPUT / "03_expression" / sample / f"{sample}_expression_summary.png"
-    show_image(img, caption=f"Expression summary — {sample}")
+    # ── Per-patient figures ───────────────────────────────────────────────────
+    tab1, tab2, tab3 = st.tabs([
+        "📊 Expression Summary",
+        "🧬 Clinical Gene Panel",
+        "🔬 Mutation–Expression",
+    ])
+
+    with tab1:
+        show_image(
+            OUTPUT / "03_expression" / sample / f"{sample}_expression_summary.png",
+            caption=f"Expression outliers vs GTEx Normal Lung — {sample}",
+        )
+
+    with tab2:
+        show_image(
+            OUTPUT / "03_expression" / sample / f"{sample}_clinical_genes.png",
+            caption=f"LUAD clinical gene expression vs GTEx Normal Lung — {sample}",
+        )
+
+    with tab3:
+        mut_img = OUTPUT / "03_expression" / sample / f"{sample}_mutation_expression.png"
+        if mut_img.exists():
+            show_image(mut_img,
+                       caption=f"Mutated gene expression positions — {sample}")
+        else:
+            st.info("No mutation data available for this patient (M02 output not found).")
 
     st.divider()
 
+    # ── Cohort-level figures ──────────────────────────────────────────────────
+    st.subheader("Cohort-level Overview")
+    col1, col2 = st.columns(2)
+    with col1:
+        show_image(
+            OUTPUT / "03_expression" / "cohort_clinical_genes_heatmap.png",
+            caption="Clinical gene Z-scores — 517 patients × 21 genes",
+        )
+    with col2:
+        show_image(
+            OUTPUT / "03_expression" / "cohort_outlier_distribution.png",
+            caption="Outlier gene counts per patient vs GTEx Normal Lung",
+        )
+
+    st.divider()
+
+    # ── Data tables ───────────────────────────────────────────────────────────
     st.subheader("Expression Outlier Genes")
-    st.markdown(
-        "Genes with expression significantly above or below the TCGA-LUAD cohort median. "
-        "Showing first 200 rows."
-    )
+    st.caption("Genes with |GTEx Z-score| > 2 (tumor vs normal lung). First 200 rows.")
     show_table(
         OUTPUT / "03_expression" / sample / f"{sample}_expression_outliers.tsv",
         nrows=200,
@@ -1151,41 +1190,64 @@ elif page == "09 · Integration":
         df_sum = pd.read_csv(summary_path, sep="\t")
 
         # Top-level metrics
-        col1, col2, col3, col4 = st.columns(4)
         n = len(df_sum)
-        n_targeted   = (df_sum["top_category"] == "Targeted Therapy").sum()
-        n_immuno     = (df_sum["top_category"] == "Immunotherapy").sum()
-        n_chemo      = (df_sum["top_category"] == "Chemotherapy").sum()
-        n_tmb_high   = df_sum["tmb_high"].sum() if "tmb_high" in df_sum.columns else 0
-        col1.metric("Total Patients", n)
-        col2.metric("Targeted Therapy", f"{n_targeted} ({n_targeted/n:.0%})")
-        col3.metric("Immunotherapy First", f"{n_immuno} ({n_immuno/n:.0%})")
-        col4.metric("High TMB (≥10)", f"{n_tmb_high} ({n_tmb_high/n:.0%})")
+        n_targeted  = (df_sum["n_targeted"] > 0).sum() if "n_targeted" in df_sum.columns else 0
+        n_tmb_high  = df_sum["tmb_high"].sum()           if "tmb_high"  in df_sum.columns else 0
+        n_combo     = (df_sum["n_combination"] > 0).sum() if "n_combination" in df_sum.columns else 0
+        mean_io     = df_sum["io_score"].mean()           if "io_score"  in df_sum.columns else 0
+
+        col1, col2, col3, col4 = st.columns(4)
+        col1.metric("Total Patients",       n)
+        col2.metric("With Targeted Drugs",  f"{n_targeted} ({n_targeted/n:.0%})")
+        col3.metric("High TMB (≥10 mut/Mb)",f"{n_tmb_high} ({n_tmb_high/n:.0%})")
+        col4.metric("Mean IO Score",        f"{mean_io:.1f} / 100")
+
+        col5, col6, col7 = st.columns(3)
+        col5.metric("With Combo Therapy Suggestions", f"{n_combo} ({n_combo/n:.0%})")
+        if "tme_phenotype" in df_sum.columns:
+            n_inflamed = (df_sum["tme_phenotype"] == "Inflamed").sum()
+            n_excluded = (df_sum["tme_phenotype"] == "Excluded").sum()
+            col6.metric("Inflamed TME", f"{n_inflamed} ({n_inflamed/n:.0%})")
+            col7.metric("Excluded TME", f"{n_excluded} ({n_excluded/n:.0%})")
 
         st.divider()
 
-        # Driver gene distribution
-        st.subheader("Driver Mutation Distribution")
-        driver_counts = {}
-        for genes in df_sum["driver_genes"].dropna():
-            for g in genes.split("; "):
-                g = g.strip()
-                if g and g != "None":
-                    driver_counts[g] = driver_counts.get(g, 0) + 1
-
-        if driver_counts:
-            driver_df = pd.DataFrame(
-                sorted(driver_counts.items(), key=lambda x: -x[1]),
-                columns=["Gene", "Patients"]
-            )
-            st.dataframe(driver_df, use_container_width=False, hide_index=True)
-        else:
-            st.info("No driver mutations found in current cohort.")
+        # IO score distribution
+        if "io_score" in df_sum.columns:
+            st.subheader("Immunotherapy Score Distribution")
+            import matplotlib
+            matplotlib.use("Agg")
+            import matplotlib.pyplot as plt
+            fig, ax = plt.subplots(figsize=(8, 3))
+            ax.hist(df_sum["io_score"].dropna(), bins=20, color="#1a9850", alpha=0.8,
+                    edgecolor="white")
+            ax.axvline(x=50, color="#d73027", linestyle="--", linewidth=1.2,
+                       label="Score = 50")
+            ax.set_xlabel("IO Score (0-100)", fontsize=10)
+            ax.set_ylabel("Patients", fontsize=10)
+            ax.set_title("Multi-Dimensional Immunotherapy Score\n"
+                         "(TMB + TME + PD-L1 + IFN-γ signature)", fontsize=10)
+            ax.legend(fontsize=9)
+            fig.tight_layout()
+            st.pyplot(fig, use_container_width=False)
+            plt.close()
 
         st.divider()
 
-        # Full table
-        with st.expander("Full Cohort Integration Table"):
+        # Top targeted drugs
+        st.subheader("Top Targeted Drug Distribution")
+        if "top_targeted_drug" in df_sum.columns:
+            drug_counts = df_sum["top_targeted_drug"].value_counts()
+            drug_counts = drug_counts[drug_counts.index != "None"]
+            if not drug_counts.empty:
+                drug_df = drug_counts.reset_index()
+                drug_df.columns = ["Drug", "Patients"]
+                st.dataframe(drug_df, use_container_width=False, hide_index=True)
+
+        st.divider()
+
+        # Full cohort table
+        with st.expander("Full Cohort Summary Table"):
             st.dataframe(df_sum, use_container_width=True, hide_index=True)
 
     else:
@@ -1193,8 +1255,10 @@ elif page == "09 · Integration":
             "Integration summary not yet generated.\n\n"
             "**Step 1:** Run M02 variant annotation:\n"
             "```bash\npython modules/02_variation_annotation/luad_pcgr.py\n```\n\n"
-            "**Step 2:** Run M08 pathology (optional, for TME):\n"
-            "```bash\npython modules/08_pathology/luad_pathology.py\n```\n\n"
+            "**Step 2:** Run M07, M08, M03 (optional, for richer scoring):\n"
+            "```bash\npython modules/07_drug_mapping/luad_drug_mapping.py\n"
+            "python modules/08_pathology/luad_pathology.py\n"
+            "python modules/03_expression/luad_expression.py\n```\n\n"
             "**Step 3:** Run M09 integration:\n"
             "```bash\npython modules/09_integration/luad_integration.py\n```"
         )
@@ -1220,23 +1284,52 @@ elif page == "09 · Integration":
             st.image(str(report_png), use_container_width=True)
 
         if rec_tsv.exists():
-            st.subheader("Ranked Recommendations")
+            st.subheader("All Ranked Recommendations")
             df_rec = pd.read_csv(rec_tsv, sep="\t")
-            # Color-code by category
-            category_colors = {
-                "Targeted Therapy": "🔵",
-                "Immunotherapy":    "🟢",
-                "Combination":      "🟣",
-                "Chemotherapy":     "🔴",
+
+            ICONS = {
+                "Targeted Therapy":   "🔵",
+                "Immunotherapy":      "🟢",
+                "Combination Therapy":"🟣",
+                "Chemotherapy":       "🔴",
             }
-            df_rec["category"] = df_rec["category"].apply(
-                lambda c: f"{category_colors.get(c, '⚪')} {c}"
+            df_display = df_rec.copy()
+            df_display["category"] = df_display["category"].apply(
+                lambda c: f"{ICONS.get(c, '⚪')} {c}"
             )
-            display_cols = ["rank", "category", "drug", "drug_class", "evidence", "rationale"]
+
+            # Score bar as emoji-style text
+            def score_bar(s):
+                filled = int(round(s / 10))
+                return "█" * filled + "░" * (10 - filled) + f"  {s}"
+            if "confidence" in df_display.columns:
+                df_display["confidence"] = df_display["confidence"].apply(score_bar)
+
+            display_cols = [
+                "rank", "category", "drug", "drug_class",
+                "oncokb_level", "amp_tier", "escat_tier",
+                "evidence", "line", "confidence",
+                "data_layers", "rationale", "combination_basis",
+            ]
             st.dataframe(
-                df_rec[[c for c in display_cols if c in df_rec.columns]],
+                df_display[[c for c in display_cols if c in df_display.columns]],
                 use_container_width=True,
                 hide_index=True,
             )
+
+            # Evidence legend
+            with st.expander("Evidence Grading Reference"):
+                st.markdown("""
+| OncoKB Level | AMP/ASCO/CAP Tier | Meaning |
+|---|---|---|
+| Level 1 | Tier I-A | FDA-approved biomarker + same tumor type |
+| Level 2 | Tier I-B | NCCN guideline recommendation |
+| Level 3A | Tier II-C | Clinical trial evidence / Investigational |
+| Level 3B | Tier II-D | Cross-tumor type extrapolation |
+| Level 4 | Tier II-D | Preclinical / biological evidence only |
+| ESCAT Tier V | — | Combination therapy (co-targeting rationale) |
+
+**IO Score** (0–100) = TMB (0–40) + TME (0–40) + PD-L1 expression (0–15) + IFN-γ signature (0–15) − IO resistance penalty (−20 if STK11/KEAP1/NFE2L2 co-mutation)
+                """)
     else:
         st.caption("No per-patient integration reports found. Run M09 to generate them.")
