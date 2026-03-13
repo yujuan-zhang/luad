@@ -801,7 +801,9 @@ elif page == "03 · Expression Analysis":
         st.divider()
         st.subheader("Expression Outlier Genes")
         st.caption("Genes with |GTEx Z-score| > 2 (tumor vs normal lung). First 200 rows.")
-        outliers_tsv = OUTPUT / "03_expression" / sample / f"{sample}_expression_outliers.tsv"
+        outliers_tsv = OUTPUT / "03_expression" / sample / f"{sample}_expression_outliers.tsv.gz"
+        if not outliers_tsv.exists():
+            outliers_tsv = OUTPUT / "03_expression" / sample / f"{sample}_expression_outliers.tsv"
         if outliers_tsv.exists():
             show_table(outliers_tsv, nrows=200, caption=f"Outlier genes — {sample}")
         else:
