@@ -36,6 +36,7 @@ import time
 import textwrap
 from datetime import datetime
 from pathlib import Path
+import pandas as pd
 
 # ── Paths ─────────────────────────────────────────────────────────────────────
 PROJECT_DIR = Path(__file__).parent
@@ -129,6 +130,45 @@ def run_module(
         "status": status, "duration": elapsed,
         "rc": result.returncode, "note": "",
     }
+
+
+def write_cohort_index():
+    """
+    Build data/output/cohort_index.tsv — cross-module modality index.
+    One row per patient; bool flags indicate which modules have output.
+    Used by Streamlit to filter the patient selector per page.
+    """
+    out_dir = PROJECT_DIR / "data" / "output"
+    expr_dir = out_dir / "03_expression"
+    if not expr_dir.exists():
+        return
+
+    samples = sorted([
+        d.name for d in expr_dir.iterdir()
+        if d.is_dir() and d.name.startswith("TCGA")
+    ])
+
+    rows = []
+    for s in samples:
+        rows.append({
+            "sample_id":      s,
+            "has_rnaseq":     (expr_dir / s).exists(),
+            "has_wes":        (out_dir / "02_variation_annotation" / s).exists(),
+            "has_pathology":  (out_dir / "08_pathology" / s).exists(),
+            "has_proteomics": False,   # M04 CPTAC not yet implemented
+        })
+
+    df = pd.DataFrame(rows)
+    bool_cols = ["has_rnaseq", "has_wes", "has_pathology", "has_proteomics"]
+    df["modality_count"] = df[bool_cols].sum(axis=1)
+
+    out_path = out_dir / "cohort_index.tsv"
+    df.to_csv(out_path, sep="\t", index=False)
+    n_rnaseq = df["has_rnaseq"].sum()
+    n_wes    = df["has_wes"].sum()
+    n_both   = (df["has_rnaseq"] & df["has_wes"]).sum()
+    print(f"\n  Cohort index → {out_path.relative_to(PROJECT_DIR)}")
+    print(f"  {len(df)} patients | RNA-seq: {n_rnaseq} | WES: {n_wes} | both: {n_both}")
 
 
 def print_summary(results: list, total_elapsed: float):
@@ -283,6 +323,7 @@ def main():
 
     total_elapsed = time.time() - t_pipeline
     rc = print_summary(results, total_elapsed)
+    write_cohort_index()
     sys.exit(rc)
 
 
