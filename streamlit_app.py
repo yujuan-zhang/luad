@@ -798,6 +798,17 @@ elif page == "03 · Expression Analysis":
             OUTPUT / "03_expression" / sample / f"{sample}_expression_summary.png",
             caption=f"Expression outliers vs GTEx Normal Lung — {sample}",
         )
+        outliers_tsv = OUTPUT / "03_expression" / sample / f"{sample}_expression_outliers.tsv"
+        if outliers_tsv.exists():
+            st.divider()
+            st.subheader("Expression Outlier Genes")
+            st.caption("Genes with |GTEx Z-score| > 2 (tumor vs normal lung). First 200 rows.")
+            show_table(outliers_tsv, nrows=200, caption=f"Outlier genes — {sample}")
+        corr_tsv = OUTPUT / "03_expression" / sample / f"{sample}_expr_correlation.tsv"
+        if corr_tsv.exists():
+            st.divider()
+            st.subheader("Sample Correlation")
+            show_table(corr_tsv, caption="Expression correlation with TCGA-LUAD cohort")
         st.divider()
         st.subheader("Cohort-level Overview")
         col1, col2 = st.columns(2)
@@ -825,25 +836,6 @@ elif page == "03 · Expression Analysis":
                        caption=f"Mutated gene expression positions — {sample}")
         else:
             st.info("No mutation data available for this patient (M02 output not found).")
-
-    st.divider()
-
-    # ── Data tables ───────────────────────────────────────────────────────────
-    st.subheader("Expression Outlier Genes")
-    st.caption("Genes with |GTEx Z-score| > 2 (tumor vs normal lung). First 200 rows.")
-    show_table(
-        OUTPUT / "03_expression" / sample / f"{sample}_expression_outliers.tsv",
-        nrows=200,
-        caption=f"Outlier genes — {sample}",
-    )
-
-    st.divider()
-
-    st.subheader("Sample Correlation")
-    show_table(
-        OUTPUT / "03_expression" / sample / f"{sample}_expr_correlation.tsv",
-        caption="Expression correlation with TCGA-LUAD cohort",
-    )
 
 
 # ══════════════════════════════════════════════════════════════════════════════
