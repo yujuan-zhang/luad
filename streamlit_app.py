@@ -809,13 +809,6 @@ elif page == "03 · Expression Analysis":
         else:
             st.info("Detailed outlier table available in local pipeline output only.")
         st.divider()
-        st.subheader("Sample Correlation")
-        corr_tsv = OUTPUT / "03_expression" / sample / f"{sample}_expr_correlation.tsv"
-        if corr_tsv.exists():
-            show_table(corr_tsv, caption="Expression correlation with TCGA-LUAD cohort")
-        else:
-            st.info("Correlation table available in local pipeline output only.")
-        st.divider()
         st.subheader("Cohort-level Overview")
         col1, col2 = st.columns(2)
         with col1:
