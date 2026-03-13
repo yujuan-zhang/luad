@@ -782,7 +782,7 @@ elif page == "03 · Expression Analysis":
     st.header("03 · Expression Analysis")
     st.caption("Bulk RNA-seq · GTEx normal lung baseline · per-patient & cohort-level figures")
 
-    _m03_samples = discover_module_samples(OUTPUT / "03_expression", "_expression_outliers.tsv")
+    _m03_samples = discover_module_samples(OUTPUT / "03_expression", "_clinical_genes.png")
     sample = st.selectbox("Patient", _m03_samples or SAMPLES, key="sel_m03",
                           help=f"{len(_m03_samples)} patients with expression output")
 
