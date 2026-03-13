@@ -798,6 +798,19 @@ elif page == "03 · Expression Analysis":
             OUTPUT / "03_expression" / sample / f"{sample}_expression_summary.png",
             caption=f"Expression outliers vs GTEx Normal Lung — {sample}",
         )
+        st.divider()
+        st.subheader("Cohort-level Overview")
+        col1, col2 = st.columns(2)
+        with col1:
+            show_image(
+                OUTPUT / "03_expression" / "cohort_clinical_genes_heatmap.png",
+                caption="Clinical gene Z-scores — 517 patients × 21 genes",
+            )
+        with col2:
+            show_image(
+                OUTPUT / "03_expression" / "cohort_outlier_distribution.png",
+                caption="Outlier gene counts per patient vs GTEx Normal Lung",
+            )
 
     with tab2:
         show_image(
@@ -812,22 +825,6 @@ elif page == "03 · Expression Analysis":
                        caption=f"Mutated gene expression positions — {sample}")
         else:
             st.info("No mutation data available for this patient (M02 output not found).")
-
-    st.divider()
-
-    # ── Cohort-level figures ──────────────────────────────────────────────────
-    st.subheader("Cohort-level Overview")
-    col1, col2 = st.columns(2)
-    with col1:
-        show_image(
-            OUTPUT / "03_expression" / "cohort_clinical_genes_heatmap.png",
-            caption="Clinical gene Z-scores — 517 patients × 21 genes",
-        )
-    with col2:
-        show_image(
-            OUTPUT / "03_expression" / "cohort_outlier_distribution.png",
-            caption="Outlier gene counts per patient vs GTEx Normal Lung",
-        )
 
     st.divider()
 
