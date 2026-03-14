@@ -1,0 +1,542 @@
+SAMPLE_ID	EXT_SAMPLE_ID	EXT_DB	CORR	PROTEIN_CODING_ONLY	EXT_SAMPLE_ID2	EXT_SAMPLE_NAME	EXT_SAMPLE_TYPE	EXT_AGE_AT_DX	EXT_AGE_CATEGORY	EXT_GENDER	EXT_PRIMARY_DIAGNOSIS	EXT_PRIMARY_SITE
+TCGA-95-8039	TCGA-95-8039-01A	tcga-luad	1.0	True	TCGA-95-8039	TCGA-95-8039-01A	primary_tumor	72.0	adult	male	Acinar cell carcinoma	Lung
+TCGA-95-8039	TCGA-L9-A743-01A	tcga-luad	0.9648555844968332	True	TCGA-L9-A743	TCGA-L9-A743-01A	primary_tumor	56.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-44-3919-01A	tcga-luad	0.9645992022132204	True	TCGA-44-3919	TCGA-44-3919-01A	primary_tumor	71.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-55-7227-01A	tcga-luad	0.9622293876912009	True	TCGA-55-7227	TCGA-55-7227-01A	primary_tumor	77.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-44-A47G-01A	tcga-luad	0.9613609779345413	True	TCGA-44-A47G	TCGA-44-A47G-01A	primary_tumor	73.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-55-8510-01A	tcga-luad	0.9599347782203604	True	TCGA-55-8510	TCGA-55-8510-01A	primary_tumor	55.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-62-A46Y-01A	tcga-luad	0.9591314378947975	True	TCGA-62-A46Y	TCGA-62-A46Y-01A	primary_tumor	70.0	adult	female	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-93-7347-01A	tcga-luad	0.9585224319867578	True	TCGA-93-7347	TCGA-93-7347-01A	primary_tumor	76.0	adult	female	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-49-6744-01A	tcga-luad	0.9580778462984303	True	TCGA-49-6744	TCGA-49-6744-01A	primary_tumor	64.0	adult	female	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-55-A48X-01A	tcga-luad	0.9580196185835858	True	TCGA-55-A48X	TCGA-55-A48X-01A	primary_tumor	63.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-86-8280-01A	tcga-luad	0.9579154609187158	True	TCGA-86-8280	TCGA-86-8280-01A	primary_tumor	54.0	adult	female	Bronchiolo-alveolar carcinoma, non-mucinous	Lung
+TCGA-95-8039	TCGA-97-A4M6-01A	tcga-luad	0.9578149943347498	True	TCGA-97-A4M6	TCGA-97-A4M6-01A	primary_tumor	45.0	adult	female	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-78-8655-01A	tcga-luad	0.9577257851288431	True	TCGA-78-8655	TCGA-78-8655-01A	primary_tumor	77.0	adult	female	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-50-6593-01A	tcga-luad	0.9571814557063715	True	TCGA-50-6593	TCGA-50-6593-01A	primary_tumor	49.0	adult	female	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-55-7281-01A	tcga-luad	0.9568117157786611	True	TCGA-55-7281	TCGA-55-7281-01A	primary_tumor	70.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-67-6216-01A	tcga-luad	0.9567291959171805	True	TCGA-67-6216	TCGA-67-6216-01A	primary_tumor	57.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-49-4505-01A	tcga-luad	0.9566296756120025	True	TCGA-49-4505	TCGA-49-4505-01A	primary_tumor	61.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-50-5941-01A	tcga-luad	0.9560652495890201	True	TCGA-50-5941	TCGA-50-5941-01A	primary_tumor	55.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-55-8090-01A	tcga-luad	0.9558469940555431	True	TCGA-55-8090	TCGA-55-8090-01A	primary_tumor	80.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-55-7283-01A	tcga-luad	0.9557126255043664	True	TCGA-55-7283	TCGA-55-7283-01A	primary_tumor	76.0	adult	female	Bronchiolo-alveolar carcinoma, non-mucinous	Lung
+TCGA-95-8039	TCGA-99-7458-01A	tcga-luad	0.9556510858413552	True	TCGA-99-7458	TCGA-99-7458-01A	primary_tumor	74.0	adult	female	Bronchiolo-alveolar carcinoma, non-mucinous	Lung
+TCGA-95-8039	TCGA-MP-A4SW-01A	tcga-luad	0.9546818765986	True	TCGA-MP-A4SW	TCGA-MP-A4SW-01A	primary_tumor	53.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-MP-A4T9-01A	tcga-luad	0.9546087059415123	True	TCGA-MP-A4T9	TCGA-MP-A4T9-01A	primary_tumor	54.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-55-7576-01A	tcga-luad	0.9543429133045673	True	TCGA-55-7576	TCGA-55-7576-01A	primary_tumor	54.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-73-4662-01A	tcga-luad	0.954192393635312	True	TCGA-73-4662	TCGA-73-4662-01A	primary_tumor	65.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-95-A4VN-01A	tcga-luad	0.95365603952471	True	TCGA-95-A4VN	TCGA-95-A4VN-01A	primary_tumor	62.0	adult	female	Solid carcinoma, NOS	Lung
+TCGA-95-8039	TCGA-55-7573-01A	tcga-luad	0.9534136555862959	True	TCGA-55-7573	TCGA-55-7573-01A	primary_tumor	72.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-97-A4M7-01A	tcga-luad	0.9533451588979946	True	TCGA-97-A4M7	TCGA-97-A4M7-01A	primary_tumor	74.0	adult	male	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-50-8460-01A	tcga-luad	0.9531223096352189	True	TCGA-50-8460	TCGA-50-8460-01A	primary_tumor	74.0	adult	male	Papillary adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-49-AARN-01A	tcga-luad	0.953103570020881	True	TCGA-49-AARN	TCGA-49-AARN-01A	primary_tumor	56.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-67-6217-01A	tcga-luad	0.9530497746645858	True	TCGA-67-6217	TCGA-67-6217-01A	primary_tumor	73.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-MP-A4SV-01A	tcga-luad	0.9529197756952171	True	TCGA-MP-A4SV	TCGA-MP-A4SV-01A	primary_tumor	67.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-78-7143-01A	tcga-luad	0.9528722178769622	True	TCGA-78-7143	TCGA-78-7143-01A	primary_tumor	62.0	adult	female	Bronchiolo-alveolar carcinoma, non-mucinous	Lung
+TCGA-95-8039	TCGA-05-4405-01A	tcga-luad	0.9524273095964557	True	TCGA-05-4405	TCGA-05-4405-01A	primary_tumor	74.0	adult	female	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-49-6745-01A	tcga-luad	0.9521175048994129	True	TCGA-49-6745	TCGA-49-6745-01A	primary_tumor	82.0	adult	male	Papillary adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-44-7672-01A	tcga-luad	0.9521019155380777	True	TCGA-44-7672	TCGA-44-7672-01A	primary_tumor	52.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-05-4249-01A	tcga-luad	0.952089477618066	True	TCGA-05-4249	TCGA-05-4249-01A	primary_tumor	67.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-NJ-A4YG-01A	tcga-luad	0.9519848198049451	True	TCGA-NJ-A4YG	TCGA-NJ-A4YG-01A	primary_tumor	65.0	adult	male	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-97-A4LX-01A	tcga-luad	0.9519711194455857	True	TCGA-97-A4LX	TCGA-97-A4LX-01A	primary_tumor	81.0	adult	male	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-55-6980-01A	tcga-luad	0.9517293767074214	True	TCGA-55-6980	TCGA-55-6980-01A	primary_tumor	56.0	adult	male	Bronchiolo-alveolar carcinoma, non-mucinous	Lung
+TCGA-95-8039	TCGA-97-A4M0-01A	tcga-luad	0.9514815357046994	True	TCGA-97-A4M0	TCGA-97-A4M0-01A	primary_tumor	60.0	adult	female	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-05-4244-01A	tcga-luad	0.9514050343288256	True	TCGA-05-4244	TCGA-05-4244-01A	primary_tumor	70.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-86-8076-01A	tcga-luad	0.9512768575931118	True	TCGA-86-8076	TCGA-86-8076-01A	primary_tumor	42.0	adult	male	Papillary adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-86-A4P7-01A	tcga-luad	0.9512416713504469	True	TCGA-86-A4P7	TCGA-86-A4P7-01A	primary_tumor	63.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-97-8177-01A	tcga-luad	0.9512093016837785	True	TCGA-97-8177	TCGA-97-8177-01A	primary_tumor	59.0	adult	female	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-J2-A4AG-01A	tcga-luad	0.951048150865514	True	TCGA-J2-A4AG	TCGA-J2-A4AG-01A	primary_tumor	66.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-55-6986-01A	tcga-luad	0.9509261363740903	True	TCGA-55-6986	TCGA-55-6986-01A	primary_tumor	74.0	adult	female	Bronchiolo-alveolar carcinoma, non-mucinous	Lung
+TCGA-95-8039	TCGA-53-7626-01A	tcga-luad	0.9507876451085393	True	TCGA-53-7626	TCGA-53-7626-01A	primary_tumor	76.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-86-A456-01A	tcga-luad	0.9505936948506718	True	TCGA-86-A456	TCGA-86-A456-01A	primary_tumor	78.0	adult	female	Papillary adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-05-4402-01A	tcga-luad	0.9500998385439551	True	TCGA-05-4402	TCGA-05-4402-01A	primary_tumor	57.0	adult	female	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-50-8457-01A	tcga-luad	0.9500693694288743	True	TCGA-50-8457	TCGA-50-8457-01A	primary_tumor	63.0	adult	female	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-55-A57B-01A	tcga-luad	0.9498085453609921	True	TCGA-55-A57B	TCGA-55-A57B-01A	primary_tumor	80.0	adult	female	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-05-4426-01A	tcga-luad	0.9496883904108345	True	TCGA-05-4426	TCGA-05-4426-01A	primary_tumor	71.0	adult	male	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-93-A4JQ-01A	tcga-luad	0.9496259348975593	True	TCGA-93-A4JQ	TCGA-93-A4JQ-01A	primary_tumor	49.0	adult	male	Acinar cell carcinoma	Lung
+TCGA-95-8039	TCGA-55-6982-01A	tcga-luad	0.9496082397882665	True	TCGA-55-6982	TCGA-55-6982-01A	primary_tumor	79.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-J2-8192-01A	tcga-luad	0.9495880512788113	True	TCGA-J2-8192	TCGA-J2-8192-01A	primary_tumor	65.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-44-2657-01A	tcga-luad	0.9495803522838543	True	TCGA-44-2657	TCGA-44-2657-01A	primary_tumor	74.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-05-4430-01A	tcga-luad	0.9495459487105846	True	TCGA-05-4430	TCGA-05-4430-01A	primary_tumor	59.0	adult	female	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-55-8301-01A	tcga-luad	0.9495026664626608	True	TCGA-55-8301	TCGA-55-8301-01A	primary_tumor	58.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-55-8207-01A	tcga-luad	0.9494923348587228	True	TCGA-55-8207	TCGA-55-8207-01A	primary_tumor	73.0	adult	male	Acinar cell carcinoma	Lung
+TCGA-95-8039	TCGA-55-8621-01A	tcga-luad	0.9494636727723551	True	TCGA-55-8621	TCGA-55-8621-01A	primary_tumor	75.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-55-6979-01A	tcga-luad	0.9494575638642196	True	TCGA-55-6979	TCGA-55-6979-01A	primary_tumor	59.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-55-7911-01A	tcga-luad	0.9494445470203338	True	TCGA-55-7911	TCGA-55-7911-01A	primary_tumor	70.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-73-4658-01A	tcga-luad	0.9493481927003161	True	TCGA-73-4658	TCGA-73-4658-01A	primary_tumor	80.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-99-8028-01A	tcga-luad	0.9493468972070059	True	TCGA-99-8028	TCGA-99-8028-01A	primary_tumor	50.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-86-8278-01A	tcga-luad	0.9491394934553424	True	TCGA-86-8278	TCGA-86-8278-01A	primary_tumor	63.0	adult	female	Mucinous adenocarcinoma	Lung
+TCGA-95-8039	TCGA-64-1681-01A	tcga-luad	0.9491187849153601	True	TCGA-64-1681	TCGA-64-1681-01A	primary_tumor	61.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-49-4501-01A	tcga-luad	0.9491113980569759	True	TCGA-49-4501	TCGA-49-4501-01A	primary_tumor	67.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-38-4626-01A	tcga-luad	0.9490396304873504	True	TCGA-38-4626	TCGA-38-4626-01A	primary_tumor	57.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-55-7903-01A	tcga-luad	0.9489787351067559	True	TCGA-55-7903	TCGA-55-7903-01A	primary_tumor	64.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-78-7152-01A	tcga-luad	0.9488298331225038	True	TCGA-78-7152	TCGA-78-7152-01A	primary_tumor	65.0	adult	male	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-55-6981-01A	tcga-luad	0.948726263136954	True	TCGA-55-6981	TCGA-55-6981-01A	primary_tumor	53.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-86-8671-01A	tcga-luad	0.9486508742630533	True	TCGA-86-8671	TCGA-86-8671-01A	primary_tumor	72.0	adult	female	Papillary adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-97-7553-01A	tcga-luad	0.9484862614257136	True	TCGA-97-7553	TCGA-97-7553-01A	primary_tumor	58.0	adult	female	Bronchiolo-alveolar carcinoma, non-mucinous	Lung
+TCGA-95-8039	TCGA-86-8074-01A	tcga-luad	0.9483264884535272	True	TCGA-86-8074	TCGA-86-8074-01A	primary_tumor	62.0	adult	female	Papillary adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-55-8091-01A	tcga-luad	0.9478721605090341	True	TCGA-55-8091	TCGA-55-8091-01A	primary_tumor	74.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-44-2661-01A	tcga-luad	0.947856864116278	True	TCGA-44-2661	TCGA-44-2661-01A	primary_tumor	69.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-38-6178-01A	tcga-luad	0.9478080315373054	True	TCGA-38-6178	TCGA-38-6178-01A	primary_tumor	70.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-69-7980-01A	tcga-luad	0.9477853330801018	True	TCGA-69-7980	TCGA-69-7980-01A	primary_tumor	70.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-69-7974-01A	tcga-luad	0.9477157922886021	True	TCGA-69-7974	TCGA-69-7974-01A	primary_tumor	54.0	adult	female	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-55-8097-01A	tcga-luad	0.9476891033668173	True	TCGA-55-8097	TCGA-55-8097-01A	primary_tumor	60.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-95-7567-01A	tcga-luad	0.9475883415322782	True	TCGA-95-7567	TCGA-95-7567-01A	primary_tumor	61.0	adult	male	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-MN-A4N5-01A	tcga-luad	0.9473250995733768	True	TCGA-MN-A4N5	TCGA-MN-A4N5-01A	primary_tumor	63.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-55-7574-01A	tcga-luad	0.9471661241684002	True	TCGA-55-7574	TCGA-55-7574-01A	primary_tumor	64.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-44-2655-01A	tcga-luad	0.9471421155409655	True	TCGA-44-2655	TCGA-44-2655-01A	primary_tumor	65.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-49-AAQV-01A	tcga-luad	0.9468728468300361	True	TCGA-49-AAQV	TCGA-49-AAQV-01A	primary_tumor	63.0	adult	female	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-50-5935-01A	tcga-luad	0.9468212801740494	True	TCGA-50-5935	TCGA-50-5935-01A	primary_tumor	86.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-80-5607-01A	tcga-luad	0.9468142777531203	True	TCGA-80-5607	TCGA-80-5607-01A	primary_tumor		unknown	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-67-6215-01A	tcga-luad	0.9468124289619205	True	TCGA-67-6215	TCGA-67-6215-01A	primary_tumor	52.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-05-4384-01A	tcga-luad	0.9467775418320208	True	TCGA-05-4384	TCGA-05-4384-01A	primary_tumor	66.0	adult	male	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-05-4410-01A	tcga-luad	0.9467447506748835	True	TCGA-05-4410	TCGA-05-4410-01A	primary_tumor	62.0	adult	male	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-55-8206-01A	tcga-luad	0.946708605992874	True	TCGA-55-8206	TCGA-55-8206-01A	primary_tumor	56.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-97-8175-01A	tcga-luad	0.9466568652129702	True	TCGA-97-8175	TCGA-97-8175-01A	primary_tumor	55.0	adult	female	Solid carcinoma, NOS	Lung
+TCGA-95-8039	TCGA-67-3774-01A	tcga-luad	0.9464817721078176	True	TCGA-67-3774	TCGA-67-3774-01A	primary_tumor	73.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-55-8208-01A	tcga-luad	0.9464785528668885	True	TCGA-55-8208	TCGA-55-8208-01A	primary_tumor	73.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-67-4679-01B	tcga-luad	0.9464714783646955	True	TCGA-67-4679	TCGA-67-4679-01B	primary_tumor	69.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-91-6835-01A	tcga-luad	0.9463724131976229	True	TCGA-91-6835	TCGA-91-6835-01A	primary_tumor	81.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-86-A4JF-01A	tcga-luad	0.946343604778787	True	TCGA-86-A4JF	TCGA-86-A4JF-01A	primary_tumor	56.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-38-7271-01A	tcga-luad	0.9462287263424566	True	TCGA-38-7271	TCGA-38-7271-01A	primary_tumor	72.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-55-6543-01A	tcga-luad	0.9460055254626436	True	TCGA-55-6543	TCGA-55-6543-01A	primary_tumor	60.0	adult	female	Bronchio-alveolar carcinoma, mucinous	Lung
+TCGA-95-8039	TCGA-78-8660-01A	tcga-luad	0.94598895701163	True	TCGA-78-8660	TCGA-78-8660-01A	primary_tumor	69.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-75-6212-01A	tcga-luad	0.945927047029477	True	TCGA-75-6212	TCGA-75-6212-01A	primary_tumor		unknown	female	Micropapillary carcinoma, NOS	Lung
+TCGA-95-8039	TCGA-69-7978-01A	tcga-luad	0.9458947770696082	True	TCGA-69-7978	TCGA-69-7978-01A	primary_tumor	59.0	adult	male	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-86-6562-01A	tcga-luad	0.9457605993825924	True	TCGA-86-6562	TCGA-86-6562-01A	primary_tumor	52.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-78-7145-01A	tcga-luad	0.9456279902312567	True	TCGA-78-7145	TCGA-78-7145-01A	primary_tumor	52.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-55-1595-01A	tcga-luad	0.9455169797378051	True	TCGA-55-1595	TCGA-55-1595-01A	primary_tumor	74.0	adult	female	Clear cell adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-62-A472-01A	tcga-luad	0.9454429468925203	True	TCGA-62-A472	TCGA-62-A472-01A	primary_tumor	70.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-93-7348-01A	tcga-luad	0.945438204768026	True	TCGA-93-7348	TCGA-93-7348-01A	primary_tumor	75.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-49-4512-01A	tcga-luad	0.9454243244569656	True	TCGA-49-4512	TCGA-49-4512-01A	primary_tumor	69.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-69-7763-01A	tcga-luad	0.9453612135458453	True	TCGA-69-7763	TCGA-69-7763-01A	primary_tumor	69.0	adult	male	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-MP-A4T4-01A	tcga-luad	0.9453422057414107	True	TCGA-MP-A4T4	TCGA-MP-A4T4-01A	primary_tumor	68.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-64-5815-01A	tcga-luad	0.9452869886872721	True	TCGA-64-5815	TCGA-64-5815-01A	primary_tumor	74.0	adult	male	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-75-7025-01A	tcga-luad	0.9452264540849081	True	TCGA-75-7025	TCGA-75-7025-01A	primary_tumor		unknown	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-73-7498-01A	tcga-luad	0.9451704171101332	True	TCGA-73-7498	TCGA-73-7498-01A	primary_tumor	58.0	adult	female	Bronchiolo-alveolar carcinoma, non-mucinous	Lung
+TCGA-95-8039	TCGA-64-5778-01A	tcga-luad	0.9447688077584762	True	TCGA-64-5778	TCGA-64-5778-01A	primary_tumor	60.0	adult	male	Bronchiolo-alveolar carcinoma, non-mucinous	Lung
+TCGA-95-8039	TCGA-97-A4M1-01A	tcga-luad	0.944700369358093	True	TCGA-97-A4M1	TCGA-97-A4M1-01A	primary_tumor	52.0	adult	female	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-55-6985-01A	tcga-luad	0.9446513035076457	True	TCGA-55-6985	TCGA-55-6985-01A	primary_tumor	58.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-97-A4M2-01A	tcga-luad	0.9445093272329517	True	TCGA-97-A4M2	TCGA-97-A4M2-01A	primary_tumor	66.0	adult	male	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-93-A4JN-01A	tcga-luad	0.9444583463701628	True	TCGA-93-A4JN	TCGA-93-A4JN-01A	primary_tumor	71.0	adult	male	Acinar cell carcinoma	Lung
+TCGA-95-8039	TCGA-86-8668-01A	tcga-luad	0.9444287565475383	True	TCGA-86-8668	TCGA-86-8668-01A	primary_tumor	61.0	adult	female	Bronchio-alveolar carcinoma, mucinous	Lung
+TCGA-95-8039	TCGA-50-5045-01A	tcga-luad	0.9442984147145357	True	TCGA-50-5045	TCGA-50-5045-01A	primary_tumor	57.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-MP-A4TI-01A	tcga-luad	0.9442497456735965	True	TCGA-MP-A4TI	TCGA-MP-A4TI-01A	primary_tumor	72.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-55-8299-01A	tcga-luad	0.944137818288379	True	TCGA-55-8299	TCGA-55-8299-01A	primary_tumor	61.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-69-7765-01A	tcga-luad	0.9440369081716365	True	TCGA-69-7765	TCGA-69-7765-01A	primary_tumor	56.0	adult	male	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-49-AAR4-01A	tcga-luad	0.9440129861491247	True	TCGA-49-AAR4	TCGA-49-AAR4-01A	primary_tumor	51.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-93-A4JO-01A	tcga-luad	0.9437116496435276	True	TCGA-93-A4JO	TCGA-93-A4JO-01A	primary_tumor	70.0	adult	male	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-50-5944-01A	tcga-luad	0.9436310969815208	True	TCGA-50-5944	TCGA-50-5944-01A	primary_tumor	69.0	adult	female	Acinar cell carcinoma	Lung
+TCGA-95-8039	TCGA-J2-A4AE-01A	tcga-luad	0.9435939411964882	True	TCGA-J2-A4AE	TCGA-J2-A4AE-01A	primary_tumor	77.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-44-8120-01A	tcga-luad	0.9435712021864286	True	TCGA-44-8120	TCGA-44-8120-01A	primary_tumor	58.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-97-8547-01A	tcga-luad	0.9435616273734724	True	TCGA-97-8547	TCGA-97-8547-01A	primary_tumor	78.0	adult	female	Acinar cell carcinoma	Lung
+TCGA-95-8039	TCGA-97-A4M5-01A	tcga-luad	0.9435252343958757	True	TCGA-97-A4M5	TCGA-97-A4M5-01A	primary_tumor	83.0	adult	male	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-MP-A4SY-01A	tcga-luad	0.9435205462370853	True	TCGA-MP-A4SY	TCGA-MP-A4SY-01A	primary_tumor	61.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-MP-A4TH-01A	tcga-luad	0.9434608544529637	True	TCGA-MP-A4TH	TCGA-MP-A4TH-01A	primary_tumor	70.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-L9-A444-01A	tcga-luad	0.9433862225802971	True	TCGA-L9-A444	TCGA-L9-A444-01A	primary_tumor	60.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-55-8302-01A	tcga-luad	0.9433389713031559	True	TCGA-55-8302	TCGA-55-8302-01A	primary_tumor	54.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-44-5645-01A	tcga-luad	0.9432640443065088	True	TCGA-44-5645	TCGA-44-5645-01A	primary_tumor	61.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-44-5645-01A	tcga-luad	0.9432640443065088	True	TCGA-44-5645	TCGA-44-5645-01A	primary_tumor	61.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-78-7160-01A	tcga-luad	0.9431376520986069	True	TCGA-78-7160	TCGA-78-7160-01A	primary_tumor	61.0	adult	male	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-44-A4SU-01A	tcga-luad	0.9431054848094124	True	TCGA-44-A4SU	TCGA-44-A4SU-01A	primary_tumor	67.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-MP-A4TK-01A	tcga-luad	0.943058612118305	True	TCGA-MP-A4TK	TCGA-MP-A4TK-01A	primary_tumor	56.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-86-8055-01A	tcga-luad	0.9430268260837695	True	TCGA-86-8055	TCGA-86-8055-01A	primary_tumor	79.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-86-7954-01A	tcga-luad	0.9428351746267272	True	TCGA-86-7954	TCGA-86-7954-01A	primary_tumor	68.0	adult	female	Bronchiolo-alveolar adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-86-7714-01A	tcga-luad	0.9427636829734751	True	TCGA-86-7714	TCGA-86-7714-01A	primary_tumor	61.0	adult	female	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-71-8520-01A	tcga-luad	0.9425296061713836	True	TCGA-71-8520	TCGA-71-8520-01A	primary_tumor	60.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-69-8453-01A	tcga-luad	0.9424158361985561	True	TCGA-69-8453	TCGA-69-8453-01A	primary_tumor	77.0	adult	male	Mucinous adenocarcinoma	Lung
+TCGA-95-8039	TCGA-97-7554-01A	tcga-luad	0.9424147976946992	True	TCGA-97-7554	TCGA-97-7554-01A	primary_tumor	83.0	adult	female	Papillary adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-05-4434-01A	tcga-luad	0.9423973854296236	True	TCGA-05-4434	TCGA-05-4434-01A	primary_tumor	67.0	adult	female	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-78-7539-01A	tcga-luad	0.9422719981257737	True	TCGA-78-7539	TCGA-78-7539-01A	primary_tumor	75.0	adult	female	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-86-8056-01A	tcga-luad	0.9421279621779455	True	TCGA-86-8056	TCGA-86-8056-01A	primary_tumor	63.0	adult	female	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-75-5126-01A	tcga-luad	0.9420783263685271	True	TCGA-75-5126	TCGA-75-5126-01A	primary_tumor		unknown	female	Papillary adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-55-8619-01A	tcga-luad	0.9419236229623619	True	TCGA-55-8619	TCGA-55-8619-01A	primary_tumor	72.0	adult	female	Mucinous adenocarcinoma	Lung
+TCGA-95-8039	TCGA-62-8394-01A	tcga-luad	0.9419012420132903	True	TCGA-62-8394	TCGA-62-8394-01A	primary_tumor	65.0	adult	female	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-75-5125-01A	tcga-luad	0.941900701390769	True	TCGA-75-5125	TCGA-75-5125-01A	primary_tumor		unknown	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-64-1680-01A	tcga-luad	0.9418129957416056	True	TCGA-64-1680	TCGA-64-1680-01A	primary_tumor	63.0	adult	male	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-44-3396-01A	tcga-luad	0.9416121930397517	True	TCGA-44-3396	TCGA-44-3396-01A	primary_tumor	74.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-97-7938-01A	tcga-luad	0.9415834347642242	True	TCGA-97-7938	TCGA-97-7938-01A	primary_tumor	76.0	adult	female	Bronchiolo-alveolar carcinoma, non-mucinous	Lung
+TCGA-95-8039	TCGA-49-AARO-01A	tcga-luad	0.9415675905968213	True	TCGA-49-AARO	TCGA-49-AARO-01A	primary_tumor	39.0	adult	female	Papillary adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-MP-A4T7-01A	tcga-luad	0.9414817674664501	True	TCGA-MP-A4T7	TCGA-MP-A4T7-01A	primary_tumor	75.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-44-7661-01A	tcga-luad	0.9414095333826448	True	TCGA-44-7661	TCGA-44-7661-01A	primary_tumor	69.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-62-A46R-01A	tcga-luad	0.941396956292477	True	TCGA-62-A46R	TCGA-62-A46R-01A	primary_tumor	54.0	adult	female	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-50-5055-01A	tcga-luad	0.9412764636605252	True	TCGA-50-5055	TCGA-50-5055-01A	primary_tumor	79.0	adult	female	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-MP-A4TC-01A	tcga-luad	0.9412760086913078	True	TCGA-MP-A4TC	TCGA-MP-A4TC-01A	primary_tumor	77.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-62-8395-01A	tcga-luad	0.9411675519130368	True	TCGA-62-8395	TCGA-62-8395-01A	primary_tumor	80.0	adult	female	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-44-7659-01A	tcga-luad	0.9411428688976178	True	TCGA-44-7659	TCGA-44-7659-01A	primary_tumor	70.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-97-8552-01A	tcga-luad	0.9407565671696816	True	TCGA-97-8552	TCGA-97-8552-01A	primary_tumor	55.0	adult	female	Bronchiolo-alveolar carcinoma, non-mucinous	Lung
+TCGA-95-8039	TCGA-75-6205-01A	tcga-luad	0.9406582560514578	True	TCGA-75-6205	TCGA-75-6205-01A	primary_tumor		unknown	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-J2-8194-01A	tcga-luad	0.9406024345185359	True	TCGA-J2-8194	TCGA-J2-8194-01A	primary_tumor	69.0	adult	female	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-05-4398-01A	tcga-luad	0.940341715109785	True	TCGA-05-4398	TCGA-05-4398-01A	primary_tumor	47.0	adult	female	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-55-6987-01A	tcga-luad	0.94027329191548	True	TCGA-55-6987	TCGA-55-6987-01A	primary_tumor	77.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-78-7162-01A	tcga-luad	0.9402136593519305	True	TCGA-78-7162	TCGA-78-7162-01A	primary_tumor	75.0	adult	male	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-55-6983-01A	tcga-luad	0.9401994231489349	True	TCGA-55-6983	TCGA-55-6983-01A	primary_tumor	81.0	adult	male	Mucinous adenocarcinoma	Lung
+TCGA-95-8039	TCGA-69-8253-01A	tcga-luad	0.9401892648030795	True	TCGA-69-8253	TCGA-69-8253-01A	primary_tumor	59.0	adult	female	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-44-6777-01A	tcga-luad	0.940124221622791	True	TCGA-44-6777	TCGA-44-6777-01A	primary_tumor	85.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-05-5423-01A	tcga-luad	0.9400401736319002	True	TCGA-05-5423	TCGA-05-5423-01A	primary_tumor	65.0	adult	male	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-49-4490-01A	tcga-luad	0.9400064671114412	True	TCGA-49-4490	TCGA-49-4490-01A	primary_tumor	45.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-44-A47A-01A	tcga-luad	0.939847287494893	True	TCGA-44-A47A	TCGA-44-A47A-01A	primary_tumor	78.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-55-A48Z-01A	tcga-luad	0.9397801969008152	True	TCGA-55-A48Z	TCGA-55-A48Z-01A	primary_tumor	60.0	adult	female	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-78-7147-01A	tcga-luad	0.9396121232587461	True	TCGA-78-7147	TCGA-78-7147-01A	primary_tumor	67.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-97-7546-01A	tcga-luad	0.9395341113876223	True	TCGA-97-7546	TCGA-97-7546-01A	primary_tumor	76.0	adult	female	Acinar cell carcinoma	Lung
+TCGA-95-8039	TCGA-55-6971-01A	tcga-luad	0.9394629939943018	True	TCGA-55-6971	TCGA-55-6971-01A	primary_tumor	59.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-91-A4BD-01A	tcga-luad	0.9394539402056991	True	TCGA-91-A4BD	TCGA-91-A4BD-01A	primary_tumor	78.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-55-6712-01A	tcga-luad	0.9393047618550939	True	TCGA-55-6712	TCGA-55-6712-01A	primary_tumor	71.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-L4-A4E6-01A	tcga-luad	0.9392818892174913	True	TCGA-L4-A4E6	TCGA-L4-A4E6-01A	primary_tumor	67.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-75-6206-01A	tcga-luad	0.9390759755828845	True	TCGA-75-6206	TCGA-75-6206-01A	primary_tumor		unknown	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-95-7039-01A	tcga-luad	0.9390429620402257	True	TCGA-95-7039	TCGA-95-7039-01A	primary_tumor	54.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-75-6203-01A	tcga-luad	0.9388778097561237	True	TCGA-75-6203	TCGA-75-6203-01A	primary_tumor		unknown	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-NJ-A55O-01A	tcga-luad	0.9388146897069636	True	TCGA-NJ-A55O	TCGA-NJ-A55O-01A	primary_tumor	56.0	adult	female	Mucinous adenocarcinoma	Lung
+TCGA-95-8039	TCGA-73-4677-01A	tcga-luad	0.9388121288603919	True	TCGA-73-4677	TCGA-73-4677-01A	primary_tumor	74.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-73-4668-01A	tcga-luad	0.9388006370195967	True	TCGA-73-4668	TCGA-73-4668-01A	primary_tumor	66.0	adult	female	Micropapillary carcinoma, NOS	Lung
+TCGA-95-8039	TCGA-55-6970-01A	tcga-luad	0.9387667824144692	True	TCGA-55-6970	TCGA-55-6970-01A	primary_tumor	67.0	adult	female	Papillary adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-69-8254-01A	tcga-luad	0.9387306439919368	True	TCGA-69-8254	TCGA-69-8254-01A	primary_tumor	85.0	adult	male	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-86-8075-01A	tcga-luad	0.9386668524027347	True	TCGA-86-8075	TCGA-86-8075-01A	primary_tumor	66.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-99-AA5R-01A	tcga-luad	0.9386435404034423	True	TCGA-99-AA5R	TCGA-99-AA5R-01A	primary_tumor	70.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-95-8494-01A	tcga-luad	0.9386339010146957	True	TCGA-95-8494	TCGA-95-8494-01A	primary_tumor	67.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-97-8172-01A	tcga-luad	0.9385329429273284	True	TCGA-97-8172	TCGA-97-8172-01A	primary_tumor	75.0	adult	female	Acinar cell carcinoma	Lung
+TCGA-95-8039	TCGA-97-8179-01A	tcga-luad	0.9384991515608185	True	TCGA-97-8179	TCGA-97-8179-01A	primary_tumor	72.0	adult	male	Acinar cell carcinoma	Lung
+TCGA-95-8039	TCGA-44-2659-01A	tcga-luad	0.938456943127909	True	TCGA-44-2659	TCGA-44-2659-01A	primary_tumor	65.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-44-6145-01A	tcga-luad	0.9382410651247095	True	TCGA-44-6145	TCGA-44-6145-01A	primary_tumor	62.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-44-4112-01A	tcga-luad	0.9381123993661321	True	TCGA-44-4112	TCGA-44-4112-01A	primary_tumor	60.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-44-4112-01A	tcga-luad	0.9381123993661321	True	TCGA-44-4112	TCGA-44-4112-01A	primary_tumor	60.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-78-7537-01A	tcga-luad	0.9380926030456995	True	TCGA-78-7537	TCGA-78-7537-01A	primary_tumor	72.0	adult	male	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-NJ-A7XG-01A	tcga-luad	0.9379912149845446	True	TCGA-NJ-A7XG	TCGA-NJ-A7XG-01A	primary_tumor	49.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-49-4494-01A	tcga-luad	0.937989882668276	True	TCGA-49-4494	TCGA-49-4494-01A	primary_tumor	77.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-L9-A50W-01A	tcga-luad	0.9379814798583574	True	TCGA-L9-A50W	TCGA-L9-A50W-01A	primary_tumor	75.0	adult	male	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-86-6851-01A	tcga-luad	0.937829593022806	True	TCGA-86-6851	TCGA-86-6851-01A	primary_tumor	73.0	adult	female	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-67-3772-01A	tcga-luad	0.9377456237832471	True	TCGA-67-3772	TCGA-67-3772-01A	primary_tumor	82.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-91-8497-01A	tcga-luad	0.9376869403589551	True	TCGA-91-8497	TCGA-91-8497-01A	primary_tumor	75.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-62-8397-01A	tcga-luad	0.9376630693644958	True	TCGA-62-8397	TCGA-62-8397-01A	primary_tumor	70.0	adult	female	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-05-4250-01A	tcga-luad	0.9375328887860209	True	TCGA-05-4250	TCGA-05-4250-01A	primary_tumor	79.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-55-8205-01A	tcga-luad	0.9374860943798569	True	TCGA-55-8205	TCGA-55-8205-01A	primary_tumor	76.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-73-4659-01A	tcga-luad	0.9372353106107562	True	TCGA-73-4659	TCGA-73-4659-01A	primary_tumor	66.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-55-8203-01A	tcga-luad	0.9371101901575711	True	TCGA-55-8203	TCGA-55-8203-01A	primary_tumor	69.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-75-5146-01A	tcga-luad	0.9369942284921061	True	TCGA-75-5146	TCGA-75-5146-01A	primary_tumor		unknown	male	Bronchiolo-alveolar carcinoma, non-mucinous	Lung
+TCGA-95-8039	TCGA-67-3770-01A	tcga-luad	0.9368052840526281	True	TCGA-67-3770	TCGA-67-3770-01A	primary_tumor	70.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-55-8616-01A	tcga-luad	0.9366738689119857	True	TCGA-55-8616	TCGA-55-8616-01A	primary_tumor	58.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-95-A4VK-01A	tcga-luad	0.9365906740027904	True	TCGA-95-A4VK	TCGA-95-A4VK-01A	primary_tumor	74.0	adult	female	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-62-A46U-01A	tcga-luad	0.9363947454887509	True	TCGA-62-A46U	TCGA-62-A46U-01A	primary_tumor	71.0	adult	female	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-05-5715-01A	tcga-luad	0.936375952205736	True	TCGA-05-5715	TCGA-05-5715-01A	primary_tumor	69.0	adult	female	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-35-3615-01A	tcga-luad	0.9363444553373795	True	TCGA-35-3615	TCGA-35-3615-01A	primary_tumor	57.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-55-8096-01A	tcga-luad	0.9362261013891513	True	TCGA-55-8096	TCGA-55-8096-01A	primary_tumor	67.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-91-8496-01A	tcga-luad	0.9361932491065245	True	TCGA-91-8496	TCGA-91-8496-01A	primary_tumor	63.0	adult	female	Bronchiolo-alveolar carcinoma, non-mucinous	Lung
+TCGA-95-8039	TCGA-78-7148-01A	tcga-luad	0.9361877480774127	True	TCGA-78-7148	TCGA-78-7148-01A	primary_tumor	71.0	adult	male	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-86-8281-01A	tcga-luad	0.9360033903809778	True	TCGA-86-8281	TCGA-86-8281-01A	primary_tumor	75.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-97-8176-01A	tcga-luad	0.9359876691060214	True	TCGA-97-8176	TCGA-97-8176-01A	primary_tumor	63.0	adult	male	Acinar cell carcinoma	Lung
+TCGA-95-8039	TCGA-50-5932-01A	tcga-luad	0.9359663884532047	True	TCGA-50-5932	TCGA-50-5932-01A	primary_tumor	75.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-97-7941-01A	tcga-luad	0.9359248923628515	True	TCGA-97-7941	TCGA-97-7941-01A	primary_tumor	72.0	adult	female	Acinar cell carcinoma	Lung
+TCGA-95-8039	TCGA-55-8085-01A	tcga-luad	0.9359005997636938	True	TCGA-55-8085	TCGA-55-8085-01A	primary_tumor	64.0	adult	male	Papillary adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-05-5425-01A	tcga-luad	0.9357961018830113	True	TCGA-05-5425	TCGA-05-5425-01A	primary_tumor	68.0	adult	male	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-05-4417-01A	tcga-luad	0.935768360765239	True	TCGA-05-4417	TCGA-05-4417-01A	primary_tumor	51.0	adult	female	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-55-6978-01A	tcga-luad	0.9357530589538644	True	TCGA-55-6978	TCGA-55-6978-01A	primary_tumor	81.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-91-7771-01A	tcga-luad	0.9356460967583481	True	TCGA-91-7771	TCGA-91-7771-01A	primary_tumor	62.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-55-7907-01A	tcga-luad	0.9356172803490089	True	TCGA-55-7907	TCGA-55-7907-01A	primary_tumor	77.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-91-6849-01A	tcga-luad	0.9355232863790977	True	TCGA-91-6849	TCGA-91-6849-01A	primary_tumor	75.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-MP-A4TJ-01A	tcga-luad	0.935492860374685	True	TCGA-MP-A4TJ	TCGA-MP-A4TJ-01A	primary_tumor	62.0	adult	female	Signet ring cell carcinoma	Lung
+TCGA-95-8039	TCGA-78-8648-01A	tcga-luad	0.9354510726992469	True	TCGA-78-8648	TCGA-78-8648-01A	primary_tumor	58.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-93-A4JP-01A	tcga-luad	0.935355620495493	True	TCGA-93-A4JP	TCGA-93-A4JP-01A	primary_tumor	64.0	adult	male	Papillary adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-93-8067-01A	tcga-luad	0.9350304809265299	True	TCGA-93-8067	TCGA-93-8067-01A	primary_tumor	77.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-55-8506-01A	tcga-luad	0.935001049938838	True	TCGA-55-8506	TCGA-55-8506-01A	primary_tumor	62.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-L9-A443-01A	tcga-luad	0.9350004011176549	True	TCGA-L9-A443	TCGA-L9-A443-01A	primary_tumor	63.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-55-1592-01A	tcga-luad	0.9349971621546113	True	TCGA-55-1592	TCGA-55-1592-01A	primary_tumor	65.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-99-8025-01A	tcga-luad	0.9349397436978468	True	TCGA-99-8025	TCGA-99-8025-01A	primary_tumor	72.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-05-4425-01A	tcga-luad	0.9349156464438884	True	TCGA-05-4425	TCGA-05-4425-01A	primary_tumor	70.0	adult	female	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-50-5049-01A	tcga-luad	0.9349056704858465	True	TCGA-50-5049	TCGA-50-5049-01A	primary_tumor	70.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-62-A46V-01A	tcga-luad	0.9347898809406757	True	TCGA-62-A46V	TCGA-62-A46V-01A	primary_tumor	78.0	adult	female	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-44-6147-01A	tcga-luad	0.9347368054303532	True	TCGA-44-6147	TCGA-44-6147-01A	primary_tumor	67.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-44-6147-01A	tcga-luad	0.9347368054303532	True	TCGA-44-6147	TCGA-44-6147-01A	primary_tumor	67.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-86-8073-01A	tcga-luad	0.9347125619587883	True	TCGA-86-8073	TCGA-86-8073-01A	primary_tumor	58.0	adult	male	Bronchiolo-alveolar adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-55-8511-01A	tcga-luad	0.9344549930833089	True	TCGA-55-8511	TCGA-55-8511-01A	primary_tumor	73.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-O1-A52J-01A	tcga-luad	0.9344416685002657	True	TCGA-O1-A52J	TCGA-O1-A52J-01A	primary_tumor	74.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-38-A44F-01A	tcga-luad	0.934248794452389	True	TCGA-38-A44F	TCGA-38-A44F-01A	primary_tumor	80.0	adult	male	Acinar cell carcinoma	Lung
+TCGA-95-8039	TCGA-50-6673-01A	tcga-luad	0.934227810664438	True	TCGA-50-6673	TCGA-50-6673-01A	primary_tumor	84.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-67-3773-01A	tcga-luad	0.9339626995229338	True	TCGA-67-3773	TCGA-67-3773-01A	primary_tumor	84.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-49-4488-01A	tcga-luad	0.9338956216334494	True	TCGA-49-4488	TCGA-49-4488-01A	primary_tumor	74.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-73-4676-01A	tcga-luad	0.9338701352794779	True	TCGA-73-4676	TCGA-73-4676-01A	primary_tumor	45.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-55-A4DG-01A	tcga-luad	0.9338587541943674	True	TCGA-55-A4DG	TCGA-55-A4DG-01A	primary_tumor	71.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-05-4427-01A	tcga-luad	0.9337939426596845	True	TCGA-05-4427	TCGA-05-4427-01A	primary_tumor	65.0	adult	female	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-49-4487-01A	tcga-luad	0.9335754321139381	True	TCGA-49-4487	TCGA-49-4487-01A	primary_tumor	72.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-97-8174-01A	tcga-luad	0.933524340991588	True	TCGA-97-8174	TCGA-97-8174-01A	primary_tumor	67.0	adult	male	Papillary adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-55-8087-01A	tcga-luad	0.933487306859209	True	TCGA-55-8087	TCGA-55-8087-01A	primary_tumor	59.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-05-4389-01A	tcga-luad	0.9334797514593444	True	TCGA-05-4389	TCGA-05-4389-01A	primary_tumor	70.0	adult	male	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-44-6776-01A	tcga-luad	0.9334645090580198	True	TCGA-44-6776	TCGA-44-6776-01A	primary_tumor	60.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-64-1679-01A	tcga-luad	0.9334485206663131	True	TCGA-64-1679	TCGA-64-1679-01A	primary_tumor	58.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-MP-A4TD-01A	tcga-luad	0.9334101686547336	True	TCGA-MP-A4TD	TCGA-MP-A4TD-01A	primary_tumor	71.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-50-5939-01A	tcga-luad	0.9333976306510439	True	TCGA-50-5939	TCGA-50-5939-01A	primary_tumor	85.0	adult	male	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-91-6828-01A	tcga-luad	0.933027879340137	True	TCGA-91-6828	TCGA-91-6828-01A	primary_tumor	70.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-86-8359-01A	tcga-luad	0.9329216392818526	True	TCGA-86-8359	TCGA-86-8359-01A	primary_tumor	52.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-44-A47B-01A	tcga-luad	0.9327365484850658	True	TCGA-44-A47B	TCGA-44-A47B-01A	primary_tumor	79.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-75-6207-01A	tcga-luad	0.9326169043246711	True	TCGA-75-6207	TCGA-75-6207-01A	primary_tumor		unknown	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-44-7671-01A	tcga-luad	0.9325639107065459	True	TCGA-44-7671	TCGA-44-7671-01A	primary_tumor	64.0	adult	male	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-91-6830-01A	tcga-luad	0.9324970546761745	True	TCGA-91-6830	TCGA-91-6830-01A	primary_tumor	65.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-50-5942-01A	tcga-luad	0.9322672942005618	True	TCGA-50-5942	TCGA-50-5942-01A	primary_tumor	67.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-38-4632-01A	tcga-luad	0.932238112455346	True	TCGA-38-4632	TCGA-38-4632-01A	primary_tumor	42.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-86-7953-01A	tcga-luad	0.932145957436976	True	TCGA-86-7953	TCGA-86-7953-01A	primary_tumor	69.0	adult	female	Bronchiolo-alveolar adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-50-5936-01A	tcga-luad	0.9319670524754663	True	TCGA-50-5936	TCGA-50-5936-01A	primary_tumor	58.0	adult	male	Mucinous adenocarcinoma	Lung
+TCGA-95-8039	TCGA-86-8279-01A	tcga-luad	0.931484747314573	True	TCGA-86-8279	TCGA-86-8279-01A	primary_tumor	46.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-69-7764-01A	tcga-luad	0.9313198440429407	True	TCGA-69-7764	TCGA-69-7764-01A	primary_tumor	75.0	adult	male	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-44-2668-01A	tcga-luad	0.9311479749035257	True	TCGA-44-2668	TCGA-44-2668-01A	primary_tumor	51.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-44-2668-01A	tcga-luad	0.9311479749035257	True	TCGA-44-2668	TCGA-44-2668-01A	primary_tumor	51.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-75-7030-01A	tcga-luad	0.9309150146198626	True	TCGA-75-7030	TCGA-75-7030-01A	primary_tumor		unknown	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-44-7662-01A	tcga-luad	0.9306004376257597	True	TCGA-44-7662	TCGA-44-7662-01A	primary_tumor	61.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-55-8507-01A	tcga-luad	0.9305812027868903	True	TCGA-55-8507	TCGA-55-8507-01A	primary_tumor	53.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-75-5147-01A	tcga-luad	0.93057369586188	True	TCGA-75-5147	TCGA-75-5147-01A	primary_tumor		unknown	female	Bronchiolo-alveolar carcinoma, non-mucinous	Lung
+TCGA-95-8039	TCGA-05-4382-01A	tcga-luad	0.930538993898072	True	TCGA-05-4382	TCGA-05-4382-01A	primary_tumor	68.0	adult	male	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-73-7499-01A	tcga-luad	0.9304246894768393	True	TCGA-73-7499	TCGA-73-7499-01A	primary_tumor	81.0	adult	female	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-L4-A4E5-01A	tcga-luad	0.9303572263301503	True	TCGA-L4-A4E5	TCGA-L4-A4E5-01A	primary_tumor	48.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-78-7535-01A	tcga-luad	0.9303553512467616	True	TCGA-78-7535	TCGA-78-7535-01A	primary_tumor	45.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-49-4510-01A	tcga-luad	0.9302219467257545	True	TCGA-49-4510	TCGA-49-4510-01A	primary_tumor	51.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-49-AAR0-01A	tcga-luad	0.9300797174987305	True	TCGA-49-AAR0	TCGA-49-AAR0-01A	primary_tumor	57.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-44-2662-01A	tcga-luad	0.9300518896892812	True	TCGA-44-2662	TCGA-44-2662-01A	primary_tumor	65.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-44-2662-01A	tcga-luad	0.9300518896892812	True	TCGA-44-2662	TCGA-44-2662-01A	primary_tumor	65.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-99-8033-01A	tcga-luad	0.9299894644751486	True	TCGA-99-8033	TCGA-99-8033-01A	primary_tumor	74.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-49-6761-01A	tcga-luad	0.9298374876647685	True	TCGA-49-6761	TCGA-49-6761-01A	primary_tumor	68.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-NJ-A4YI-01A	tcga-luad	0.9298286342094018	True	TCGA-NJ-A4YI	TCGA-NJ-A4YI-01A	primary_tumor	87.0	adult	female	Acinar cell carcinoma	Lung
+TCGA-95-8039	TCGA-38-4629-01A	tcga-luad	0.9297263748250321	True	TCGA-38-4629	TCGA-38-4629-01A	primary_tumor	68.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-NJ-A4YP-01A	tcga-luad	0.9296591165037659	True	TCGA-NJ-A4YP	TCGA-NJ-A4YP-01A	primary_tumor	52.0	adult	male	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-55-7914-01A	tcga-luad	0.9295043727329253	True	TCGA-55-7914	TCGA-55-7914-01A	primary_tumor	71.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-44-8117-01A	tcga-luad	0.9295020602049178	True	TCGA-44-8117	TCGA-44-8117-01A	primary_tumor	54.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-55-7284-01B	tcga-luad	0.9292414503414437	True	TCGA-55-7284	TCGA-55-7284-01B	primary_tumor	74.0	adult	male	Bronchiolo-alveolar carcinoma, non-mucinous	Lung
+TCGA-95-8039	TCGA-05-4433-01A	tcga-luad	0.9292254413573412	True	TCGA-05-4433	TCGA-05-4433-01A	primary_tumor	82.0	adult	male	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-55-8514-01A	tcga-luad	0.9292182361330542	True	TCGA-55-8514	TCGA-55-8514-01A	primary_tumor	70.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-55-8513-01A	tcga-luad	0.9291635263975748	True	TCGA-55-8513	TCGA-55-8513-01A	primary_tumor	77.0	adult	female	Mucinous adenocarcinoma	Lung
+TCGA-95-8039	TCGA-97-A4M3-01A	tcga-luad	0.9287674697620354	True	TCGA-97-A4M3	TCGA-97-A4M3-01A	primary_tumor	69.0	adult	female	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-44-3398-01A	tcga-luad	0.9287448881879716	True	TCGA-44-3398	TCGA-44-3398-01A	primary_tumor	77.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-83-5908-01A	tcga-luad	0.9284990149056245	True	TCGA-83-5908	TCGA-83-5908-01A	primary_tumor	59.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-55-8089-01A	tcga-luad	0.9283150588294187	True	TCGA-55-8089	TCGA-55-8089-01A	primary_tumor	56.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-75-5122-01A	tcga-luad	0.9281974100990953	True	TCGA-75-5122	TCGA-75-5122-01A	primary_tumor		unknown	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-MP-A4T8-01A	tcga-luad	0.928192437417558	True	TCGA-MP-A4T8	TCGA-MP-A4T8-01A	primary_tumor	68.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-80-5608-01A	tcga-luad	0.927936683979136	True	TCGA-80-5608	TCGA-80-5608-01A	primary_tumor		unknown	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-S2-AA1A-01A	tcga-luad	0.9278693448532448	True	TCGA-S2-AA1A	TCGA-S2-AA1A-01A	primary_tumor	68.0	adult	female	Bronchio-alveolar carcinoma, mucinous	Lung
+TCGA-95-8039	TCGA-55-A491-01A	tcga-luad	0.92781070066433	True	TCGA-55-A491	TCGA-55-A491-01A	primary_tumor	81.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-86-A4P8-01A	tcga-luad	0.9276545625605825	True	TCGA-86-A4P8	TCGA-86-A4P8-01A	primary_tumor	59.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-62-A46S-01A	tcga-luad	0.9275687196846264	True	TCGA-62-A46S	TCGA-62-A46S-01A	primary_tumor	73.0	adult	male	Papillary adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-97-7552-01A	tcga-luad	0.9275469465991903	True	TCGA-97-7552	TCGA-97-7552-01A	primary_tumor	70.0	adult	male	Bronchio-alveolar carcinoma, mucinous	Lung
+TCGA-95-8039	TCGA-73-4675-01A	tcga-luad	0.9274825622019579	True	TCGA-73-4675	TCGA-73-4675-01A	primary_tumor	59.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-05-4403-01A	tcga-luad	0.9274471151972578	True	TCGA-05-4403	TCGA-05-4403-01A	primary_tumor	76.0	adult	male	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-50-5066-02A	tcga-luad	0.9273980192009451	True	TCGA-50-5066	TCGA-50-5066-02A	recurrent_tumor	72.0	adult	male	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-78-7158-01A	tcga-luad	0.9272507997343719	True	TCGA-78-7158	TCGA-78-7158-01A	primary_tumor	59.0	adult	female	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-NJ-A55A-01A	tcga-luad	0.9271790009232966	True	TCGA-NJ-A55A	TCGA-NJ-A55A-01A	primary_tumor	76.0	adult	female	Acinar cell carcinoma	Lung
+TCGA-95-8039	TCGA-50-5946-02A	tcga-luad	0.9269703133615604	True	TCGA-50-5946	TCGA-50-5946-02A	recurrent_tumor	62.0	adult	male	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-78-7149-01A	tcga-luad	0.9269424380500157	True	TCGA-78-7149	TCGA-78-7149-01A	primary_tumor	71.0	adult	male	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-55-A48Y-01A	tcga-luad	0.9269356425437508	True	TCGA-55-A48Y	TCGA-55-A48Y-01A	primary_tumor	69.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-05-4424-01A	tcga-luad	0.9269079062098219	True	TCGA-05-4424	TCGA-05-4424-01A	primary_tumor	70.0	adult	male	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-95-7947-01A	tcga-luad	0.9269021305411878	True	TCGA-95-7947	TCGA-95-7947-01A	primary_tumor	67.0	adult	male	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-44-A4SS-01A	tcga-luad	0.9268797769837974	True	TCGA-44-A4SS	TCGA-44-A4SS-01A	primary_tumor	73.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-50-5044-01A	tcga-luad	0.9267250942123408	True	TCGA-50-5044	TCGA-50-5044-01A	primary_tumor	72.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-38-4628-01A	tcga-luad	0.9265539255859082	True	TCGA-38-4628	TCGA-38-4628-01A	primary_tumor	65.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-NJ-A4YQ-01A	tcga-luad	0.9264685911454988	True	TCGA-NJ-A4YQ	TCGA-NJ-A4YQ-01A	primary_tumor	69.0	adult	female	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-97-7547-01A	tcga-luad	0.9264333616729369	True	TCGA-97-7547	TCGA-97-7547-01A	primary_tumor	67.0	adult	female	Papillary adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-86-8673-01A	tcga-luad	0.9263647198728091	True	TCGA-86-8673	TCGA-86-8673-01A	primary_tumor	61.0	adult	male	Bronchiolo-alveolar carcinoma, non-mucinous	Lung
+TCGA-95-8039	TCGA-49-AAR3-01A	tcga-luad	0.9262931602666983	True	TCGA-49-AAR3	TCGA-49-AAR3-01A	primary_tumor	69.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-50-5930-01A	tcga-luad	0.9262526066963429	True	TCGA-50-5930	TCGA-50-5930-01A	primary_tumor	47.0	adult	male	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-50-5933-01A	tcga-luad	0.9262473957913614	True	TCGA-50-5933	TCGA-50-5933-01A	primary_tumor	72.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-71-6725-01A	tcga-luad	0.9261341797026303	True	TCGA-71-6725	TCGA-71-6725-01A	primary_tumor	48.0	adult	female	Papillary adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-55-7727-01A	tcga-luad	0.9260097703025039	True	TCGA-55-7727	TCGA-55-7727-01A	primary_tumor	70.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-50-8459-01A	tcga-luad	0.925686552887011	True	TCGA-50-8459	TCGA-50-8459-01A	primary_tumor	68.0	adult	male	Mucinous adenocarcinoma	Lung
+TCGA-95-8039	TCGA-86-8672-01A	tcga-luad	0.9255263373194664	True	TCGA-86-8672	TCGA-86-8672-01A	primary_tumor	59.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-55-7994-01A	tcga-luad	0.9254441053891788	True	TCGA-55-7994	TCGA-55-7994-01A	primary_tumor	81.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-MN-A4N1-01A	tcga-luad	0.9253590981738764	True	TCGA-MN-A4N1	TCGA-MN-A4N1-01A	primary_tumor	60.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-97-7937-01A	tcga-luad	0.9250622874266697	True	TCGA-97-7937	TCGA-97-7937-01A	primary_tumor	65.0	adult	male	Micropapillary carcinoma, NOS	Lung
+TCGA-95-8039	TCGA-73-4666-01A	tcga-luad	0.9247952356808756	True	TCGA-73-4666	TCGA-73-4666-01A	primary_tumor	52.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-55-6642-01A	tcga-luad	0.9247493602899046	True	TCGA-55-6642	TCGA-55-6642-01A	primary_tumor	63.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-55-A493-01A	tcga-luad	0.9245392567224707	True	TCGA-55-A493	TCGA-55-A493-01A	primary_tumor	54.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-55-8614-01A	tcga-luad	0.9244529245909832	True	TCGA-55-8614	TCGA-55-8614-01A	primary_tumor	76.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-38-4627-01A	tcga-luad	0.9243948760548816	True	TCGA-38-4627	TCGA-38-4627-01A	primary_tumor	64.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-64-1677-01A	tcga-luad	0.9238206911759188	True	TCGA-64-1677	TCGA-64-1677-01A	primary_tumor	77.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-78-7167-01A	tcga-luad	0.9237869273595036	True	TCGA-78-7167	TCGA-78-7167-01A	primary_tumor	77.0	adult	male	Papillary adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-MP-A4T6-01A	tcga-luad	0.9237599293167583	True	TCGA-MP-A4T6	TCGA-MP-A4T6-01A	primary_tumor	76.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-05-4432-01A	tcga-luad	0.9236279807687744	True	TCGA-05-4432	TCGA-05-4432-01A	primary_tumor	66.0	adult	male	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-69-7760-01A	tcga-luad	0.9231146552302117	True	TCGA-69-7760	TCGA-69-7760-01A	primary_tumor	73.0	adult	male	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-44-6774-01A	tcga-luad	0.922599686728267	True	TCGA-44-6774	TCGA-44-6774-01A	primary_tumor	56.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-55-6984-01A	tcga-luad	0.9221294967819073	True	TCGA-55-6984	TCGA-55-6984-01A	primary_tumor	71.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-78-7633-01A	tcga-luad	0.9221011220177315	True	TCGA-78-7633	TCGA-78-7633-01A	primary_tumor	67.0	adult	male	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-95-A4VP-01A	tcga-luad	0.9218181005208674	True	TCGA-95-A4VP	TCGA-95-A4VP-01A	primary_tumor	66.0	adult	female	Acinar cell carcinoma	Lung
+TCGA-95-8039	TCGA-38-4625-01A	tcga-luad	0.9217309876969716	True	TCGA-38-4625	TCGA-38-4625-01A	primary_tumor	66.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-78-7159-01A	tcga-luad	0.9216821808331446	True	TCGA-78-7159	TCGA-78-7159-01A	primary_tumor	60.0	adult	female	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-55-A492-01A	tcga-luad	0.9214895597149674	True	TCGA-55-A492	TCGA-55-A492-01A	primary_tumor	70.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-50-7109-01A	tcga-luad	0.921332500294093	True	TCGA-50-7109	TCGA-50-7109-01A	primary_tumor	60.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-69-A59K-01A	tcga-luad	0.9212888857283139	True	TCGA-69-A59K	TCGA-69-A59K-01A	primary_tumor	60.0	adult	female	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-50-6597-01A	tcga-luad	0.9212453601806572	True	TCGA-50-6597	TCGA-50-6597-01A	primary_tumor	79.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-86-8669-01A	tcga-luad	0.9212169450586254	True	TCGA-86-8669	TCGA-86-8669-01A	primary_tumor	64.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-99-8032-01A	tcga-luad	0.9209429918876685	True	TCGA-99-8032	TCGA-99-8032-01A	primary_tumor	61.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-50-6595-01A	tcga-luad	0.9208805666660693	True	TCGA-50-6595	TCGA-50-6595-01A	primary_tumor	74.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-62-8398-01A	tcga-luad	0.920791646722895	True	TCGA-62-8398	TCGA-62-8398-01A	primary_tumor	55.0	adult	male	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-55-8508-01A	tcga-luad	0.9207764786066223	True	TCGA-55-8508	TCGA-55-8508-01A	primary_tumor	60.0	adult	female	Mucinous adenocarcinoma	Lung
+TCGA-95-8039	TCGA-55-7728-01A	tcga-luad	0.9206049420987441	True	TCGA-55-7728	TCGA-55-7728-01A	primary_tumor	64.0	adult	female	Mucinous adenocarcinoma	Lung
+TCGA-95-8039	TCGA-78-7166-01A	tcga-luad	0.9201639716657507	True	TCGA-78-7166	TCGA-78-7166-01A	primary_tumor	84.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-91-6829-01A	tcga-luad	0.9200984004596945	True	TCGA-91-6829	TCGA-91-6829-01A	primary_tumor	78.0	adult	male	Bronchiolo-alveolar carcinoma, non-mucinous	Lung
+TCGA-95-8039	TCGA-44-6775-01A	tcga-luad	0.9200849853961685	True	TCGA-44-6775	TCGA-44-6775-01A	primary_tumor	72.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-44-6775-01A	tcga-luad	0.9200849853961685	True	TCGA-44-6775	TCGA-44-6775-01A	primary_tumor	72.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-95-7562-01A	tcga-luad	0.9199063641009982	True	TCGA-95-7562	TCGA-95-7562-01A	primary_tumor	71.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-55-7995-01A	tcga-luad	0.9198668438206561	True	TCGA-55-7995	TCGA-55-7995-01A	primary_tumor	73.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-75-7031-01A	tcga-luad	0.9198402892107673	True	TCGA-75-7031	TCGA-75-7031-01A	primary_tumor		unknown	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-62-A470-01A	tcga-luad	0.9196824605937444	True	TCGA-62-A470	TCGA-62-A470-01A	primary_tumor	84.0	adult	male	Acinar cell carcinoma	Lung
+TCGA-95-8039	TCGA-49-6743-01A	tcga-luad	0.9196026850012805	True	TCGA-49-6743	TCGA-49-6743-01A	primary_tumor	81.0	adult	female	Clear cell adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-78-7161-01A	tcga-luad	0.9194032989665458	True	TCGA-78-7161	TCGA-78-7161-01A	primary_tumor	69.0	adult	female	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-50-5072-01A	tcga-luad	0.9193977414710394	True	TCGA-50-5072	TCGA-50-5072-01A	primary_tumor	74.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-50-5051-01A	tcga-luad	0.9193260348484705	True	TCGA-50-5051	TCGA-50-5051-01A	primary_tumor	42.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-J2-A4AD-01A	tcga-luad	0.919048711660533	True	TCGA-J2-A4AD	TCGA-J2-A4AD-01A	primary_tumor	61.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-95-7948-01A	tcga-luad	0.9187425972678004	True	TCGA-95-7948	TCGA-95-7948-01A	primary_tumor	42.0	adult	female	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-69-7761-01A	tcga-luad	0.9186403004245148	True	TCGA-69-7761	TCGA-69-7761-01A	primary_tumor	84.0	adult	male	Acinar cell carcinoma	Lung
+TCGA-95-8039	TCGA-49-4486-01A	tcga-luad	0.9186204579267347	True	TCGA-49-4486	TCGA-49-4486-01A	primary_tumor	72.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-78-7153-01A	tcga-luad	0.9184009649820465	True	TCGA-78-7153	TCGA-78-7153-01A	primary_tumor	65.0	adult	female	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-L9-A8F4-01A	tcga-luad	0.9182495425118498	True	TCGA-L9-A8F4	TCGA-L9-A8F4-01A	primary_tumor	64.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-55-A490-01A	tcga-luad	0.9181166229637375	True	TCGA-55-A490	TCGA-55-A490-01A	primary_tumor	78.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-62-A46P-01A	tcga-luad	0.9172259977747722	True	TCGA-62-A46P	TCGA-62-A46P-01A	primary_tumor	65.0	adult	male	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-64-1676-01A	tcga-luad	0.9166737858351961	True	TCGA-64-1676	TCGA-64-1676-01A	primary_tumor	58.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-49-4514-01A	tcga-luad	0.916533115747941	True	TCGA-49-4514	TCGA-49-4514-01A	primary_tumor	79.0	adult	female	Papillary adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-44-A479-01A	tcga-luad	0.916502879748682	True	TCGA-44-A479	TCGA-44-A479-01A	primary_tumor	73.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-73-4670-01A	tcga-luad	0.9164461544352897	True	TCGA-73-4670	TCGA-73-4670-01A	primary_tumor	69.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-55-8092-01A	tcga-luad	0.9163133797609815	True	TCGA-55-8092	TCGA-55-8092-01A	primary_tumor	75.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-78-7540-01A	tcga-luad	0.9162504091592615	True	TCGA-78-7540	TCGA-78-7540-01A	primary_tumor	66.0	adult	female	Bronchio-alveolar carcinoma, mucinous	Lung
+TCGA-95-8039	TCGA-69-7979-01A	tcga-luad	0.9160425970689936	True	TCGA-69-7979	TCGA-69-7979-01A	primary_tumor	71.0	adult	female	Acinar cell carcinoma	Lung
+TCGA-95-8039	TCGA-49-6742-01A	tcga-luad	0.9159978420470631	True	TCGA-49-6742	TCGA-49-6742-01A	primary_tumor	70.0	adult	male	Mucinous adenocarcinoma	Lung
+TCGA-95-8039	TCGA-MP-A4TF-01A	tcga-luad	0.9158925852399675	True	TCGA-MP-A4TF	TCGA-MP-A4TF-01A	primary_tumor	58.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-05-4422-01A	tcga-luad	0.9158010913968319	True	TCGA-05-4422	TCGA-05-4422-01A	primary_tumor	68.0	adult	male	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-78-7146-01A	tcga-luad	0.9155766183736171	True	TCGA-78-7146	TCGA-78-7146-01A	primary_tumor	71.0	adult	female	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-50-5068-01A	tcga-luad	0.915413567705773	True	TCGA-50-5068	TCGA-50-5068-01A	primary_tumor	59.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-05-4396-01A	tcga-luad	0.9153384264818806	True	TCGA-05-4396	TCGA-05-4396-01A	primary_tumor	76.0	adult	male	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-86-8585-01A	tcga-luad	0.9152564483725241	True	TCGA-86-8585	TCGA-86-8585-01A	primary_tumor	57.0	adult	male	Solid carcinoma, NOS	Lung
+TCGA-95-8039	TCGA-49-AARE-01A	tcga-luad	0.915096247854058	True	TCGA-49-AARE	TCGA-49-AARE-01A	primary_tumor	51.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-49-6767-01A	tcga-luad	0.9150787433076216	True	TCGA-49-6767	TCGA-49-6767-01A	primary_tumor	46.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-78-8640-01A	tcga-luad	0.9147808252857487	True	TCGA-78-8640	TCGA-78-8640-01A	primary_tumor	59.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-62-8399-01A	tcga-luad	0.9145033034060155	True	TCGA-62-8399	TCGA-62-8399-01A	primary_tumor	62.0	adult	male	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-05-4418-01A	tcga-luad	0.9140626096071404	True	TCGA-05-4418	TCGA-05-4418-01A	primary_tumor	69.0	adult	male	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-55-8505-01A	tcga-luad	0.9139600022520149	True	TCGA-55-8505	TCGA-55-8505-01A	primary_tumor	62.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-64-5781-01A	tcga-luad	0.9137860014073167	True	TCGA-64-5781	TCGA-64-5781-01A	primary_tumor	55.0	adult	female	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-69-7973-01A	tcga-luad	0.9137642397140112	True	TCGA-69-7973	TCGA-69-7973-01A	primary_tumor	42.0	adult	female	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-55-8615-01A	tcga-luad	0.9135459454547519	True	TCGA-55-8615	TCGA-55-8615-01A	primary_tumor	67.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-44-6779-01A	tcga-luad	0.9134964660174526	True	TCGA-44-6779	TCGA-44-6779-01A	primary_tumor	50.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-05-4420-01A	tcga-luad	0.912900355630083	True	TCGA-05-4420	TCGA-05-4420-01A	primary_tumor	41.0	adult	male	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-05-4395-01A	tcga-luad	0.9128805402644596	True	TCGA-05-4395	TCGA-05-4395-01A	primary_tumor	76.0	adult	male	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-75-7027-01A	tcga-luad	0.912874282168686	True	TCGA-75-7027	TCGA-75-7027-01A	primary_tumor		unknown	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-86-8674-01A	tcga-luad	0.9126656409724273	True	TCGA-86-8674	TCGA-86-8674-01A	primary_tumor	50.0	adult	male	Papillary adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-35-4123-01A	tcga-luad	0.9126234947286148	True	TCGA-35-4123	TCGA-35-4123-01A	primary_tumor	38.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-78-7542-01A	tcga-luad	0.9125573054236021	True	TCGA-78-7542	TCGA-78-7542-01A	primary_tumor	56.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-91-A4BC-01A	tcga-luad	0.9123191145839507	True	TCGA-91-A4BC	TCGA-91-A4BC-01A	primary_tumor	59.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-55-6975-01A	tcga-luad	0.9120245384267408	True	TCGA-55-6975	TCGA-55-6975-01A	primary_tumor	61.0	adult	male	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-MP-A5C7-01A	tcga-luad	0.91128171451611	True	TCGA-MP-A5C7	TCGA-MP-A5C7-01A	primary_tumor	76.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-86-7701-01A	tcga-luad	0.9109415120578053	True	TCGA-86-7701	TCGA-86-7701-01A	primary_tumor	66.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-35-4122-01A	tcga-luad	0.910931574314073	True	TCGA-35-4122	TCGA-35-4122-01A	primary_tumor	69.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-MP-A4TA-01A	tcga-luad	0.9108204633213186	True	TCGA-MP-A4TA	TCGA-MP-A4TA-01A	primary_tumor	75.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-MN-A4N4-01A	tcga-luad	0.9102361126276296	True	TCGA-MN-A4N4	TCGA-MN-A4N4-01A	primary_tumor	57.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-78-7163-01A	tcga-luad	0.9099001308573476	True	TCGA-78-7163	TCGA-78-7163-01A	primary_tumor	60.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-62-8402-01A	tcga-luad	0.909408588232392	True	TCGA-62-8402	TCGA-62-8402-01A	primary_tumor	73.0	adult	female	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-78-7156-01A	tcga-luad	0.9093787311585193	True	TCGA-78-7156	TCGA-78-7156-01A	primary_tumor	62.0	adult	male	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-44-6146-01A	tcga-luad	0.9090845471760041	True	TCGA-44-6146	TCGA-44-6146-01A	primary_tumor	64.0	adult	male	Mucinous adenocarcinoma	Lung
+TCGA-95-8039	TCGA-44-6146-01A	tcga-luad	0.9090845471760041	True	TCGA-44-6146	TCGA-44-6146-01A	primary_tumor	64.0	adult	male	Mucinous adenocarcinoma	Lung
+TCGA-95-8039	TCGA-05-5428-01A	tcga-luad	0.9089601679175494	True	TCGA-05-5428	TCGA-05-5428-01A	primary_tumor	57.0	adult	male	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-95-7944-01A	tcga-luad	0.9088730463118131	True	TCGA-95-7944	TCGA-95-7944-01A	primary_tumor	71.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-80-5611-01A	tcga-luad	0.9086425212685306	True	TCGA-80-5611	TCGA-80-5611-01A	primary_tumor		unknown	male	Solid carcinoma, NOS	Lung
+TCGA-95-8039	TCGA-78-7154-01A	tcga-luad	0.9083123662271241	True	TCGA-78-7154	TCGA-78-7154-01A	primary_tumor	72.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-55-6969-01A	tcga-luad	0.9080918977827828	True	TCGA-55-6969	TCGA-55-6969-01A	primary_tumor	52.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-91-6831-01A	tcga-luad	0.9078531630048939	True	TCGA-91-6831	TCGA-91-6831-01A	primary_tumor	66.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-55-7725-01A	tcga-luad	0.9077433880014766	True	TCGA-55-7725	TCGA-55-7725-01A	primary_tumor	68.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-44-6778-01A	tcga-luad	0.9076298952082278	True	TCGA-44-6778	TCGA-44-6778-01A	primary_tumor	59.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-49-4507-01A	tcga-luad	0.9075721272258429	True	TCGA-49-4507	TCGA-49-4507-01A	primary_tumor	73.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-50-6594-01A	tcga-luad	0.9074355608891892	True	TCGA-50-6594	TCGA-50-6594-01A	primary_tumor	79.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-55-8204-01A	tcga-luad	0.907387639208498	True	TCGA-55-8204	TCGA-55-8204-01A	primary_tumor	87.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-50-6592-01A	tcga-luad	0.9066928051462808	True	TCGA-50-6592	TCGA-50-6592-01A	primary_tumor	71.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-49-AARR-01A	tcga-luad	0.9066846589310349	True	TCGA-49-AARR	TCGA-49-AARR-01A	primary_tumor	68.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-55-8512-01A	tcga-luad	0.9064516155771789	True	TCGA-55-8512	TCGA-55-8512-01A	primary_tumor	41.0	adult	male	Bronchiolo-alveolar carcinoma, non-mucinous	Lung
+TCGA-95-8039	TCGA-55-7913-01B	tcga-luad	0.9063746428641124	True	TCGA-55-7913	TCGA-55-7913-01B	primary_tumor	61.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-91-6836-01A	tcga-luad	0.9060165504171377	True	TCGA-91-6836	TCGA-91-6836-01A	primary_tumor	52.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-78-8662-01A	tcga-luad	0.9059680134985008	True	TCGA-78-8662	TCGA-78-8662-01A	primary_tumor	53.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-44-6148-01A	tcga-luad	0.9052110150828537	True	TCGA-44-6148	TCGA-44-6148-01A	primary_tumor	60.0	adult	male	Mucinous adenocarcinoma	Lung
+TCGA-95-8039	TCGA-05-4390-01A	tcga-luad	0.9046928569422025	True	TCGA-05-4390	TCGA-05-4390-01A	primary_tumor	58.0	adult	female	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-50-5946-01A	tcga-luad	0.9040974327695546	True	TCGA-50-5946	TCGA-50-5946-01A	primary_tumor	62.0	adult	male	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-55-7816-01A	tcga-luad	0.9039561880098148	True	TCGA-55-7816	TCGA-55-7816-01A	primary_tumor	49.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-44-7670-01A	tcga-luad	0.9038559016585073	True	TCGA-44-7670	TCGA-44-7670-01A	primary_tumor	47.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-91-6840-01A	tcga-luad	0.9037577952898963	True	TCGA-91-6840	TCGA-91-6840-01A	primary_tumor	59.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-53-7813-01A	tcga-luad	0.903508375145602	True	TCGA-53-7813	TCGA-53-7813-01A	primary_tumor	51.0	adult	female	Bronchiolo-alveolar carcinoma, non-mucinous	Lung
+TCGA-95-8039	TCGA-55-1594-01A	tcga-luad	0.9034398808203317	True	TCGA-55-1594	TCGA-55-1594-01A	primary_tumor	68.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-55-1596-01A	tcga-luad	0.9031279805256794	True	TCGA-55-1596	TCGA-55-1596-01A	primary_tumor	55.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-44-2666-01A	tcga-luad	0.9030708751333332	True	TCGA-44-2666	TCGA-44-2666-01A	primary_tumor	43.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-44-2666-01A	tcga-luad	0.9030708751333332	True	TCGA-44-2666	TCGA-44-2666-01A	primary_tumor	43.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-97-8171-01A	tcga-luad	0.9029856953493048	True	TCGA-97-8171	TCGA-97-8171-01A	primary_tumor	81.0	adult	male	Papillary adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-86-7711-01A	tcga-luad	0.9027473481674065	True	TCGA-86-7711	TCGA-86-7711-01A	primary_tumor	70.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-67-3771-01A	tcga-luad	0.9025255168214229	True	TCGA-67-3771	TCGA-67-3771-01A	primary_tumor	77.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-L9-A7SV-01A	tcga-luad	0.9015982863105673	True	TCGA-L9-A7SV	TCGA-L9-A7SV-01A	primary_tumor	69.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-55-7910-01A	tcga-luad	0.9007330739265152	True	TCGA-55-7910	TCGA-55-7910-01A	primary_tumor	50.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-62-A471-01A	tcga-luad	0.900059425736524	True	TCGA-62-A471	TCGA-62-A471-01A	primary_tumor	64.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-55-A4DF-01A	tcga-luad	0.8999514230781905	True	TCGA-55-A4DF	TCGA-55-A4DF-01A	primary_tumor	88.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-50-6590-01A	tcga-luad	0.8995991923417578	True	TCGA-50-6590	TCGA-50-6590-01A	primary_tumor	72.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-75-6211-01A	tcga-luad	0.8995811559845098	True	TCGA-75-6211	TCGA-75-6211-01A	primary_tumor		unknown	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-55-7726-01A	tcga-luad	0.8994314615659724	True	TCGA-55-7726	TCGA-55-7726-01A	primary_tumor	72.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-44-8119-01A	tcga-luad	0.8993285377278396	True	TCGA-44-8119	TCGA-44-8119-01A	primary_tumor	73.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-86-7713-01A	tcga-luad	0.8986797015205851	True	TCGA-86-7713	TCGA-86-7713-01A	primary_tumor	70.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-75-6214-01A	tcga-luad	0.8981496406878019	True	TCGA-75-6214	TCGA-75-6214-01A	primary_tumor		unknown	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-64-5774-01A	tcga-luad	0.8980821972270596	True	TCGA-64-5774	TCGA-64-5774-01A	primary_tumor	60.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-64-5779-01A	tcga-luad	0.898034771316075	True	TCGA-64-5779	TCGA-64-5779-01A	primary_tumor	61.0	adult	male	Acinar cell carcinoma	Lung
+TCGA-95-8039	TCGA-NJ-A4YF-01A	tcga-luad	0.8980153935031051	True	TCGA-NJ-A4YF	TCGA-NJ-A4YF-01A	primary_tumor	50.0	adult	female	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-44-7669-01A	tcga-luad	0.8974469720418269	True	TCGA-44-7669	TCGA-44-7669-01A	primary_tumor	59.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-50-5066-01A	tcga-luad	0.89742277499852	True	TCGA-50-5066	TCGA-50-5066-01A	primary_tumor	72.0	adult	male	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-49-4506-01A	tcga-luad	0.8966168894359894	True	TCGA-49-4506	TCGA-49-4506-01A	primary_tumor	68.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-78-7150-01A	tcga-luad	0.8962113139346533	True	TCGA-78-7150	TCGA-78-7150-01A	primary_tumor	59.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-53-A4EZ-01A	tcga-luad	0.896119752227904	True	TCGA-53-A4EZ	TCGA-53-A4EZ-01A	primary_tumor	63.0	adult	male	Acinar cell carcinoma	Lung
+TCGA-95-8039	TCGA-73-A9RS-01A	tcga-luad	0.8956298884373791	True	TCGA-73-A9RS	TCGA-73-A9RS-01A	primary_tumor	41.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-49-AARQ-01A	tcga-luad	0.894581983063161	True	TCGA-49-AARQ	TCGA-49-AARQ-01A	primary_tumor	41.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-05-5420-01A	tcga-luad	0.8935785141160355	True	TCGA-05-5420	TCGA-05-5420-01A	primary_tumor	67.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-78-7536-01A	tcga-luad	0.8934661476120441	True	TCGA-78-7536	TCGA-78-7536-01A	primary_tumor	69.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-55-6972-01A	tcga-luad	0.8933634899717038	True	TCGA-55-6972	TCGA-55-6972-01A	primary_tumor	72.0	adult	male	Papillary adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-L9-A5IP-01A	tcga-luad	0.8932124076289429	True	TCGA-L9-A5IP	TCGA-L9-A5IP-01A	primary_tumor	40.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-05-4397-01A	tcga-luad	0.8928060184286728	True	TCGA-05-4397	TCGA-05-4397-01A	primary_tumor	65.0	adult	male	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-55-A494-01A	tcga-luad	0.8926239073363276	True	TCGA-55-A494	TCGA-55-A494-01A	primary_tumor	61.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-95-7043-01A	tcga-luad	0.8916136126947961	True	TCGA-95-7043	TCGA-95-7043-01A	primary_tumor	63.0	adult	female	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-05-5429-01A	tcga-luad	0.8909778719349114	True	TCGA-05-5429	TCGA-05-5429-01A	primary_tumor	60.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-78-7220-01A	tcga-luad	0.8902584406383962	True	TCGA-78-7220	TCGA-78-7220-01A	primary_tumor	53.0	adult	female	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-86-8054-01A	tcga-luad	0.8896770675117611	True	TCGA-86-8054	TCGA-86-8054-01A	primary_tumor	61.0	adult	male	Acinar cell carcinoma	Lung
+TCGA-95-8039	TCGA-NJ-A55R-01A	tcga-luad	0.8886490397180525	True	TCGA-NJ-A55R	TCGA-NJ-A55R-01A	primary_tumor	67.0	adult	male	Solid carcinoma, NOS	Lung
+TCGA-95-8039	TCGA-4B-A93V-01A	tcga-luad	0.8879692137132972	True	TCGA-4B-A93V	TCGA-4B-A93V-01A	primary_tumor	52.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-MP-A4TE-01A	tcga-luad	0.8875111555708086	True	TCGA-MP-A4TE	TCGA-MP-A4TE-01A	primary_tumor	56.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-86-A4D0-01A	tcga-luad	0.8872023653350531	True	TCGA-86-A4D0	TCGA-86-A4D0-01A	primary_tumor	48.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-44-7660-01A	tcga-luad	0.8870864366259508	True	TCGA-44-7660	TCGA-44-7660-01A	primary_tumor	72.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-55-7724-01A	tcga-luad	0.8867864171422177	True	TCGA-55-7724	TCGA-55-7724-01A	primary_tumor	76.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-49-AAR2-01A	tcga-luad	0.8865984020158206	True	TCGA-49-AAR2	TCGA-49-AAR2-01A	primary_tumor	64.0	adult	male	Acinar cell carcinoma	Lung
+TCGA-95-8039	TCGA-44-2656-01A	tcga-luad	0.8865404086755954	True	TCGA-44-2656	TCGA-44-2656-01A	primary_tumor	59.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-44-2656-01A	tcga-luad	0.8865404086755954	True	TCGA-44-2656	TCGA-44-2656-01A	primary_tumor	59.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-49-AAR9-01A	tcga-luad	0.8856883728316727	True	TCGA-49-AAR9	TCGA-49-AAR9-01A	primary_tumor	61.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-44-5643-01A	tcga-luad	0.8849432443474464	True	TCGA-44-5643	TCGA-44-5643-01A	primary_tumor	53.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-86-7955-01A	tcga-luad	0.8843425755535946	True	TCGA-86-7955	TCGA-86-7955-01A	primary_tumor	62.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-55-7570-01A	tcga-luad	0.8816311723231668	True	TCGA-55-7570	TCGA-55-7570-01A	primary_tumor	60.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-38-4631-01A	tcga-luad	0.8807511095076427	True	TCGA-38-4631	TCGA-38-4631-01A	primary_tumor	72.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-69-8255-01A	tcga-luad	0.8781962702902388	True	TCGA-69-8255	TCGA-69-8255-01A	primary_tumor	71.0	adult	male	Solid carcinoma, NOS	Lung
+TCGA-95-8039	TCGA-91-6847-01A	tcga-luad	0.8773375185443225	True	TCGA-91-6847	TCGA-91-6847-01A	primary_tumor	62.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-55-5899-01A	tcga-luad	0.8751717648698774	True	TCGA-55-5899	TCGA-55-5899-01A	primary_tumor	58.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-05-4415-01A	tcga-luad	0.8750837320003406	True	TCGA-05-4415	TCGA-05-4415-01A	primary_tumor	57.0	adult	male	Adenocarcinoma with mixed subtypes	Lung
+TCGA-95-8039	TCGA-91-6848-01A	tcga-luad	0.8750831830764784	True	TCGA-91-6848	TCGA-91-6848-01A	primary_tumor	59.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-50-5931-01A	tcga-luad	0.8747650533757472	True	TCGA-50-5931	TCGA-50-5931-01A	primary_tumor	75.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-35-5375-01A	tcga-luad	0.874326845848783	True	TCGA-35-5375	TCGA-35-5375-01A	primary_tumor	61.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-55-7815-01A	tcga-luad	0.8733673301962401	True	TCGA-55-7815	TCGA-55-7815-01A	primary_tumor	76.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-55-6968-01A	tcga-luad	0.8721610704466028	True	TCGA-55-6968	TCGA-55-6968-01A	primary_tumor	61.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-55-8094-01A	tcga-luad	0.8721351450041998	True	TCGA-55-8094	TCGA-55-8094-01A	primary_tumor	51.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-44-5644-01A	tcga-luad	0.8703925157872915	True	TCGA-44-5644	TCGA-44-5644-01A	primary_tumor	51.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-38-4630-01A	tcga-luad	0.8700581397804551	True	TCGA-38-4630	TCGA-38-4630-01A	primary_tumor	75.0	adult	female	Papillary adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-53-7624-01A	tcga-luad	0.8696015688530309	True	TCGA-53-7624	TCGA-53-7624-01A	primary_tumor	40.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-62-A46O-01A	tcga-luad	0.8665248058532922	True	TCGA-62-A46O	TCGA-62-A46O-01A	primary_tumor	65.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-44-7667-01A	tcga-luad	0.8663461586569056	True	TCGA-44-7667	TCGA-44-7667-01A	primary_tumor	49.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-44-2665-01A	tcga-luad	0.864414782395945	True	TCGA-44-2665	TCGA-44-2665-01A	primary_tumor	55.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-44-2665-01A	tcga-luad	0.864414782395945	True	TCGA-44-2665	TCGA-44-2665-01A	primary_tumor	55.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-55-8620-01A	tcga-luad	0.8625105482474684	True	TCGA-55-8620	TCGA-55-8620-01A	primary_tumor	60.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-64-5775-01A	tcga-luad	0.862434340619086	True	TCGA-64-5775	TCGA-64-5775-01A	primary_tumor	71.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-91-8499-01A	tcga-luad	0.8583396111840704	True	TCGA-91-8499	TCGA-91-8499-01A	primary_tumor	76.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-44-3917-01A	tcga-luad	0.8566150819936744	True	TCGA-44-3917	TCGA-44-3917-01A	primary_tumor	33.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-64-1678-01A	tcga-luad	0.8562861143144644	True	TCGA-64-1678	TCGA-64-1678-01A	primary_tumor	70.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-86-8358-01A	tcga-luad	0.8560951259978568	True	TCGA-86-8358	TCGA-86-8358-01A	primary_tumor	44.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-44-2668-01B	tcga-luad	0.855054177365911	True	TCGA-44-2668	TCGA-44-2668-01B	primary_tumor	51.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-44-3918-01A	tcga-luad	0.8529592524876248	True	TCGA-44-3918	TCGA-44-3918-01A	primary_tumor	60.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-44-3918-01A	tcga-luad	0.8529592524876248	True	TCGA-44-3918	TCGA-44-3918-01A	primary_tumor	60.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-50-6591-01A	tcga-luad	0.8426527020769514	True	TCGA-50-6591	TCGA-50-6591-01A	primary_tumor	63.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-78-7155-01A	tcga-luad	0.834920537994172	True	TCGA-78-7155	TCGA-78-7155-01A	primary_tumor	68.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-44-2666-01B	tcga-luad	0.8306181901545274	True	TCGA-44-2666	TCGA-44-2666-01B	primary_tumor	43.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-44-3918-01B	tcga-luad	0.8267457269575801	True	TCGA-44-3918	TCGA-44-3918-01B	primary_tumor	60.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-44-4112-01B	tcga-luad	0.82574732289866	True	TCGA-44-4112	TCGA-44-4112-01B	primary_tumor	60.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-44-2656-01B	tcga-luad	0.8217556752569286	True	TCGA-44-2656	TCGA-44-2656-01B	primary_tumor	59.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-44-2665-01B	tcga-luad	0.8097939320045189	True	TCGA-44-2665	TCGA-44-2665-01B	primary_tumor	55.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-44-6146-01B	tcga-luad	0.7893093650157057	True	TCGA-44-6146	TCGA-44-6146-01B	primary_tumor	64.0	adult	male	Mucinous adenocarcinoma	Lung
+TCGA-95-8039	TCGA-44-6775-01C	tcga-luad	0.7863253394088469	True	TCGA-44-6775	TCGA-44-6775-01C	primary_tumor	72.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-44-5645-01B	tcga-luad	0.7858482705918333	True	TCGA-44-5645	TCGA-44-5645-01B	primary_tumor	61.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-44-3917-01B	tcga-luad	0.7855043270716466	True	TCGA-44-3917	TCGA-44-3917-01B	primary_tumor	33.0	adult	female	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-44-2662-01B	tcga-luad	0.781735557492166	True	TCGA-44-2662	TCGA-44-2662-01B	primary_tumor	65.0	adult	male	Adenocarcinoma, NOS	Lung
+TCGA-95-8039	TCGA-44-6147-01B	tcga-luad	0.776261623412236	True	TCGA-44-6147	TCGA-44-6147-01B	primary_tumor	67.0	adult	female	Adenocarcinoma, NOS	Lung

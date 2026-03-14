@@ -228,6 +228,8 @@ def main():
                         help="Skip already-downloaded files")
     parser.add_argument("--sample",    type=str,
                         help="Single patient ID (e.g. TCGA-49-4507)")
+    parser.add_argument("--keep-svs",  action="store_true",
+                        help="Keep SVS file after extracting thumbnail")
     args = parser.parse_args()
 
     script_dir  = Path(__file__).parent
@@ -261,7 +263,7 @@ def main():
             ok = download_thumbnail(
                 slide["file_id"], slide["case_id"],
                 thumb_dir, svs_dir,
-                keep_svs=args.full,
+                keep_svs=args.full or args.keep_svs,
             )
         if ok:
             success += 1

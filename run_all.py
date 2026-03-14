@@ -45,12 +45,12 @@ PYTHON      = sys.executable   # use the same interpreter running this script
 # ── Module registry ───────────────────────────────────────────────────────────
 # Each entry: (module_id, display_name, script_path, supports_sample_flag)
 MODULES = [
-    ("01", "Patient Context",        "modules/01_patient_context/luad_patient_context.py",    True),
-    ("02", "Variation Annotation",   "modules/02_variation_annotation/luad_pcgr.py",           True),
+    ("01", "Patient Context",        "modules/01_patients/luad_patient_context.py",    True),
+    ("02", "Variation Annotation",   "modules/02_variants/luad_pcgr.py",           True),
     ("03", "Expression Analysis",    "modules/03_expression/luad_expression.py",               True),
     ("04", "Single-Cell TME",        "modules/04_single_cell/luad_singlecell.py",              False),
-    ("05", "Pathway Enrichment",     "modules/05_pathway/luad_pathway.py",                     True),
-    ("06", "ESM2 Site Features",     "modules/06_esm/luad_esm2.py",                            True),
+    ("05", "Pathway Enrichment",     "modules/06_pathway/luad_pathway.py",                     True),
+    ("06", "ESM2 Site Features",     "modules/07_esm2/luad_esm2.py",                            True),
     ("07", "Drug Mapping",           "modules/07_drug_mapping/luad_drug_mapping.py",           True),
 ]
 
@@ -153,8 +153,8 @@ def write_cohort_index():
         rows.append({
             "sample_id":      s,
             "has_rnaseq":     (expr_dir / s).exists(),
-            "has_wes":        (out_dir / "02_variation_annotation" / s).exists(),
-            "has_pathology":  (out_dir / "08_pathology" / s).exists(),
+            "has_wes":        (out_dir / "02_variants" / s).exists(),
+            "has_pathology":  (out_dir / "05_pathology" / s).exists(),
             "has_proteomics": False,   # M04 CPTAC not yet implemented
         })
 

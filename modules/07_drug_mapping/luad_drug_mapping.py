@@ -49,8 +49,8 @@ warnings.filterwarnings("ignore")
 # ── Paths ─────────────────────────────────────────────────────────────────────
 SCRIPT_DIR  = Path(__file__).parent
 PROJECT_DIR = SCRIPT_DIR.parent.parent
-VARIANT_DIR = PROJECT_DIR / "data/output/02_variation_annotation"
-CLINICAL_DIR= PROJECT_DIR / "data/output/01_patient_context"
+VARIANT_DIR = PROJECT_DIR / "data/output/02_variants"
+CLINICAL_DIR= PROJECT_DIR / "data/output/01_patients"
 OUT_DIR     = PROJECT_DIR / "data/output/07_drug_mapping"
 
 # ══════════════════════════════════════════════════════════════════════════════

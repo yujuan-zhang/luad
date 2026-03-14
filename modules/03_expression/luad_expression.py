@@ -22,7 +22,7 @@ GTEx Reference:
 
 Input:
   data/rnaseq/{case_id}.tsv.gz          — TargetID + TPM columns
-  data/output/02_variation_annotation/  — variant TSV from module 02
+  data/output/02_variants/  — variant TSV from module 02
 
 Output:
   data/output/03_expression/{case_id}/
@@ -61,7 +61,7 @@ from pcgr.expression import (
 SCRIPT_DIR   = Path(__file__).parent
 PROJECT_DIR  = SCRIPT_DIR.parent.parent
 RNASEQ_DIR   = PROJECT_DIR / "data/rnaseq"
-VARIANT_DIR  = PROJECT_DIR / "data/output/02_variation_annotation"
+VARIANT_DIR  = PROJECT_DIR / "data/output/02_variants"
 OUT_DIR      = PROJECT_DIR / "data/output/03_expression"
 REFDATA_DIR  = Path.home() / "pcgr_refdata/data/grch38"
 GTEX_REF_PATH = PROJECT_DIR / "data/databases/gtex_lung_normal_tpm_stats.tsv.gz"

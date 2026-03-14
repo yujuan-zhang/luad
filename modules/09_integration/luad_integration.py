@@ -55,10 +55,10 @@ warnings.filterwarnings("ignore")
 # ── Paths ─────────────────────────────────────────────────────────────────────
 SCRIPT_DIR    = Path(__file__).parent
 PROJECT_DIR   = SCRIPT_DIR.parent.parent
-VARIANT_DIR   = PROJECT_DIR / "data/output/02_variation_annotation"
+VARIANT_DIR   = PROJECT_DIR / "data/output/02_variants"
 DRUG_DIR      = PROJECT_DIR / "data/output/07_drug_mapping"
 EXPR_DIR      = PROJECT_DIR / "data/output/03_expression"
-PATHOLOGY_DIR = PROJECT_DIR / "data/output/08_pathology"
+PATHOLOGY_DIR = PROJECT_DIR / "data/output/05_pathology"
 SC_TME_DIR    = PROJECT_DIR / "data/output/04_single_cell"
 OUT_DIR       = PROJECT_DIR / "data/output/09_integration"
 CIVIC_PATH    = PROJECT_DIR / "data/databases/civic_evidence.tsv.gz"

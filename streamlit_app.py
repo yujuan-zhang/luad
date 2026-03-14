@@ -74,7 +74,7 @@ def discover_clinical_samples() -> list:
         return []
 
 # Global fallback (used when page doesn't have its own selector)
-SAMPLES = discover_module_samples(OUTPUT / "02_variation_annotation", "_variants.tsv.gz") \
+SAMPLES = discover_module_samples(OUTPUT / "02_variants", "_variants.tsv.gz") \
           or ["TCGA-86-A4D0", "TCGA-49-4507"]
 
 @st.cache_data
@@ -86,8 +86,8 @@ def load_cohort_index() -> pd.DataFrame:
     # Fallback: build from filesystem if file not yet generated
     idx = pd.DataFrame({"sample_id": SAMPLES})
     idx["has_rnaseq"]     = idx["sample_id"].apply(lambda s: (OUTPUT / "03_expression" / s).exists())
-    idx["has_wes"]        = idx["sample_id"].apply(lambda s: (OUTPUT / "02_variation_annotation" / s).exists())
-    idx["has_pathology"]  = idx["sample_id"].apply(lambda s: (OUTPUT / "08_pathology" / s).exists())
+    idx["has_wes"]        = idx["sample_id"].apply(lambda s: (OUTPUT / "02_variants" / s).exists())
+    idx["has_pathology"]  = idx["sample_id"].apply(lambda s: (OUTPUT / "05_pathology" / s).exists())
     idx["has_proteomics"] = False
     idx["modality_count"] = idx[["has_rnaseq","has_wes","has_pathology","has_proteomics"]].sum(axis=1)
     return idx
@@ -95,11 +95,11 @@ def load_cohort_index() -> pd.DataFrame:
 def patients_for_page(page: str) -> list:
     """Return the appropriate patient list for each module page."""
     idx = load_cohort_index()
-    if page in ("06 · ESM2 Features",):
+    if page in ("07 · ESM2",):
         return idx[idx.has_wes]["sample_id"].tolist()
-    if page in ("09 · Integration",):
+    if page in ("09 · Multimodal Integration", "10 · Clinical Recommendation"):
         return idx[idx.has_wes & idx.has_rnaseq]["sample_id"].tolist()
-    if page in ("08 · Pathology",):
+    if page in ("05 · Pathology",):
         return idx[idx.has_pathology]["sample_id"].tolist()
     return idx["sample_id"].tolist()
 
@@ -261,15 +261,16 @@ with st.sidebar:
         "Navigate",
         options=[
             "Home",
-            "01 · Patient Context",
-            "02 · Variation Annotation",
-            "03 · Expression Analysis",
+            "01 · Patients",
+            "02 · Variants",
+            "03 · Expression",
             "04 · Single-Cell TME",
-            "05 · Pathway Enrichment",
-            "06 · ESM2 Features",
-            "07 · Drug Mapping",
-            "08 · Pathology",
-            "09 · Integration",
+            "05 · Pathology",
+            "06 · Pathway",
+            "07 · ESM2",
+            "08 · IO ML",
+            "09 · Multimodal Integration",
+            "10 · Clinical Recommendation",
         ],
         label_visibility="collapsed",
     )
@@ -591,14 +592,14 @@ that patient.
     <div class="module-grid">
         <div class="module-card">
             <span class="module-id">01</span>
-            <span class="module-name">Patient Context</span>
+            <span class="module-name">Patients</span>
             <div class="module-desc">GDC clinical data retrieval · Kaplan-Meier survival curves · patient summary card</div>
             <span class="module-tag">Clinical</span>
             <span class="module-tag">Survival</span>
         </div>
         <div class="module-card">
             <span class="module-id">02</span>
-            <span class="module-name">Variation Annotation</span>
+            <span class="module-name">Variants</span>
             <div class="module-desc">VEP/PCGR somatic annotation · tumor mutational burden (TMB) · SBS mutational spectrum</div>
             <span class="module-tag">Genomics</span>
             <span class="module-tag">TMB</span>
@@ -606,50 +607,65 @@ that patient.
         </div>
         <div class="module-card">
             <span class="module-id">03</span>
-            <span class="module-name">Expression Analysis</span>
-            <div class="module-desc">Bulk RNA-seq TPM normalization · cohort-level outlier gene detection</div>
+            <span class="module-name">Expression</span>
+            <div class="module-desc">Bulk RNA-seq TPM normalization · cohort-level outlier gene detection · clinical gene panel</div>
             <span class="module-tag">RNA-seq</span>
             <span class="module-tag">Outlier</span>
         </div>
         <div class="module-card">
             <span class="module-id">04</span>
-            <span class="module-name">Single-Cell TME</span>
-            <div class="module-desc">Cell-type deconvolution using GSE131907 Lung Cancer Cell Atlas · immune infiltration profiling</div>
+            <span class="module-name">Single-cell TME</span>
+            <div class="module-desc">ssGSEA cell-type deconvolution · GSE131907 reference · immune phenotype (Inflamed / Excluded / Desert)</div>
             <span class="module-tag">scRNA</span>
             <span class="module-tag">Immune</span>
             <span class="module-tag">TME</span>
         </div>
         <div class="module-card">
-            <span class="module-id">05</span>
-            <span class="module-name">Pathway Enrichment</span>
+            <span class="module-id" style="background:#6a1b9a;">05</span>
+            <span class="module-name">Pathology</span>
+            <div class="module-desc">H&E slide analysis · tissue segmentation · TIL density scoring · TME phenotype classification</div>
+            <span class="module-tag" style="background:#f3e5f5;color:#6a1b9a;">Pathology</span>
+            <span class="module-tag">H&amp;E</span>
+            <span class="module-tag">TIL</span>
+            <span class="module-tag">WSI</span>
+        </div>
+        <div class="module-card">
+            <span class="module-id">06</span>
+            <span class="module-name">Pathway</span>
             <div class="module-desc">Over-representation analysis (ORA) on mutated genes · GSEA prerank on expression fold-changes</div>
             <span class="module-tag">ORA</span>
             <span class="module-tag">GSEA</span>
         </div>
         <div class="module-card">
-            <span class="module-id" style="background:#e65100;">06</span>
-            <span class="module-name">ESM2 Site Features</span>
+            <span class="module-id" style="background:#e65100;">07</span>
+            <span class="module-name">ESM2</span>
             <div class="module-desc">Per-site 1280-dim protein embeddings · masked-marginal log-odds · variant effect prediction <em>(GPU recommended)</em></div>
             <span class="module-tag" style="background:#fff3e0;color:#e65100;">GPU</span>
             <span class="module-tag">ESM2</span>
             <span class="module-tag">Embeddings</span>
         </div>
         <div class="module-card">
-            <span class="module-id" style="background:#2e7d32;">07</span>
-            <span class="module-name">Drug Mapping</span>
-            <div class="module-desc">NCCN/FDA curated knowledge base · CIViC evidence · targeted therapy & immunotherapy recommendations</div>
-            <span class="module-tag" style="background:#e8f5e9;color:#2e7d32;">Clinical</span>
-            <span class="module-tag">NCCN</span>
-            <span class="module-tag">CIViC</span>
+            <span class="module-id" style="background:#1565c0;">08</span>
+            <span class="module-name">IO ML</span>
+            <div class="module-desc">TIS · CYT · TIDE · IMPRES algorithms · composite IO response score · IO resistance detection</div>
+            <span class="module-tag" style="background:#e3f2fd;color:#1565c0;">ML</span>
+            <span class="module-tag">Immunotherapy</span>
+            <span class="module-tag">Prediction</span>
         </div>
         <div class="module-card">
-            <span class="module-id" style="background:#6a1b9a;">08</span>
-            <span class="module-name">Computational Pathology</span>
-            <div class="module-desc">H&E slide analysis · tissue segmentation · TIL density scoring · TME phenotype classification (Inflamed / Excluded / Desert)</div>
-            <span class="module-tag" style="background:#f3e5f5;color:#6a1b9a;">Pathology</span>
-            <span class="module-tag">H&amp;E</span>
-            <span class="module-tag">TIL</span>
-            <span class="module-tag">WSI</span>
+            <span class="module-id" style="background:#2e7d32;">09</span>
+            <span class="module-name">Multimodal Integration</span>
+            <div class="module-desc">Multi-omics evidence integration · M02+M03+M04+M05+M08 · treatment confidence scoring</div>
+            <span class="module-tag" style="background:#e8f5e9;color:#2e7d32;">Integration</span>
+            <span class="module-tag">Multi-omics</span>
+        </div>
+        <div class="module-card">
+            <span class="module-id" style="background:#b71c1c;">10</span>
+            <span class="module-name">Clinical Recommendation</span>
+            <div class="module-desc">OncoKB · AMP/ASCO/CAP · ESCAT evidence grading · ranked targeted / IO / combination therapy</div>
+            <span class="module-tag" style="background:#ffebee;color:#b71c1c;">Clinical</span>
+            <span class="module-tag">NCCN</span>
+            <span class="module-tag">CIViC</span>
         </div>
     </div>
     """, unsafe_allow_html=True)
@@ -701,12 +717,12 @@ python run_all.py --dry_run
 # 01 · PATIENT CONTEXT
 # ══════════════════════════════════════════════════════════════════════════════
 
-elif page == "01 · Patient Context":
-    st.header("01 · Patient Context")
+elif page == "01 · Patients":
+    st.header("01 · Patients")
     st.caption("GDC clinical data · survival analysis · patient summary card")
 
-    # M01 saves cards flat: 01_patient_context/{id}_patient_card.png (no subdirs)
-    _m01_dir = OUTPUT / "01_patient_context"
+    # M01 saves cards flat: 01_patients/{id}_patient_card.png (no subdirs)
+    _m01_dir = OUTPUT / "01_patients"
     _m01_samples = sorted([
         f.stem.replace("_patient_card", "")
         for f in _m01_dir.glob("*_patient_card.png")
@@ -717,7 +733,7 @@ elif page == "01 · Patient Context":
                           help=f"{len(_m01_samples)} patients available")
 
     # Patient card image
-    img = OUTPUT / "01_patient_context" / f"{sample}_patient_card.png"
+    img = OUTPUT / "01_patients" / f"{sample}_patient_card.png"
     show_image(img, caption=f"Patient summary card — {sample}")
 
     st.divider()
@@ -725,7 +741,7 @@ elif page == "01 · Patient Context":
     # Clinical summary table (all samples)
     st.subheader("Cohort Clinical Summary")
     show_table(
-        OUTPUT / "01_patient_context" / "clinical_summary.tsv",
+        OUTPUT / "01_patients" / "clinical_summary.tsv",
         caption="All available samples · GDC clinical metadata",
     )
 
@@ -734,16 +750,16 @@ elif page == "01 · Patient Context":
 # 02 · VARIATION ANNOTATION
 # ══════════════════════════════════════════════════════════════════════════════
 
-elif page == "02 · Variation Annotation":
-    st.header("02 · Variation Annotation")
+elif page == "02 · Variants":
+    st.header("02 · Variants")
     st.caption("Somatic variants annotated with VEP/PCGR · tumor mutational burden · SBS spectrum")
 
-    _m02_samples = discover_module_samples(OUTPUT / "02_variation_annotation", "_variants.tsv.gz")
+    _m02_samples = discover_module_samples(OUTPUT / "02_variants", "_variants.tsv.gz")
     sample = st.selectbox("Patient", _m02_samples or SAMPLES, key="sel_m02",
                           help=f"{len(_m02_samples)} patients with variant output")
 
     # Variant summary image
-    img = OUTPUT / "02_variation_annotation" / sample / f"{sample}_variant_summary.png"
+    img = OUTPUT / "02_variants" / sample / f"{sample}_variant_summary.png"
     show_image(img, caption=f"Variant summary — {sample}")
 
     st.divider()
@@ -753,14 +769,14 @@ elif page == "02 · Variation Annotation":
     with col1:
         st.subheader("Tumor Mutational Burden")
         show_table(
-            OUTPUT / "02_variation_annotation" / sample / f"{sample}_tmb.tsv",
+            OUTPUT / "02_variants" / sample / f"{sample}_tmb.tsv",
             caption="TMB metrics for this sample",
         )
 
     with col2:
         st.subheader("Cohort Summary")
         show_table(
-            OUTPUT / "02_variation_annotation" / "all_samples_summary.tsv",
+            OUTPUT / "02_variants" / "all_samples_summary.tsv",
             caption="Cross-sample variant statistics",
         )
 
@@ -768,7 +784,7 @@ elif page == "02 · Variation Annotation":
 
     st.subheader("Somatic Variants")
     show_table(
-        OUTPUT / "02_variation_annotation" / sample / f"{sample}_variants.tsv.gz",
+        OUTPUT / "02_variants" / sample / f"{sample}_variants.tsv.gz",
         nrows=100,
         caption=f"Top 100 variants shown · {sample}",
     )
@@ -778,8 +794,8 @@ elif page == "02 · Variation Annotation":
 # 03 · EXPRESSION ANALYSIS
 # ══════════════════════════════════════════════════════════════════════════════
 
-elif page == "03 · Expression Analysis":
-    st.header("03 · Expression Analysis")
+elif page == "03 · Expression":
+    st.header("03 · Expression")
     st.caption("Bulk RNA-seq · GTEx normal lung baseline · per-patient & cohort-level figures")
 
     _m03_samples = discover_module_samples(OUTPUT / "03_expression", "_clinical_genes.png")
@@ -963,18 +979,18 @@ elif page == "04 · Single-Cell TME":
 # 05 · PATHWAY ENRICHMENT
 # ══════════════════════════════════════════════════════════════════════════════
 
-elif page == "05 · Pathway Enrichment":
-    st.header("05 · Pathway Enrichment")
+elif page == "06 · Pathway":
+    st.header("06 · Pathway")
     st.caption("Over-representation analysis (ORA) on mutated genes · GSEA prerank on expression")
 
-    _m05_gsea = discover_module_samples(OUTPUT / "05_pathway", "_gsea.tsv")
-    _m05_ora  = discover_module_samples(OUTPUT / "05_pathway", "_ora.tsv")
+    _m05_gsea = discover_module_samples(OUTPUT / "06_pathway", "_gsea.tsv")
+    _m05_ora  = discover_module_samples(OUTPUT / "06_pathway", "_ora.tsv")
     _m05_samples = sorted(set(_m05_gsea) | set(_m05_ora))
     sample = st.selectbox("Patient", _m05_samples or SAMPLES, key="sel_m05",
                           help=f"{len(_m05_samples)} patients with pathway output ({len(_m05_gsea)} with GSEA)")
 
     # GSEA plot
-    img = OUTPUT / "05_pathway" / sample / f"{sample}_gsea.png"
+    img = OUTPUT / "06_pathway" / sample / f"{sample}_gsea.png"
     show_image(img, caption=f"GSEA enrichment plot — {sample}")
 
     st.divider()
@@ -984,14 +1000,14 @@ elif page == "05 · Pathway Enrichment":
     with col1:
         st.subheader("GSEA Results")
         show_table(
-            OUTPUT / "05_pathway" / sample / f"{sample}_gsea.tsv",
+            OUTPUT / "06_pathway" / sample / f"{sample}_gsea.tsv",
             caption=f"Top enriched gene sets (GSEA prerank) — {sample}",
         )
 
     with col2:
         st.subheader("ORA Results")
         show_table(
-            OUTPUT / "05_pathway" / sample / f"{sample}_ora.tsv",
+            OUTPUT / "06_pathway" / sample / f"{sample}_ora.tsv",
             caption=f"Over-represented pathways (ORA) — {sample}",
         )
 
@@ -999,20 +1015,20 @@ elif page == "05 · Pathway Enrichment":
 
     st.subheader("Cross-Sample Pathway Summary")
     show_table(
-        OUTPUT / "05_pathway" / "all_samples_summary.tsv",
+        OUTPUT / "06_pathway" / "all_samples_summary.tsv",
         caption="Top enriched pathways across all samples",
     )
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-# 06 · ESM2 SITE FEATURES
+# 07 · ESM2 PROTEIN FEATURES
 # ══════════════════════════════════════════════════════════════════════════════
 
-elif page == "06 · ESM2 Features":
-    st.header("06 · ESM2 Protein Site Features")
+elif page == "07 · ESM2":
+    st.header("07 · ESM2 Protein Features")
     st.caption("Per-site 1280-dim embeddings · masked-marginal log-odds · variant effect prediction")
 
-    _m06_samples = discover_module_samples(OUTPUT / "06_esm", "_esm2_summary.png")
+    _m06_samples = discover_module_samples(OUTPUT / "07_esm2", "_esm2_summary.png")
     sample = st.selectbox("Patient", _m06_samples or SAMPLES, key="sel_m06",
                           help=f"{len(_m06_samples)} patients with ESM2 output")
 
@@ -1036,11 +1052,11 @@ elif page == "06 · ESM2 Features":
     st.divider()
 
     # ESM2 summary image (if available)
-    img = OUTPUT / "06_esm" / sample / f"{sample}_esm2_summary.png"
+    img = OUTPUT / "07_esm2" / sample / f"{sample}_esm2_summary.png"
     show_image(img, caption=f"ESM2 mutation scoring summary — {sample}")
 
     # Mutation scores table
-    scores_path = OUTPUT / "06_esm" / sample / "mutation_scores.tsv"
+    scores_path = OUTPUT / "07_esm2" / sample / "mutation_scores.tsv"
     if scores_path.exists():
         st.subheader("Mutation Scores")
         show_table(scores_path, caption=f"ESM2 log-odds and oncogenicity scores — {sample}")
@@ -1058,13 +1074,13 @@ elif page == "06 · ESM2 Features":
         ("site_info.csv",      "Site metadata (gene, position, wt_aa, mut_aa)"),
     ]
     for fname, desc in feature_files:
-        fpath = OUTPUT / "06_esm" / sample / fname
+        fpath = OUTPUT / "07_esm2" / sample / fname
         status = "✅ Available" if fpath.exists() else "⏳ Not yet generated"
         st.markdown(f"- `{fname}` — {desc} &nbsp;&nbsp; **{status}**")
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-# 07 · DRUG MAPPING  (sample-independent overview + per-sample detail)
+# (07 · Drug Mapping — internal layer, not shown in sidebar)
 # ══════════════════════════════════════════════════════════════════════════════
 
 elif page == "07 · Drug Mapping":
@@ -1138,11 +1154,11 @@ elif page == "07 · Drug Mapping":
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-# 08 · COMPUTATIONAL PATHOLOGY
+# 05 · PATHOLOGY
 # ══════════════════════════════════════════════════════════════════════════════
 
-elif page == "08 · Pathology":
-    st.header("08 · Computational Pathology")
+elif page == "05 · Pathology":
+    st.header("05 · Pathology")
     st.caption("H&E slide analysis · tissue segmentation · TIL scoring · TME phenotype")
 
     st.markdown("""
@@ -1161,7 +1177,7 @@ elif page == "08 · Pathology":
     st.divider()
 
     # ── Cohort-level summary ─────────────────────────────────────────────────
-    summary_path = OUTPUT / "08_pathology" / "pathology_summary.tsv"
+    summary_path = OUTPUT / "05_pathology" / "pathology_summary.tsv"
     if summary_path.exists():
         st.subheader("Cohort Pathology Summary")
         df_summary = pd.read_csv(summary_path, sep="\t")
@@ -1183,7 +1199,7 @@ elif page == "08 · Pathology":
     else:
         st.info(
             "No cohort summary yet. Run M08 to generate:\n"
-            "```bash\npython modules/08_pathology/luad_pathology.py\n```"
+            "```bash\npython modules/05_pathology/luad_pathology.py\n```"
         )
 
     st.divider()
@@ -1192,7 +1208,7 @@ elif page == "08 · Pathology":
     st.subheader("Per-Sample Pathology Report")
 
     # Discover which samples have pathology results
-    path_out = OUTPUT / "08_pathology"
+    path_out = OUTPUT / "05_pathology"
     available = sorted([
         d.name for d in path_out.iterdir()
         if d.is_dir() and (d / f"{d.name}_pathology_report.png").exists()
@@ -1235,7 +1251,7 @@ elif page == "08 · Pathology":
             "**Step 1:** Download WSI thumbnails:\n"
             "```bash\npython data/scripts/download_wsi.py --thumbnail --test\n```\n\n"
             "**Step 2:** Run M08 analysis:\n"
-            "```bash\npython modules/08_pathology/luad_pathology.py\n```"
+            "```bash\npython modules/05_pathology/luad_pathology.py\n```"
         )
 
     st.divider()
@@ -1255,11 +1271,11 @@ elif page == "08 · Pathology":
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-# 09 · MULTI-OMICS INTEGRATION
+# 09 · MULTIMODAL INTEGRATION
 # ══════════════════════════════════════════════════════════════════════════════
 
-elif page == "09 · Integration":
-    st.header("09 · Multi-Omics Integration")
+elif page == "09 · Multimodal Integration":
+    st.header("09 · Multimodal Integration")
     st.caption("M02 variants + M08 TME phenotype → rule-based treatment recommendations")
 
     st.markdown("""
@@ -1345,10 +1361,10 @@ elif page == "09 · Integration":
         st.info(
             "Integration summary not yet generated.\n\n"
             "**Step 1:** Run M02 variant annotation:\n"
-            "```bash\npython modules/02_variation_annotation/luad_pcgr.py\n```\n\n"
+            "```bash\npython modules/02_variants/luad_pcgr.py\n```\n\n"
             "**Step 2:** Run M07, M08, M03 (optional, for richer scoring):\n"
             "```bash\npython modules/07_drug_mapping/luad_drug_mapping.py\n"
-            "python modules/08_pathology/luad_pathology.py\n"
+            "python modules/05_pathology/luad_pathology.py\n"
             "python modules/03_expression/luad_expression.py\n```\n\n"
             "**Step 3:** Run M09 integration:\n"
             "```bash\npython modules/09_integration/luad_integration.py\n```"
@@ -1360,7 +1376,7 @@ elif page == "09 · Integration":
     st.subheader("Per-Patient Recommendation")
 
     integration_dir = OUTPUT / "09_integration"
-    _m09_all = patients_for_page("09 · Integration")
+    _m09_all = patients_for_page("09 · Multimodal Integration")
     available = sorted([
         s for s in _m09_all
         if (integration_dir / s / f"{s}_recommendation.tsv").exists()
@@ -1425,3 +1441,128 @@ elif page == "09 · Integration":
                 """)
     else:
         st.caption("No per-patient integration reports found. Run M09 to generate them.")
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# 08 · IO ML
+# ══════════════════════════════════════════════════════════════════════════════
+
+elif page == "08 · IO ML":
+    st.header("08 · IO ML — Immunotherapy Response Prediction")
+    st.caption("TIS · CYT · TIDE · IMPRES · Composite IO Score · IO Resistance")
+
+    cohort_path = OUTPUT / "08_io_ml" / "io_cohort_scores.tsv"
+
+    if cohort_path.exists():
+        df_io = pd.read_csv(cohort_path, sep="\t")
+        n = len(df_io)
+        cls_counts = df_io["io_class"].value_counts() if "io_class" in df_io.columns else {}
+
+        c1, c2, c3 = st.columns(3)
+        c1.metric("🟢 Likely Responder",     str(cls_counts.get("Likely_Responder", 0)),
+                  f"{100*cls_counts.get('Likely_Responder',0)/n:.0f}%")
+        c2.metric("🟡 Uncertain",            str(cls_counts.get("Uncertain", 0)),
+                  f"{100*cls_counts.get('Uncertain',0)/n:.0f}%")
+        c3.metric("🔴 Likely Non-Responder", str(cls_counts.get("Likely_Non_Responder", 0)),
+                  f"{100*cls_counts.get('Likely_Non_Responder',0)/n:.0f}%")
+
+        st.divider()
+        show_image(OUTPUT / "08_io_ml" / "io_cohort_heatmap.png",
+                   caption="Cohort IO ML — score distribution · component heatmap · class distribution")
+
+        st.divider()
+        st.subheader("Per-Patient IO Profile")
+        _m08io_samples = patients_for_page("08 · IO ML")
+        if _m08io_samples:
+            sel = st.selectbox("Select patient", _m08io_samples, key="m08io_sample")
+            pat_path = OUTPUT / "08_io_ml" / sel / f"{sel}_io_scores.tsv"
+            if pat_path.exists():
+                df_pat = pd.read_csv(pat_path, sep="\t")
+                io_class = df_pat["io_class"].iloc[0] if "io_class" in df_pat.columns else "Unknown"
+                io_score = df_pat["io_score"].iloc[0] if "io_score" in df_pat.columns else 0
+                cls_info = {
+                    "Likely_Responder":     ("🟢", "High IO response potential"),
+                    "Uncertain":            ("🟡", "Uncertain — consider multi-modal evidence"),
+                    "Likely_Non_Responder": ("🔴", "Low IO response potential"),
+                }
+                icon, desc = cls_info.get(io_class, ("⚪", ""))
+                st.info(f"**{icon} {io_class.replace('_',' ')}** (Score: {io_score}) — {desc}")
+
+                score_cols = ["tis", "cyt", "tide_net", "impres"]
+                available  = [c for c in score_cols if c in df_pat.columns and pd.notna(df_pat[c].iloc[0])]
+                if available:
+                    import matplotlib.pyplot as plt
+                    labels = {"tis": "TIS", "cyt": "CYT", "tide_net": "TIDE (net)", "impres": "IMPRES"}
+                    vals   = [float(df_pat[c].iloc[0]) for c in available]
+                    fig, ax = plt.subplots(figsize=(8, 3))
+                    ax.bar([labels.get(c, c) for c in available], vals, color="#4e79a7", edgecolor="white")
+                    ax.set_title(f"IO Algorithm Scores — {sel}", fontsize=11)
+                    ax.set_ylabel("Score")
+                    fig.tight_layout()
+                    st.pyplot(fig)
+                    plt.close(fig)
+
+                if df_pat.get("io_resistant", pd.Series([False])).iloc[0]:
+                    res_genes = df_pat["resistance_genes"].iloc[0] if "resistance_genes" in df_pat.columns else ""
+                    st.warning(f"⚠️ IO Resistance flag: {res_genes} mutation detected")
+            else:
+                st.info("Per-patient IO scores not yet generated. Run: `python modules/08_io_ml/luad_io_ml.py`")
+
+        st.divider()
+        with st.expander("Algorithm Reference"):
+            st.markdown("""
+| Algorithm | Genes/Logic | Reference |
+|-----------|-------------|-----------|
+| **TIS** | 18-gene Tumor Inflammation Signature — mean log₂(TPM+1) | Ayers et al., JCI 2017 |
+| **CYT** | Cytolytic activity — mean(log₂GZMA, log₂PRF1) | Rooney et al., Cell 2015 |
+| **TIDE** | Net T-cell Dysfunction − Exclusion score | Jiang et al., Nat Med 2018 |
+| **IMPRES** | 15 checkpoint gene-pair comparisons, score 0–15 | Auslander et al., Nat Med 2019 |
+| **Resistance** | STK11 / KEAP1 / NFE2L2 somatic mutation | Skoulidis et al., Cancer Cell 2018 |
+| **Composite** | TIS×40% + IMPRES×25% + TIDE×25% + CYT×10% → 0–100 | This study |
+            """)
+    else:
+        st.info("IO ML scores not yet generated. Run: `python modules/08_io_ml/luad_io_ml.py`")
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# 10 · CLINICAL RECOMMENDATION
+# ══════════════════════════════════════════════════════════════════════════════
+
+elif page == "10 · Clinical Recommendation":
+    st.header("10 · Clinical Recommendation")
+    st.caption("Multi-omics–guided treatment recommendations · OncoKB · AMP/ASCO/CAP · ESCAT")
+
+    _m10_samples = patients_for_page("10 · Clinical Recommendation")
+    sel_sample = st.selectbox(
+        "Select patient", _m10_samples or [],
+        key="m10_sample",
+        index=_m10_samples.index("TCGA-86-A4D0") if _m10_samples and "TCGA-86-A4D0" in _m10_samples else 0,
+    )
+
+    if sel_sample:
+        rec_tsv = OUTPUT / "09_integration" / sel_sample / f"{sel_sample}_recommendation.tsv"
+        rep_img = OUTPUT / "09_integration" / sel_sample / f"{sel_sample}_integration_report.png"
+
+        show_image(rep_img, caption=f"Integration report — {sel_sample}")
+
+        if rec_tsv.exists():
+            st.subheader("Treatment Recommendations")
+            df_rec = pd.read_csv(rec_tsv, sep="\t")
+            ICONS = {
+                "Targeted Therapy":    "🔵",
+                "Immunotherapy":       "🟢",
+                "Combination Therapy": "🟣",
+                "Chemotherapy":        "🔴",
+            }
+            df_rec["category"] = df_rec["category"].apply(lambda c: f"{ICONS.get(c,'⚪')} {c}")
+            display_cols = [
+                "rank", "category", "drug", "drug_class",
+                "oncokb_level", "amp_tier", "evidence", "line",
+                "confidence", "data_layers", "rationale",
+            ]
+            st.dataframe(
+                df_rec[[c for c in display_cols if c in df_rec.columns]],
+                use_container_width=True, hide_index=True,
+            )
+        else:
+            st.info("Recommendations not yet generated. Run M09 integration pipeline first.")
