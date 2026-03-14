@@ -904,6 +904,7 @@ elif page == "04 · Single-Cell TME":
                     st.info(f"**{icon} TME Phenotype: {phenotype}** — {desc}")
 
                     # Bar chart of ssGSEA scores
+                    import matplotlib.pyplot as plt
                     scores_row = df_pat[cell_cols].iloc[0]
                     fig_bar, ax_bar = plt.subplots(figsize=(9, 3.5))
                     bars = ax_bar.bar(cell_cols, scores_row.values, color="#4e79a7", edgecolor="white")
