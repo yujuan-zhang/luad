@@ -843,43 +843,119 @@ elif page == "03 · Expression Analysis":
 
 elif page == "04 · Single-Cell TME":
     st.header("04 · Single-Cell Tumor Microenvironment")
-    st.caption("Cell-type deconvolution · immune infiltration · GSE131907 Lung Cancer Cell Atlas")
+    st.caption("Stage 1: GSE131907 single-cell reference · Stage 2: ssGSEA deconvolution of TCGA bulk RNA-seq")
 
-    st.info(
-        "This module uses the GSE131907 public single-cell dataset (Lung Cancer Cell Atlas) "
-        "and produces cohort-level results — not per-sample. "
-        "Results represent averaged immune cell-type fractions across TCGA-LUAD."
-    )
+    tab1, tab2 = st.tabs(["Cohort TME (ssGSEA)", "Single-Cell Reference (GSE131907)"])
 
-    # TME overview image
-    img = OUTPUT / "04_single_cell" / "luad_tme_overview.png"
-    show_image(img, caption="Tumor microenvironment overview — TCGA-LUAD cohort")
+    # ── Tab 1: ssGSEA cohort deconvolution ──────────────────────────────────────
+    with tab1:
+        st.subheader("TCGA-LUAD Immune Phenotype Distribution")
 
-    st.divider()
+        cohort_scores_path = OUTPUT / "04_single_cell" / "tme_cohort_scores.tsv"
+        if cohort_scores_path.exists():
+            df_tme = pd.read_csv(cohort_scores_path, sep="\t")
 
-    col1, col2 = st.columns(2)
+            # Phenotype summary metrics
+            if "immune_phenotype" in df_tme.columns:
+                n_total = len(df_tme)
+                pc = df_tme["immune_phenotype"].value_counts()
+                c1, c2, c3 = st.columns(3)
+                colors_map = {"Inflamed": "🟢", "Excluded": "🟡", "Desert": "🔴"}
+                for col, ptype in zip([c1, c2, c3], ["Inflamed", "Excluded", "Desert"]):
+                    n = pc.get(ptype, 0)
+                    col.metric(
+                        f"{colors_map.get(ptype,'⚪')} {ptype}",
+                        f"{n}",
+                        f"{100*n/n_total:.0f}% of cohort",
+                    )
 
-    with col1:
-        st.subheader("Per-Sample Immune Metrics")
-        show_table(
-            OUTPUT / "04_single_cell" / "per_sample_immune_metrics.tsv",
-            caption="Immune score, stromal score, estimate score",
+            st.divider()
+
+            # Cohort heatmap
+            show_image(
+                OUTPUT / "04_single_cell" / "tme_cohort_heatmap.png",
+                caption="Cohort TME heatmap — ssGSEA enrichment scores × 517 TCGA-LUAD patients",
+            )
+
+            st.divider()
+
+            # Per-patient selector
+            st.subheader("Per-Patient TME Profile")
+            _m04_samples = patients_for_page("04 · Single-Cell TME")
+            if _m04_samples:
+                sel_sample = st.selectbox(
+                    "Select patient", _m04_samples,
+                    key="m04_sample",
+                    index=_m04_samples.index("TCGA-86-A4D0") if "TCGA-86-A4D0" in _m04_samples else 0,
+                )
+                tme_path = OUTPUT / "04_single_cell" / sel_sample / f"{sel_sample}_tme_scores.tsv"
+                if tme_path.exists():
+                    df_pat = pd.read_csv(tme_path, sep="\t")
+                    cell_cols = [c for c in df_pat.columns if c not in ("sample_id", "immune_phenotype")]
+                    phenotype = df_pat["immune_phenotype"].iloc[0] if "immune_phenotype" in df_pat.columns else "Unknown"
+
+                    # Phenotype badge
+                    ph_info = {
+                        "Inflamed": ("🟢", "High immune infiltration — potential IO responder"),
+                        "Excluded": ("🟡", "Immune cells confined to stroma — partial IO resistance"),
+                        "Desert":   ("🔴", "Low immune infiltration — IO likely ineffective"),
+                    }
+                    icon, desc = ph_info.get(phenotype, ("⚪", ""))
+                    st.info(f"**{icon} TME Phenotype: {phenotype}** — {desc}")
+
+                    # Bar chart of ssGSEA scores
+                    scores_row = df_pat[cell_cols].iloc[0]
+                    fig_bar, ax_bar = plt.subplots(figsize=(9, 3.5))
+                    bars = ax_bar.bar(cell_cols, scores_row.values, color="#4e79a7", edgecolor="white")
+                    ax_bar.set_ylabel("ssGSEA Enrichment Score")
+                    ax_bar.set_title(f"TME Cell-Type Profile — {sel_sample}")
+                    ax_bar.set_xticklabels(cell_cols, rotation=35, ha="right", fontsize=9)
+                    fig_bar.tight_layout()
+                    st.pyplot(fig_bar)
+                    plt.close(fig_bar)
+                else:
+                    st.info("Per-patient TME file not found. Run module 04 locally.")
+
+            st.divider()
+
+            # Full cohort table
+            with st.expander("Full Cohort ssGSEA Scores Table"):
+                show_table(cohort_scores_path, nrows=520, caption="ssGSEA scores — all 517 TCGA-LUAD patients")
+        else:
+            st.info("Cohort TME scores not yet generated. Run: `python modules/04_single_cell/luad_singlecell.py --skip_sc`")
+
+    # ── Tab 2: GSE131907 single-cell reference ───────────────────────────────────
+    with tab2:
+        st.subheader("GSE131907 Single-Cell Reference (Kim et al. 2020)")
+        st.caption("58 tLung samples · cell-type fractions · immune phenotype classification")
+
+        show_image(
+            OUTPUT / "04_single_cell" / "luad_tme_overview.png",
+            caption="GSE131907 Lung Cancer Cell Atlas — TME overview",
         )
 
-    with col2:
-        st.subheader("Cell-Type Fractions")
+        st.divider()
+
+        col1, col2 = st.columns(2)
+        with col1:
+            st.subheader("Per-Sample Immune Metrics")
+            show_table(
+                OUTPUT / "04_single_cell" / "per_sample_immune_metrics.tsv",
+                caption="Immune score, stromal score, estimate score",
+            )
+        with col2:
+            st.subheader("Cell-Type Fractions")
+            show_table(
+                OUTPUT / "04_single_cell" / "per_sample_tme_fractions.tsv",
+                caption="Relative abundance of each TME cell type",
+            )
+
+        st.divider()
+        st.subheader("TME Summary")
         show_table(
-            OUTPUT / "04_single_cell" / "per_sample_tme_fractions.tsv",
-            caption="Relative abundance of each TME cell type",
+            OUTPUT / "04_single_cell" / "luad_tme_summary.tsv",
+            caption="Cohort-level TME summary statistics",
         )
-
-    st.divider()
-
-    st.subheader("TME Summary")
-    show_table(
-        OUTPUT / "04_single_cell" / "luad_tme_summary.tsv",
-        caption="Cohort-level TME summary statistics",
-    )
 
 
 # ══════════════════════════════════════════════════════════════════════════════
