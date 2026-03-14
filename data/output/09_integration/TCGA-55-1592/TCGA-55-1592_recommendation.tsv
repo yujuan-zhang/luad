@@ -1,3 +1,6 @@
-rank	category	drug	drug_class	evidence	rationale	priority
-1	Immunotherapy	Pembrolizumab	PD-1 inhibitor	FDA-Approved (TMB-H)	High TMB (11.0 mut/Mb) despite Desert TME	2
-2	Chemotherapy	Carboplatin + Pemetrexed	Platinum-based doublet	Standard of Care	No targetable driver detected; Desert TME (immunotherapy less likely effective); Tumor suppressor alterations: TP53 p.G244C	3
+rank	category	drug	drug_class	oncokb_level	amp_tier	escat_tier	evidence	line	confidence	tmb_support	tme_support	data_layers	rationale	combination_basis
+1	Targeted Therapy	Alectinib	2nd-gen ALK TKI	Level 1	Tier I-A	Tier I-A	FDA-Approved	1L	85	N/A	N/A	M02+M07+M03+CIViC	ALK p.S565P | VAF 12% | ALK low (TPM=0.9)	
+2	Targeted Therapy	Brigatinib	2nd-gen ALK TKI	Level 1	Tier I-A	Tier I-A	FDA-Approved	1L	85	N/A	N/A	M02+M07+M03+CIViC	ALK p.S565P | VAF 12% | ALK low (TPM=0.9)	
+3	Targeted Therapy	Lorlatinib	3rd-gen ALK TKI	Level 1	Tier I-A	Tier I-A	FDA-Approved	1L	85	N/A	N/A	M02+M07+M03+CIViC	ALK p.S565P | VAF 12% | ALK low (TPM=0.9)	
+4	Chemotherapy	Carboplatin + Pemetrexed	Platinum doublet	N/A	N/A	N/A	Standard of Care	1L/2L	40	N/A	N/A	Standard	Standard platinum-based doublet | consider alongside targeted therapy | Desert TME — immunotherapy less effective | TS alterations: TP53	
+5	Immunotherapy	Pembrolizumab	PD-1 inhibitor	Level 1	Tier I-A	Tier I-A	FDA-Approved (TMB-H)	1L/2L	37	High (11.0 mut/Mb)	Desert	M02+M08+M03	TMB: High (11.0 mut/Mb) | TME: Desert | PD-L1(RNA): Intermediate (TPM=6.6, RNA proxy) | IFN-γ: Low (4.15) | TIDE: Dysfunc=1.67 | Excl=4.73 | CYT=3.31	

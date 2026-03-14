@@ -1,2 +1,3 @@
-rank	category	drug	drug_class	evidence	rationale	priority
-1	Chemotherapy	Carboplatin + Pemetrexed	Platinum-based doublet	Standard of Care	No targetable driver detected; Desert TME (immunotherapy less likely effective)	3
+rank	category	drug	drug_class	oncokb_level	amp_tier	escat_tier	evidence	line	confidence	tmb_support	tme_support	data_layers	rationale	combination_basis
+1	Chemotherapy	Carboplatin + Pemetrexed	Platinum doublet	N/A	N/A	N/A	Standard of Care	1L/2L	40	N/A	N/A	Standard	Standard platinum-based doublet | Desert TME — immunotherapy less effective	
+2	Immunotherapy	Pembrolizumab	PD-1 inhibitor	Level 3A	Tier II-C	Tier II-C	Clinical Evidence	1L/2L	21	Low (4.0 mut/Mb)	Desert	M02+M08+M03	TMB: Low (4.0 mut/Mb) | TME: Desert | PD-L1(RNA): Intermediate (TPM=7.8, RNA proxy) | IFN-γ: Medium (5.58) | TIDE: Dysfunc=3.45 | Excl=5.42 | CYT=5.27	

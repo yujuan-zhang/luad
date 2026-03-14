@@ -1,3 +1,4 @@
-rank	category	drug	drug_class	evidence	rationale	priority
-1	Immunotherapy	Pembrolizumab ± chemotherapy	PD-1 inhibitor	FDA-Approved	Excluded TME — consider combination to overcome exclusion	2
-2	Chemotherapy	Carboplatin + Pemetrexed	Platinum-based doublet	Standard of Care	No targetable driver detected; Tumor suppressor alterations: TP53 p.C277F	3
+rank	category	drug	drug_class	oncokb_level	amp_tier	escat_tier	evidence	line	confidence	tmb_support	tme_support	data_layers	rationale	combination_basis
+1	Targeted Therapy	Eprenetapopt (APR-246)	TP53 reactivator	Level 3A	Tier II-C	Tier II-C	Phase II	Investigational	68	N/A	N/A	M02+M07+M03+CIViC	TP53 p.R175H | VAF 26% | TP53 high (TPM=100)	
+2	Immunotherapy	Pembrolizumab	PD-1 inhibitor	Level 1	Tier I-B	Tier I-A	FDA-Approved (± chemo)	1L/2L	40	Intermediate (7.3 mut/Mb)	Excluded	M02+M08+M03	TMB: Intermediate (7.3 mut/Mb) | TME: Excluded | PD-L1(RNA): Intermediate (TPM=10.2, RNA proxy) | IFN-γ: Low (3.84) | TIDE: Dysfunc=2.20 | Excl=4.73 | CYT=3.50	
+3	Chemotherapy	Carboplatin + Pemetrexed	Platinum doublet	N/A	N/A	N/A	Standard of Care	1L/2L	40	N/A	N/A	Standard	Standard platinum-based doublet | consider alongside targeted therapy | TS alterations: TP53	

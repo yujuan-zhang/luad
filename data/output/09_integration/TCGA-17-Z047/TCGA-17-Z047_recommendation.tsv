@@ -1,3 +1,7 @@
-rank	category	drug	drug_class	evidence	rationale	priority
-1	Targeted Therapy	Osimertinib	3rd-gen EGFR TKI	FDA-Approved (1L)	EGFR sensitizing mutation detected (p.L858R)	1
-2	Chemotherapy	Carboplatin + Pemetrexed	Platinum-based doublet	Standard of Care	No targetable driver detected; Tumor suppressor alterations: TP53 p.X224_splice	3
+rank	category	drug	drug_class	oncokb_level	amp_tier	escat_tier	evidence	line	confidence	tmb_support	tme_support	data_layers	rationale	combination_basis
+1	Targeted Therapy	Osimertinib	3rd-gen EGFR TKI	Level 1	Tier I-A	Tier I-A	FDA-Approved	1L	88	N/A	N/A	M02+M07+CIViC	EGFR p.L858R | VAF 8%	
+2	Targeted Therapy	Erlotinib	1st-gen EGFR TKI	Level 1	Tier I-A	Tier I-A	FDA-Approved	1L	88	N/A	N/A	M02+M07+CIViC	EGFR p.L858R | VAF 8%	
+3	Targeted Therapy	Afatinib	2nd-gen EGFR TKI	Level 1	Tier I-A	Tier I-A	FDA-Approved	1L	88	N/A	N/A	M02+M07+CIViC	EGFR p.L858R | VAF 8%	
+4	Targeted Therapy	Dacomitinib	2nd-gen EGFR TKI	Level 1	Tier I-A	Tier I-A	FDA-Approved	1L	88	N/A	N/A	M02+M07+CIViC	EGFR p.L858R | VAF 8%	
+5	Chemotherapy	Carboplatin + Pemetrexed	Platinum doublet	N/A	N/A	N/A	Standard of Care	1L/2L	40	N/A	N/A	Standard	Standard platinum-based doublet | consider alongside targeted therapy | TS alterations: TP53	
+6	Immunotherapy	Pembrolizumab	PD-1 inhibitor	Level 3A	Tier II-C	Tier II-C	Clinical Evidence	1L/2L	8	Very low (0.3 mut/Mb)	Unknown	M02	TMB: Very low (0.3 mut/Mb) | TME: Unknown	

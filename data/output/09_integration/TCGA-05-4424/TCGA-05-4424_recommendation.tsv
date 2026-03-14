@@ -1,3 +1,6 @@
-rank	category	drug	drug_class	evidence	rationale	priority
-1	Immunotherapy	Pembrolizumab ± chemotherapy	PD-1 inhibitor	FDA-Approved	Excluded TME — consider combination to overcome exclusion	2
-2	Chemotherapy	Carboplatin + Pemetrexed	Platinum-based doublet	Standard of Care	No targetable driver detected; Tumor suppressor alterations: TP53 p.L194R	3
+rank	category	drug	drug_class	oncokb_level	amp_tier	escat_tier	evidence	line	confidence	tmb_support	tme_support	data_layers	rationale	combination_basis
+1	Targeted Therapy	Larotrectinib	pan-NTRK inhibitor	Level 1	Tier I-A	Tier I-A	FDA-Approved	1L	85	N/A	N/A	M02+M07+M03+CIViC	NTRK1 p.F557Y | VAF 10% | NTRK1 low (TPM=0.3)	
+2	Targeted Therapy	Entrectinib	NTRK/ROS1/ALK inhibitor	Level 1	Tier I-A	Tier I-A	FDA-Approved	1L	85	N/A	N/A	M02+M07+M03+CIViC	NTRK1 p.F557Y | VAF 10% | NTRK1 low (TPM=0.3)	
+3	Immunotherapy	Pembrolizumab	PD-1 inhibitor	Level 1	Tier I-A	Tier I-A	FDA-Approved (TMB-H)	1L/2L	58	High (13.6 mut/Mb)	Excluded	M02+M08+M03	TMB: High (13.6 mut/Mb) | TME: Excluded | PD-L1(RNA): Intermediate (TPM=5.9, RNA proxy) | IFN-γ: Medium (5.14) | TIDE: Dysfunc=2.70 | Excl=4.97 | CYT=4.31	
+4	Combination Therapy	Larotrectinib + Pembrolizumab	pan-NTRK inhibitor + PD-1 inhibitor	Level 3A	Tier II-C	Tier V	Investigational	Investigational	48	N/A	Excluded	M02+M07+M08	Excluded TME: NTRK1 targeted therapy may remodel TME to Inflamed → sequential PD-1 blockade	Targeted + Immune synergy
+5	Chemotherapy	Carboplatin + Pemetrexed	Platinum doublet	N/A	N/A	N/A	Standard of Care	1L/2L	40	N/A	N/A	Standard	Standard platinum-based doublet | consider alongside targeted therapy | TS alterations: TP53	

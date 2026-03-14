@@ -1,5 +1,10 @@
-rank	category	drug	drug_class	evidence	rationale	priority
-1	Targeted Therapy	Sotorasib	KRAS G12C inhibitor	FDA-Approved	KRAS G12C detected (p.G12C)	1
-2	Targeted Therapy	Adagrasib	KRAS G12C inhibitor	FDA-Approved	KRAS G12C detected (p.G12C)	1
-3	Immunotherapy	Pembrolizumab ± chemotherapy	PD-1 inhibitor	FDA-Approved	Excluded TME — consider combination to overcome exclusion	2
-4	Chemotherapy	Carboplatin + Pemetrexed	Platinum-based doublet	Standard of Care	No targetable driver detected	3
+rank	category	drug	drug_class	oncokb_level	amp_tier	escat_tier	evidence	line	confidence	tmb_support	tme_support	data_layers	rationale	combination_basis
+1	Targeted Therapy	Sotorasib	KRAS G12C inhibitor	Level 1	Tier I-A	Tier I-A	FDA-Approved	2L	98	N/A	N/A	M02+M07+M03+CIViC	KRAS p.G12C | VAF 35% (clonal) | KRAS high (TPM=113)	
+2	Targeted Therapy	Adagrasib	KRAS G12C inhibitor	Level 1	Tier I-A	Tier I-A	FDA-Approved	2L	98	N/A	N/A	M02+M07+M03+CIViC	KRAS p.G12C | VAF 35% (clonal) | KRAS high (TPM=113)	
+3	Targeted Therapy	Adagrasib+Cetuximab	KRAS G12C + anti-EGFR	Level 1	Tier I-A	Tier I-A	FDA-Approved	2L	98	N/A	N/A	M02+M07+M03+CIViC	KRAS p.G12C | VAF 35% (clonal) | KRAS high (TPM=113)	
+4	Targeted Therapy	Alpelisib	PI3Kα inhibitor	Level 3A	Tier II-C	Tier II-C	Phase II	Investigational	60	N/A	N/A	M02+M07+M03+CIViC	PIK3CA p.E545K | VAF 25% | PIK3CA low (TPM=5.2)	
+5	Combination Therapy	Sotorasib + Pembrolizumab	KRAS G12C inhibitor + PD-1 inhibitor	Level 3A	Tier II-C	Tier V	Investigational	Investigational	48	N/A	Excluded	M02+M07+M08	Excluded TME: KRAS targeted therapy may remodel TME to Inflamed → sequential PD-1 blockade	Targeted + Immune synergy
+6	Immunotherapy	Pembrolizumab	PD-1 inhibitor	Level 1	Tier I-B	Tier I-A	FDA-Approved (± chemo)	1L/2L	40	Intermediate (6.7 mut/Mb)	Excluded	M02+M08+M03	TMB: Intermediate (6.7 mut/Mb) | TME: Excluded | PD-L1(RNA): Intermediate (TPM=7.4, RNA proxy) | IFN-γ: Low (4.50) | TIDE: Dysfunc=2.89 | Excl=4.32 | CYT=3.59	
+7	Combination Therapy	Sotorasib + Trametinib	KRAS G12C inhibitor + MEK inhibitor	Level 3A	Tier II-C	Tier V	Investigational	Investigational	40	N/A	N/A	M02+M03+M07	KRAS G12C + high MEK/ERK expression (MAPK1 TPM=88) → downstream blockade	Vertical blockade
+8	Chemotherapy	Carboplatin + Pemetrexed	Platinum doublet	N/A	N/A	N/A	Standard of Care	1L/2L	40	N/A	N/A	Standard	Standard platinum-based doublet | consider alongside targeted therapy	
+9	Combination Therapy	Sotorasib + Alpelisib	KRAS G12C inhibitor + PI3Kα inhibitor	Level 3A	Tier II-C	Tier V	Investigational	Investigational	38	N/A	N/A	M02+M07	KRAS G12C + PIK3CA co-mutation: PI3K compensatory pathway activation	Horizontal blockade

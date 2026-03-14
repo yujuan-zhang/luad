@@ -1,272 +1,272 @@
-sample_id	n_drivers	driver_genes	driver_mutations	ts_alterations	tmb	tmb_high	tme_phenotype	til_score	top_recommendation	top_category	n_recommendations
-TCGA-05-4244	1	KRAS	KRAS G12C	None	4.53	False	Excluded	0.1267	Sotorasib	Targeted Therapy	4
-TCGA-05-4249	1	KRAS	KRAS G12C	None	6.68	False	Excluded	0.1412	Sotorasib	Targeted Therapy	4
-TCGA-05-4250	1	KRAS	KRAS G12C	None	7.59	False	Excluded	0.139	Sotorasib	Targeted Therapy	4
-TCGA-05-4382	0	None	None	TP53	35.41	True	Excluded	0.1567	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-05-4384	0	None	None	KEAP1	2.62	False	Excluded	0.2032	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-05-4389	0	None	None	KEAP1	4.65	False	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-05-4390	0	None	None	None	11.32	True	Desert	0.1133	Pembrolizumab	Immunotherapy	2
-TCGA-05-4395	0	None	None	KEAP1; STK11; TP53	5.24	False	Excluded	0.1476	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-05-4396	0	None	None	TP53	5.24	False	Excluded	0.1399	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-05-4397	0	None	None	RB1; TP53	17.65	True	Excluded	0.1587	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-05-4398	0	None	None	TP53	14.18	True	Desert	0.1171	Pembrolizumab	Immunotherapy	2
-TCGA-05-4402	0	None	None	TP53	2.35	False	Excluded	0.1445	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-05-4403	0	None	None	None	2.74	False	Desert	0.1142	Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-05-4405	0	None	None	TP53	7.32	False	Excluded	0.1597	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-05-4410	0	None	None	TP53	22.18	True	Excluded	0.2668	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-05-4415	1	KRAS	KRAS G12C	RB1; STK11	4.26	False	Excluded	0.1352	Sotorasib	Targeted Therapy	4
-TCGA-05-4417	1	KRAS	KRAS G12C	STK11	6.15	False	Excluded	0.1355	Sotorasib	Targeted Therapy	4
-TCGA-05-4418	1	KRAS	KRAS G12C	KEAP1	5.91	False	Desert	0.0583	Sotorasib	Targeted Therapy	3
-TCGA-05-4420	0	None	None	TP53	5.56	False	Excluded	0.1253	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-05-4422	0	None	None	STK11	0.79	False	Excluded	0.1565	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-05-4424	0	None	None	TP53	13.62	True	Excluded	0.2092	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-05-4425	0	None	None	None	0.76	False	Excluded	0.1571	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-05-4426	0	None	None	CDKN2A	0.97	False	Excluded	0.1438	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-05-4427	0	None	None	TP53	21.35	True	Desert	0.1135	Pembrolizumab	Immunotherapy	2
-TCGA-05-4430	0	None	None	TP53	5.76	False	Excluded	0.1495	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-05-4432	0	None	None	TP53	11.12	True	Excluded	0.1525	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-05-4433	0	None	None	CDKN2A; TP53	0.76	False	Excluded	0.1281	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-05-4434	1	ERBB2	ERBB2 (HER2) mutation/amplification	None	0.76	False	Desert	0.121	Trastuzumab deruxtecan (T-DXd)	Targeted Therapy	2
-TCGA-05-5420	0	None	None	None	1.59	False	Excluded	0.3253	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-05-5423	1	EGFR	EGFR sensitizing mutation	TP53	3.21	False	Desert	0.0679	Osimertinib	Targeted Therapy	2
-TCGA-05-5425	0	None	None	TP53	11.29	True	Excluded	0.2825	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-05-5428	0	None	None	TP53	7.56	False	Desert	0.1228	Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-05-5429	0	None	None	None	0.59	False	Desert	0.0384	Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-05-5715	1	ERBB2	ERBB2 (HER2) mutation/amplification	None	2.24	False	Desert	0.0397	Trastuzumab deruxtecan (T-DXd)	Targeted Therapy	2
-TCGA-17-Z000	0	None	None	None	2.53	False	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-17-Z001	0	None	None	KEAP1; TP53	4.0	False	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-17-Z002	0	None	None	None	0.18	False	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-17-Z003	0	None	None	TP53	4.79	False	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-17-Z004	0	None	None	None	0.35	False	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-17-Z005	0	None	None	TP53	1.62	False	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-17-Z007	0	None	None	TP53	1.32	False	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-17-Z009	0	None	None	None	0.76	False	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-17-Z010	0	None	None	None	5.32	False	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-17-Z011	0	None	None	KEAP1	2.18	False	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-17-Z013	0	None	None	None	1.0	False	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-17-Z015	0	None	None	TP53	10.79	True	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-17-Z016	0	None	None	None	6.24	False	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-17-Z017	0	None	None	TP53	4.82	False	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-17-Z018	0	None	None	KEAP1	5.18	False	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-17-Z019	0	None	None	None	0.03	False	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-17-Z020	0	None	None	TP53	2.32	False	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-17-Z021	0	None	None	TP53	2.24	False	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-17-Z022	1	KRAS	KRAS G12C	TP53	25.56	True	Unknown		Sotorasib	Targeted Therapy	3
-TCGA-17-Z023	0	None	None	CDKN2A; TP53	8.47	False	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-17-Z025	0	None	None	None	5.06	False	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-17-Z026	0	None	None	CDKN2A; KEAP1; TP53	18.76	True	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-17-Z027	0	None	None	TP53	1.97	False	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-17-Z028	0	None	None	TP53	9.71	False	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-17-Z032	0	None	None	None	2.03	False	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-17-Z033	0	None	None	None	3.44	False	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-17-Z036	1	KRAS	KRAS G12C	KEAP1	1.65	False	Unknown		Sotorasib	Targeted Therapy	3
-TCGA-17-Z037	0	None	None	TP53	2.76	False	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-17-Z041	0	None	None	None	0.97	False	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-17-Z042	1	KRAS	KRAS G12C	RB1; TP53	9.59	False	Unknown		Sotorasib	Targeted Therapy	3
-TCGA-17-Z043	0	None	None	KEAP1; TP53	3.94	False	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-17-Z044	0	None	None	TP53	2.0	False	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-17-Z045	0	None	None	TP53	13.74	True	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-17-Z047	1	EGFR	EGFR sensitizing mutation	TP53	0.26	False	Unknown		Osimertinib	Targeted Therapy	2
-TCGA-17-Z048	0	None	None	None	0.44	False	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-17-Z049	0	None	None	RB1; TP53	9.91	False	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-17-Z050	0	None	None	None	3.29	False	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-17-Z051	0	None	None	RB1	2.74	False	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-17-Z052	0	None	None	TP53	2.47	False	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-17-Z053	0	None	None	TP53	4.56	False	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-17-Z054	0	None	None	None	0.12	False	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-17-Z055	0	None	None	TP53	10.85	True	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-17-Z056	0	None	None	TP53	9.06	False	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-17-Z057	0	None	None	CDKN2A; RB1; TP53	8.26	False	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-17-Z058	0	None	None	None	1.47	False	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-17-Z059	0	None	None	None	3.21	False	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-17-Z061	0	None	None	RB1; TP53	3.47	False	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-17-Z062	0	None	None	CDKN2A; TP53	8.35	False	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-35-4122	0	None	None	TP53	6.38	False	Desert	0.0629	Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-35-4123	0	None	None	TP53	5.62	False	Desert	0.0828	Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-35-5375	0	None	None	KEAP1; RB1; TP53	8.76	False	Excluded	0.2001	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-38-4625	0	None	None	CDKN2A	11.91	True	Excluded	0.3047	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-38-4626	0	None	None	None	3.85	False	Excluded	0.2378	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-38-4627	1	EGFR	EGFR sensitizing mutation	None	0.59	False	Excluded	0.1801	Osimertinib	Targeted Therapy	3
-TCGA-38-4628	0	None	None	None	2.59	False	Excluded	0.2642	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-38-4629	0	None	None	TP53	5.62	False	Excluded	0.1872	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-38-4630	0	None	None	TP53	2.12	False	Excluded	0.2589	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-38-4631	0	None	None	KEAP1	14.44	True	Excluded	0.2104	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-38-4632	0	None	None	TP53	10.47	True	Desert	0.093	Pembrolizumab	Immunotherapy	2
-TCGA-38-6178	0	None	None	TP53	0.94	False	Excluded	0.1451	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-38-7271	0	None	None	None	0.85	False	Excluded	0.1315	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-38-A44F	0	None	None	None	0.18	False	Excluded	0.125	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-44-2655	0	None	None	KEAP1	3.71	False	Excluded	0.1314	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-44-2656	0	None	None	TP53	16.71	True	Desert	0.0566	Pembrolizumab	Immunotherapy	2
-TCGA-44-2656_3	0	None	None	TP53	17.24	True	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-44-2656_4	0	None	None	None	15.24	True	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-44-2656_5	0	None	None	TP53	15.94	True	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-44-2657	0	None	None	None	8.62	False	Excluded	0.1515	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-44-2661	0	None	None	None	0.74	False	Excluded	0.1522	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-44-2662	0	None	None	TP53	4.32	False	Desert	0.0731	Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-44-2662_3	0	None	None	TP53	3.56	False	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-44-2662_4	0	None	None	TP53	4.03	False	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-44-2665	0	None	None	None	0.88	False	Excluded	0.1306	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-44-2665_3	0	None	None	None	0.76	False	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-44-2666	0	None	None	None	0.68	False	Excluded	0.1437	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-44-2666_3	0	None	None	None	0.62	False	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-44-2666_4	0	None	None	None	0.68	False	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-44-2668	1	KRAS	KRAS G12C	TP53	7.56	False	Desert	0.1201	Sotorasib	Targeted Therapy	3
-TCGA-44-2668_3	0	None	None	TP53	6.88	False	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-44-3396	0	None	None	TP53	3.79	False	Excluded	0.273	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-44-3398	0	None	None	None	3.56	False	Desert	0.1178	Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-44-3917	0	None	None	KEAP1; TP53	4.53	False	Excluded	0.1458	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-44-3918	0	None	None	TP53	19.35	True	Excluded	0.1714	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-44-3918_3	0	None	None	TP53	18.97	True	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-44-3919	1	ERBB2	ERBB2 (HER2) mutation/amplification	None	0.62	False	Excluded	0.1716	Trastuzumab deruxtecan (T-DXd)	Targeted Therapy	3
-TCGA-44-4112	0	None	None	None	8.71	False	Excluded	0.1253	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-44-4112_3	0	None	None	None	9.18	False	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-44-4112_4	0	None	None	None	9.5	False	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-44-4112_5	0	None	None	None	9.0	False	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-44-4112_6	0	None	None	None	8.47	False	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-44-5643	0	None	None	CDKN2A	2.5	False	Excluded	0.131	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-44-5644	0	None	None	STK11; TP53	20.09	True	Excluded	0.1783	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-44-5645	0	None	None	CDKN2A; TP53	0.71	False	Excluded	0.1879	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-44-5645_3	0	None	None	CDKN2A; TP53	0.68	False	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-44-5645_4	0	None	None	CDKN2A; TP53	0.74	False	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-44-5645_5	0	None	None	CDKN2A; TP53	0.76	False	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-44-6144	0	None	None	STK11; TP53	4.79	False	Excluded	0.1618	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-44-6145	0	None	None	RB1; TP53	6.53	False	Excluded	0.2477	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-44-6146	0	None	None	None	0.76	False	Desert	0.0661	Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-44-6146_3	0	None	None	None	0.82	False	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-44-6146_4	0	None	None	None	0.74	False	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-44-6146_5	0	None	None	None	0.76	False	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-44-6147	1	EGFR	EGFR sensitizing mutation	TP53	2.68	False	Excluded	0.2092	Osimertinib	Targeted Therapy	3
-TCGA-44-6147_3	1	EGFR	EGFR sensitizing mutation	TP53	3.38	False	Unknown		Osimertinib	Targeted Therapy	2
-TCGA-44-6147_4	1	EGFR	EGFR sensitizing mutation	TP53	3.97	False	Unknown		Osimertinib	Targeted Therapy	2
-TCGA-44-6147_5	1	EGFR	EGFR sensitizing mutation	TP53	2.06	False	Unknown		Osimertinib	Targeted Therapy	2
-TCGA-44-6148	0	None	None	None	0.12	False	Excluded	0.1452	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-44-6774	0	None	None	TP53	5.71	False	Excluded	0.1912	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-44-6775	1	MET	MET exon 14 skipping	RB1; TP53	1.15	False	Excluded	0.2269	Capmatinib	Targeted Therapy	4
-TCGA-44-6775_3	1	MET	MET exon 14 skipping	RB1; TP53	1.06	False	Unknown		Capmatinib	Targeted Therapy	3
-TCGA-44-6775_4	0	None	None	RB1; TP53	1.09	False	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-44-6775_5	1	MET	MET exon 14 skipping	None	1.06	False	Unknown		Capmatinib	Targeted Therapy	3
-TCGA-44-6776	0	None	None	KEAP1; STK11	4.06	False	Desert	0.1219	Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-44-6777	0	None	None	TP53	7.56	False	Excluded	0.1444	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-44-6778	0	None	None	KEAP1; TP53	8.09	False	Excluded	0.235	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-44-6779	0	None	None	KEAP1; TP53	1.97	False	Excluded	0.1796	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-44-7659	0	None	None	None	3.03	False	Excluded	0.1854	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-44-7660	0	None	None	KEAP1; RB1; TP53	6.82	False	Excluded	0.1262	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-44-7661	0	None	None	TP53	5.21	False	Desert	0.1139	Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-44-7662	0	None	None	CDKN2A; TP53	12.03	True	Excluded	0.1516	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-44-7667	0	None	None	KEAP1	9.41	False	Excluded	0.2348	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-44-7669	0	None	None	KEAP1; RB1; STK11	9.47	False	Excluded	0.1914	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-44-7670	0	None	None	TP53	22.35	True	Excluded	0.1354	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-44-7671	1	KRAS	KRAS G12C	KEAP1; STK11	4.65	False	Excluded	0.1847	Sotorasib	Targeted Therapy	4
-TCGA-44-8117	0	None	None	TP53	15.88	True	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-44-8119	0	None	None	None	13.56	True	Excluded	0.2493	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-44-8120	0	None	None	STK11; TP53	12.24	True	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-44-A479	0	None	None	TP53	6.29	False	Excluded	0.1962	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-44-A47A	0	None	None	None	4.24	False	Excluded	0.1831	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-44-A47B	1	ERBB2	ERBB2 (HER2) mutation/amplification	None	0.88	False	Desert	0.1034	Trastuzumab deruxtecan (T-DXd)	Targeted Therapy	2
-TCGA-44-A47G	1	MET	MET exon 14 skipping	TP53	1.32	False	Excluded	0.1341	Capmatinib	Targeted Therapy	4
-TCGA-44-A4SS	0	None	None	KEAP1; TP53	9.62	False	Excluded	0.1752	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-44-A4SU	1	EGFR	EGFR sensitizing mutation	TP53	2.88	False	Excluded	0.1523	Osimertinib	Targeted Therapy	3
-TCGA-49-4486	0	None	None	KEAP1	2.62	False	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-49-4487	0	None	None	STK11; TP53	6.71	False	Desert	0.1046	Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-49-4488	0	None	None	KEAP1	5.74	False	Desert	0.0835	Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-49-4490	1	EGFR	EGFR sensitizing mutation	TP53	0.82	False	Desert	0.0977	Osimertinib	Targeted Therapy	2
-TCGA-49-4494	1	EGFR	EGFR sensitizing mutation	None	3.82	False	Excluded	0.1311	Osimertinib	Targeted Therapy	3
-TCGA-49-4501	0	None	None	None	0.76	False	Excluded	0.1364	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-49-4505	1	KRAS	KRAS G12C	CDKN2A; TP53	4.24	False	Excluded	0.1443	Sotorasib	Targeted Therapy	4
-TCGA-49-4506	0	None	None	KEAP1	2.09	False	Desert	0.1135	Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-49-4507	0	None	None	KEAP1; STK11	4.21	False	Desert	0.1055	Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-49-4507_3	0	None	None	KEAP1; STK11	4.21	False	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-49-4510	0	None	None	None	0.94	False	Desert	0.1126	Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-49-4512	0	None	None	None	0.68	False	Desert	0.1226	Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-49-4514	0	None	None	KEAP1; TP53	6.32	False	Desert	0.1098	Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-49-6742	0	None	None	KEAP1	5.41	False	Desert	0.0972	Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-49-6743	0	None	None	KEAP1	14.91	True	Excluded	0.1312	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-49-6744	0	None	None	None	4.03	False	Desert	0.0899	Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-49-6745	1	MET	MET exon 14 skipping	None	2.47	False	Desert	0.0691	Capmatinib	Targeted Therapy	3
-TCGA-49-6761	0	None	None	None	3.53	False	Desert	0.0886	Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-49-6767	0	None	None	TP53	9.15	False	Excluded	0.1341	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-49-AAQV	0	None	None	TP53	1.24	False	Excluded	0.1506	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-49-AAR0	0	None	None	KEAP1; STK11; TP53	2.47	False	Excluded	0.2001	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-49-AAR2	0	None	None	KEAP1	8.21	False	Excluded	0.161	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-49-AAR3	0	None	None	KEAP1; TP53	2.47	False	Excluded	0.1887	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-49-AAR4	0	None	None	TP53	11.26	True	Desert	0.1129	Pembrolizumab	Immunotherapy	2
-TCGA-49-AAR9	0	None	None	CDKN2A; KEAP1; TP53	13.32	True	Excluded	0.2565	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-49-AARE	0	None	None	KEAP1; RB1; TP53	25.26	True	Excluded	0.189	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-49-AARN	0	None	None	RB1; TP53	15.53	True	Excluded	0.2092	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-49-AARO	0	None	None	None	12.24	True	Excluded	0.1269	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-49-AARQ	0	None	None	RB1; TP53	14.94	True	Excluded	0.1614	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-49-AARR	0	None	None	None	0.03	False	Excluded	0.1837	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-4B-A93V	1	KRAS	KRAS G12C	KEAP1; STK11; TP53	2.94	False	Excluded	0.2362	Sotorasib	Targeted Therapy	4
-TCGA-50-5044	0	None	None	None	2.35	False	Excluded	0.213	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-50-5045	0	None	None	TP53	5.79	False	Desert	0.1235	Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-50-5049	0	None	None	TP53	15.76	True	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-50-5051	1	KRAS	KRAS G12C	KEAP1	2.26	False	Unknown		Sotorasib	Targeted Therapy	3
-TCGA-50-5066	0	None	None	None	5.62	False	Excluded	0.1433	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-50-5068	0	None	None	None	1.88	False	Excluded	0.2075	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-50-5072	0	None	None	None	3.21	False	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-50-5930	1	MET	MET exon 14 skipping	None	22.74	True	Unknown		Capmatinib	Targeted Therapy	3
-TCGA-50-5931	0	None	None	TP53	6.41	False	Desert	0.0867	Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-50-5932	1	KRAS	KRAS G12C	None	1.65	False	Unknown		Sotorasib	Targeted Therapy	3
-TCGA-50-5933	0	None	None	TP53	10.26	True	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-50-5935	0	None	None	None	1.71	False	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-50-5936	0	None	None	KEAP1	2.5	False	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-50-5939	0	None	None	KEAP1; TP53	1.47	False	Excluded	0.3057	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-50-5941	0	None	None	TP53	7.35	False	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-50-5942	0	None	None	None	1.03	False	Desert	0.1218	Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-50-5944	1	EGFR	EGFR sensitizing mutation	TP53	1.18	False	Unknown		Osimertinib	Targeted Therapy	2
-TCGA-50-5946	0	None	None	TP53	13.56	True	Excluded	0.2696	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-50-6590	0	None	None	CDKN2A; TP53	18.09	True	Excluded	0.2104	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-50-6591	0	None	None	TP53	1.0	False	Desert	0.0746	Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-50-6592	0	None	None	TP53	5.97	False	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-50-6593	0	None	None	TP53	6.26	False	Excluded	0.21	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-50-6594	0	None	None	TP53	10.74	True	Desert	0.0995	Pembrolizumab	Immunotherapy	2
-TCGA-50-6595	1	EGFR	EGFR sensitizing mutation	CDKN2A	1.68	False	Unknown		Osimertinib	Targeted Therapy	2
-TCGA-50-6597	1	MET	MET exon 14 skipping	None	0.79	False	Excluded	0.2332	Capmatinib	Targeted Therapy	4
-TCGA-50-6673	0	None	None	TP53	1.03	False	Desert	0.0476	Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-50-7109	0	None	None	None	5.15	False	Desert	0.1083	Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-50-8457	0	None	None	None	1.0	False	Excluded	0.2223	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-50-8459	1	KRAS	KRAS G12C	None	1.53	False	Excluded	0.1485	Sotorasib	Targeted Therapy	4
-TCGA-50-8460	0	None	None	TP53	0.62	False	Unknown		Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-53-7624	0	None	None	KEAP1; TP53	16.94	True	Excluded	0.1333	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-53-7626	0	None	None	TP53	7.71	False	Excluded	0.1382	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-53-7813	0	None	None	STK11	3.09	False	Desert	0.1212	Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-53-A4EZ	0	None	None	CDKN2A; KEAP1; TP53	10.38	True	Desert	0.0897	Pembrolizumab	Immunotherapy	2
-TCGA-55-1592	0	None	None	TP53	11.03	True	Desert	0.1093	Pembrolizumab	Immunotherapy	2
-TCGA-55-1594	0	None	None	CDKN2A; TP53	2.97	False	Desert	0.1217	Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-55-1595	1	KRAS	KRAS G12C	None	6.38	False	Excluded	0.1747	Sotorasib	Targeted Therapy	4
-TCGA-55-1596	0	None	None	STK11; TP53	4.09	False	Desert	0.1069	Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-55-5899	0	None	None	KEAP1; TP53	9.35	False	Excluded	0.1418	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-55-6543	0	None	None	None	0.41	False	Excluded	0.1501	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-55-6642	0	None	None	None	2.38	False	Excluded	0.1759	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-55-6712	0	None	None	TP53	2.21	False	Desert	0.1127	Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-55-6968	0	None	None	RB1; TP53	10.0	True	Excluded	0.2104	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-55-6970	0	None	None	KEAP1; STK11	3.59	False	Desert	0.1176	Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-55-6971	0	None	None	None	1.62	False	Excluded	0.1785	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-55-6972	0	None	None	KEAP1	5.29	False	Excluded	0.1653	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-55-6975	0	None	None	TP53	1.44	False	Excluded	0.1999	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-55-6978	0	None	None	None	0.56	False	Excluded	0.1669	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-55-6979	0	None	None	None	2.53	False	Excluded	0.1463	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-55-6980	0	None	None	TP53	0.18	False	Excluded	0.1531	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-55-6981	0	None	None	TP53	1.12	False	Excluded	0.1655	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-55-6982	1	MET	MET exon 14 skipping	None	4.35	False	Desert	0.1068	Capmatinib	Targeted Therapy	3
-TCGA-55-6983	1	KRAS	KRAS G12C	None	2.32	False	Desert	0.0825	Sotorasib	Targeted Therapy	3
-TCGA-55-6984	0	None	None	None	0.38	False	Desert	0.1089	Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-55-6985	0	None	None	TP53	9.09	False	Excluded	0.1413	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-55-6986	0	None	None	None	0.35	False	Desert	0.1184	Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-55-6987	0	None	None	KEAP1	3.59	False	Excluded	0.1808	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-55-7227	0	None	None	TP53	3.38	False	Excluded	0.1772	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-55-7281	1	KRAS	KRAS G12C	None	9.38	False	Excluded	0.1826	Sotorasib	Targeted Therapy	4
-TCGA-55-7283	0	None	None	TP53	4.44	False	Excluded	0.1852	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-55-7284	0	None	None	None	0.82	False	Desert	0.0757	Carboplatin + Pemetrexed	Chemotherapy	1
-TCGA-55-7570	0	None	None	TP53	8.06	False	Excluded	0.209	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-55-7573	0	None	None	TP53	0.97	False	Excluded	0.1706	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-55-7574	0	None	None	TP53	4.85	False	Excluded	0.1939	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-55-7576	0	None	None	TP53	7.76	False	Excluded	0.2028	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-55-7724	0	None	None	None	4.15	False	Excluded	0.1843	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-55-7725	0	None	None	None	2.53	False	Excluded	0.2034	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-55-7726	1	KRAS	KRAS G12C	TP53	2.18	False	Excluded	0.1507	Sotorasib	Targeted Therapy	4
-TCGA-55-7727	0	None	None	TP53	5.03	False	Excluded	0.1888	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-55-7728	0	None	None	None	1.94	False	Excluded	0.1378	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-55-7815	0	None	None	KEAP1	3.09	False	Excluded	0.1633	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-78-7158	0	None	None	KEAP1	4.85	False	Excluded	0.1748	Pembrolizumab ± chemotherapy	Immunotherapy	2
-TCGA-86-A4D0	0	None	None	KEAP1; STK11; TP53	5.24	False	Desert	0.0888	Carboplatin + Pemetrexed	Chemotherapy	1
+sample_id	data_layers	n_targeted	n_immunotherapy	n_combination	n_recommendations	top_targeted_drug	top_targeted_score	io_score	tmb	tmb_high	tme_phenotype	ts_alterations
+TCGA-05-4244	4	3	1	2	7	Sotorasib	93.0	35	4.53	False	Excluded	None
+TCGA-05-4249	4	4	1	3	9	Sotorasib	98.0	40	6.68	False	Excluded	None
+TCGA-05-4250	4	3	1	2	7	Sotorasib	98.0	54	7.59	False	Excluded	None
+TCGA-05-4382	4	3	1	1	6	Entrectinib	88.0	58	35.41	True	Excluded	TP53
+TCGA-05-4384	4	1	1	1	4	Trastuzumab deruxtecan	93.0	5	2.62	False	Excluded	KEAP1
+TCGA-05-4389	2	0	1	0	2	None		9	4.65	False	Unknown	KEAP1
+TCGA-05-4390	3	0	1	0	2	None		32	11.32	True	Desert	None
+TCGA-05-4395	3	0	1	0	2	None		22	5.24	False	Excluded	KEAP1; STK11; TP53
+TCGA-05-4396	3	0	1	0	2	None		35	5.24	False	Excluded	TP53
+TCGA-05-4397	4	4	1	1	7	Alectinib	90.0	47	17.65	True	Excluded	RB1; TP53
+TCGA-05-4398	4	2	1	0	4	Larotrectinib	85.0	48	14.18	True	Desert	TP53
+TCGA-05-4402	3	0	1	0	2	None		30	2.35	False	Excluded	TP53
+TCGA-05-4403	3	0	1	0	2	None		10	2.74	False	Desert	None
+TCGA-05-4405	4	1	1	0	3	Eprenetapopt (APR-246)	68.0	40	7.32	False	Excluded	TP53
+TCGA-05-4410	4	3	1	1	6	Alectinib	85.0	60	22.18	True	Excluded	TP53
+TCGA-05-4415	4	3	1	2	7	Sotorasib	93.0	18	4.26	False	Excluded	RB1; STK11
+TCGA-05-4417	4	3	1	2	7	Sotorasib	93.0	26	6.15	False	Excluded	STK11
+TCGA-05-4418	4	3	1	0	5	Sotorasib	93.0	12	5.91	False	Desert	KEAP1
+TCGA-05-4420	3	0	1	0	2	None		35	5.56	False	Excluded	TP53
+TCGA-05-4422	3	0	1	0	2	None		10	0.79	False	Excluded	NFE2L2; STK11
+TCGA-05-4424	4	2	1	1	5	Larotrectinib	85.0	58	13.62	True	Excluded	TP53
+TCGA-05-4425	3	0	1	0	2	None		30	0.76	False	Excluded	None
+TCGA-05-4426	3	0	1	0	2	None		27	0.97	False	Excluded	CDKN2A
+TCGA-05-4427	3	0	1	0	2	None		48	21.35	True	Desert	TP53
+TCGA-05-4430	3	0	1	0	2	None		46	5.76	False	Excluded	TP53
+TCGA-05-4432	4	8	1	1	11	Selpercatinib	98.0	58	11.12	True	Excluded	TP53
+TCGA-05-4433	3	0	1	0	2	None		29	0.76	False	Excluded	CDKN2A; TP53
+TCGA-05-4434	4	1	1	0	3	Trastuzumab deruxtecan	88.0	18	0.76	False	Desert	None
+TCGA-05-5420	3	0	1	0	2	None		39	1.59	False	Excluded	None
+TCGA-05-5423	4	4	1	0	6	Osimertinib	88.0	15	3.21	False	Desert	TP53
+TCGA-05-5425	4	2	1	0	4	Trametinib	63.0	61	11.29	True	Excluded	TP53
+TCGA-05-5428	3	0	1	0	2	None		25	7.56	False	Desert	TP53
+TCGA-05-5429	3	0	1	0	2	None		2	0.59	False	Desert	None
+TCGA-05-5715	4	1	1	0	3	Trastuzumab deruxtecan	98.0	10	2.24	False	Desert	None
+TCGA-17-Z000	1	0	1	0	2	None		16	2.53	False	Unknown	None
+TCGA-17-Z001	1	0	1	0	2	None		0	4.0	False	Unknown	KEAP1; TP53
+TCGA-17-Z002	1	0	1	0	2	None		8	0.18	False	Unknown	None
+TCGA-17-Z003	1	0	1	0	2	None		16	4.79	False	Unknown	TP53
+TCGA-17-Z004	1	0	1	0	2	None		8	0.35	False	Unknown	None
+TCGA-17-Z005	1	0	1	0	2	None		16	1.62	False	Unknown	TP53
+TCGA-17-Z007	1	0	1	0	2	None		16	1.32	False	Unknown	TP53
+TCGA-17-Z009	1	0	1	0	2	None		8	0.76	False	Unknown	None
+TCGA-17-Z010	1	0	1	0	2	None		26	5.32	False	Unknown	None
+TCGA-17-Z011	1	0	1	0	2	None		0	2.18	False	Unknown	KEAP1
+TCGA-17-Z013	1	0	1	0	2	None		16	1.0	False	Unknown	None
+TCGA-17-Z015	1	0	1	0	2	None		18	10.79	True	Unknown	NFE2L2; TP53
+TCGA-17-Z016	1	0	1	0	2	None		26	6.24	False	Unknown	None
+TCGA-17-Z017	1	0	1	0	2	None		16	4.82	False	Unknown	TP53
+TCGA-17-Z018	1	0	1	0	2	None		6	5.18	False	Unknown	KEAP1
+TCGA-17-Z019	1	0	1	0	2	None		8	0.03	False	Unknown	None
+TCGA-17-Z020	1	0	1	0	2	None		16	2.32	False	Unknown	TP53
+TCGA-17-Z021	1	0	1	0	2	None		16	2.24	False	Unknown	TP53
+TCGA-17-Z022	2	3	1	0	5	Sotorasib	93.0	38	25.56	True	Unknown	TP53
+TCGA-17-Z023	2	3	1	0	5	Entrectinib	93.0	6	8.47	False	Unknown	CDKN2A; NFE2L2; TP53
+TCGA-17-Z025	2	3	1	0	5	Alectinib	93.0	26	5.06	False	Unknown	None
+TCGA-17-Z026	1	0	1	0	2	None		18	18.76	True	Unknown	CDKN2A; KEAP1; NFE2L2; TP53
+TCGA-17-Z027	1	0	1	0	2	None		16	1.97	False	Unknown	TP53
+TCGA-17-Z028	1	0	1	0	2	None		26	9.71	False	Unknown	TP53
+TCGA-17-Z032	1	0	1	0	2	None		16	2.03	False	Unknown	None
+TCGA-17-Z033	1	0	1	0	2	None		0	3.44	False	Unknown	NFE2L2
+TCGA-17-Z036	2	6	1	0	8	Sotorasib	93.0	0	1.65	False	Unknown	KEAP1
+TCGA-17-Z037	1	0	1	0	2	None		16	2.76	False	Unknown	TP53
+TCGA-17-Z041	2	2	1	0	4	Selpercatinib	88.0	8	0.97	False	Unknown	None
+TCGA-17-Z042	2	3	1	0	5	Sotorasib	93.0	26	9.59	False	Unknown	RB1; TP53
+TCGA-17-Z043	2	3	1	0	5	Alectinib	93.0	0	3.94	False	Unknown	KEAP1; TP53
+TCGA-17-Z044	1	0	1	0	2	None		16	2.0	False	Unknown	TP53
+TCGA-17-Z045	1	0	1	0	2	None		38	13.74	True	Unknown	TP53
+TCGA-17-Z047	2	4	1	0	6	Osimertinib	88.0	8	0.26	False	Unknown	TP53
+TCGA-17-Z048	1	0	1	0	2	None		8	0.44	False	Unknown	None
+TCGA-17-Z049	2	1	1	0	3	Trastuzumab deruxtecan	93.0	26	9.91	False	Unknown	RB1; TP53
+TCGA-17-Z050	1	0	1	0	2	None		16	3.29	False	Unknown	None
+TCGA-17-Z051	1	0	1	0	2	None		16	2.74	False	Unknown	RB1
+TCGA-17-Z052	1	0	1	0	2	None		16	2.47	False	Unknown	TP53
+TCGA-17-Z053	2	1	1	0	3	Eprenetapopt (APR-246)	68.0	16	4.56	False	Unknown	TP53
+TCGA-17-Z054	1	0	1	0	2	None		8	0.12	False	Unknown	None
+TCGA-17-Z055	1	0	1	0	2	None		38	10.85	True	Unknown	TP53
+TCGA-17-Z056	1	0	1	0	2	None		26	9.06	False	Unknown	TP53
+TCGA-17-Z057	1	0	1	0	2	None		26	8.26	False	Unknown	CDKN2A; RB1; TP53
+TCGA-17-Z058	1	0	1	0	2	None		16	1.47	False	Unknown	None
+TCGA-17-Z059	1	0	1	0	2	None		16	3.21	False	Unknown	None
+TCGA-17-Z061	1	0	1	0	2	None		16	3.47	False	Unknown	RB1; TP53
+TCGA-17-Z062	2	2	1	0	4	Larotrectinib	88.0	26	8.35	False	Unknown	CDKN2A; TP53
+TCGA-35-4122	3	0	1	0	2	None		32	6.38	False	Desert	TP53
+TCGA-35-4123	3	0	1	0	2	None		39	5.62	False	Desert	TP53
+TCGA-35-5375	3	0	1	0	2	None		26	8.76	False	Excluded	KEAP1; RB1; TP53
+TCGA-38-4625	4	2	1	0	4	Trametinib	68.0	63	11.91	True	Excluded	CDKN2A
+TCGA-38-4626	4	3	1	1	6	Alectinib	85.0	30	3.85	False	Excluded	None
+TCGA-38-4627	4	4	1	1	7	Osimertinib	88.0	17	0.59	False	Excluded	None
+TCGA-38-4628	3	0	1	0	2	None		25	2.59	False	Excluded	None
+TCGA-38-4629	4	1	1	1	4	Trastuzumab deruxtecan	88.0	51	5.62	False	Excluded	TP53
+TCGA-38-4630	3	0	1	0	2	None		25	2.12	False	Excluded	TP53
+TCGA-38-4631	3	0	1	0	2	None		27	14.44	True	Excluded	KEAP1
+TCGA-38-4632	3	0	1	0	2	None		43	10.47	True	Desert	TP53
+TCGA-38-6178	3	0	1	0	2	None		17	0.94	False	Excluded	TP53
+TCGA-38-7271	3	0	1	0	2	None		30	0.85	False	Excluded	None
+TCGA-38-A44F	3	0	1	0	2	None		28	0.18	False	Excluded	None
+TCGA-44-2655	3	0	1	0	2	None		5	3.71	False	Excluded	KEAP1
+TCGA-44-2656	4	4	1	0	6	Trastuzumab deruxtecan	93.0	50	16.71	True	Desert	TP53
+TCGA-44-2656_3	2	4	1	0	6	Trastuzumab deruxtecan	93.0	38	17.24	True	Unknown	TP53
+TCGA-44-2656_4	2	4	1	0	6	Trastuzumab deruxtecan	93.0	38	15.24	True	Unknown	None
+TCGA-44-2656_5	2	1	1	0	3	Trastuzumab deruxtecan	93.0	38	15.94	True	Unknown	TP53
+TCGA-44-2657	3	0	1	0	2	None		50	8.62	False	Excluded	None
+TCGA-44-2661	3	0	1	0	2	None		29	0.74	False	Excluded	None
+TCGA-44-2662	3	0	1	0	2	None		20	4.32	False	Desert	TP53
+TCGA-44-2662_3	1	0	1	0	2	None		16	3.56	False	Unknown	TP53
+TCGA-44-2662_4	1	0	1	0	2	None		16	4.03	False	Unknown	TP53
+TCGA-44-2665	3	0	1	0	2	None		27	0.88	False	Excluded	None
+TCGA-44-2665_3	1	0	1	0	2	None		8	0.76	False	Unknown	None
+TCGA-44-2666	3	0	1	0	2	None		22	0.68	False	Excluded	None
+TCGA-44-2666_3	1	0	1	0	2	None		8	0.62	False	Unknown	None
+TCGA-44-2666_4	1	0	1	0	2	None		8	0.68	False	Unknown	None
+TCGA-44-2668	4	4	1	2	8	Sotorasib	88.0	31	7.56	False	Desert	TP53
+TCGA-44-2668_3	2	1	1	0	3	Copanlisib	55.0	26	6.88	False	Unknown	TP53
+TCGA-44-3396	3	0	1	0	2	None		41	3.79	False	Excluded	TP53
+TCGA-44-3398	3	0	1	0	2	None		20	3.56	False	Desert	None
+TCGA-44-3917	4	6	1	1	9	Entrectinib	93.0	17	4.53	False	Excluded	KEAP1; TP53
+TCGA-44-3918	3	0	1	0	2	None		63	19.35	True	Excluded	TP53
+TCGA-44-3918_3	1	0	1	0	2	None		38	18.97	True	Unknown	TP53
+TCGA-44-3919	4	1	1	1	4	Trastuzumab deruxtecan	93.0	28	0.62	False	Excluded	None
+TCGA-44-4112	4	3	1	1	6	Alectinib	85.0	40	8.71	False	Excluded	None
+TCGA-44-4112_3	2	3	1	0	5	Alectinib	88.0	26	9.18	False	Unknown	None
+TCGA-44-4112_4	2	3	1	0	5	Alectinib	93.0	26	9.5	False	Unknown	None
+TCGA-44-4112_5	2	3	1	0	5	Alectinib	93.0	26	9.0	False	Unknown	None
+TCGA-44-4112_6	2	3	1	0	5	Alectinib	88.0	26	8.47	False	Unknown	None
+TCGA-44-5643	4	1	1	0	3	Alpelisib	68.0	33	2.5	False	Excluded	CDKN2A
+TCGA-44-5644	3	0	1	0	2	None		27	20.09	True	Excluded	STK11; TP53
+TCGA-44-5645	4	1	1	0	3	Alpelisib	63.0	22	0.71	False	Excluded	CDKN2A; TP53
+TCGA-44-5645_3	2	1	1	0	3	Alpelisib	63.0	8	0.68	False	Unknown	CDKN2A; TP53
+TCGA-44-5645_4	2	1	1	0	3	Alpelisib	63.0	8	0.74	False	Unknown	CDKN2A; TP53
+TCGA-44-5645_5	2	1	1	0	3	Alpelisib	63.0	8	0.76	False	Unknown	CDKN2A; TP53
+TCGA-44-6144	2	0	1	0	2	None		3	4.79	False	Excluded	STK11; TP53
+TCGA-44-6145	4	2	1	1	5	Selpercatinib	85.0	51	6.53	False	Excluded	RB1; TP53
+TCGA-44-6146	3	0	1	0	2	None		2	0.76	False	Desert	None
+TCGA-44-6146_3	1	0	1	0	2	None		8	0.82	False	Unknown	None
+TCGA-44-6146_4	1	0	1	0	2	None		8	0.74	False	Unknown	None
+TCGA-44-6146_5	1	0	1	0	2	None		8	0.76	False	Unknown	None
+TCGA-44-6147	4	4	1	1	7	Osimertinib	88.0	25	2.68	False	Excluded	TP53
+TCGA-44-6147_3	2	4	1	0	6	Osimertinib	88.0	16	3.38	False	Unknown	TP53
+TCGA-44-6147_4	2	4	1	0	6	Osimertinib	88.0	16	3.97	False	Unknown	TP53
+TCGA-44-6147_5	2	4	1	0	6	Osimertinib	88.0	16	2.06	False	Unknown	TP53
+TCGA-44-6148	3	0	1	0	2	None		22	0.12	False	Excluded	None
+TCGA-44-6774	3	0	1	0	2	None		40	5.71	False	Excluded	TP53
+TCGA-44-6775	4	2	1	1	5	Tepotinib	93.0	41	1.15	False	Excluded	RB1; TP53
+TCGA-44-6775_3	2	2	1	0	4	Tepotinib	88.0	16	1.06	False	Unknown	RB1; TP53
+TCGA-44-6775_4	1	0	1	0	2	None		16	1.09	False	Unknown	RB1; TP53
+TCGA-44-6775_5	2	2	1	0	4	Tepotinib	88.0	16	1.06	False	Unknown	None
+TCGA-44-6776	3	0	1	0	2	None		0	4.06	False	Desert	KEAP1; STK11
+TCGA-44-6777	4	3	1	1	6	Alectinib	85.0	46	7.56	False	Excluded	TP53
+TCGA-44-6778	4	2	1	0	4	Trametinib	63.0	33	8.09	False	Excluded	KEAP1; TP53
+TCGA-44-6779	3	0	1	0	2	None		19	1.97	False	Excluded	KEAP1; TP53
+TCGA-44-7659	4	2	1	1	5	Larotrectinib	85.0	30	3.03	False	Excluded	None
+TCGA-44-7660	3	0	1	0	2	None		20	6.82	False	Excluded	KEAP1; RB1; TP53
+TCGA-44-7661	3	0	1	0	2	None		36	5.21	False	Desert	TP53
+TCGA-44-7662	3	0	1	0	2	None		58	12.03	True	Excluded	CDKN2A; TP53
+TCGA-44-7667	4	2	1	1	5	Selpercatinib	90.0	16	9.41	False	Excluded	KEAP1
+TCGA-44-7669	3	0	1	0	2	None		28	9.47	False	Excluded	KEAP1; RB1; STK11
+TCGA-44-7670	4	4	1	1	7	Entrectinib	93.0	53	22.35	True	Excluded	TP53
+TCGA-44-7671	4	3	1	2	7	Sotorasib	93.0	5	4.65	False	Excluded	KEAP1; STK11
+TCGA-44-8117	2	0	1	0	2	None		45	15.88	True	Unknown	TP53
+TCGA-44-8119	4	3	1	1	6	Entrectinib	90.0	59	13.56	True	Excluded	None
+TCGA-44-8120	2	0	1	0	2	None		25	12.24	True	Unknown	STK11; TP53
+TCGA-44-A479	3	0	1	0	2	None		48	6.29	False	Excluded	TP53
+TCGA-44-A47A	3	0	1	0	2	None		36	4.24	False	Excluded	None
+TCGA-44-A47B	4	1	1	0	3	Trastuzumab deruxtecan	98.0	11	0.88	False	Desert	None
+TCGA-44-A47G	4	2	1	1	5	Tepotinib	93.0	41	1.32	False	Excluded	TP53
+TCGA-44-A4SS	3	0	1	0	2	None		29	9.62	False	Excluded	KEAP1; TP53
+TCGA-44-A4SU	4	8	1	1	11	Osimertinib	93.0	30	2.88	False	Excluded	TP53
+TCGA-49-4486	2	0	1	0	2	None		0	2.62	False	Unknown	KEAP1
+TCGA-49-4487	3	0	1	0	2	None		13	6.71	False	Desert	STK11; TP53
+TCGA-49-4488	3	0	1	0	2	None		13	5.74	False	Desert	KEAP1
+TCGA-49-4490	4	4	1	0	6	Osimertinib	93.0	2	0.82	False	Desert	TP53
+TCGA-49-4494	4	7	1	1	10	Osimertinib	93.0	36	3.82	False	Excluded	None
+TCGA-49-4501	3	0	1	0	2	None		22	0.76	False	Excluded	None
+TCGA-49-4505	4	5	1	1	8	Sotorasib	93.0	37	4.24	False	Excluded	CDKN2A; TP53
+TCGA-49-4506	3	0	1	0	2	None		0	2.09	False	Desert	KEAP1
+TCGA-49-4507	3	0	1	0	2	None		0	4.21	False	Desert	KEAP1; STK11
+TCGA-49-4507_3	1	0	1	0	2	None		0	4.21	False	Unknown	KEAP1; STK11
+TCGA-49-4510	3	0	1	0	2	None		2	0.94	False	Desert	None
+TCGA-49-4512	3	0	1	0	2	None		2	0.68	False	Desert	None
+TCGA-49-4514	4	1	1	0	3	Eprenetapopt (APR-246)	68.0	1	6.32	False	Desert	KEAP1; TP53
+TCGA-49-6742	3	0	1	0	2	None		0	5.41	False	Desert	KEAP1
+TCGA-49-6743	4	1	1	0	3	Copanlisib	55.0	38	14.91	True	Excluded	KEAP1
+TCGA-49-6744	3	0	1	0	2	None		21	4.03	False	Desert	None
+TCGA-49-6745	4	4	1	0	6	Tepotinib	98.0	26	2.47	False	Desert	None
+TCGA-49-6761	3	0	1	0	2	None		28	3.53	False	Desert	None
+TCGA-49-6767	4	3	1	1	6	Entrectinib	88.0	54	9.15	False	Excluded	TP53
+TCGA-49-AAQV	4	1	1	0	3	Eprenetapopt (APR-246)	63.0	30	1.24	False	Excluded	TP53
+TCGA-49-AAR0	3	0	1	0	2	None		6	2.47	False	Excluded	KEAP1; STK11; TP53
+TCGA-49-AAR2	3	0	1	0	2	None		15	8.21	False	Excluded	KEAP1
+TCGA-49-AAR3	3	0	1	0	2	None		23	2.47	False	Excluded	KEAP1; TP53
+TCGA-49-AAR4	4	3	1	0	5	Entrectinib	85.0	48	11.26	True	Desert	TP53
+TCGA-49-AAR9	3	0	1	0	2	None		27	13.32	True	Excluded	CDKN2A; KEAP1; TP53
+TCGA-49-AARE	4	3	1	1	6	Entrectinib	85.0	27	25.26	True	Excluded	KEAP1; RB1; TP53
+TCGA-49-AARN	3	0	1	0	2	None		52	15.53	True	Excluded	RB1; TP53
+TCGA-49-AARO	3	0	1	0	2	None		58	12.24	True	Excluded	None
+TCGA-49-AARQ	4	2	1	1	5	Selpercatinib	85.0	48	14.94	True	Excluded	RB1; TP53
+TCGA-49-AARR	3	0	1	0	2	None		24	0.03	False	Excluded	None
+TCGA-4B-A93V	4	3	1	1	6	Sotorasib	93.0	17	2.94	False	Excluded	KEAP1; STK11; TP53
+TCGA-50-5044	4	1	1	0	3	Alpelisib	60.0	37	2.35	False	Excluded	None
+TCGA-50-5045	3	0	1	0	2	None		31	5.79	False	Desert	TP53
+TCGA-50-5049	3	2	1	0	4	Selpercatinib	85.0	54	15.76	True	Unknown	TP53
+TCGA-50-5051	3	3	1	0	5	Sotorasib	93.0	0	2.26	False	Unknown	KEAP1
+TCGA-50-5066	3	0	1	0	2	None		40	5.62	False	Excluded	None
+TCGA-50-5068	3	0	1	0	2	None		35	1.88	False	Excluded	None
+TCGA-50-5072	2	0	1	0	2	None		23	3.21	False	Unknown	None
+TCGA-50-5930	3	13	1	0	15	Tepotinib	88.0	20	22.74	True	Unknown	NFE2L2
+TCGA-50-5931	3	0	1	0	2	None		20	6.41	False	Desert	TP53
+TCGA-50-5932	3	3	1	1	6	Sotorasib	93.0	18	1.65	False	Unknown	None
+TCGA-50-5933	2	0	1	0	2	None		56	10.26	True	Unknown	TP53
+TCGA-50-5935	2	0	1	0	2	None		29	1.71	False	Unknown	None
+TCGA-50-5936	2	0	1	0	2	None		0	2.5	False	Unknown	KEAP1
+TCGA-50-5939	3	0	1	0	2	None		10	1.47	False	Excluded	KEAP1; TP53
+TCGA-50-5941	2	0	1	0	2	None		44	7.35	False	Unknown	TP53
+TCGA-50-5942	3	0	1	0	2	None		10	1.03	False	Desert	None
+TCGA-50-5944	3	4	1	0	6	Osimertinib	98.0	18	1.18	False	Unknown	TP53
+TCGA-50-5946	4	3	1	1	6	Alectinib	85.0	47	13.56	True	Excluded	TP53
+TCGA-50-6590	4	1	1	0	3	Copanlisib	57.0	65	18.09	True	Excluded	CDKN2A; TP53
+TCGA-50-6591	3	0	1	0	2	None		10	1.0	False	Desert	TP53
+TCGA-50-6592	3	1	1	0	3	Copanlisib	55.0	40	5.97	False	Unknown	TP53
+TCGA-50-6593	3	0	1	0	2	None		40	6.26	False	Excluded	TP53
+TCGA-50-6594	3	0	1	0	2	None		42	10.74	True	Desert	TP53
+TCGA-50-6595	3	8	1	0	10	Osimertinib	93.0	35	1.68	False	Unknown	CDKN2A
+TCGA-50-6597	4	2	1	1	5	Tepotinib	98.0	18	0.79	False	Excluded	None
+TCGA-50-6673	3	0	1	0	2	None		10	1.03	False	Desert	TP53
+TCGA-50-7109	3	0	1	0	2	None		28	5.15	False	Desert	None
+TCGA-50-8457	3	0	1	0	2	None		26	1.0	False	Excluded	None
+TCGA-50-8459	4	3	1	2	7	Sotorasib	93.0	25	1.53	False	Excluded	None
+TCGA-50-8460	2	0	1	0	2	None		10	0.62	False	Unknown	TP53
+TCGA-53-7624	3	0	1	0	2	None		45	16.94	True	Excluded	KEAP1; TP53
+TCGA-53-7626	3	0	1	0	2	None		46	7.71	False	Excluded	TP53
+TCGA-53-7813	3	0	1	0	2	None		0	3.09	False	Desert	STK11
+TCGA-53-A4EZ	3	0	1	0	2	None		12	10.38	True	Desert	CDKN2A; KEAP1; TP53
+TCGA-55-1592	4	3	1	0	5	Alectinib	85.0	37	11.03	True	Desert	TP53
+TCGA-55-1594	3	0	1	0	2	None		15	2.97	False	Desert	CDKN2A; TP53
+TCGA-55-1595	4	3	1	2	7	Sotorasib	93.0	46	6.38	False	Excluded	None
+TCGA-55-1596	3	0	1	0	2	None		0	4.09	False	Desert	STK11; TP53
+TCGA-55-5899	4	2	1	1	5	Selpercatinib	88.0	29	9.35	False	Excluded	KEAP1; TP53
+TCGA-55-6543	3	0	1	0	2	None		22	0.41	False	Excluded	None
+TCGA-55-6642	3	0	1	0	2	None		26	2.38	False	Excluded	None
+TCGA-55-6712	3	0	1	0	2	None		30	2.21	False	Desert	TP53
+TCGA-55-6968	3	0	1	0	2	None		60	10.0	True	Excluded	RB1; TP53
+TCGA-55-6970	3	0	1	0	2	None		1	3.59	False	Desert	KEAP1; STK11
+TCGA-55-6971	3	0	1	0	2	None		37	1.62	False	Excluded	None
+TCGA-55-6972	3	0	1	0	2	None		15	5.29	False	Excluded	KEAP1
+TCGA-55-6975	3	0	1	0	2	None		5	1.44	False	Excluded	NFE2L2; TP53
+TCGA-55-6978	3	0	1	0	2	None		34	0.56	False	Excluded	None
+TCGA-55-6979	3	0	1	0	2	None		42	2.53	False	Excluded	None
+TCGA-55-6980	3	0	1	0	2	None		28	0.18	False	Excluded	TP53
+TCGA-55-6981	3	0	1	0	2	None		30	1.12	False	Excluded	TP53
+TCGA-55-6982	4	2	1	0	4	Tepotinib	93.0	1	4.35	False	Desert	NFE2L2
+TCGA-55-6983	4	3	1	1	6	Sotorasib	93.0	11	2.32	False	Desert	None
+TCGA-55-6984	3	0	1	0	2	None		2	0.38	False	Desert	None
+TCGA-55-6985	3	0	1	0	2	None		46	9.09	False	Excluded	TP53
+TCGA-55-6986	3	0	1	0	2	None		7	0.35	False	Desert	None
+TCGA-55-6987	3	0	1	0	2	None		18	3.59	False	Excluded	KEAP1
+TCGA-55-7227	4	2	1	0	4	Trametinib	63.0	41	3.38	False	Excluded	TP53
+TCGA-55-7281	4	3	1	2	7	Sotorasib	93.0	41	9.38	False	Excluded	None
+TCGA-55-7283	3	0	1	0	2	None		38	4.44	False	Excluded	TP53
+TCGA-55-7284	3	0	1	0	2	None		7	0.82	False	Desert	None
+TCGA-55-7570	3	0	1	0	2	None		35	8.06	False	Excluded	TP53
+TCGA-55-7573	3	0	1	0	2	None		28	0.97	False	Excluded	TP53
+TCGA-55-7574	3	0	1	0	2	None		37	4.85	False	Excluded	TP53
+TCGA-55-7576	3	0	1	0	2	None		40	7.76	False	Excluded	TP53
+TCGA-55-7724	3	0	1	0	2	None		36	4.15	False	Excluded	None
+TCGA-55-7725	3	0	1	0	2	None		38	2.53	False	Excluded	None
+TCGA-55-7726	4	3	1	2	7	Sotorasib	93.0	25	2.18	False	Excluded	TP53
+TCGA-55-7727	3	0	1	0	2	None		47	5.03	False	Excluded	TP53
+TCGA-55-7728	4	6	1	1	9	Alectinib	85.0	31	1.94	False	Excluded	None
+TCGA-55-7815	3	0	1	0	2	None		16	3.09	False	Excluded	KEAP1
+TCGA-78-7158	4	1	1	0	3	Lazertinib	53.0	5	4.85	False	Excluded	KEAP1
+TCGA-86-A4D0	3	0	1	0	2	None		2	5.24	False	Desert	KEAP1; STK11; TP53

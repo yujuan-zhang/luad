@@ -1,2 +1,7 @@
-rank	category	drug	drug_class	evidence	rationale	priority
-1	Chemotherapy	Carboplatin + Pemetrexed	Platinum-based doublet	Standard of Care	No targetable driver detected; Tumor suppressor alterations: TP53 p.V73Wfs*50	3
+rank	category	drug	drug_class	oncokb_level	amp_tier	escat_tier	evidence	line	confidence	tmb_support	tme_support	data_layers	rationale	combination_basis
+1	Targeted Therapy	Trastuzumab deruxtecan	HER2 ADC	Level 1	Tier I-A	Tier I-A	FDA-Approved	2L	93	N/A	N/A	M02+M07+CIViC	ERBB2 p.S310F | VAF 31% (clonal)	
+2	Targeted Therapy	Alectinib	2nd-gen ALK TKI	Level 1	Tier I-A	Tier I-A	FDA-Approved	1L	88	N/A	N/A	M02+M07+CIViC	ALK p.Q453H | VAF 14%	
+3	Targeted Therapy	Brigatinib	2nd-gen ALK TKI	Level 1	Tier I-A	Tier I-A	FDA-Approved	1L	88	N/A	N/A	M02+M07+CIViC	ALK p.Q453H | VAF 14%	
+4	Targeted Therapy	Lorlatinib	3rd-gen ALK TKI	Level 1	Tier I-A	Tier I-A	FDA-Approved	1L	88	N/A	N/A	M02+M07+CIViC	ALK p.Q453H | VAF 14%	
+5	Chemotherapy	Carboplatin + Pemetrexed	Platinum doublet	N/A	N/A	N/A	Standard of Care	1L/2L	40	N/A	N/A	Standard	Standard platinum-based doublet | consider alongside targeted therapy | TS alterations: TP53	
+6	Immunotherapy	Pembrolizumab	PD-1 inhibitor	Level 1	Tier I-A	Tier I-A	FDA-Approved (TMB-H)	1L/2L	38	High (17.2 mut/Mb)	Unknown	M02	TMB: High (17.2 mut/Mb) | TME: Unknown	

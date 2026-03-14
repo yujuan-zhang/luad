@@ -1,2 +1,4 @@
-rank	category	drug	drug_class	evidence	rationale	priority
-1	Chemotherapy	Carboplatin + Pemetrexed	Platinum-based doublet	Standard of Care	No targetable driver detected; Tumor suppressor alterations: CDKN2A p.L94P, TP53 p.Q354*	3
+rank	category	drug	drug_class	oncokb_level	amp_tier	escat_tier	evidence	line	confidence	tmb_support	tme_support	data_layers	rationale	combination_basis
+1	Targeted Therapy	Alpelisib	PI3Kα inhibitor	Level 3A	Tier II-C	Tier II-C	Phase II	Investigational	63	N/A	N/A	M02+M07+CIViC	PIK3CA p.H1047R | VAF 28%	
+2	Chemotherapy	Carboplatin + Pemetrexed	Platinum doublet	N/A	N/A	N/A	Standard of Care	1L/2L	40	N/A	N/A	Standard	Standard platinum-based doublet | consider alongside targeted therapy | TS alterations: CDKN2A, TP53	
+3	Immunotherapy	Pembrolizumab	PD-1 inhibitor	Level 3A	Tier II-C	Tier II-C	Clinical Evidence	1L/2L	8	Very low (0.8 mut/Mb)	Unknown	M02	TMB: Very low (0.8 mut/Mb) | TME: Unknown	

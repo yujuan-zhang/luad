@@ -1,3 +1,11 @@
-rank	category	drug	drug_class	evidence	rationale	priority
-1	Targeted Therapy	Osimertinib	3rd-gen EGFR TKI	FDA-Approved (1L)	EGFR sensitizing mutation detected (p.G719A)	1
-2	Chemotherapy	Carboplatin + Pemetrexed	Platinum-based doublet	Standard of Care	No targetable driver detected; Tumor suppressor alterations: CDKN2A p.R22Gfs*4	3
+rank	category	drug	drug_class	oncokb_level	amp_tier	escat_tier	evidence	line	confidence	tmb_support	tme_support	data_layers	rationale	combination_basis
+1	Targeted Therapy	Osimertinib	3rd-gen EGFR TKI	Level 1	Tier I-A	Tier I-A	FDA-Approved	1L	93	N/A	N/A	M02+M07+M03+CIViC	EGFR p.G719A | VAF 29% | EGFR high (TPM=226)	
+2	Targeted Therapy	Erlotinib	1st-gen EGFR TKI	Level 1	Tier I-A	Tier I-A	FDA-Approved	1L	93	N/A	N/A	M02+M07+M03+CIViC	EGFR p.G719A | VAF 29% | EGFR high (TPM=226)	
+3	Targeted Therapy	Afatinib	2nd-gen EGFR TKI	Level 1	Tier I-A	Tier I-A	FDA-Approved	1L	93	N/A	N/A	M02+M07+M03+CIViC	EGFR p.G719A | VAF 29% | EGFR high (TPM=226)	
+4	Targeted Therapy	Osimertinib	3rd-gen EGFR TKI	Level 1	Tier I-A	Tier I-A	FDA-Approved	1L	93	N/A	N/A	M02+M07+M03+CIViC	EGFR p.S768I | VAF 29% | EGFR high (TPM=226)	
+5	Targeted Therapy	Afatinib	2nd-gen EGFR TKI	Level 1	Tier I-A	Tier I-A	FDA-Approved	1L	93	N/A	N/A	M02+M07+M03+CIViC	EGFR p.S768I | VAF 29% | EGFR high (TPM=226)	
+6	Targeted Therapy	Erlotinib	1st-gen EGFR TKI	Level 1	Tier I-A	Tier I-A	FDA-Approved	1L	83	N/A	N/A	M02+M07+M03+CIViC	EGFR p.S768I | VAF 29% | EGFR high (TPM=226) | CIViC resistance Level C: EGFR S768I	
+7	Targeted Therapy	Lazertinib	3rd-gen EGFR TKI	Level 3B	Tier II-D	Tier II-C	Clinical	1L	53	N/A	N/A	M02+M07+M03+CIViC	EGFR p.G719A | VAF 29% | EGFR high (TPM=226)	
+8	Targeted Therapy	Lazertinib	3rd-gen EGFR TKI	Level 3B	Tier II-D	Tier II-C	Clinical	1L	53	N/A	N/A	M02+M07+M03+CIViC	EGFR p.S768I | VAF 29% | EGFR high (TPM=226)	
+9	Chemotherapy	Carboplatin + Pemetrexed	Platinum doublet	N/A	N/A	N/A	Standard of Care	1L/2L	40	N/A	N/A	Standard	Standard platinum-based doublet | consider alongside targeted therapy | TS alterations: CDKN2A	
+10	Immunotherapy	Pembrolizumab	PD-1 inhibitor	Level 3A	Tier II-C	Tier II-C	Clinical Evidence	1L/2L	35	Low (1.7 mut/Mb)	Unknown	M02+M03	TMB: Low (1.7 mut/Mb) | TME: Unknown | PD-L1(RNA): High (TPM=64.7, RNA proxy) | IFN-γ: Medium (6.52) | TIDE: Dysfunc=2.71 | Excl=4.36 | CYT=5.58	

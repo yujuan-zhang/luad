@@ -1,2 +1,4 @@
-rank	category	drug	drug_class	evidence	rationale	priority
-1	Chemotherapy	Carboplatin + Pemetrexed	Platinum-based doublet	Standard of Care	No targetable driver detected; Tumor suppressor alterations: TP53 p.R249G	3
+rank	category	drug	drug_class	oncokb_level	amp_tier	escat_tier	evidence	line	confidence	tmb_support	tme_support	data_layers	rationale	combination_basis
+1	Targeted Therapy	Copanlisib	pan-PI3K inhibitor	Level 3A	Tier II-C	Tier II-C	Phase I/II	Investigational	55	N/A	N/A	M02+M07+M03+CIViC	PIK3CA p.K111N | VAF 24% | PIK3CA expressed (TPM=12)	
+2	Immunotherapy	Pembrolizumab	PD-1 inhibitor	Level 3A	Tier II-C	Tier II-C	Clinical Evidence	1L/2L	40	Intermediate (6.0 mut/Mb)	Unknown	M02+M03	TMB: Intermediate (6.0 mut/Mb) | TME: Unknown | PD-L1(RNA): Intermediate (TPM=10.9, RNA proxy) | IFN-γ: Medium (6.65) | TIDE: Dysfunc=3.50 | Excl=5.36 | CYT=6.62	
+3	Chemotherapy	Carboplatin + Pemetrexed	Platinum doublet	N/A	N/A	N/A	Standard of Care	1L/2L	40	N/A	N/A	Standard	Standard platinum-based doublet | consider alongside targeted therapy | TS alterations: TP53	

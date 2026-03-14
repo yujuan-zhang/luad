@@ -1,3 +1,7 @@
-rank	category	drug	drug_class	evidence	rationale	priority
-1	Immunotherapy	Pembrolizumab ± chemotherapy	PD-1 inhibitor	FDA-Approved	Excluded TME — consider combination to overcome exclusion	2
-2	Chemotherapy	Carboplatin + Pemetrexed	Platinum-based doublet	Standard of Care	No targetable driver detected; Tumor suppressor alterations: TP53 p.R158Afs*12	3
+rank	category	drug	drug_class	oncokb_level	amp_tier	escat_tier	evidence	line	confidence	tmb_support	tme_support	data_layers	rationale	combination_basis
+1	Targeted Therapy	Alectinib	2nd-gen ALK TKI	Level 1	Tier I-A	Tier I-A	FDA-Approved	1L	85	N/A	N/A	M02+M07+M03+CIViC	ALK p.E374* | VAF 20% | ALK low (TPM=0.1)	
+2	Targeted Therapy	Brigatinib	2nd-gen ALK TKI	Level 1	Tier I-A	Tier I-A	FDA-Approved	1L	85	N/A	N/A	M02+M07+M03+CIViC	ALK p.E374* | VAF 20% | ALK low (TPM=0.1)	
+3	Targeted Therapy	Lorlatinib	3rd-gen ALK TKI	Level 1	Tier I-A	Tier I-A	FDA-Approved	1L	85	N/A	N/A	M02+M07+M03+CIViC	ALK p.E374* | VAF 20% | ALK low (TPM=0.1)	
+4	Combination Therapy	Alectinib + Pembrolizumab	2nd-gen ALK TKI + PD-1 inhibitor	Level 3A	Tier II-C	Tier V	Investigational	Investigational	48	N/A	Excluded	M02+M07+M08	Excluded TME: ALK targeted therapy may remodel TME to Inflamed → sequential PD-1 blockade	Targeted + Immune synergy
+5	Immunotherapy	Pembrolizumab	PD-1 inhibitor	Level 1	Tier I-A	Tier I-A	FDA-Approved (TMB-H)	1L/2L	47	High (13.6 mut/Mb)	Excluded	M02+M08+M03	TMB: High (13.6 mut/Mb) | TME: Excluded | PD-L1(RNA): Low (TPM=3.4, RNA proxy) | IFN-γ: Low (3.86) | TIDE: Dysfunc=1.89 | Excl=3.07 | CYT=3.02	
+6	Chemotherapy	Carboplatin + Pemetrexed	Platinum doublet	N/A	N/A	N/A	Standard of Care	1L/2L	40	N/A	N/A	Standard	Standard platinum-based doublet | consider alongside targeted therapy | TS alterations: TP53	
