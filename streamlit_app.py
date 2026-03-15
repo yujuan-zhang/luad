@@ -991,10 +991,7 @@ elif page == "06 · Pathway":
 
     # ── KEGG Pathway Viewer ────────────────────────────────────────────────────
     st.subheader("KEGG Pathway View")
-    st.caption(
-        "Only pathways with ≥ 1 mutated gene are shown. "
-        "🔴 Mutated · 🟠 High expression (z > 1.5) · 🔵 Low expression (z < −1.5)"
-    )
+    st.caption("🔴 Mutated · 🟠 High expression (z > 1.5) · 🔵 Low expression (z < −1.5)")
 
     import sys
     sys.path.insert(0, str(Path(__file__).parent / "modules" / "06_pathway"))
@@ -1003,8 +1000,7 @@ elif page == "06 · Pathway":
         load_mutations, load_expression_colors, build_kegg_url, build_gene_table,
     )
 
-    # Cache pathway gene lists (fetched once from KEGG REST API)
-    @st.cache_data(show_spinner="Fetching KEGG pathway gene lists…", ttl=86400)
+    @st.cache_data(show_spinner="Loading KEGG gene sets…", ttl=86400)
     def _load_pathway_genes():
         return load_all_pathway_genes()
 
@@ -1016,58 +1012,68 @@ elif page == "06 · Pathway":
     else:
         hit_pathways = get_hit_pathways(mutations, pathway_genes)
 
+        # ── Overview bar chart ─────────────────────────────────────────────────
+        import matplotlib.pyplot as plt
+        all_names = list(LUAD_PATHWAYS.keys())
+        hit_dict  = {name: len(hits) for name, _, hits in hit_pathways}
+
+        fig, ax = plt.subplots(figsize=(8, 3.5))
+        bar_colors = ["#d62728" if hit_dict.get(n, 0) > 0 else "#cccccc"
+                      for n in all_names]
+        bars = ax.bar(all_names, [hit_dict.get(n, 0) for n in all_names],
+                      color=bar_colors, edgecolor="white", width=0.6)
+        ax.set_ylabel("Mutated genes in pathway", fontsize=9)
+        ax.set_title(f"LUAD Pathway Hit Summary — {sample}", fontsize=10, fontweight="bold")
+        ax.set_xticks(range(len(all_names)))
+        ax.set_xticklabels(all_names, rotation=30, ha="right", fontsize=8)
+        ax.spines["top"].set_visible(False)
+        ax.spines["right"].set_visible(False)
+        for bar, n in zip(bars, all_names):
+            v = hit_dict.get(n, 0)
+            if v > 0:
+                ax.text(bar.get_x() + bar.get_width() / 2, v + 0.05,
+                        str(v), ha="center", va="bottom", fontsize=9, fontweight="bold")
+        plt.tight_layout()
+        st.pyplot(fig)
+        plt.close()
+
         if not hit_pathways:
             st.info("No mutations fall within the 8 core LUAD pathways for this patient.")
-        else:
-            st.markdown(
-                f"**{len(hit_pathways)} pathway(s) hit** out of 8 core LUAD pathways  "
-                f"({len(mutations)} mutated genes total)"
-            )
 
-        # Manual pathway selector (always available)
-        all_names    = list(LUAD_PATHWAYS.keys())
-        hit_names    = [h[0] for h in hit_pathways]
-        other_names  = [n for n in all_names if n not in hit_names]
+        # ── Manual pathway selector ────────────────────────────────────────────
+        hit_names   = [h[0] for h in hit_pathways]
+        other_names = [n for n in all_names if n not in hit_names]
         extra = st.multiselect(
             "Add more pathways to view",
-            options=other_names,
-            default=[],
-            key="kegg_extra",
+            options=other_names, default=[], key="kegg_extra",
         )
 
-        # Combine: hit pathways first, then manually added
         display_pathways = hit_pathways.copy()
         for name in extra:
             pid = LUAD_PATHWAYS[name][0]
             display_pathways.append((name, pid, []))
 
+        # ── Per-pathway detail ─────────────────────────────────────────────────
         for name, pid, hit_genes in display_pathways:
-            pg          = pathway_genes.get(pid, [])
-            high, low   = load_expression_colors(sample, pg)
-            kegg_url    = build_kegg_url(pid, mutations, high, low)
-            gene_table  = build_gene_table(sample, pg, mutations, high, low)
+            pg         = pathway_genes.get(pid, [])
+            high, low  = load_expression_colors(sample, pg)
+            kegg_url   = build_kegg_url(pid, mutations, high, low)
+            gene_table = build_gene_table(sample, pg, mutations, high, low)
 
-            label = f"🔴 {name}  ({len(hit_genes)} mutation{'s' if len(hit_genes)!=1 else ''})"  if hit_genes else f"➕ {name}"
-            with st.expander(label, expanded=(len(display_pathways) == 1 or bool(hit_genes))):
-                st.markdown(
-                    f"[Open in KEGG ↗]({kegg_url})",
-                    help="Opens the official KEGG pathway map with your patient's genes highlighted",
+            n_mut  = len(hit_genes)
+            n_high = len([g for g in high if g not in {x.upper() for x in hit_genes}])
+            n_low  = len([g for g in low  if g not in {x.upper() for x in hit_genes}])
+            label  = (f"🔴 **{name}** — {n_mut} mutated"
+                      + (f", {n_high} ↑" if n_high else "")
+                      + (f", {n_low} ↓"  if n_low  else ""))
+
+            with st.expander(label, expanded=bool(hit_genes)):
+                st.link_button(
+                    f"Open {name} in KEGG ↗",
+                    url=kegg_url,
+                    help="Official KEGG pathway map with your genes color-coded",
                 )
-                try:
-                    import requests as _req
-                    resp = _req.get(kegg_url, timeout=12)
-                    if resp.status_code == 200 and resp.headers.get("Content-Type", "").startswith("image"):
-                        st.image(resp.content, use_container_width=True)
-                    else:
-                        st.markdown(
-                            f"**[Click to view colored KEGG pathway diagram]({kegg_url})**  \n"
-                            f"*(image preview unavailable — open link in browser)*"
-                        )
-                except Exception:
-                    st.markdown(f"**[Click to view KEGG pathway]({kegg_url})**")
-
                 if not gene_table.empty:
-                    st.markdown("**Genes hit in this patient:**")
                     st.dataframe(gene_table, use_container_width=True, hide_index=True)
                 elif hit_genes:
                     st.markdown(f"Mutated: `{'`, `'.join(hit_genes)}`")
