@@ -1,594 +1,267 @@
-sample_id	n_ora_pathways	n_gsea_pathways
-TCGA-05-4244	0	177
-TCGA-05-4245	0	65
-TCGA-05-4249	3	175
-TCGA-05-4250	0	156
-TCGA-05-4382	19	164
-TCGA-05-4384	5	162
-TCGA-05-4389	3	160
-TCGA-05-4390	10	128
-TCGA-05-4395	0	135
-TCGA-05-4396	0	146
-TCGA-05-4397	62	193
-TCGA-05-4398	5	173
-TCGA-05-4402	1	168
-TCGA-05-4403	1	158
-TCGA-05-4405	2	139
-TCGA-05-4410	38	121
-TCGA-05-4415	0	164
-TCGA-05-4417	45	125
-TCGA-05-4418	0	125
-TCGA-05-4420	0	155
-TCGA-05-4422	6	152
-TCGA-05-4424	1	158
-TCGA-05-4425	18	146
-TCGA-05-4426	6	174
-TCGA-05-4427	8	160
-TCGA-05-4430	0	170
-TCGA-05-4432	3	163
-TCGA-05-4433	38	151
-TCGA-05-4434	25	202
-TCGA-05-5420	0	85
-TCGA-05-5423	2	129
-TCGA-05-5425	1	140
-TCGA-05-5428	3	114
-TCGA-05-5429	4	129
-TCGA-05-5715	0	144
-TCGA-17-Z000	0	0
-TCGA-17-Z001	0	0
-TCGA-17-Z002	1	0
-TCGA-17-Z003	0	0
-TCGA-17-Z004	0	0
-TCGA-17-Z005	2	0
-TCGA-17-Z007	0	0
-TCGA-17-Z009	0	0
-TCGA-17-Z010	0	0
-TCGA-17-Z011	1	0
-TCGA-17-Z013	0	0
-TCGA-17-Z015	1	0
-TCGA-17-Z016	0	0
-TCGA-17-Z017	0	0
-TCGA-17-Z018	0	0
-TCGA-17-Z019	2	0
-TCGA-17-Z020	2	0
-TCGA-17-Z021	0	0
-TCGA-17-Z022	29	0
-TCGA-17-Z023	1	0
-TCGA-17-Z025	0	0
-TCGA-17-Z026	17	0
-TCGA-17-Z027	1	0
-TCGA-17-Z028	0	0
-TCGA-17-Z032	27	0
-TCGA-17-Z033	0	0
-TCGA-17-Z036	0	0
-TCGA-17-Z037	0	0
-TCGA-17-Z041	0	0
-TCGA-17-Z042	14	0
-TCGA-17-Z043	0	0
-TCGA-17-Z044	0	0
-TCGA-17-Z045	7	0
-TCGA-17-Z047	25	0
-TCGA-17-Z048	0	0
-TCGA-17-Z049	5	0
-TCGA-17-Z050	0	0
-TCGA-17-Z051	0	0
-TCGA-17-Z052	0	0
-TCGA-17-Z053	2	0
-TCGA-17-Z054	18	0
-TCGA-17-Z055	7	0
-TCGA-17-Z056	2	0
-TCGA-17-Z057	0	0
-TCGA-17-Z058	0	0
-TCGA-17-Z059	0	0
-TCGA-17-Z061	1	0
-TCGA-17-Z062	9	0
-TCGA-35-3615	0	142
-TCGA-35-4122	0	110
-TCGA-35-4123	0	131
-TCGA-35-5375	5	103
-TCGA-38-4625	16	181
-TCGA-38-4626	0	155
-TCGA-38-4627	0	155
-TCGA-38-4628	0	135
-TCGA-38-4629	6	113
-TCGA-38-4630	0	211
-TCGA-38-4631	13	120
-TCGA-38-4632	1	124
-TCGA-38-6178	0	156
-TCGA-38-7271	4	109
-TCGA-38-A44F	14	136
-TCGA-44-2655	0	165
-TCGA-44-2656	14	142
-TCGA-44-2656_3	10	0
-TCGA-44-2656_4	16	0
-TCGA-44-2656_5	10	0
-TCGA-44-2657	0	119
-TCGA-44-2659	0	134
-TCGA-44-2661	0	129
-TCGA-44-2662	2	130
-TCGA-44-2662_3	2	0
-TCGA-44-2662_4	0	0
-TCGA-44-2665	0	165
-TCGA-44-2665_3	9	0
-TCGA-44-2666	0	130
-TCGA-44-2666_3	1	0
-TCGA-44-2666_4	0	0
-TCGA-44-2668	5	112
-TCGA-44-2668_3	1	0
-TCGA-44-3396	0	137
-TCGA-44-3398	3	156
-TCGA-44-3917	5	211
-TCGA-44-3918	29	241
-TCGA-44-3918_3	34	0
-TCGA-44-3919	6	156
-TCGA-44-4112	7	149
-TCGA-44-4112_3	7	0
-TCGA-44-4112_4	5	0
-TCGA-44-4112_5	7	0
-TCGA-44-4112_6	4	0
-TCGA-44-5643	0	138
-TCGA-44-5644	15	127
-TCGA-44-5645	104	241
-TCGA-44-5645_3	116	0
-TCGA-44-5645_4	107	0
-TCGA-44-5645_5	92	0
-TCGA-44-6144	0	0
-TCGA-44-6145	2	128
-TCGA-44-6146	0	109
-TCGA-44-6146_3	0	0
-TCGA-44-6146_4	0	0
-TCGA-44-6146_5	0	0
-TCGA-44-6147	1	166
-TCGA-44-6147_3	0	0
-TCGA-44-6147_4	0	0
-TCGA-44-6147_5	0	0
-TCGA-44-6148	19	154
-TCGA-44-6774	0	131
-TCGA-44-6775	18	259
-TCGA-44-6775_3	3	0
-TCGA-44-6775_4	9	0
-TCGA-44-6775_5	8	0
-TCGA-44-6776	0	121
-TCGA-44-6777	8	127
-TCGA-44-6778	2	157
-TCGA-44-6779	0	124
-TCGA-44-7659	0	134
-TCGA-44-7660	5	156
-TCGA-44-7661	0	189
-TCGA-44-7662	2	153
-TCGA-44-7667	5	130
-TCGA-44-7669	0	207
-TCGA-44-7670	12	176
-TCGA-44-7671	0	152
-TCGA-44-7672	0	103
-TCGA-44-8117	2	149
-TCGA-44-8119	4	165
-TCGA-44-8120	6	182
-TCGA-44-A479	0	121
-TCGA-44-A47A	0	172
-TCGA-44-A47B	0	163
-TCGA-44-A47G	0	127
-TCGA-44-A4SS	6	138
-TCGA-44-A4SU	0	149
-TCGA-49-4486	2	113
-TCGA-49-4487	1	111
-TCGA-49-4488	0	136
-TCGA-49-4490	0	137
-TCGA-49-4494	0	138
-TCGA-49-4501	1	148
-TCGA-49-4505	4	139
-TCGA-49-4506	0	97
-TCGA-49-4507	0	121
-TCGA-49-4507_3	0	0
-TCGA-49-4510	0	136
-TCGA-49-4512	0	102
-TCGA-49-4514	0	82
-TCGA-49-6742	1	138
-TCGA-49-6743	16	170
-TCGA-49-6744	0	147
-TCGA-49-6745	0	150
-TCGA-49-6761	0	136
-TCGA-49-6767	0	129
-TCGA-49-AAQV	1	172
-TCGA-49-AAR0	0	143
-TCGA-49-AAR2	4	101
-TCGA-49-AAR3	0	93
-TCGA-49-AAR4	22	111
-TCGA-49-AAR9	10	140
-TCGA-49-AARE	1	114
-TCGA-49-AARN	5	139
-TCGA-49-AARO	5	142
-TCGA-49-AARQ	0	93
-TCGA-49-AARR	0	154
-TCGA-4B-A93V	0	110
-TCGA-50-5044	0	102
-TCGA-50-5045	2	144
-TCGA-50-5049	8	100
-TCGA-50-5051	0	119
-TCGA-50-5055	0	122
-TCGA-50-5066	0	232
-TCGA-50-5068	0	120
-TCGA-50-5072	0	169
-TCGA-50-5930	4	97
-TCGA-50-5931	5	167
-TCGA-50-5932	0	130
-TCGA-50-5933	0	148
-TCGA-50-5935	0	140
-TCGA-50-5936	0	140
-TCGA-50-5939	4	123
-TCGA-50-5941	12	146
-TCGA-50-5942	0	140
-TCGA-50-5944	0	141
-TCGA-50-5946	6	182
-TCGA-50-6590	14	119
-TCGA-50-6591	27	150
-TCGA-50-6592	12	172
-TCGA-50-6593	3	153
-TCGA-50-6594	0	128
-TCGA-50-6595	2	142
-TCGA-50-6597	0	111
-TCGA-50-6673	2	158
-TCGA-50-7109	0	137
-TCGA-50-8457	0	123
-TCGA-50-8459	0	126
-TCGA-50-8460	0	112
-TCGA-53-7624	0	160
-TCGA-53-7626	7	154
-TCGA-53-7813	1	79
-TCGA-53-A4EZ	6	128
-TCGA-55-1592	2	190
-TCGA-55-1594	0	170
-TCGA-55-1595	2	156
-TCGA-55-1596	5	170
-TCGA-55-5899	18	148
-TCGA-55-6543	0	132
-TCGA-55-6642	1	106
-TCGA-55-6712	0	123
-TCGA-55-6968	1	125
-TCGA-55-6969	0	124
-TCGA-55-6970	0	153
-TCGA-55-6971	0	125
-TCGA-55-6972	0	106
-TCGA-55-6975	1	126
-TCGA-55-6978	5	168
-TCGA-55-6979	0	127
-TCGA-55-6980	76	131
-TCGA-55-6981	19	109
-TCGA-55-6982	0	132
-TCGA-55-6983	0	151
-TCGA-55-6984	0	111
-TCGA-55-6985	1	137
-TCGA-55-6986	0	149
-TCGA-55-6987	1	133
-TCGA-55-7227	2	146
-TCGA-55-7281	9	137
-TCGA-55-7283	0	157
-TCGA-55-7284	1	183
-TCGA-55-7570	3	156
-TCGA-55-7573	0	172
-TCGA-55-7574	0	152
-TCGA-55-7576	4	151
-TCGA-55-7724	3	107
-TCGA-55-7725	12	118
-TCGA-55-7726	0	125
-TCGA-55-7727	1	129
-TCGA-55-7728	3	122
-TCGA-55-7815	0	125
-TCGA-55-7816	0	169
-TCGA-55-7903	0	161
-TCGA-55-7907	0	131
-TCGA-55-7910	0	122
-TCGA-55-7911	0	157
-TCGA-55-7913	0	159
-TCGA-55-7914	0	140
-TCGA-55-7994	0	162
-TCGA-55-7995	0	200
-TCGA-55-8085	0	147
-TCGA-55-8087	0	207
-TCGA-55-8089	0	152
-TCGA-55-8090	0	155
-TCGA-55-8091	0	143
-TCGA-55-8092	0	150
-TCGA-55-8094	0	112
-TCGA-55-8096	0	182
-TCGA-55-8097	0	181
-TCGA-55-8203	0	150
-TCGA-55-8204	0	141
-TCGA-55-8205	0	183
-TCGA-55-8206	0	166
-TCGA-55-8207	0	159
-TCGA-55-8208	0	143
-TCGA-55-8299	0	149
-TCGA-55-8301	0	121
-TCGA-55-8302	0	128
-TCGA-55-8505	0	145
-TCGA-55-8506	0	130
-TCGA-55-8507	0	145
-TCGA-55-8508	0	80
-TCGA-55-8510	0	124
-TCGA-55-8511	0	134
-TCGA-55-8512	0	153
-TCGA-55-8513	0	160
-TCGA-55-8514	0	130
-TCGA-55-8614	0	156
-TCGA-55-8615	0	130
-TCGA-55-8616	0	141
-TCGA-55-8619	0	118
-TCGA-55-8620	0	144
-TCGA-55-8621	0	144
-TCGA-55-A48X	0	161
-TCGA-55-A48Y	0	113
-TCGA-55-A48Z	0	141
-TCGA-55-A490	0	103
-TCGA-55-A491	0	116
-TCGA-55-A492	0	117
-TCGA-55-A493	0	158
-TCGA-55-A494	0	154
-TCGA-55-A4DF	0	181
-TCGA-55-A4DG	0	149
-TCGA-55-A57B	0	183
-TCGA-62-8394	0	165
-TCGA-62-8395	0	169
-TCGA-62-8397	0	78
-TCGA-62-8398	0	159
-TCGA-62-8399	0	166
-TCGA-62-8402	0	145
-TCGA-62-A46O	0	136
-TCGA-62-A46P	0	114
-TCGA-62-A46R	0	124
-TCGA-62-A46S	0	135
-TCGA-62-A46U	0	162
-TCGA-62-A46V	0	150
-TCGA-62-A46Y	0	145
-TCGA-62-A470	0	120
-TCGA-62-A471	0	136
-TCGA-62-A472	0	142
-TCGA-64-1676	0	113
-TCGA-64-1677	0	114
-TCGA-64-1678	0	97
-TCGA-64-1679	0	172
-TCGA-64-1680	0	125
-TCGA-64-1681	0	151
-TCGA-64-5774	0	134
-TCGA-64-5775	0	142
-TCGA-64-5778	0	119
-TCGA-64-5779	0	114
-TCGA-64-5781	0	109
-TCGA-64-5815	0	131
-TCGA-67-3770	0	123
-TCGA-67-3771	0	163
-TCGA-67-3772	0	134
-TCGA-67-3773	0	113
-TCGA-67-3774	0	148
-TCGA-67-4679	0	128
-TCGA-67-6215	0	165
-TCGA-67-6216	0	131
-TCGA-67-6217	0	146
-TCGA-69-7760	0	108
-TCGA-69-7761	0	125
-TCGA-69-7763	0	127
-TCGA-69-7764	0	129
-TCGA-69-7765	0	136
-TCGA-69-7973	0	181
-TCGA-69-7974	0	173
-TCGA-69-7978	0	150
-TCGA-69-7979	0	165
-TCGA-69-7980	0	184
-TCGA-69-8253	0	139
-TCGA-69-8254	0	161
-TCGA-69-8255	0	153
-TCGA-69-8453	0	138
-TCGA-69-A59K	0	170
-TCGA-71-6725	0	135
-TCGA-71-8520	0	158
-TCGA-73-4658	0	134
-TCGA-73-4659	0	157
-TCGA-73-4662	0	170
-TCGA-73-4666	0	161
-TCGA-73-4668	0	144
-TCGA-73-4670	0	153
-TCGA-73-4675	0	164
-TCGA-73-4676	0	127
-TCGA-73-4677	0	147
-TCGA-73-7498	0	169
-TCGA-73-7499	0	139
-TCGA-73-A9RS	0	117
-TCGA-75-5122	0	133
-TCGA-75-5125	0	152
-TCGA-75-5126	0	131
-TCGA-75-5146	0	128
-TCGA-75-5147	0	184
-TCGA-75-6203	0	115
-TCGA-75-6205	0	136
-TCGA-75-6206	0	139
-TCGA-75-6207	0	173
-TCGA-75-6211	0	131
-TCGA-75-6212	0	116
-TCGA-75-6214	0	127
-TCGA-75-7025	0	152
-TCGA-75-7027	0	168
-TCGA-75-7030	0	132
-TCGA-75-7031	0	117
-TCGA-78-7143	0	179
-TCGA-78-7145	0	156
-TCGA-78-7146	0	176
-TCGA-78-7147	0	158
-TCGA-78-7148	0	146
-TCGA-78-7149	0	121
-TCGA-78-7150	0	164
-TCGA-78-7152	0	120
-TCGA-78-7153	0	112
-TCGA-78-7154	0	151
-TCGA-78-7155	0	158
-TCGA-78-7156	0	148
-TCGA-78-7158	0	160
-TCGA-78-7159	0	129
-TCGA-78-7160	0	154
-TCGA-78-7161	0	144
-TCGA-78-7162	0	128
-TCGA-78-7163	0	145
-TCGA-78-7166	0	82
-TCGA-78-7167	0	163
-TCGA-78-7220	0	179
-TCGA-78-7535	0	111
-TCGA-78-7536	0	155
-TCGA-78-7537	0	123
-TCGA-78-7539	0	157
-TCGA-78-7540	0	142
-TCGA-78-7542	0	156
-TCGA-78-7633	0	139
-TCGA-78-8640	0	125
-TCGA-78-8648	0	114
-TCGA-78-8655	0	142
-TCGA-78-8660	0	136
-TCGA-78-8662	0	132
-TCGA-80-5607	0	141
-TCGA-80-5608	0	135
-TCGA-80-5611	0	142
-TCGA-83-5908	0	177
-TCGA-86-6562	0	145
-TCGA-86-6851	0	124
-TCGA-86-7701	0	129
-TCGA-86-7711	0	129
-TCGA-86-7713	0	167
-TCGA-86-7714	0	129
-TCGA-86-7953	0	176
-TCGA-86-7954	0	212
-TCGA-86-7955	0	134
-TCGA-86-8054	0	173
-TCGA-86-8055	0	185
-TCGA-86-8056	0	212
-TCGA-86-8073	0	216
-TCGA-86-8074	0	204
-TCGA-86-8075	0	189
-TCGA-86-8076	0	129
-TCGA-86-8278	0	183
-TCGA-86-8279	0	177
-TCGA-86-8280	0	171
-TCGA-86-8281	0	170
-TCGA-86-8358	0	171
-TCGA-86-8359	0	128
-TCGA-86-8585	0	118
-TCGA-86-8668	0	149
-TCGA-86-8669	0	137
-TCGA-86-8671	0	154
-TCGA-86-8672	0	129
-TCGA-86-8673	0	122
-TCGA-86-8674	0	122
-TCGA-86-A456	0	147
-TCGA-86-A4D0	0	143
-TCGA-86-A4JF	0	140
-TCGA-86-A4P7	0	169
-TCGA-86-A4P8	0	157
-TCGA-91-6828	0	144
-TCGA-91-6829	0	180
-TCGA-91-6830	0	176
-TCGA-91-6831	0	149
-TCGA-91-6835	0	199
-TCGA-91-6836	0	150
-TCGA-91-6840	0	159
-TCGA-91-6847	0	153
-TCGA-91-6848	0	153
-TCGA-91-6849	0	122
-TCGA-91-7771	0	159
-TCGA-91-8496	0	119
-TCGA-91-8497	0	133
-TCGA-91-8499	0	151
-TCGA-91-A4BC	0	101
-TCGA-91-A4BD	0	99
-TCGA-93-7347	0	149
-TCGA-93-7348	0	134
-TCGA-93-8067	0	161
-TCGA-93-A4JN	0	168
-TCGA-93-A4JO	0	159
-TCGA-93-A4JP	0	168
-TCGA-93-A4JQ	0	184
-TCGA-95-7039	0	135
-TCGA-95-7043	0	108
-TCGA-95-7562	0	162
-TCGA-95-7567	0	140
-TCGA-95-7944	0	136
-TCGA-95-7947	0	182
-TCGA-95-7948	0	145
-TCGA-95-8039	0	178
-TCGA-95-8494	0	149
-TCGA-95-A4VK	0	151
-TCGA-95-A4VN	0	148
-TCGA-95-A4VP	0	109
-TCGA-97-7546	0	163
-TCGA-97-7547	0	154
-TCGA-97-7552	0	150
-TCGA-97-7553	0	158
-TCGA-97-7554	0	121
-TCGA-97-7937	0	144
-TCGA-97-7938	0	162
-TCGA-97-7941	0	169
-TCGA-97-8171	0	124
-TCGA-97-8172	0	195
-TCGA-97-8174	0	170
-TCGA-97-8175	0	142
-TCGA-97-8176	0	143
-TCGA-97-8177	0	164
-TCGA-97-8179	0	141
-TCGA-97-8547	0	125
-TCGA-97-8552	0	134
-TCGA-97-A4LX	0	153
-TCGA-97-A4M0	0	156
-TCGA-97-A4M1	0	152
-TCGA-97-A4M2	0	154
-TCGA-97-A4M3	0	121
-TCGA-97-A4M5	0	157
-TCGA-97-A4M6	0	159
-TCGA-97-A4M7	0	170
-TCGA-99-7458	0	171
-TCGA-99-8025	0	141
-TCGA-99-8028	0	127
-TCGA-99-8032	0	139
-TCGA-99-8033	0	173
-TCGA-99-AA5R	0	148
-TCGA-J2-8192	0	204
-TCGA-J2-8194	0	181
-TCGA-J2-A4AD	0	159
-TCGA-J2-A4AE	0	130
-TCGA-J2-A4AG	0	157
-TCGA-L4-A4E5	0	129
-TCGA-L4-A4E6	0	133
-TCGA-L9-A443	0	124
-TCGA-L9-A444	0	108
-TCGA-L9-A50W	0	163
-TCGA-L9-A5IP	0	144
-TCGA-L9-A743	0	148
-TCGA-L9-A7SV	0	149
-TCGA-L9-A8F4	0	158
-TCGA-MN-A4N1	0	132
-TCGA-MN-A4N4	0	145
-TCGA-MN-A4N5	0	157
-TCGA-MP-A4SV	0	177
-TCGA-MP-A4SW	0	158
-TCGA-MP-A4SY	0	170
-TCGA-MP-A4T4	0	125
-TCGA-MP-A4T6	0	162
-TCGA-MP-A4T7	0	133
-TCGA-MP-A4T8	0	142
-TCGA-MP-A4T9	0	158
-TCGA-MP-A4TA	0	158
-TCGA-MP-A4TC	0	135
-TCGA-MP-A4TD	0	120
-TCGA-MP-A4TE	0	123
-TCGA-MP-A4TF	0	161
-TCGA-MP-A4TH	0	131
-TCGA-MP-A4TI	0	153
-TCGA-MP-A4TJ	0	150
-TCGA-MP-A4TK	0	145
-TCGA-MP-A5C7	0	165
-TCGA-NJ-A4YF	0	93
-TCGA-NJ-A4YG	0	133
-TCGA-NJ-A4YI	0	149
-TCGA-NJ-A4YP	0	180
-TCGA-NJ-A4YQ	0	105
-TCGA-NJ-A55A	0	150
-TCGA-NJ-A55O	0	119
-TCGA-NJ-A55R	0	171
-TCGA-NJ-A7XG	0	153
-TCGA-O1-A52J	0	155
-TCGA-S2-AA1A	0	127
+pathway	n_activated	n_suppressed	pct_patients	mean_nes	luad_relevant
+Arginine and proline metabolism	464	0	89.7	3.149	False
+Starch and sucrose metabolism	462	0	89.4	1.652	False
+Cysteine and methionine metabolism	461	0	89.2	3.186	False
+Type II diabetes mellitus	459	0	88.8	1.83	False
+Malaria	458	0	88.6	2.827	False
+Cholesterol metabolism	453	0	87.6	2.579	False
+alpha-Linolenic acid metabolism	451	0	87.2	1.818	False
+Fanconi anemia pathway	446	0	86.3	2.76	False
+Endocrine and other factor-regulated calcium reabsorption	439	0	84.9	2.43	False
+Butanoate metabolism	438	0	84.7	1.64	False
+Glycosaminoglycan biosynthesis	433	0	83.8	3.217	False
+Pyrimidine metabolism	433	0	83.8	3.273	False
+Primary bile acid biosynthesis	431	0	83.4	1.666	False
+TGF-beta Signaling	429	0	83.0	4.408	True
+Glutathione metabolism	424	0	82.0	3.391	False
+Hedgehog signaling pathway	423	0	81.8	2.89	False
+Thiamine metabolism	415	0	80.3	1.613	False
+Autoimmune thyroid disease	415	0	80.3	2.024	True
+Regulation of lipolysis in adipocytes	414	0	80.1	1.957	False
+Renin-angiotensin system	403	0	77.9	1.671	False
+Myc Targets V2	403	0	77.9	4.354	True
+VEGF signaling pathway	402	0	77.8	3.714	False
+Legionellosis	401	0	77.6	3.887	False
+Mineral absorption	400	0	77.4	2.262	False
+Endometrial cancer	398	0	77.0	3.908	False
+Viral myocarditis	395	0	76.4	4.201	False
+Long-term depression	393	0	76.0	2.642	False
+Notch signaling pathway	389	0	75.2	3.782	True
+Cytosolic DNA-sensing pathway	389	0	75.2	1.957	False
+Glycerolipid metabolism	387	0	74.9	2.273	False
+Nitrogen metabolism	377	0	72.9	1.65	False
+Tyrosine metabolism	375	0	72.5	1.707	False
+Inflammatory bowel disease	371	0	71.8	3.018	False
+Lysine degradation	370	0	71.6	3.639	False
+Arachidonic acid metabolism	368	0	71.2	2.083	False
+GnRH secretion	364	0	70.4	2.301	False
+Phenylalanine metabolism	360	0	69.6	1.594	False
+Basal cell carcinoma	348	0	67.3	3.123	False
+Cortisol synthesis and secretion	342	0	66.2	1.949	False
+Long-term potentiation	333	0	64.4	2.796	False
+Fc epsilon RI signaling pathway	331	0	64.0	3.498	False
+Renal cell carcinoma	330	0	63.8	4.178	False
+Glycolysis / Gluconeogenesis	329	0	63.6	3.058	False
+Central carbon metabolism in cancer	320	0	61.9	3.563	False
+Prolactin signaling pathway	316	0	61.1	3.093	False
+Aminoacyl-tRNA biosynthesis	314	7	60.7	2.273	False
+RIG-I-like receptor signaling pathway	314	0	60.7	1.983	False
+Acute myeloid leukemia	312	0	60.3	4.013	False
+Epithelial cell signaling in Helicobacter pylori infection	312	0	60.3	3.989	False
+Adipocytokine signaling pathway	310	0	60.0	2.987	False
+Mitophagy	309	0	59.8	4.352	False
+Renin secretion	309	0	59.8	2.362	False
+Amphetamine addiction	303	0	58.6	2.529	False
+Adherens junction	294	0	56.9	4.235	False
+Porphyrin and chlorophyll metabolism	290	0	56.1	1.604	False
+Antigen processing and presentation	285	0	55.1	4.216	False
+Cholesterol Homeostasis	283	0	54.7	4.504	False
+PPAR signaling pathway	282	0	54.5	2.428	False
+Melanoma	282	0	54.5	2.827	False
+Non-small cell lung cancer	278	0	53.8	4.013	False
+p53 signaling pathway	276	0	53.4	4.31	True
+Inositol phosphate metabolism	274	0	53.0	3.884	False
+Thyroid hormone synthesis	269	0	52.0	2.453	False
+Leishmaniasis	266	0	51.5	4.346	False
+Glioma	266	0	51.5	3.816	False
+Chronic myeloid leukemia	265	0	51.3	4.509	False
+Pancreatic cancer	258	0	49.9	4.366	False
+Pertussis	254	0	49.1	3.961	False
+Gastric acid secretion	247	0	47.8	2.146	False
+RNA degradation	246	0	47.6	4.173	False
+Bacterial invasion of epithelial cells	244	0	47.2	4.223	False
+B cell receptor signaling pathway	241	0	46.6	4.001	False
+Synaptic vesicle cycle	232	0	44.9	2.278	False
+Linoleic acid metabolism	227	1	43.9	1.549	False
+Arrhythmogenic right ventricular cardiomyopathy	225	0	43.5	2.64	False
+Peroxisome	224	0	43.3	3.837	False
+Colorectal cancer	199	0	38.5	4.458	False
+ErbB signaling pathway	193	0	37.3	3.907	False
+Complement and coagulation cascades	192	0	37.1	2.73	False
+Cardiac muscle contraction	180	0	34.8	3.057	False
+Th1 and Th2 cell differentiation	174	0	33.7	3.933	False
+Rheumatoid arthritis	172	0	33.3	3.83	False
+ECM-receptor interaction	171	0	33.1	3.366	False
+PD-L1 expression and PD-1 checkpoint pathway in cancer	170	0	32.9	3.933	True
+IL-6/JAK/STAT3 Signaling	169	0	32.7	4.048	False
+Insulin secretion	167	0	32.3	1.731	False
+Gap junction	166	0	32.1	3.169	False
+Ovarian steroidogenesis	147	0	28.4	1.466	False
+Small cell lung cancer	144	0	27.9	4.24	False
+Hypertrophic cardiomyopathy	140	0	27.1	2.531	False
+IL-17 signaling pathway	137	0	26.5	3.447	False
+Prostate cancer	135	0	26.1	4.098	False
+TGF-beta signaling pathway	132	0	25.5	3.593	True
+Phosphatidylinositol signaling system	132	0	25.5	3.528	False
+Fc gamma R-mediated phagocytosis	132	0	25.5	4.268	False
+GnRH signaling pathway	131	0	25.3	3.396	False
+Aldosterone synthesis and secretion	131	0	25.3	2.28	False
+Protein Secretion	128	0	24.8	4.836	False
+Glycerophospholipid metabolism	126	0	24.4	3.433	False
+Hematopoietic cell lineage	126	0	24.4	3.169	False
+Inflammatory mediator regulation of TRP channels	125	0	24.2	2.627	False
+Dilated cardiomyopathy	124	0	24.0	2.463	False
+Circadian entrainment	119	0	23.0	1.99	False
+Interferon Alpha Response	117	0	22.6	4.844	True
+mRNA surveillance pathway	116	0	22.4	3.791	False
+Chagas disease	116	0	22.4	4.042	False
+Viral protein interaction with cytokine and cytokine receptor	115	0	22.2	2.953	False
+NF-kappa B signaling pathway	115	0	22.2	4.242	False
+Choline metabolism in cancer	113	0	21.9	3.73	False
+Staphylococcus aureus infection	113	0	21.9	2.084	False
+Taurine and hypotaurine metabolism	111	1	21.5	1.372	False
+AGE-RAGE signaling pathway in diabetic complications	109	0	21.1	4.208	False
+Carbohydrate digestion and absorption	106	0	20.5	1.403	False
+Amoebiasis	104	0	20.1	3.531	False
+Salivary secretion	104	0	20.1	1.594	False
+Metabolism of xenobiotics by cytochrome P450	102	0	19.7	1.61	False
+Ribosome biogenesis in eukaryotes	101	0	19.5	1.893	False
+PI3K/AKT/mTOR  Signaling	99	0	19.1	4.411	True
+Androgen Response	99	0	19.1	4.575	False
+Toll-like receptor signaling pathway	99	0	19.1	2.64	False
+Melanogenesis	96	0	18.6	3.039	False
+Pperoxisome	95	0	18.4	4.131	False
+Longevity regulating pathway	94	0	18.2	3.601	False
+T cell receptor signaling pathway	93	0	18.0	3.75	False
+Drug metabolism	93	0	18.0	2.027	False
+Fat digestion and absorption	91	0	17.6	1.495	False
+Insulin resistance	90	0	17.4	3.552	False
+Progesterone-mediated oocyte maturation	87	0	16.8	2.814	False
+C-type lectin receptor signaling pathway	86	0	16.6	3.799	False
+Parathyroid hormone synthesis, secretion and action	81	0	15.7	3.449	False
+Pentose and glucuronate interconversions	78	1	15.1	1.466	False
+Th17 cell differentiation	77	0	14.9	3.964	False
+Unfolded Protein Response	74	0	14.3	4.892	False
+Glucagon signaling pathway	73	0	14.1	2.912	False
+HIF-1 signaling pathway	73	0	14.1	3.87	False
+Toxoplasmosis	72	0	13.9	4.447	False
+Vitamin digestion and absorption	69	0	13.3	1.43	False
+Leukocyte transendothelial migration	67	0	13.0	3.658	False
+Protein digestion and absorption	66	0	12.8	1.833	False
+Sphingolipid signaling pathway	64	0	12.4	4.189	False
+GABAergic synapse	63	0	12.2	1.519	False
+Bile Acid Metabolism	61	0	11.8	3.123	False
+Cholinergic synapse	61	0	11.8	2.162	False
+Glutamatergic synapse	60	0	11.6	1.881	False
+TNF signaling pathway	60	0	11.6	4.414	False
+Neurotrophin signaling pathway	58	0	11.2	4.189	False
+Pancreatic secretion	57	0	11.0	1.611	False
+Growth hormone synthesis, secretion and action	55	0	10.6	3.096	False
+Serotonergic synapse	52	0	10.1	1.833	False
+AMPK signaling pathway	51	0	9.9	3.545	False
+Platelet activation	49	0	9.5	3.673	False
+Natural killer cell mediated cytotoxicity	47	0	9.1	2.411	False
+Oocyte meiosis	46	0	8.9	3.07	False
+Cell cycle	45	0	8.7	4.521	False
+Systemic lupus erythematosus	45	0	8.7	2.131	False
+Ascorbate and aldarate metabolism	45	5	8.7	1.189	False
+Lysosome	42	0	8.1	4.459	False
+Thyroid hormone signaling pathway	41	0	7.9	3.946	False
+FoxO signaling pathway	41	0	7.9	3.737	False
+Purine metabolism	36	0	7.0	3.089	False
+Osteoclast differentiation	35	0	6.8	4.127	False
+Phototransduction	34	3	6.6	1.188	False
+Relaxin signaling pathway	33	0	6.4	3.642	False
+Pancreas Beta Cells	32	19	6.2	0.556	False
+Apoptosis	31	0	6.0	4.427	False
+Morphine addiction	31	0	6.0	1.491	False
+Dopaminergic synapse	30	0	5.8	2.924	False
+Autophagy	29	0	5.6	4.364	False
+Oxidative phosphorylation	28	0	5.4	4.482	False
+Fluid shear stress and atherosclerosis	27	0	5.2	4.239	False
+Bile secretion	27	0	5.2	1.521	False
+Ubiquitin mediated proteolysis	26	0	5.0	4.521	False
+Apelin signaling pathway	25	0	4.8	3.26	False
+Measles	24	0	4.6	3.168	False
+Insulin signaling pathway	24	0	4.6	3.581	False
+Coagulation	24	0	4.6	3.625	False
+Yersinia infection	23	0	4.4	4.647	False
+UV Response Dn	23	0	4.4	4.575	False
+Vascular smooth muscle contraction	22	0	4.3	2.969	False
+Spinocerebellar ataxia	21	0	4.1	3.628	False
+Estrogen signaling pathway	21	0	4.1	2.944	False
+Spliceosome	19	0	3.7	4.443	False
+Retrograde endocannabinoid signaling	19	0	3.7	2.71	False
+Necroptosis	18	0	3.5	3.111	False
+Phospholipase D signaling pathway	16	0	3.1	3.405	False
+Non-alcoholic fatty liver disease	16	0	3.1	4.592	False
+Cell adhesion molecules	15	0	2.9	3.354	False
+Ribosome	15	0	2.9	4.057	False
+Gastric cancer	15	0	2.9	3.049	False
+Hepatitis B	14	0	2.7	3.725	False
+Cellular senescence	14	0	2.7	4.327	False
+Adrenergic signaling in cardiomyocytes	13	0	2.5	2.72	False
+Tight junction	12	0	2.3	4.021	False
+cGMP-PKG signaling pathway	12	0	2.3	2.619	False
+Hepatitis C	12	0	2.3	3.317	False
+DNA Repair	11	0	2.1	4.312	False
+Phagosome	11	0	2.1	4.201	False
+Wnt signaling pathway	10	0	1.9	3.281	True
+Fatty Acid Metabolism	10	0	1.9	3.912	False
+Breast cancer	10	0	1.9	3.217	False
+Signaling pathways regulating pluripotency of stem cells	10	0	1.9	2.903	False
+mTOR signaling pathway	9	0	1.7	3.868	True
+Influenza A	9	0	1.7	3.208	False
+UV Response Up	8	0	1.5	4.288	False
+Oxytocin signaling pathway	8	0	1.5	2.824	False
+Protein processing in endoplasmic reticulum	8	0	1.5	4.965	False
+Spermatogenesis	8	0	1.5	1.548	False
+Hepatocellular carcinoma	7	0	1.4	4.405	False
+JAK-STAT signaling pathway	7	0	1.4	1.956	False
+Hippo signaling pathway	7	0	1.4	4.313	False
+Cushing syndrome	6	0	1.2	3.046	False
+Maturity onset diabetes of the young	6	35	1.2	-0.957	False
+Retinol metabolism	5	1	1.0	0.954	False
+RNA transport	5	0	1.0	3.738	False
+Epstein-Barr virus infection	5	0	1.0	4.125	False
+p53 Pathway	4	0	0.8	4.704	True
+Glycolysis	4	0	0.8	4.391	False
+Inflammatory Response	4	0	0.8	3.913	False
+Focal adhesion	4	0	0.8	3.973	False
+KRAS Signaling Up	4	0	0.8	3.778	True
+Neutrophil extracellular trap formation	4	0	0.8	2.39	False
+Chemokine signaling pathway	3	0	0.6	4.25	False
+Adipogenesis	3	0	0.6	4.623	False
+Regulation of actin cytoskeleton	3	0	0.6	3.554	False
+Allograft Rejection	3	0	0.6	4.06	False
+Xenobiotic Metabolism	3	0	0.6	3.016	False
+Chemical carcinogenesis	3	0	0.6	1.916	False
+Complement	3	0	0.6	4.468	False
+Interferon Gamma Response	3	0	0.6	5.457	True
+Axon guidance	3	0	0.6	3.858	False
+Mitotic Spindle	3	0	0.6	4.744	False
+G2-M Checkpoint	3	0	0.6	5.035	False
+Transcriptional misregulation in cancer	3	0	0.6	3.052	False
+TNF-alpha Signaling via NF-kB	2	0	0.4	4.685	False
+Epithelial Mesenchymal Transition	2	0	0.4	4.651	False
+Pathogenic Escherichia coli infection	2	0	0.4	4.335	False
+Alcoholism	2	0	0.4	1.855	False
+Apical Junction	2	0	0.4	3.323	False
+IL-2/STAT5 Signaling	2	0	0.4	4.69	False
+Lipid and atherosclerosis	2	0	0.4	3.504	False
+Rap1 signaling pathway	2	0	0.4	3.675	False
+Tuberculosis	2	0	0.4	3.692	False
+mTORC1 Signaling	2	0	0.4	4.259	True
+Human T-cell leukemia virus 1 infection	1	0	0.2	3.968	False
+Salmonella infection	1	0	0.2	3.952	False
+Myc Targets V1	1	0	0.2	7.623	True
+Diabetic cardiomyopathy	1	0	0.2	3.658	False
+Hypoxia	1	0	0.2	3.592	True
+Thermogenesis	1	0	0.2	4.25	False
+Proteoglycans in cancer	1	0	0.2	3.845	False
+Viral carcinogenesis	1	0	0.2	2.88	False
+Human cytomegalovirus infection	1	0	0.2	2.632	False
+Nicotine addiction	1	387	0.2	-1.4	False
+NOD-like receptor signaling pathway	1	0	0.2	2.685	False
+E2F Targets	1	0	0.2	3.473	False
+Estrogen Response Early	1	0	0.2	4.502	False
+Oxidative Phosphorylation	1	0	0.2	5.434	False
+Estrogen Response Late	1	0	0.2	4.385	False
+Human immunodeficiency virus 1 infection	1	0	0.2	3.529	False
+Coronavirus disease	1	0	0.2	3.909	False
+heme Metabolism	1	0	0.2	3.932	False
+Steroid hormone biosynthesis	0	1	0.0	-1.367	False
+Taste transduction	0	3	0.0	-1.264	False
+Neuroactive ligand-receptor interaction	0	3	0.0	-1.374	False
+MicroRNAs in cancer	0	62	0.0	-1.42	False
+Olfactory transduction	0	517	0.0	-1.918	False

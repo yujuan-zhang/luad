@@ -278,10 +278,68 @@ def get_all_samples() -> list:
     return sorted(samples)
 
 
+# ── Cross-sample pathway frequency ────────────────────────────────────────────
+
+def build_cross_sample_summary(n_samples: int) -> pd.DataFrame:
+    """
+    Aggregate GSEA results across all processed samples.
+
+    For each pathway, count:
+      - n_activated : patients with NES > 0 & FDR < 0.25
+      - n_suppressed: patients with NES < 0 & FDR < 0.25
+    Then rank by n_activated descending.
+    """
+    from collections import defaultdict
+    counts: dict = defaultdict(lambda: {"n_activated": 0, "n_suppressed": 0,
+                                         "nes_sum": 0.0, "luad_relevant": False})
+
+    for gsea_path in OUT_DIR.glob("*/*_gsea.tsv"):
+        try:
+            df = pd.read_csv(gsea_path, sep="\t")
+            for _, row in df.iterrows():
+                term = row.get("Term", "")
+                nes  = float(row.get("NES", 0))
+                fdr  = float(row.get("FDR q-val", 1))
+                if fdr >= 0.25:
+                    continue
+                if nes > 0:
+                    counts[term]["n_activated"] += 1
+                else:
+                    counts[term]["n_suppressed"] += 1
+                counts[term]["nes_sum"] += nes
+                if any(kw in term.upper() for kw in LUAD_KEYWORDS):
+                    counts[term]["luad_relevant"] = True
+        except Exception:
+            continue
+
+    rows = []
+    for term, c in counts.items():
+        n_tot = c["n_activated"] + c["n_suppressed"]
+        rows.append({
+            "pathway":       term,
+            "n_activated":   c["n_activated"],
+            "n_suppressed":  c["n_suppressed"],
+            "pct_patients":  round((c["n_activated"] / n_samples) * 100, 1),
+            "mean_nes":      round(c["nes_sum"] / n_tot, 3) if n_tot else 0,
+            "luad_relevant": c["luad_relevant"],
+        })
+
+    df = pd.DataFrame(rows).sort_values("n_activated", ascending=False)
+    df = df.reset_index(drop=True)
+
+    # Remove "always-on" housekeeping pathways (activated in >90% of patients)
+    # These are universally enriched due to absolute TPM ranking, not informative
+    df = df[df["pct_patients"] <= 90].reset_index(drop=True)
+
+    return df
+
+
 def main():
     parser = argparse.ArgumentParser(description="LUAD pathway analysis (ORA + GSEA)")
-    parser.add_argument("--sample",  type=str, help="Single sample ID")
-    parser.add_argument("--dry_run", action="store_true", help="Validate inputs only")
+    parser.add_argument("--sample",       type=str, help="Single sample ID")
+    parser.add_argument("--dry_run",      action="store_true", help="Validate inputs only")
+    parser.add_argument("--summarize",    action="store_true",
+                        help="Only rebuild cross-sample summary from existing results")
     args = parser.parse_args()
 
     logger = get_logger("luad-pathway")
@@ -291,24 +349,31 @@ def main():
         logger.info(f"[DRY RUN] Would process {len(samples)} samples: {samples}")
         return
 
+    if args.summarize:
+        # Rebuild summary from already-processed results without re-running GSEA
+        n = len(list(OUT_DIR.glob("*/*_gsea.tsv")))
+        summary = build_cross_sample_summary(n_samples=max(n, 1))
+        summary.to_csv(OUT_DIR / "all_samples_summary.tsv", sep="\t", index=False)
+        print(f"Cross-sample summary rebuilt: {len(summary)} pathways from {n} samples")
+        print(summary.head(20).to_string(index=False))
+        return
+
     samples = [args.sample] if args.sample else get_all_samples()
     if not samples:
         print("[ERROR] No samples found in variant or expression output directories")
         return
 
     print(f"[INFO] Processing {len(samples)} samples")
-    results = []
-    for s in samples:
-        r = run_sample(s, logger)
-        results.append(r)
+    OUT_DIR.mkdir(parents=True, exist_ok=True)
 
-    if results:
-        summary = pd.DataFrame(results)
-        OUT_DIR.mkdir(parents=True, exist_ok=True)
-        summary_path = OUT_DIR / "all_samples_summary.tsv"
-        summary.to_csv(summary_path, sep="\t", index=False)
-        print(f"\n[Summary] {len(results)} samples → {summary_path}")
-        print(summary.to_string(index=False))
+    for s in samples:
+        run_sample(s, logger)
+
+    # Build cross-sample pathway frequency summary
+    summary = build_cross_sample_summary(n_samples=len(samples))
+    summary.to_csv(OUT_DIR / "all_samples_summary.tsv", sep="\t", index=False)
+    print(f"\n[Cross-sample summary] {len(summary)} pathways → {OUT_DIR / 'all_samples_summary.tsv'}")
+    print(summary.head(20).to_string(index=False))
 
 
 if __name__ == "__main__":

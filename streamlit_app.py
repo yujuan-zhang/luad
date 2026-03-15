@@ -1013,11 +1013,52 @@ elif page == "06 · Pathway":
 
     st.divider()
 
+    # ── Cross-sample pathway frequency ────────────────────────────────────────
     st.subheader("Cross-Sample Pathway Summary")
-    show_table(
-        OUTPUT / "06_pathway" / "all_samples_summary.tsv",
-        caption="Top enriched pathways across all samples",
-    )
+    st.caption("Pathways ranked by how many patients show significant activation (GSEA FDR < 0.25, NES > 0). "
+               "Housekeeping pathways activated in >90% of patients are excluded.")
+
+    summary_path = OUTPUT / "06_pathway" / "all_samples_summary.tsv"
+    if summary_path.exists():
+        import matplotlib.pyplot as plt
+
+        pw_df = pd.read_csv(summary_path, sep="\t")
+
+        luad_only = st.checkbox("Show LUAD-relevant pathways only", value=False)
+        if luad_only:
+            pw_df = pw_df[pw_df["luad_relevant"] == True]
+
+        top_n = st.slider("Number of pathways to display", 10, 50, 20)
+        plot_df = pw_df.head(top_n).sort_values("pct_patients")
+
+        fig, ax = plt.subplots(figsize=(9, max(4, len(plot_df) * 0.38)))
+        colors = ["#2ca02c" if r else "#4393c3"
+                  for r in plot_df["luad_relevant"]]
+        bars = ax.barh(plot_df["pathway"], plot_df["pct_patients"],
+                       color=colors, alpha=0.85, edgecolor="white")
+        ax.set_xlabel("% Patients Activated (NES > 0, FDR < 0.25)", fontsize=10)
+        ax.set_title(f"Top {top_n} Most Commonly Activated Pathways — LUAD Cohort (n={len(pw_df.dropna())})",
+                     fontsize=10)
+        ax.axvline(50, color="gray", linestyle="--", linewidth=0.8, alpha=0.6)
+        for bar, val in zip(bars, plot_df["pct_patients"]):
+            ax.text(val + 0.5, bar.get_y() + bar.get_height() / 2,
+                    f"{val:.0f}%", va="center", fontsize=8)
+        ax.spines["top"].set_visible(False)
+        ax.spines["right"].set_visible(False)
+        from matplotlib.patches import Patch
+        ax.legend(handles=[Patch(color="#2ca02c", label="LUAD-relevant"),
+                            Patch(color="#4393c3", label="Other")],
+                  fontsize=8, loc="lower right")
+        plt.tight_layout()
+        st.pyplot(fig)
+        plt.close()
+
+        with st.expander("View full table"):
+            st.dataframe(pw_df[["pathway", "n_activated", "n_suppressed",
+                                 "pct_patients", "mean_nes", "luad_relevant"]],
+                         use_container_width=True)
+    else:
+        st.info("Run `python modules/06_pathway/luad_pathway.py --summarize` to generate cross-sample summary.")
 
 
 # ══════════════════════════════════════════════════════════════════════════════
