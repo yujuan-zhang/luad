@@ -95,7 +95,7 @@ def load_cohort_index() -> pd.DataFrame:
 def patients_for_page(page: str) -> list:
     """Return the appropriate patient list for each module page."""
     idx = load_cohort_index()
-    if page in ("07 · ESM2",):
+    if page in ("07 · Variant Impact",):
         return idx[idx.has_wes]["sample_id"].tolist()
     if page in ("09 · Multimodal Integration", "10 · Clinical Recommendation"):
         return idx[idx.has_wes & idx.has_rnaseq]["sample_id"].tolist()
@@ -267,7 +267,7 @@ with st.sidebar:
             "04 · Single-Cell TME",
             "05 · Pathology",
             "06 · Pathway",
-            "07 · ESM2",
+            "07 · Variant Impact",
             "08 · IO ML",
             "09 · Multimodal Integration",
             "10 · Clinical Recommendation",
@@ -1156,62 +1156,75 @@ elif page == "06 · Pathway":
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-# 07 · ESM2 PROTEIN FEATURES
+# 07 · Variant Impact
 # ══════════════════════════════════════════════════════════════════════════════
 
-elif page == "07 · ESM2":
-    st.header("07 · ESM2 Protein Features")
-    st.caption("Per-site 1280-dim embeddings · masked-marginal log-odds · variant effect prediction")
+elif page == "07 · Variant Impact":
+    st.header("07 · Variant Impact")
+    st.caption("AlphaMissense pathogenicity scoring · missense mutation functional impact")
 
-    _m06_samples = discover_module_samples(OUTPUT / "07_esm2", "_esm2_summary.png")
-    sample = st.selectbox("Patient", _m06_samples or SAMPLES, key="sel_m06",
-                          help=f"{len(_m06_samples)} patients with ESM2 output")
-
-    st.warning(
-        "**Module 06 requires GPU acceleration and is excluded from the default pipeline run.** "
-        "To generate results: `python run_all.py --include_esm2 --sample TCGA-86-A4D0`"
-    )
+    _m07_samples = discover_module_samples(OUTPUT / "07_variant_impact", "_alphamissense.tsv")
+    sample = st.selectbox("Patient", _m07_samples or SAMPLES, key="sel_m07",
+                          help=f"{len(_m07_samples)} patients with AlphaMissense scores")
 
     st.markdown("""
     **What this module does:**
 
-    For each missense mutation identified in Module 02, ESM2-650M (Meta AI) is used to:
-    1. Retrieve the canonical protein sequence from UniProt
-    2. Extract the **1280-dim hidden state** at the mutation site (wild-type and mutant)
-    3. Compute **masked-marginal log-odds** = log P(mut_aa | context) − log P(wt_aa | context)
-    4. Compute **delta embedding** = mut_emb − wt_emb as a structural perturbation proxy
+    For each missense mutation in Module 02, looks up the
+    [AlphaMissense](https://www.science.org/doi/10.1126/science.adg7492) score
+    (DeepMind, Science 2023) — a pre-computed pathogenicity prediction for all possible
+    human missense variants (~71M entries).
 
-    These features can be used to predict whether a mutation is likely pathogenic.
+    | am_class | am_pathogenicity | Interpretation |
+    |--|--|--|
+    | pathogenic | > 0.564 | Likely disrupts protein function |
+    | ambiguous | 0.340–0.564 | Uncertain |
+    | benign | < 0.340 | Likely tolerated |
     """)
 
     st.divider()
 
-    # ESM2 summary image (if available)
-    img = OUTPUT / "07_esm2" / sample / f"{sample}_esm2_summary.png"
-    show_image(img, caption=f"ESM2 mutation scoring summary — {sample}")
-
-    # Mutation scores table
-    scores_path = OUTPUT / "07_esm2" / sample / "mutation_scores.tsv"
-    if scores_path.exists():
-        st.subheader("Mutation Scores")
-        show_table(scores_path, caption=f"ESM2 log-odds and oncogenicity scores — {sample}")
+    am_path = OUTPUT / "07_variant_impact" / sample / f"{sample}_alphamissense.tsv"
+    if not am_path.exists():
+        st.info("No AlphaMissense scores yet for this patient.")
     else:
-        st.subheader("Mutation Scores")
-        st.info("No ESM2 scores available yet. Run module 06 to generate.")
+        import pandas as pd
+        am_df = pd.read_csv(am_path, sep="\t")
 
-    # Feature file availability
-    st.divider()
-    st.subheader("Feature Files")
-    feature_files = [
-        ("wt_features.npy",    "Wild-type site embeddings (N × 1280)"),
-        ("mut_features.npy",   "Mutant site embeddings (N × 1280)"),
-        ("delta_features.npy", "Delta embeddings — mut minus wt (N × 1280)"),
-        ("site_info.csv",      "Site metadata (gene, position, wt_aa, mut_aa)"),
-    ]
-    for fname, desc in feature_files:
-        fpath = OUTPUT / "07_esm2" / sample / fname
-        status = "✅ Available" if fpath.exists() else "⏳ Not yet generated"
-        st.markdown(f"- `{fname}` — {desc} &nbsp;&nbsp; **{status}**")
+        # Summary metrics
+        n_total     = len(am_df)
+        n_path      = (am_df["am_class"] == "pathogenic").sum()
+        n_drv_path  = ((am_df["am_class"] == "pathogenic") & am_df["is_luad_driver"]).sum()
+        c1, c2, c3 = st.columns(3)
+        c1.metric("Missense mutations scored", n_total)
+        c2.metric("Pathogenic", n_path)
+        c3.metric("Pathogenic in driver genes", int(n_drv_path))
+
+        st.divider()
+
+        # Driver gene pathogenic hits
+        drv_path = am_df[(am_df["am_class"] == "pathogenic") & am_df["is_luad_driver"]]
+        if not drv_path.empty:
+            st.subheader("Pathogenic mutations in LUAD driver genes")
+            st.dataframe(
+                drv_path[["gene","hgvsp","am_pathogenicity","am_class","existing_class","civic_level"]]
+                .sort_values("am_pathogenicity", ascending=False)
+                .reset_index(drop=True),
+                use_container_width=True,
+            )
+        else:
+            st.info("No pathogenic mutations found in LUAD driver genes for this patient.")
+
+        st.divider()
+
+        # Full scored table
+        with st.expander("All scored mutations"):
+            st.dataframe(
+                am_df[["gene","hgvsp","am_pathogenicity","am_class","is_luad_driver"]]
+                .sort_values("am_pathogenicity", ascending=False)
+                .reset_index(drop=True),
+                use_container_width=True,
+            )
 
 
 # ══════════════════════════════════════════════════════════════════════════════
