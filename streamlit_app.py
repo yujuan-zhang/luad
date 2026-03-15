@@ -997,7 +997,8 @@ elif page == "06 · Pathway":
     sys.path.insert(0, str(Path(__file__).parent / "modules" / "06_pathway"))
     from kegg_viewer import (
         LUAD_PATHWAYS, load_all_pathway_genes, get_hit_pathways,
-        load_mutations, load_expression_colors, build_kegg_url, build_gene_table,
+        load_mutations, load_expression_colors, build_kegg_url,
+        build_gene_table, render_pathway,
     )
 
     @st.cache_data(show_spinner="Loading KEGG gene sets…", ttl=86400)
@@ -1068,12 +1069,16 @@ elif page == "06 · Pathway":
                       + (f", {n_low} ↓"  if n_low  else ""))
 
             with st.expander(label, expanded=bool(hit_genes)):
-                st.link_button(
-                    f"Open {name} in KEGG ↗",
-                    url=kegg_url,
-                    help="Official KEGG pathway map with your genes color-coded",
-                )
+                png_bytes = render_pathway(pid, mutations, high, low)
+                if png_bytes:
+                    st.image(png_bytes, use_container_width=True)
+                else:
+                    st.link_button(
+                        f"Open {name} in KEGG ↗", url=kegg_url,
+                        help="Local image not available — opens KEGG website",
+                    )
                 if not gene_table.empty:
+                    st.markdown("**Genes hit in this patient:**")
                     st.dataframe(gene_table, use_container_width=True, hide_index=True)
                 elif hit_genes:
                     st.markdown(f"Mutated: `{'`, `'.join(hit_genes)}`")

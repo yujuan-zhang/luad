@@ -5,27 +5,32 @@ Per-patient KEGG pathway viewer for LUAD.
 
 For a given patient:
   1. Find which of the 8 core LUAD pathways have ≥1 mutated gene
-  2. Color genes on the official KEGG pathway image:
+  2. Render the locally-cached KEGG pathway PNG with gene nodes colored:
        red    = mutated
        orange = high expression (GTEx z-score > 1.5), not mutated
        blue   = low expression  (GTEx z-score < -1.5), not mutated
-  3. Return colored KEGG URL + small gene hit table
+  3. Return annotated PNG bytes (for st.image) + gene hit table
 
-Gene membership comes from gseapy's built-in KEGG_2021_Human gene sets
-(no network dependency). Only the pathway image display hits KEGG servers.
+Gene membership: gseapy KEGG_2021_Human (no network).
+Pathway images: locally cached PNG + KGML from KEGG REST API (one-time download).
+Gene positions: parsed from KGML <graphics x y width height>.
 """
 
+import io
+import xml.etree.ElementTree as ET
 import requests
 import pandas as pd
 from pathlib import Path
 from urllib.parse import quote
+from PIL import Image, ImageDraw
 
 import gseapy as gp
 
-SCRIPT_DIR  = Path(__file__).parent
-PROJECT_DIR = SCRIPT_DIR.parent.parent
-VARIANT_DIR = PROJECT_DIR / "data/output/02_variants"
-EXPR_DIR    = PROJECT_DIR / "data/output/03_expression"
+SCRIPT_DIR   = Path(__file__).parent
+PROJECT_DIR  = SCRIPT_DIR.parent.parent
+VARIANT_DIR  = PROJECT_DIR / "data/output/02_variants"
+EXPR_DIR     = PROJECT_DIR / "data/output/03_expression"
+PATHWAY_CACHE = SCRIPT_DIR / "kegg_cache" / "pathways"
 
 # ── 8 core LUAD pathways ──────────────────────────────────────────────────────
 # display name → (KEGG pathway ID, gseapy KEGG_2021_Human key)
@@ -55,6 +60,86 @@ def load_all_pathway_genes() -> dict:
         genes = kegg_sets.get(gsea_key, [])
         result[pid] = [g.upper() for g in genes]
     return result
+
+
+# ── Local pathway image rendering ────────────────────────────────────────────
+
+# Semi-transparent overlay colors  (R, G, B, Alpha 0-255)
+NODE_COLORS = {
+    "mut":  (214,  39,  40, 190),   # red    – mutated
+    "high": (255, 127,  14, 170),   # orange – high expression
+    "low":  ( 31, 119, 180, 170),   # blue   – low expression
+}
+
+
+def _parse_gene_nodes(kgml_xml: str) -> dict:
+    """
+    Parse KGML and return {SYMBOL_UPPER: (cx, cy, w, h)} for every gene entry.
+    KGML coordinates are center-based (cx, cy).
+    A single entry may contain multiple gene IDs (paralogs shown as one box);
+    we register the first symbol in the graphics name for each box.
+    """
+    nodes = {}
+    root  = ET.fromstring(kgml_xml)
+    for entry in root.findall("entry"):
+        if entry.get("type") != "gene":
+            continue
+        g = entry.find("graphics")
+        if g is None:
+            continue
+        # graphics name e.g. "KRAS, NRAS" or "KRAS..." — take first token
+        raw_name = g.get("name", "")
+        symbol   = raw_name.split(",")[0].replace("...", "").strip().upper()
+        if not symbol:
+            continue
+        cx = int(g.get("x", 0))
+        cy = int(g.get("y", 0))
+        w  = int(g.get("width",  46))
+        h  = int(g.get("height", 17))
+        nodes[symbol] = (cx, cy, w, h)
+    return nodes
+
+
+def render_pathway(pathway_id: str,
+                   mutations: list,
+                   high_expr: list,
+                   low_expr: list) -> bytes:
+    """
+    Overlay mutation/expression data on the locally cached KEGG pathway PNG.
+    Returns annotated PNG bytes ready for st.image().
+    Returns empty bytes if cache files are missing.
+    """
+    png_path  = PATHWAY_CACHE / f"{pathway_id}.png"
+    kgml_path = PATHWAY_CACHE / f"{pathway_id}.kgml"
+    if not png_path.exists() or not kgml_path.exists():
+        return b""
+
+    img     = Image.open(png_path).convert("RGBA")
+    overlay = Image.new("RGBA", img.size, (0, 0, 0, 0))
+    draw    = ImageDraw.Draw(overlay)
+
+    nodes    = _parse_gene_nodes(kgml_path.read_text())
+    mut_set  = {g.upper() for g in mutations}
+    high_set = {g.upper() for g in high_expr}
+    low_set  = {g.upper() for g in low_expr}
+
+    for symbol, (cx, cy, w, h) in nodes.items():
+        if symbol in mut_set:
+            color = NODE_COLORS["mut"]
+        elif symbol in high_set:
+            color = NODE_COLORS["high"]
+        elif symbol in low_set:
+            color = NODE_COLORS["low"]
+        else:
+            continue
+        x0, y0 = cx - w // 2, cy - h // 2
+        x1, y1 = cx + w // 2, cy + h // 2
+        draw.rectangle([x0, y0, x1, y1], fill=color)
+
+    result = Image.alpha_composite(img, overlay).convert("RGB")
+    buf    = io.BytesIO()
+    result.save(buf, format="PNG")
+    return buf.getvalue()
 
 
 # ── Patient data loaders ──────────────────────────────────────────────────────
