@@ -1163,46 +1163,143 @@ elif page == "07 · Variant Impact":
     st.header("07 · Variant Impact")
     st.caption("AlphaMissense pathogenicity scoring · missense mutation functional impact")
 
+    import pandas as pd
+    import matplotlib.pyplot as plt
+    import matplotlib.patches as mpatches
+    import numpy as np
+
+    # ── 选项1：队列总览柱状图 ─────────────────────────────────────────────────
+    @st.cache_data(show_spinner="Loading cohort summary…", ttl=3600)
+    def _load_cohort_am():
+        summary_path = OUTPUT / "07_variant_impact" / "alphamissense_summary.tsv"
+        if not summary_path.exists():
+            return pd.DataFrame()
+        # Load all per-patient files and aggregate by gene
+        files = list((OUTPUT / "07_variant_impact").glob("*/*_alphamissense.tsv"))
+        if not files:
+            return pd.DataFrame()
+        dfs = []
+        for f in files:
+            try:
+                dfs.append(pd.read_csv(f, sep="\t"))
+            except Exception:
+                pass
+        if not dfs:
+            return pd.DataFrame()
+        return pd.concat(dfs, ignore_index=True)
+
+    cohort_df = _load_cohort_am()
+
+    if not cohort_df.empty:
+        st.subheader("Cohort Overview — Pathogenic Variants in Cancer Genes")
+        st.caption(f"Across {cohort_df['sample_id'].nunique()} patients with AlphaMissense scores")
+
+        # Count patients with ≥1 pathogenic mutation per gene
+        path_df = cohort_df[cohort_df["am_class"] == "pathogenic"]
+        gene_counts = (
+            path_df.groupby("gene")["sample_id"]
+            .nunique()
+            .sort_values(ascending=False)
+            .head(20)
+        )
+
+        fig, ax = plt.subplots(figsize=(10, 5))
+        colors = ["#d73027" if g in [
+            "KRAS","EGFR","TP53","STK11","KEAP1","BRAF","MET","ERBB2","NF1",
+            "CDKN2A","RB1","PIK3CA","PTEN","ALK","ROS1","RET","MAP2K1","NRAS","HRAS","MYC"
+        ] else "#4575b4" for g in gene_counts.index]
+        bars = ax.bar(range(len(gene_counts)), gene_counts.values, color=colors, edgecolor="white", linewidth=0.5)
+        ax.set_xticks(range(len(gene_counts)))
+        ax.set_xticklabels(gene_counts.index, rotation=45, ha="right", fontsize=10)
+        ax.set_ylabel("Number of patients", fontsize=10)
+        ax.set_title("Top 20 genes with AlphaMissense-pathogenic mutations", fontsize=11)
+        ax.spines[["top","right"]].set_visible(False)
+        red_patch  = mpatches.Patch(color="#d73027", label="LUAD driver gene")
+        blue_patch = mpatches.Patch(color="#4575b4", label="Other cancer gene")
+        ax.legend(handles=[red_patch, blue_patch], fontsize=9)
+        plt.tight_layout()
+        st.pyplot(fig)
+        plt.close()
+
+    st.divider()
+
+    # ── 病人选择器 ────────────────────────────────────────────────────────────
     _m07_samples = discover_module_samples(OUTPUT / "07_variant_impact", "_alphamissense.tsv")
     sample = st.selectbox("Patient", _m07_samples or SAMPLES, key="sel_m07",
                           help=f"{len(_m07_samples)} patients with AlphaMissense scores")
-
-    st.markdown("""
-    **What this module does:**
-
-    For each missense mutation in Module 02, looks up the
-    [AlphaMissense](https://www.science.org/doi/10.1126/science.adg7492) score
-    (DeepMind, Science 2023) — a pre-computed pathogenicity prediction for all possible
-    human missense variants (~71M entries).
-
-    | am_class | am_pathogenicity | Interpretation |
-    |--|--|--|
-    | pathogenic | > 0.564 | Likely disrupts protein function |
-    | ambiguous | 0.340–0.564 | Uncertain |
-    | benign | < 0.340 | Likely tolerated |
-    """)
-
-    st.divider()
 
     am_path = OUTPUT / "07_variant_impact" / sample / f"{sample}_alphamissense.tsv"
     if not am_path.exists():
         st.info("No AlphaMissense scores yet for this patient.")
     else:
-        import pandas as pd
         am_df = pd.read_csv(am_path, sep="\t")
 
-        # Summary metrics
-        n_total     = len(am_df)
-        n_path      = (am_df["am_class"] == "pathogenic").sum()
-        n_drv_path  = ((am_df["am_class"] == "pathogenic") & am_df["is_luad_driver"]).sum()
-        c1, c2, c3 = st.columns(3)
-        c1.metric("Missense mutations scored", n_total)
-        c2.metric("Pathogenic", n_path)
-        c3.metric("Pathogenic in driver genes", int(n_drv_path))
+        # ── 选项2：分数分布直方图 ──────────────────────────────────────────────
+        col_hist, col_metrics = st.columns([3, 2])
+        with col_hist:
+            st.markdown("**AlphaMissense Score Distribution**")
+            scores = am_df["am_pathogenicity"].dropna()
+            fig2, ax2 = plt.subplots(figsize=(5, 3))
+            ax2.axvspan(0,      0.340, alpha=0.08, color="#4575b4", label="Benign")
+            ax2.axvspan(0.340,  0.564, alpha=0.08, color="#fee090", label="Ambiguous")
+            ax2.axvspan(0.564,  1.0,   alpha=0.08, color="#d73027", label="Pathogenic")
+            ax2.axvline(0.340, color="#4575b4", lw=0.8, linestyle="--")
+            ax2.axvline(0.564, color="#d73027", lw=0.8, linestyle="--")
+            ax2.hist(scores, bins=20, color="#555", edgecolor="white", linewidth=0.4, zorder=3)
+            # Mark driver gene mutations
+            drv_scores = am_df[am_df["is_luad_driver"]]["am_pathogenicity"].dropna()
+            for s in drv_scores:
+                ax2.axvline(s, color="#d73027", lw=1.2, alpha=0.7, zorder=4)
+            ax2.set_xlabel("am_pathogenicity score", fontsize=9)
+            ax2.set_ylabel("Count", fontsize=9)
+            ax2.set_xlim(0, 1)
+            ax2.spines[["top","right"]].set_visible(False)
+            ax2.legend(fontsize=7, loc="upper left")
+            plt.tight_layout()
+            st.pyplot(fig2)
+            plt.close()
+
+        with col_metrics:
+            st.markdown("**Summary**")
+            n_total    = len(am_df)
+            n_path     = (am_df["am_class"] == "pathogenic").sum()
+            n_ambig    = (am_df["am_class"] == "ambiguous").sum()
+            n_benign   = (am_df["am_class"] == "benign").sum()
+            n_drv_path = int(((am_df["am_class"] == "pathogenic") & am_df["is_luad_driver"]).sum())
+            st.metric("Scored mutations", n_total)
+            st.metric("Pathogenic", int(n_path))
+            st.metric("Ambiguous", int(n_ambig))
+            st.metric("Pathogenic in driver genes", n_drv_path)
 
         st.divider()
 
-        # Driver gene pathogenic hits
+        # ── 选项3：驱动基因打分卡片 ────────────────────────────────────────────
+        drv_hits = am_df[am_df["is_luad_driver"]].sort_values("am_pathogenicity", ascending=False)
+        if not drv_hits.empty:
+            st.subheader("Driver Gene Variant Cards")
+            cols = st.columns(min(len(drv_hits), 4))
+            for i, (_, row) in enumerate(drv_hits.iterrows()):
+                col = cols[i % len(cols)]
+                score = row["am_pathogenicity"] if pd.notna(row["am_pathogenicity"]) else 0
+                cls   = str(row["am_class"])
+                color = "#d73027" if cls == "pathogenic" else ("#f4a261" if cls == "ambiguous" else "#4575b4")
+                filled = int(round(score * 5))
+                dots   = "●" * filled + "○" * (5 - filled)
+                col.markdown(
+                    f"""<div style='border:1px solid {color}; border-radius:8px; padding:10px; margin:4px;'>
+                    <b style='color:{color}; font-size:16px'>{row['gene']}</b><br>
+                    <span style='font-size:12px'>{row['hgvsp']}</span><br>
+                    <span style='color:{color}; font-size:18px'>{dots}</span><br>
+                    <span style='font-size:11px; color:#666'>{score:.3f} · {cls}</span>
+                    </div>""",
+                    unsafe_allow_html=True,
+                )
+        else:
+            st.info("No driver gene mutations scored for this patient.")
+
+        st.divider()
+
+        # ── 详细数据表 ────────────────────────────────────────────────────────
         drv_path = am_df[(am_df["am_class"] == "pathogenic") & am_df["is_luad_driver"]]
         if not drv_path.empty:
             st.subheader("Pathogenic mutations in LUAD driver genes")
@@ -1212,12 +1309,7 @@ elif page == "07 · Variant Impact":
                 .reset_index(drop=True),
                 use_container_width=True,
             )
-        else:
-            st.info("No pathogenic mutations found in LUAD driver genes for this patient.")
 
-        st.divider()
-
-        # Full scored table
         with st.expander("All scored mutations"):
             st.dataframe(
                 am_df[["gene","hgvsp","am_pathogenicity","am_class","is_luad_driver"]]
