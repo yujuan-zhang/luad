@@ -17,6 +17,7 @@ Gene positions: parsed from KGML <graphics x y width height>.
 """
 
 import io
+import json
 import xml.etree.ElementTree as ET
 import requests
 import pandas as pd
@@ -64,40 +65,25 @@ def load_all_pathway_genes() -> dict:
 
 # ── Local pathway image rendering ────────────────────────────────────────────
 
-# Semi-transparent overlay colors  (R, G, B, Alpha 0-255)
+# Semi-transparent overlay colors (R, G, B, Alpha 0-255)
 NODE_COLORS = {
-    "mut":  (214,  39,  40, 190),   # red    – mutated
-    "high": (255, 127,  14, 170),   # orange – high expression
-    "low":  ( 31, 119, 180, 170),   # blue   – low expression
+    "mut":  (214,  39,  40, 200),   # red    – mutated
+    "high": (255, 127,  14, 180),   # orange – high expression
+    "low":  ( 31, 119, 180, 180),   # blue   – low expression
 }
 
 
-def _parse_gene_nodes(kgml_xml: str) -> dict:
+def _load_node_positions(pathway_id: str) -> dict:
     """
-    Parse KGML and return {SYMBOL_UPPER: (cx, cy, w, h)} for every gene entry.
-    KGML coordinates are center-based (cx, cy).
-    A single entry may contain multiple gene IDs (paralogs shown as one box);
-    we register the first symbol in the graphics name for each box.
+    Load pre-computed {SYMBOL: [cx, cy, w, h]} from cache.
+    Falls back to empty dict if not found.
+    The cache is built by parsing KGML entry.name (all hsa IDs per box)
+    and converting each hsa ID to its gene symbol via KEGG list API.
     """
-    nodes = {}
-    root  = ET.fromstring(kgml_xml)
-    for entry in root.findall("entry"):
-        if entry.get("type") != "gene":
-            continue
-        g = entry.find("graphics")
-        if g is None:
-            continue
-        # graphics name e.g. "KRAS, NRAS" or "KRAS..." — take first token
-        raw_name = g.get("name", "")
-        symbol   = raw_name.split(",")[0].replace("...", "").strip().upper()
-        if not symbol:
-            continue
-        cx = int(g.get("x", 0))
-        cy = int(g.get("y", 0))
-        w  = int(g.get("width",  46))
-        h  = int(g.get("height", 17))
-        nodes[symbol] = (cx, cy, w, h)
-    return nodes
+    cache_path = PATHWAY_CACHE / f"{pathway_id}_nodes.json"
+    if not cache_path.exists():
+        return {}
+    return json.loads(cache_path.read_text())
 
 
 def render_pathway(pathway_id: str,
@@ -106,35 +92,58 @@ def render_pathway(pathway_id: str,
                    low_expr: list) -> bytes:
     """
     Overlay mutation/expression data on the locally cached KEGG pathway PNG.
-    Returns annotated PNG bytes ready for st.image().
-    Returns empty bytes if cache files are missing.
+
+    Each gene box is split into N equal vertical strips — one per data layer
+    that applies to that gene:
+      - mutated only        → full red box
+      - high expr only      → full orange box
+      - low expr only       → full blue box
+      - mutated + high expr → left half red | right half orange
+      - mutated + low expr  → left half red | right half blue
+      - etc.
+
+    Uses pre-computed _nodes.json for accurate symbol → box coordinate mapping
+    (handles KEGG's grouping of gene families, e.g. KRAS/HRAS/NRAS in one box).
+
+    Returns annotated PNG bytes for st.image(). Empty bytes if cache missing.
     """
-    png_path  = PATHWAY_CACHE / f"{pathway_id}.png"
-    kgml_path = PATHWAY_CACHE / f"{pathway_id}.kgml"
-    if not png_path.exists() or not kgml_path.exists():
+    png_path = PATHWAY_CACHE / f"{pathway_id}.png"
+    if not png_path.exists():
+        return b""
+
+    nodes    = _load_node_positions(pathway_id)
+    if not nodes:
         return b""
 
     img     = Image.open(png_path).convert("RGBA")
     overlay = Image.new("RGBA", img.size, (0, 0, 0, 0))
     draw    = ImageDraw.Draw(overlay)
 
-    nodes    = _parse_gene_nodes(kgml_path.read_text())
     mut_set  = {g.upper() for g in mutations}
     high_set = {g.upper() for g in high_expr}
     low_set  = {g.upper() for g in low_expr}
 
-    for symbol, (cx, cy, w, h) in nodes.items():
+    for symbol, coords in nodes.items():
+        cx, cy, w, h = coords
+        layers = []
         if symbol in mut_set:
-            color = NODE_COLORS["mut"]
-        elif symbol in high_set:
-            color = NODE_COLORS["high"]
-        elif symbol in low_set:
-            color = NODE_COLORS["low"]
-        else:
+            layers.append(NODE_COLORS["mut"])
+        if symbol in high_set:
+            layers.append(NODE_COLORS["high"])
+        if symbol in low_set:
+            layers.append(NODE_COLORS["low"])
+        if not layers:
             continue
+
         x0, y0 = cx - w // 2, cy - h // 2
         x1, y1 = cx + w // 2, cy + h // 2
-        draw.rectangle([x0, y0, x1, y1], fill=color)
+        n      = len(layers)
+        strip_w = (x1 - x0) / n
+
+        for i, color in enumerate(layers):
+            sx0 = int(x0 + i * strip_w)
+            sx1 = int(x0 + (i + 1) * strip_w)
+            draw.rectangle([sx0, y0, sx1, y1], fill=color)
 
     result = Image.alpha_composite(img, overlay).convert("RGB")
     buf    = io.BytesIO()
