@@ -981,7 +981,7 @@ elif page == "04 · Single-Cell TME":
 
 elif page == "06 · Pathway":
     st.header("06 · Pathway")
-    st.caption("Over-representation analysis (ORA) on mutated genes · GSEA prerank on expression")
+    st.caption("KEGG pathway viewer · ORA on mutated genes · GSEA prerank on expression")
 
     _m05_gsea = discover_module_samples(OUTPUT / "06_pathway", "_gsea.tsv")
     _m05_ora  = discover_module_samples(OUTPUT / "06_pathway", "_ora.tsv")
@@ -989,9 +989,88 @@ elif page == "06 · Pathway":
     sample = st.selectbox("Patient", _m05_samples or SAMPLES, key="sel_m05",
                           help=f"{len(_m05_samples)} patients with pathway output ({len(_m05_gsea)} with GSEA)")
 
-    # GSEA plot
-    img = OUTPUT / "06_pathway" / sample / f"{sample}_gsea.png"
-    show_image(img, caption=f"GSEA enrichment plot — {sample}")
+    # ── KEGG Pathway Viewer ────────────────────────────────────────────────────
+    st.subheader("KEGG Pathway View")
+    st.caption(
+        "Only pathways with ≥ 1 mutated gene are shown. "
+        "🔴 Mutated · 🟠 High expression (z > 1.5) · 🔵 Low expression (z < −1.5)"
+    )
+
+    import sys
+    sys.path.insert(0, str(Path(__file__).parent / "modules" / "06_pathway"))
+    from kegg_viewer import (
+        LUAD_PATHWAYS, load_all_pathway_genes, get_hit_pathways,
+        load_mutations, load_expression_colors, build_kegg_url, build_gene_table,
+    )
+
+    # Cache pathway gene lists (fetched once from KEGG REST API)
+    @st.cache_data(show_spinner="Fetching KEGG pathway gene lists…", ttl=86400)
+    def _load_pathway_genes():
+        return load_all_pathway_genes()
+
+    pathway_genes = _load_pathway_genes()
+    mutations     = load_mutations(sample)
+
+    if not mutations:
+        st.info(f"No variant data found for {sample}. KEGG viewer requires M02 output.")
+    else:
+        hit_pathways = get_hit_pathways(mutations, pathway_genes)
+
+        if not hit_pathways:
+            st.info("No mutations fall within the 8 core LUAD pathways for this patient.")
+        else:
+            st.markdown(
+                f"**{len(hit_pathways)} pathway(s) hit** out of 8 core LUAD pathways  "
+                f"({len(mutations)} mutated genes total)"
+            )
+
+        # Manual pathway selector (always available)
+        all_names    = list(LUAD_PATHWAYS.keys())
+        hit_names    = [h[0] for h in hit_pathways]
+        other_names  = [n for n in all_names if n not in hit_names]
+        extra = st.multiselect(
+            "Add more pathways to view",
+            options=other_names,
+            default=[],
+            key="kegg_extra",
+        )
+
+        # Combine: hit pathways first, then manually added
+        display_pathways = hit_pathways.copy()
+        for name in extra:
+            pid = LUAD_PATHWAYS[name][0]
+            display_pathways.append((name, pid, []))
+
+        for name, pid, hit_genes in display_pathways:
+            pg          = pathway_genes.get(pid, [])
+            high, low   = load_expression_colors(sample, pg)
+            kegg_url    = build_kegg_url(pid, mutations, high, low)
+            gene_table  = build_gene_table(sample, pg, mutations, high, low)
+
+            label = f"🔴 {name}  ({len(hit_genes)} mutation{'s' if len(hit_genes)!=1 else ''})"  if hit_genes else f"➕ {name}"
+            with st.expander(label, expanded=(len(display_pathways) == 1 or bool(hit_genes))):
+                st.markdown(
+                    f"[Open in KEGG ↗]({kegg_url})",
+                    help="Opens the official KEGG pathway map with your patient's genes highlighted",
+                )
+                try:
+                    import requests as _req
+                    resp = _req.get(kegg_url, timeout=12)
+                    if resp.status_code == 200 and resp.headers.get("Content-Type", "").startswith("image"):
+                        st.image(resp.content, use_container_width=True)
+                    else:
+                        st.markdown(
+                            f"**[Click to view colored KEGG pathway diagram]({kegg_url})**  \n"
+                            f"*(image preview unavailable — open link in browser)*"
+                        )
+                except Exception:
+                    st.markdown(f"**[Click to view KEGG pathway]({kegg_url})**")
+
+                if not gene_table.empty:
+                    st.markdown("**Genes hit in this patient:**")
+                    st.dataframe(gene_table, use_container_width=True, hide_index=True)
+                elif hit_genes:
+                    st.markdown(f"Mutated: `{'`, `'.join(hit_genes)}`")
 
     st.divider()
 
