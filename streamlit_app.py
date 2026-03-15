@@ -1338,68 +1338,14 @@ elif page == "07 · Variant Impact":
     else:
         am_df = pd.read_csv(am_path, sep="\t")
 
-        # ── 选项2：分数分布直方图 ──────────────────────────────────────────────
-        col_hist, col_metrics = st.columns([3, 2])
-        with col_hist:
-            st.markdown("**AlphaMissense Score Distribution**")
-            scores = am_df["am_pathogenicity"].dropna()
-            fig2, ax2 = plt.subplots(figsize=(5, 3))
-            ax2.axvspan(0,      0.340, alpha=0.08, color="#4575b4", label="Benign")
-            ax2.axvspan(0.340,  0.564, alpha=0.08, color="#fee090", label="Ambiguous")
-            ax2.axvspan(0.564,  1.0,   alpha=0.08, color="#d73027", label="Pathogenic")
-            ax2.axvline(0.340, color="#4575b4", lw=0.8, linestyle="--")
-            ax2.axvline(0.564, color="#d73027", lw=0.8, linestyle="--")
-            ax2.hist(scores, bins=20, color="#555", edgecolor="white", linewidth=0.4, zorder=3)
-            # Mark driver gene mutations
-            drv_scores = am_df[am_df["is_luad_driver"]]["am_pathogenicity"].dropna()
-            for s in drv_scores:
-                ax2.axvline(s, color="#d73027", lw=1.2, alpha=0.7, zorder=4)
-            ax2.set_xlabel("am_pathogenicity score", fontsize=9)
-            ax2.set_ylabel("Count", fontsize=9)
-            ax2.set_xlim(0, 1)
-            ax2.spines[["top","right"]].set_visible(False)
-            ax2.legend(fontsize=7, loc="upper left")
-            plt.tight_layout()
-            st.pyplot(fig2)
-            plt.close()
-
-        with col_metrics:
-            st.markdown("**Summary**")
-            n_total    = len(am_df)
-            n_path     = (am_df["am_class"] == "pathogenic").sum()
-            n_ambig    = (am_df["am_class"] == "ambiguous").sum()
-            n_benign   = (am_df["am_class"] == "benign").sum()
-            n_drv_path = int(((am_df["am_class"] == "pathogenic") & am_df["is_luad_driver"]).sum())
-            st.metric("Scored mutations", n_total)
-            st.metric("Pathogenic", int(n_path))
-            st.metric("Ambiguous", int(n_ambig))
-            st.metric("Pathogenic in driver genes", n_drv_path)
-
-        st.divider()
-
-        # ── 选项3：驱动基因打分卡片 ────────────────────────────────────────────
-        drv_hits = am_df[am_df["is_luad_driver"]].sort_values("am_pathogenicity", ascending=False)
-        if not drv_hits.empty:
-            st.subheader("Driver Gene Variant Cards")
-            cols = st.columns(min(len(drv_hits), 4))
-            for i, (_, row) in enumerate(drv_hits.iterrows()):
-                col = cols[i % len(cols)]
-                score = row["am_pathogenicity"] if pd.notna(row["am_pathogenicity"]) else 0
-                cls   = str(row["am_class"])
-                color = "#d73027" if cls == "pathogenic" else ("#f4a261" if cls == "ambiguous" else "#4575b4")
-                filled = int(round(score * 5))
-                dots   = "●" * filled + "○" * (5 - filled)
-                col.markdown(
-                    f"""<div style='border:1px solid {color}; border-radius:8px; padding:10px; margin:4px;'>
-                    <b style='color:{color}; font-size:16px'>{row['gene']}</b><br>
-                    <span style='font-size:12px'>{row['hgvsp']}</span><br>
-                    <span style='color:{color}; font-size:18px'>{dots}</span><br>
-                    <span style='font-size:11px; color:#666'>{score:.3f} · {cls}</span>
-                    </div>""",
-                    unsafe_allow_html=True,
-                )
-        else:
-            st.info("No driver gene mutations scored for this patient.")
+        # Summary metrics
+        n_total    = len(am_df)
+        n_path     = (am_df["am_class"] == "pathogenic").sum()
+        n_drv_path = int(((am_df["am_class"] == "pathogenic") & am_df["is_luad_driver"]).sum())
+        c1, c2, c3 = st.columns(3)
+        c1.metric("Scored mutations", n_total)
+        c2.metric("Pathogenic", int(n_path))
+        c3.metric("Pathogenic in driver genes", n_drv_path)
 
         st.divider()
 
