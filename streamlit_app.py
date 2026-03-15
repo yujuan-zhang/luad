@@ -1349,10 +1349,10 @@ elif page == "07 · Variant Impact":
 
         st.divider()
 
-        # ── Scored driver gene table ──────────────────────────────────────────
-        drv_path = am_df[am_df["is_luad_driver"]]
+        # ── Pathogenic driver gene table ──────────────────────────────────────
+        drv_path = am_df[(am_df["am_class"] == "pathogenic") & am_df["is_luad_driver"]]
         if not drv_path.empty:
-            st.subheader("Scored mutations in LUAD driver genes")
+            st.subheader("Pathogenic mutations in LUAD driver genes")
             st.dataframe(
                 drv_path[["gene","hgvsp","am_pathogenicity","am_class","existing_class","civic_level"]]
                 .sort_values("am_pathogenicity", ascending=False)
