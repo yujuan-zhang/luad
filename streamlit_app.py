@@ -1167,6 +1167,110 @@ elif page == "07 · Variant Impact":
     import matplotlib.pyplot as plt
     import matplotlib.patches as mpatches
     import numpy as np
+    import re as _re
+
+    # ── Lollipop plot helper ───────────────────────────────────────────────────
+    # Protein lengths (UniProt canonical isoform)
+    _PROTEIN_LEN = {
+        "KRAS":189, "NRAS":189, "HRAS":189,
+        "EGFR":1210, "ERBB2":1255, "MET":1390, "ALK":1620, "ROS1":2347,
+        "RET":1114, "FGFR1":822, "FGFR2":821, "FGFR3":806, "FGFR4":802,
+        "TP53":393, "RB1":928, "CDKN2A":156,
+        "BRAF":766, "RAF1":648, "MAP2K1":393, "MAP2K2":400,
+        "PIK3CA":1068, "PTEN":403, "AKT1":480,
+        "STK11":433, "KEAP1":624, "NF1":2839,
+        "MYC":439, "MYCL":364, "MYCN":464,
+        "SMARCA4":1647, "ARID1A":2285, "SETD2":2564, "RBM10":930,
+    }
+    # Key functional domains {gene: [(start, end, label, color), ...]}
+    _DOMAINS = {
+        "KRAS": [
+            (10, 17, "P-loop",    "#aec6cf"),
+            (30, 38, "Switch I",  "#77dd77"),
+            (58, 76, "Switch II", "#fdfd96"),
+        ],
+        "EGFR": [
+            (712, 979, "Kinase domain", "#aec6cf"),
+            (25,  645, "Extracellular", "#fdfd96"),
+        ],
+        "TP53": [
+            (1,   43,  "Transactivation", "#fdfd96"),
+            (102, 292, "DNA-binding",     "#aec6cf"),
+            (323, 356, "Tetramerization", "#77dd77"),
+        ],
+        "BRAF": [
+            (155, 227, "RBD",            "#fdfd96"),
+            (457, 717, "Kinase domain",  "#aec6cf"),
+        ],
+        "PIK3CA": [
+            (726, 1068, "Kinase domain", "#aec6cf"),
+            (515,  696, "Helical",       "#fdfd96"),
+        ],
+        "STK11": [(49, 309, "Kinase domain", "#aec6cf")],
+        "MET":   [(956, 1382, "Kinase domain", "#aec6cf")],
+        "RET":   [(713, 1013, "Kinase domain", "#aec6cf")],
+        "ALK":   [(1122, 1426, "Kinase domain", "#aec6cf")],
+        "ROS1":  [(1882, 2222, "Kinase domain", "#aec6cf")],
+        "PTEN":  [(14, 185, "Phosphatase", "#aec6cf")],
+        "NF1":   [(1198, 1530, "RasGAP domain", "#aec6cf")],
+    }
+
+    def _parse_pos(hgvsp: str):
+        m = _re.match(r"p\.([A-Z])(\d+)([A-Z*])", str(hgvsp))
+        return (int(m.group(2)), m.group(1), m.group(3)) if m else (None, None, None)
+
+    def _lollipop(gene: str, gene_df: pd.DataFrame) -> plt.Figure:
+        prot_len = _PROTEIN_LEN.get(gene, None)
+        domains  = _DOMAINS.get(gene, [])
+
+        positions, scores, classes, labels = [], [], [], []
+        for _, row in gene_df.iterrows():
+            pos, wt, mut = _parse_pos(row["hgvsp"])
+            if pos is None:
+                continue
+            positions.append(pos)
+            scores.append(float(row["am_pathogenicity"]) if pd.notna(row["am_pathogenicity"]) else 0)
+            classes.append(str(row["am_class"]))
+            labels.append(f"{wt}{pos}{mut}")
+
+        if not positions:
+            return None
+
+        xmax = max(prot_len or max(positions), max(positions)) + 10
+
+        fig, ax = plt.subplots(figsize=(max(8, xmax / 100), 4))
+
+        # Domain backgrounds
+        for (ds, de, dlabel, dcolor) in domains:
+            ax.axvspan(ds, de, alpha=0.25, color=dcolor, zorder=0)
+            ax.text((ds + de) / 2, 1.02, dlabel, ha="center", va="bottom",
+                    fontsize=7, color="#555", transform=ax.get_xaxis_transform())
+
+        # Threshold lines
+        ax.axhline(0.564, color="#d73027", lw=0.8, linestyle="--", alpha=0.6, label="Pathogenic (0.564)")
+        ax.axhline(0.340, color="#4575b4", lw=0.8, linestyle="--", alpha=0.6, label="Benign (0.340)")
+
+        # Lollipops
+        color_map = {"pathogenic": "#d73027", "ambiguous": "#f4a261", "benign": "#4575b4"}
+        for pos, score, cls, lbl in zip(positions, scores, classes, labels):
+            c = color_map.get(cls, "#999")
+            ax.vlines(pos, 0, score, colors=c, linewidth=1.8, zorder=2)
+            ax.scatter(pos, score, color=c, s=60, zorder=3, edgecolors="white", linewidths=0.5)
+            if score >= 0.564:
+                ax.annotate(lbl, (pos, score), xytext=(0, 6),
+                            textcoords="offset points", ha="center",
+                            fontsize=7.5, color=c, fontweight="bold")
+
+        ax.set_xlim(0, xmax)
+        ax.set_ylim(-0.05, 1.2)
+        ax.set_xlabel("Amino acid position", fontsize=9)
+        ax.set_ylabel("AlphaMissense score", fontsize=9)
+        ax.set_title(f"{gene}  —  mutation pathogenicity map", fontsize=10)
+        ax.spines[["top", "right"]].set_visible(False)
+        patches = [mpatches.Patch(color=v, label=k.capitalize()) for k, v in color_map.items()]
+        ax.legend(handles=patches, fontsize=8, loc="upper right")
+        plt.tight_layout()
+        return fig
 
     # ── 选项1：队列总览柱状图 ─────────────────────────────────────────────────
     @st.cache_data(show_spinner="Loading cohort summary…", ttl=3600)
@@ -1296,6 +1400,27 @@ elif page == "07 · Variant Impact":
                 )
         else:
             st.info("No driver gene mutations scored for this patient.")
+
+        st.divider()
+
+        # ── Lollipop plots ────────────────────────────────────────────────────
+        genes_with_data = am_df["gene"].unique().tolist()
+        # Show driver genes first, then others
+        driver_genes = [g for g in genes_with_data if am_df[am_df["gene"]==g]["is_luad_driver"].any()]
+        other_genes  = [g for g in genes_with_data if g not in driver_genes]
+        ordered_genes = driver_genes + other_genes
+
+        if ordered_genes:
+            st.subheader("Mutation Position Map")
+            st.caption("Each dot = one mutation. Height = AlphaMissense pathogenicity score. Red = pathogenic.")
+            gene_sel = st.selectbox("Select gene", ordered_genes, key="lollipop_gene")
+            gene_df  = am_df[am_df["gene"] == gene_sel]
+            fig_lol  = _lollipop(gene_sel, gene_df)
+            if fig_lol:
+                st.pyplot(fig_lol)
+                plt.close()
+            else:
+                st.info("No parseable HGVSp variants for this gene.")
 
         st.divider()
 
