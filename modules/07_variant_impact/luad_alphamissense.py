@@ -40,6 +40,34 @@ AM_FILE     = PROJECT_DIR / "data/input/alphamissense/AlphaMissense_aa_substitut
 CACHE_DIR   = SCRIPT_DIR / "data/input"
 UNIPROT_CACHE = CACHE_DIR / "uniprot_id_cache.json"
 
+# ── COSMIC Cancer Gene Census (Tier 1 + Tier 2, commonly mutated in cancer) ───
+# Source: COSMIC v98 cancer gene census — used to limit UniProt lookup scope
+COSMIC_CANCER_GENES = {
+    # Tier 1 — well-established cancer drivers
+    "ABL1","AKT1","AKT2","ALK","APC","AR","ARID1A","ARID1B","ARID2","ASXL1",
+    "ATM","ATRX","AXIN1","BAP1","BCL2","BCL6","BCOR","BRAF","BRCA1","BRCA2",
+    "CARD11","CARM1","CASP8","CBFB","CBL","CCND1","CCND2","CCND3","CCNE1",
+    "CDH1","CDK12","CDK4","CDK6","CDKN1A","CDKN1B","CDKN2A","CDKN2B","CDKN2C",
+    "CEBPA","CHD4","CIC","CREBBP","CRKL","CSF1R","CTCF","CTNNB1","CUL3",
+    "DAXX","DDX3X","DICER1","DNMT1","DNMT3A","DNMT3B","EED","EGFR","EP300",
+    "ERBB2","ERBB3","ERBB4","ERG","EZH2","FBXW7","FH","FGFR1","FGFR2","FGFR3",
+    "FGFR4","FLT3","FOXL2","GATA1","GATA2","GATA3","GNA11","GNAQ","GNAS",
+    "H3F3A","H3F3B","HNF1A","HRAS","IDH1","IDH2","IGF1R","IL7R","JAK1","JAK2",
+    "JAK3","KDM5A","KDM5C","KDM6A","KIT","KMT2A","KMT2B","KMT2C","KMT2D",
+    "KRAS","MAP2K1","MAP2K2","MAP2K4","MAP3K1","MAX","MDM2","MDM4","MED12",
+    "MEN1","MET","MLH1","MPL","MSH2","MSH6","MTOR","MYC","MYCL","MYCN",
+    "MYD88","NF1","NF2","NFE2L2","NOTCH1","NOTCH2","NPM1","NRAS","NSD1",
+    "PDGFRA","PDGFRB","PIK3CA","PIK3CB","PIK3R1","PMS2","POLE","PTCH1","PTEN",
+    "PTPN11","RAC1","RAD21","RAF1","RB1","RBM10","RET","RNF43","ROS1","RUNX1",
+    "SETD2","SF3B1","SMAD2","SMAD3","SMAD4","SMARCA4","SMARCB1","SMO","SOX2",
+    "SPEN","SPOP","SRC","STAG2","STK11","SUFU","TBX3","TERT","TET2","TGFBR2",
+    "TP53","TP63","TSC1","TSC2","U2AF1","VHL","WT1","XPO1","ZBTB16","ZFHX3",
+    # Additional lung cancer relevant
+    "ALK","ROS1","RET","NTRK1","NTRK2","NTRK3","NRG1","MET","KEAP1","STK11",
+    "ARID1A","RBM10","U2AF1","ERBB2","BRAF","MAP2K1","NRAS","HRAS","PIK3CA",
+    "PTEN","NF1","RB1","CDKN2A","TP53","KRAS","EGFR","MYC","MDM2","CDK4",
+}
+
 # ── LUAD core driver genes (always included regardless of COSMIC) ──────────────
 LUAD_DRIVERS = {
     "EGFR":   "P00533",
@@ -231,7 +259,11 @@ def run_sample(
     if cons_col is None or "HGVSp_Short" not in df.columns:
         return {"sample_id": sample_id, "n_missense": 0, "n_scored": 0, "n_pathogenic": 0}
 
-    missense = df[df[cons_col].str.contains("missense", case=False, na=False)].copy()
+    target = COSMIC_CANCER_GENES | set(LUAD_DRIVERS.keys())
+    missense = df[
+        df[cons_col].str.contains("missense", case=False, na=False) &
+        df["SYMBOL"].isin(target)
+    ].copy()
     if missense.empty:
         return {"sample_id": sample_id, "n_missense": 0, "n_scored": 0, "n_pathogenic": 0}
 
@@ -332,8 +364,10 @@ def main():
     )
     logger.info(f"Processing {len(samples)} samples")
 
-    # Step 1: collect all unique gene symbols across all samples
-    logger.info("Scanning variant files for unique gene symbols ...")
+    # Step 1: collect gene symbols limited to COSMIC cancer genes
+    # (12K+ total genes → filter to ~200 cancer genes to avoid slow UniProt lookups)
+    target_genes = COSMIC_CANCER_GENES | set(LUAD_DRIVERS.keys())
+    logger.info(f"Scanning variant files (limited to {len(target_genes)} COSMIC cancer genes) ...")
     all_genes: set = set(LUAD_DRIVERS.keys())
     for s in samples:
         var_path = VARIANT_DIR / s / f"{s}_variants.tsv.gz"
@@ -343,10 +377,11 @@ def main():
             df = pd.read_csv(var_path, sep="\t", compression="gzip",
                              usecols=["SYMBOL", "CONSEQUENCE"], low_memory=False)
             missense = df[df["CONSEQUENCE"].str.contains("missense", case=False, na=False)]
-            all_genes.update(missense["SYMBOL"].dropna().unique())
+            genes = missense["SYMBOL"].dropna().unique()
+            all_genes.update(g for g in genes if g in target_genes)
         except Exception:
             pass
-    logger.info(f"  {len(all_genes)} unique genes across all samples")
+    logger.info(f"  {len(all_genes)} cancer genes found across all samples")
 
     # Step 2: resolve UniProt IDs for all genes
     logger.info("Resolving UniProt IDs ...")

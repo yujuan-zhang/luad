@@ -1,0 +1,4 @@
+sample_id	gene	hgvsp	uniprot_id	am_variant	am_pathogenicity	am_class	is_luad_driver	impact	existing_class	civic_level
+TCGA-50-6595	DNMT3A	p.W327G	Q9Y6K1	W327G	0.9973	pathogenic	False	MODERATE	Possibly_Functional	
+TCGA-50-6595	EGFR	p.G719A	P00533	G719A	0.9927	pathogenic	True	MODERATE	Possibly_Functional	
+TCGA-50-6595	EGFR	p.S768I	P00533	S768I	0.9018	pathogenic	True	MODERATE	Possibly_Functional	

@@ -1,0 +1,14 @@
+sample_id	gene	hgvsp	uniprot_id	am_variant	am_pathogenicity	am_class	is_luad_driver	impact	existing_class	civic_level
+TCGA-44-7670	STAG2	p.V465F	Q8N3U4	V465F	0.9917	pathogenic	False	MODERATE	VUS	
+TCGA-44-7670	KMT2C	p.G2555R	Q8NEZ4	G2555R	0.9836	pathogenic	False	MODERATE	Possibly_Functional	
+TCGA-44-7670	STAG2	p.V783F	Q8N3U4	V783F	0.9719	pathogenic	False	MODERATE	Possibly_Functional	
+TCGA-44-7670	NTRK3	p.G233V	Q16288	G233V	0.9712	pathogenic	False	MODERATE	VUS	
+TCGA-44-7670	PIK3CA	p.E600K	P42336	E600K	0.9686	pathogenic	True	MODERATE	VUS	
+TCGA-44-7670	TP53	p.R337L	P04637	R337L	0.9398	pathogenic	True	MODERATE	Possibly_Functional	
+TCGA-44-7670	ARID1A	p.G701C	O14497	G701C	0.9316	pathogenic	True	MODERATE	Possibly_Functional	
+TCGA-44-7670	BCL2	p.K17M	P10415	K17M	0.6558	pathogenic	False	MODERATE	Possibly_Functional	
+TCGA-44-7670	CREBBP	p.G2401W	Q92793	G2401W	0.6309	pathogenic	False	MODERATE	Possibly_Functional	
+TCGA-44-7670	ERBB4	p.R866K	Q15303	R866K	0.3236	benign	False	MODERATE	VUS	
+TCGA-44-7670	BRCA2	p.P2608S	P51587	P2608S	0.2941	benign	False	MODERATE	Possibly_Functional	
+TCGA-44-7670	ROS1	p.F2222L	P08922	F2222L	0.2422	benign	True	MODERATE	VUS	
+TCGA-44-7670	GNAS	p.R544W	P84996	R544W		not_found	False	MODERATE	VUS	

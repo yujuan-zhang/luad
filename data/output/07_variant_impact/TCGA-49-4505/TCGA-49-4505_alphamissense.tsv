@@ -1,0 +1,6 @@
+sample_id	gene	hgvsp	uniprot_id	am_variant	am_pathogenicity	am_class	is_luad_driver	impact	existing_class	civic_level
+TCGA-49-4505	KRAS	p.G12C	P01116	G12C	0.9975	pathogenic	True	MODERATE	Possibly_Functional	
+TCGA-49-4505	TP53	p.C277F	P04637	C277F	0.9904	pathogenic	True	MODERATE	Possibly_Functional	
+TCGA-49-4505	RET	p.T350N	P07949	T350N	0.6573	pathogenic	True	MODERATE	VUS	
+TCGA-49-4505	CDKN2A	p.A73D	P42771	A73D	0.3899	ambiguous	True	MODERATE	VUS	
+TCGA-49-4505	WT1	p.Q410K	P19544	Q410K		not_found	False	MODERATE	VUS	

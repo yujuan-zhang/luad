@@ -1,0 +1,9 @@
+sample_id	gene	hgvsp	uniprot_id	am_variant	am_pathogenicity	am_class	is_luad_driver	impact	existing_class	civic_level
+TCGA-38-4625	MAP2K1	p.K57T	Q02750	K57T	0.9943	pathogenic	True	MODERATE	Possibly_Functional	
+TCGA-38-4625	CDKN2A	p.D84V	P42771	D84V	0.8435	pathogenic	True	MODERATE	Possibly_Functional	
+TCGA-38-4625	NTRK3	p.P526Q	Q16288	P526Q	0.1891	benign	False	MODERATE	VUS	
+TCGA-38-4625	KMT2A	p.A3460P	Q03164	A3460P	0.1131	benign	False	MODERATE	VUS	
+TCGA-38-4625	JAK1	p.A272S	P23458	A272S	0.1038	benign	False	MODERATE	VUS	
+TCGA-38-4625	TSC2	p.T1181M	P49815	T1181M	0.0867	benign	False	MODERATE	VUS	
+TCGA-38-4625	FH	p.A298S	P07954	A298S	0.0811	benign	False	MODERATE	VUS	
+TCGA-38-4625	CHD4	p.D589Y	Q14839	D589Y		not_found	False	MODERATE	Possibly_Functional	

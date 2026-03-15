@@ -1,0 +1,11 @@
+sample_id	gene	hgvsp	uniprot_id	am_variant	am_pathogenicity	am_class	is_luad_driver	impact	existing_class	civic_level
+TCGA-50-5946	NSD1	p.I2007T	Q96L73	I2007T	0.9992	pathogenic	False	MODERATE	Possibly_Functional	
+TCGA-50-5946	CBL	p.G413R	P22681	G413R	0.9991	pathogenic	False	MODERATE	Possibly_Functional	
+TCGA-50-5946	FH	p.G389W	P07954	G389W	0.9984	pathogenic	False	MODERATE	Possibly_Functional	
+TCGA-50-5946	PDGFRA	p.T873N	P16234	T873N	0.8168	pathogenic	False	MODERATE	Possibly_Functional	
+TCGA-50-5946	ATRX	p.D1971Y	P46100	D1971Y	0.3114	benign	False	MODERATE	VUS	
+TCGA-50-5946	KMT2C	p.A251S	Q8NEZ4	A251S	0.3111	benign	False	MODERATE	Possibly_Functional	
+TCGA-50-5946	NOTCH2	p.E990D	Q04721	E990D	0.1919	benign	False	MODERATE	VUS	
+TCGA-50-5946	SPEN	p.S835C	Q96T58	S835C	0.1745	benign	False	MODERATE	VUS	
+TCGA-50-5946	BRCA2	p.E764K	P51587	E764K	0.0795	benign	False	MODERATE	VUS	
+TCGA-50-5946	BRAF	p.G509V	P15056	G509V		not_found	True	MODERATE	Possibly_Functional	

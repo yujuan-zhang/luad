@@ -1,0 +1,5 @@
+sample_id	gene	hgvsp	uniprot_id	am_variant	am_pathogenicity	am_class	is_luad_driver	impact	existing_class	civic_level
+TCGA-17-Z023	CHD4	p.E106G	Q14839	E106G	0.5656	pathogenic	False	MODERATE	VUS	
+TCGA-17-Z023	PDGFRA	p.F50C	P16234	F50C	0.4707	ambiguous	False	MODERATE	VUS	
+TCGA-17-Z023	BRCA2	p.S1961T	P51587	S1961T	0.0787	benign	False	MODERATE	VUS	
+TCGA-17-Z023	ROS1	p.I1849M	P08922	I1849M	0.0769	benign	True	MODERATE	VUS	

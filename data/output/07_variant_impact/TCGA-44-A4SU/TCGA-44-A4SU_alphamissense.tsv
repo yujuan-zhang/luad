@@ -1,0 +1,4 @@
+sample_id	gene	hgvsp	uniprot_id	am_variant	am_pathogenicity	am_class	is_luad_driver	impact	existing_class	civic_level
+TCGA-44-A4SU	EGFR	p.G719C	P00533	G719C	0.9994	pathogenic	True	MODERATE	Possibly_Functional	
+TCGA-44-A4SU	EGFR	p.S768I	P00533	S768I	0.9018	pathogenic	True	MODERATE	Possibly_Functional	
+TCGA-44-A4SU	ATRX	p.S77L	P46100	S77L	0.1479	benign	False	MODERATE	VUS	

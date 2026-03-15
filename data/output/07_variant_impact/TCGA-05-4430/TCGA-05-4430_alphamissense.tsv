@@ -1,0 +1,6 @@
+sample_id	gene	hgvsp	uniprot_id	am_variant	am_pathogenicity	am_class	is_luad_driver	impact	existing_class	civic_level
+TCGA-05-4430	TP53	p.R249M	P04637	R249M	0.9991	pathogenic	True	MODERATE	VUS	
+TCGA-05-4430	FLT3	p.M855I	P36888	M855I	0.9931	pathogenic	False	MODERATE	Possibly_Functional	
+TCGA-05-4430	NTRK2	p.Y783N	Q16620	Y783N	0.953	pathogenic	False	MODERATE	Possibly_Functional	
+TCGA-05-4430	MED12	p.A511S	Q93074	A511S	0.6296	pathogenic	False	MODERATE	Possibly_Functional	
+TCGA-05-4430	NSD1	p.C2273G	Q96L73	C2273G	0.1333	benign	False	MODERATE	VUS	

@@ -1,0 +1,6 @@
+sample_id	gene	hgvsp	uniprot_id	am_variant	am_pathogenicity	am_class	is_luad_driver	impact	existing_class	civic_level
+TCGA-44-3917	TP53	p.R249S	P04637	R249S	0.9995	pathogenic	True	MODERATE	Possibly_Functional	
+TCGA-44-3917	KEAP1	p.G333D	Q14145	G333D	0.9995	pathogenic	True	MODERATE	Possibly_Functional	
+TCGA-44-3917	KRAS	p.G12S	P01116	G12S	0.985	pathogenic	True	MODERATE	VUS	
+TCGA-44-3917	ROS1	p.N267I	P08922	N267I	0.9713	pathogenic	True	MODERATE	Possibly_Functional	
+TCGA-44-3917	NTRK1	p.V282I	P04629	V282I	0.1104	benign	False	MODERATE	VUS	

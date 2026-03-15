@@ -1,0 +1,6 @@
+sample_id	gene	hgvsp	uniprot_id	am_variant	am_pathogenicity	am_class	is_luad_driver	impact	existing_class	civic_level
+TCGA-50-6594	ATRX	p.K251N	P46100	K251N	0.9718	pathogenic	False	MODERATE	Possibly_Functional	
+TCGA-50-6594	TP53	p.V272M	P04637	V272M	0.9572	pathogenic	True	MODERATE	Possibly_Functional	
+TCGA-50-6594	MAX	p.V99I	P61244	V99I	0.3919	ambiguous	False	MODERATE	VUS	
+TCGA-50-6594	ZFHX3	p.H622Y	Q15911	H622Y	0.1089	benign	False	MODERATE	Possibly_Functional	
+TCGA-50-6594	BRAF	p.G506V	P15056	G506V		not_found	True	MODERATE	Possibly_Functional	

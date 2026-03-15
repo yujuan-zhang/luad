@@ -1,0 +1,6 @@
+sample_id	gene	hgvsp	uniprot_id	am_variant	am_pathogenicity	am_class	is_luad_driver	impact	existing_class	civic_level
+TCGA-55-7570	TP53	p.Y163C	P04637	Y163C	0.9824	pathogenic	True	MODERATE	Possibly_Functional	
+TCGA-55-7570	EGFR	p.V300M	P00533	V300M	0.46	ambiguous	True	MODERATE	Possibly_Functional	
+TCGA-55-7570	TET2	p.V242L	Q6N021	V242L	0.1552	benign	False	MODERATE	VUS	
+TCGA-55-7570	BRCA1	p.E418D	P38398	E418D	0.1	benign	False	MODERATE	VUS	
+TCGA-55-7570	KDM5C	p.L257V	P41229	L257V	0.074	benign	False	MODERATE	VUS	

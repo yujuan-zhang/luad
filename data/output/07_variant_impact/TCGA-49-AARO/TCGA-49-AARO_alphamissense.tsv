@@ -1,0 +1,8 @@
+sample_id	gene	hgvsp	uniprot_id	am_variant	am_pathogenicity	am_class	is_luad_driver	impact	existing_class	civic_level
+TCGA-49-AARO	ABL1	p.W430L	P00519	W430L	0.9964	pathogenic	False	MODERATE	Possibly_Functional	
+TCGA-49-AARO	KRAS	p.G12A	P01116	G12A	0.9575	pathogenic	True	MODERATE	VUS	
+TCGA-49-AARO	STAG2	p.V183L	Q8N3U4	V183L	0.945	pathogenic	False	MODERATE	VUS	
+TCGA-49-AARO	CIC	p.L373I	Q96RK0	L373I	0.2839	benign	False	MODERATE	Possibly_Functional	
+TCGA-49-AARO	FLT3	p.Q179H	P36888	Q179H	0.1633	benign	False	MODERATE	VUS	
+TCGA-49-AARO	BCOR	p.V912L	Q6W2J9	V912L	0.1612	benign	False	MODERATE	VUS	
+TCGA-49-AARO	ZFHX3	p.G447C	Q15911	G447C	0.1053	benign	False	MODERATE	VUS	

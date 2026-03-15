@@ -1,0 +1,5 @@
+sample_id	gene	hgvsp	uniprot_id	am_variant	am_pathogenicity	am_class	is_luad_driver	impact	existing_class	civic_level
+TCGA-49-AAR4	TP53	p.G105C	P04637	G105C	0.9886	pathogenic	True	MODERATE	Possibly_Functional	
+TCGA-49-AAR4	CHD4	p.Q562L	Q14839	Q562L	0.8543	pathogenic	False	MODERATE	VUS	
+TCGA-49-AAR4	HRAS	p.L53M	P01112	L53M	0.8236	pathogenic	True	MODERATE	Possibly_Functional	
+TCGA-49-AAR4	SF3B1	p.R124L	O75533	R124L	0.5801	pathogenic	False	MODERATE	VUS	

@@ -1,0 +1,6 @@
+sample_id	gene	hgvsp	uniprot_id	am_variant	am_pathogenicity	am_class	is_luad_driver	impact	existing_class	civic_level
+TCGA-05-4249	KRAS	p.G12C	P01116	G12C	0.9975	pathogenic	True	MODERATE	Possibly_Functional	A
+TCGA-05-4249	PIK3CA	p.E545K	P42336	E545K	0.9878	pathogenic	True	MODERATE	Possibly_Functional	B
+TCGA-05-4249	CSF1R	p.I810T	P07333	I810T	0.6701	pathogenic	False	MODERATE	VUS	
+TCGA-05-4249	KMT2D	p.P4770L	O14686	P4770L	0.1068	benign	False	MODERATE	VUS	
+TCGA-05-4249	BRAF	p.A802E	P15056	A802E		not_found	True	MODERATE	VUS	

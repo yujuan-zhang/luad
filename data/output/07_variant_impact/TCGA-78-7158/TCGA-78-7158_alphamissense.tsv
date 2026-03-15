@@ -1,0 +1,9 @@
+sample_id	gene	hgvsp	uniprot_id	am_variant	am_pathogenicity	am_class	is_luad_driver	impact	existing_class	civic_level
+TCGA-78-7158	CTNNB1	p.S37F	P35222	S37F	0.9951	pathogenic	False	MODERATE		
+TCGA-78-7158	NTRK3	p.E512K	Q16288	E512K	0.9852	pathogenic	False	MODERATE		
+TCGA-78-7158	KEAP1	p.I461V	Q14145	I461V	0.8114	pathogenic	True	MODERATE		
+TCGA-78-7158	RAD21	p.E98Q	O60216	E98Q	0.7411	pathogenic	False	MODERATE		
+TCGA-78-7158	NTRK3	p.P120H	Q16288	P120H	0.6962	pathogenic	False	MODERATE		
+TCGA-78-7158	EGFR	p.L907M	P00533	L907M	0.3365	benign	True	MODERATE		
+TCGA-78-7158	CREBBP	p.Q301H	Q92793	Q301H	0.123	benign	False	MODERATE		
+TCGA-78-7158	PMS2	p.I745V	P54278	I745V	0.1135	benign	False	MODERATE		

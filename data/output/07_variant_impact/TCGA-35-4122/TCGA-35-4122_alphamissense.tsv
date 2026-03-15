@@ -1,0 +1,7 @@
+sample_id	gene	hgvsp	uniprot_id	am_variant	am_pathogenicity	am_class	is_luad_driver	impact	existing_class	civic_level
+TCGA-35-4122	POLE	p.P642A	Q07864	P642A	0.9536	pathogenic	False	MODERATE	Possibly_Functional	
+TCGA-35-4122	CDK12	p.G677D	Q9NYV4	G677D	0.7398	pathogenic	False	MODERATE	Possibly_Functional	
+TCGA-35-4122	MSH6	p.D422G	P52701	D422G	0.5842	pathogenic	False	MODERATE	Possibly_Functional	
+TCGA-35-4122	ATRX	p.P2448H	P46100	P2448H	0.5339	ambiguous	False	MODERATE	Possibly_Functional	
+TCGA-35-4122	CDK12	p.G677C	Q9NYV4	G677C	0.4672	ambiguous	False	MODERATE	Possibly_Functional	
+TCGA-35-4122	KMT2A	p.D920Y	Q03164	D920Y	0.2926	benign	False	MODERATE	VUS	

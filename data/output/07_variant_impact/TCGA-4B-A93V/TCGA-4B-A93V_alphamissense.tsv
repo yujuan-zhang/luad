@@ -1,0 +1,9 @@
+sample_id	gene	hgvsp	uniprot_id	am_variant	am_pathogenicity	am_class	is_luad_driver	impact	existing_class	civic_level
+TCGA-4B-A93V	KRAS	p.G12C	P01116	G12C	0.9975	pathogenic	True	MODERATE	Possibly_Functional	
+TCGA-4B-A93V	NTRK3	p.F147L	Q16288	F147L	0.9952	pathogenic	False	MODERATE	VUS	
+TCGA-4B-A93V	KEAP1	p.L199F	Q14145	L199F	0.9656	pathogenic	True	MODERATE	Possibly_Functional	
+TCGA-4B-A93V	STK11	p.Q170P	Q15831	Q170P	0.9626	pathogenic	True	MODERATE	Possibly_Functional	
+TCGA-4B-A93V	TP53	p.H214R	P04637	H214R	0.9451	pathogenic	True	MODERATE	Possibly_Functional	
+TCGA-4B-A93V	KMT2A	p.S775F	Q03164	S775F	0.1686	benign	False	MODERATE	VUS	
+TCGA-4B-A93V	KMT2A	p.S675L	Q03164	S675L	0.1547	benign	False	MODERATE	VUS	
+TCGA-4B-A93V	BRCA1	p.G1371V	P38398	G1371V	0.1094	benign	False	MODERATE	VUS	
