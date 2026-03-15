@@ -1259,13 +1259,14 @@ elif page == "05 · Pathology":
     # TME × Molecular cross-reference
     with st.expander("TME Phenotype — Clinical Significance"):
         st.markdown("""
-        | TME Phenotype | TIL Density | IO Response | Recommended Strategy |
+        | TME Phenotype | Cohort Rank | IO Response | Recommended Strategy |
         |---------------|-------------|-------------|----------------------|
-        | **Inflamed** | > 15% | Likely responder | Pembrolizumab / Atezolizumab |
-        | **Excluded** | 5–15% | Partial resistance | IO + anti-VEGF combination |
-        | **Desert** | < 5% | Unlikely responder | Targeted therapy / Chemotherapy |
+        | **Inflamed** | Top 30% TIL density | Likely responder | Pembrolizumab / Atezolizumab |
+        | **Excluded** | Middle 50% TIL density | Partial resistance | IO + anti-VEGF combination |
+        | **Desert** | Bottom 20% TIL density | Unlikely responder | Targeted therapy / Chemotherapy |
 
-        Cross-reference with M04 (single-cell TME) and M07 (drug mapping) for integrated
+        Classification uses cohort-wide percentile thresholds (70th / 20th percentile of TIL density),
+        not fixed absolute values. Cross-reference with M04 (single-cell TME) for integrated
         treatment decision support.
         """)
 
