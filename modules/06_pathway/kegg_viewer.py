@@ -124,23 +124,31 @@ def render_pathway(pathway_id: str,
     high_set = {g.upper() for g in high_expr}
     low_set  = {g.upper() for g in low_expr}
 
+    # Group genes by box coordinates: multiple genes can share one box
+    # (e.g. KRAS/NRAS/HRAS share the "Ras" node).
+    # Accumulate all color layers per unique box, then draw once per box.
+    from collections import defaultdict
+    box_layers: dict = defaultdict(set)   # (cx,cy,w,h) → set of color keys
+
     for symbol, coords in nodes.items():
-        cx, cy, w, h = coords
-        layers = []
+        key = tuple(coords)
         if symbol in mut_set:
-            layers.append(NODE_COLORS["mut"])
+            box_layers[key].add("mut")
         if symbol in high_set:
-            layers.append(NODE_COLORS["high"])
+            box_layers[key].add("high")
         if symbol in low_set:
-            layers.append(NODE_COLORS["low"])
+            box_layers[key].add("low")
+
+    # Draw each box once, with ordered strips: mut first, then high, then low
+    COLOR_ORDER = ["mut", "high", "low"]
+    for (cx, cy, w, h), layer_keys in box_layers.items():
+        layers = [NODE_COLORS[k] for k in COLOR_ORDER if k in layer_keys]
         if not layers:
             continue
-
-        x0, y0 = cx - w // 2, cy - h // 2
-        x1, y1 = cx + w // 2, cy + h // 2
-        n      = len(layers)
+        x0, y0  = cx - w // 2, cy - h // 2
+        x1, y1  = cx + w // 2, cy + h // 2
+        n       = len(layers)
         strip_w = (x1 - x0) / n
-
         for i, color in enumerate(layers):
             sx0 = int(x0 + i * strip_w)
             sx1 = int(x0 + (i + 1) * strip_w)
@@ -277,9 +285,9 @@ def build_gene_table(sample_id: str,
     rows = []
     for g in sorted(pathway_genes):
         gu = g.upper()
-        mutated  = gu in mut_set
-        high     = gu in high_set
-        low_e    = gu in low_set
+        mutated = gu in mut_set
+        high    = gu in high_set
+        low_e   = gu in low_set
         if not (mutated or high or low_e):
             continue
         z = zscore_map.get(gu, None)
@@ -289,6 +297,13 @@ def build_gene_table(sample_id: str,
             "Expr Z":    f"{z:+.2f}" if z is not None else "—",
             "Direction": ("↑ Over"  if high else
                           "↓ Under" if low_e else "—"),
+            "_sort_mut": 0 if mutated else 1,
+            "_sort_z":   -abs(z) if z is not None else 0,
         })
 
-    return pd.DataFrame(rows)
+    df = pd.DataFrame(rows)
+    if not df.empty:
+        df = df.sort_values(["_sort_mut", "_sort_z"]).drop(
+            columns=["_sort_mut", "_sort_z"]
+        ).reset_index(drop=True)
+    return df
