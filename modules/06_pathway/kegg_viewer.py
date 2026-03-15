@@ -73,14 +73,13 @@ NODE_COLORS = {
 }
 
 
-def _load_node_positions(pathway_id: str) -> dict:
+def _load_node_positions(pathway_id: str, cache_dir: Path | None = None) -> dict:
     """
     Load pre-computed {SYMBOL: [cx, cy, w, h]} from cache.
     Falls back to empty dict if not found.
-    The cache is built by parsing KGML entry.name (all hsa IDs per box)
-    and converting each hsa ID to its gene symbol via KEGG list API.
     """
-    cache_path = PATHWAY_CACHE / f"{pathway_id}_nodes.json"
+    pdir       = Path(cache_dir) if cache_dir else PATHWAY_CACHE
+    cache_path = pdir / f"{pathway_id}_nodes.json"
     if not cache_path.exists():
         return {}
     return json.loads(cache_path.read_text())
@@ -89,7 +88,8 @@ def _load_node_positions(pathway_id: str) -> dict:
 def render_pathway(pathway_id: str,
                    mutations: list,
                    high_expr: list,
-                   low_expr: list) -> bytes:
+                   low_expr: list,
+                   cache_dir: Path | None = None) -> bytes:
     """
     Overlay mutation/expression data on the locally cached KEGG pathway PNG.
 
@@ -107,11 +107,12 @@ def render_pathway(pathway_id: str,
 
     Returns annotated PNG bytes for st.image(). Empty bytes if cache missing.
     """
-    png_path = PATHWAY_CACHE / f"{pathway_id}.png"
+    pdir     = Path(cache_dir) if cache_dir else PATHWAY_CACHE
+    png_path = pdir / f"{pathway_id}.png"
     if not png_path.exists():
         return b""
 
-    nodes    = _load_node_positions(pathway_id)
+    nodes    = _load_node_positions(pathway_id, cache_dir=pdir)
     if not nodes:
         return b""
 

@@ -1000,6 +1000,7 @@ elif page == "06 · Pathway":
         load_mutations, load_expression_colors, build_kegg_url,
         build_gene_table, render_pathway,
     )
+    _KEGG_CACHE = Path(__file__).parent / "modules" / "06_pathway" / "kegg_cache" / "pathways"
 
     @st.cache_data(show_spinner="Loading KEGG gene sets…", ttl=86400)
     def _load_pathway_genes():
@@ -1069,10 +1070,13 @@ elif page == "06 · Pathway":
                       + (f", {n_low} ↓"  if n_low  else ""))
 
             with st.expander(label, expanded=bool(hit_genes)):
-                png_bytes = render_pathway(pid, mutations, high, low)
+                png_bytes = render_pathway(pid, mutations, high, low,
+                                           cache_dir=_KEGG_CACHE)
                 if png_bytes:
                     st.image(png_bytes, use_container_width=True)
+                    st.link_button(f"Open in KEGG ↗", url=kegg_url)
                 else:
+                    st.warning(f"Cache not found: {_KEGG_CACHE / pid}.png")
                     st.link_button(
                         f"Open {name} in KEGG ↗", url=kegg_url,
                         help="Local image not available — opens KEGG website",
