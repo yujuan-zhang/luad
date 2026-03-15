@@ -67,10 +67,13 @@ HE_MATRIX = np.array([
     [0.286, 0.105],   # B channel
 ])
 
-TME_THRESHOLDS = {
-    "inflamed":  0.15,   # TIL density > 15% → Inflamed
-    "excluded":  0.05,   # 5–15% → Excluded
-    # below 5% → Desert
+# Quantile-based TME classification (cohort-relative, not absolute)
+# Top 30% TIL density → Inflamed, bottom 20% → Desert, rest → Excluded
+# Rationale: thumbnail-based TIL proxy values are systematically lower than
+# visual TIL scores; absolute thresholds produce near-zero Inflamed fraction.
+TME_QUANTILES = {
+    "inflamed_pct": 70,   # ≥ 70th percentile → Inflamed (top 30%)
+    "desert_pct":   20,   # < 20th percentile → Desert   (bottom 20%)
 }
 
 
@@ -209,7 +212,7 @@ def score_til_density(rgb: np.ndarray,
       3. TIL density = lymphocyte pixels / tissue pixels
     """
     if tissue_mask.sum() == 0:
-        return {"til_density": 0.0, "til_score": 0.0, "tme_phenotype": "Desert"}
+        return {"til_density": 0.0, "til_score": 0.0, "tme_phenotype": "Unknown"}
 
     _, eosin = deconvolve_he(rgb)
 
@@ -224,20 +227,41 @@ def score_til_density(rgb: np.ndarray,
     # Normalize TIL score 0–1 (empirical range 0–0.40)
     til_score = float(np.clip(til_density / 0.40, 0.0, 1.0))
 
-    # TME phenotype classification
-    if til_density >= TME_THRESHOLDS["inflamed"]:
-        tme_phenotype = "Inflamed"
-    elif til_density >= TME_THRESHOLDS["excluded"]:
-        tme_phenotype = "Excluded"
-    else:
-        tme_phenotype = "Desert"
-
+    # TME phenotype will be assigned in the second pass via classify_tme_quantile()
     return {
         "til_density":   til_density,
         "til_score":     til_score,
-        "tme_phenotype": tme_phenotype,
+        "tme_phenotype": "Unknown",
         "lymph_mask":    lymph_mask,
     }
+
+
+# ── Quantile-based TME classification ────────────────────────────────────────
+
+def classify_tme_quantile(all_scores: list) -> list:
+    """
+    Assign TME phenotype using cohort-wide percentile thresholds.
+
+    Top 30% TIL density  → Inflamed
+    Bottom 20% TIL density → Desert
+    Middle 50%           → Excluded
+
+    This approach is self-calibrating: it doesn't depend on absolute
+    TIL density values, which vary with image resolution and staining.
+    """
+    densities = [s["til_density"] for s in all_scores]
+    p_inflamed = np.percentile(densities, TME_QUANTILES["inflamed_pct"])   # 70th pct
+    p_desert   = np.percentile(densities, TME_QUANTILES["desert_pct"])     # 20th pct
+
+    for s in all_scores:
+        d = s["til_density"]
+        if d >= p_inflamed:
+            s["tme_phenotype"] = "Inflamed"
+        elif d < p_desert:
+            s["tme_phenotype"] = "Desert"
+        else:
+            s["tme_phenotype"] = "Excluded"
+    return all_scores
 
 
 # ── Texture features ──────────────────────────────────────────────────────────
@@ -486,7 +510,7 @@ def main():
 
     logger = get_logger("luad-pathology")
     logger.info(f"\n{'='*55}")
-    logger.info("Module 08: Computational Pathology")
+    logger.info("Module 05: Computational Pathology")
 
     # Determine input directory
     img_dir = SVS_DIR if args.full_wsi else THUMB_DIR
@@ -513,34 +537,64 @@ def main():
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
 
-    all_scores = []
+    # ── Pass 1: analyse all slides, collect raw scores ────────────────────────
+    slide_data = []   # list of (img_path, case_id, scores_dict, report_path)
     success = failed = 0
 
     for img_path in images:
-        case_id  = img_path.stem
-        case_out = OUT_DIR / case_id
+        case_id     = img_path.stem
+        case_out    = OUT_DIR / case_id
         case_out.mkdir(parents=True, exist_ok=True)
-        scores_path = case_out / f"{case_id}_pathology_scores.tsv"
         report_path = case_out / f"{case_id}_pathology_report.png"
 
         logger.info(f"\n[{case_id}]")
         try:
             scores = analyze_slide(img_path, case_id, logger)
-
-            # Save scores TSV
-            row = {k: v for k, v in scores.items() if not k.startswith("_")}
-            pd.DataFrame([row]).to_csv(scores_path, sep="\t", index=False)
-
-            # Save report figure
-            make_pathology_report(scores, report_path)
-            logger.info(f"  Report → {report_path}")
-
-            all_scores.append(row)
+            slide_data.append((img_path, case_id, scores, report_path))
             success += 1
-
         except Exception as e:
             logger.error(f"  Failed: {e}")
             failed += 1
+
+    # ── Pass 2: assign TME phenotype using cohort-wide quantiles ─────────────
+    if not args.sample and len(slide_data) >= 5:
+        # Full-cohort run: use quantile-based classification
+        rows = [{k: v for k, v in s.items() if not k.startswith("_")}
+                for _, _, s, _ in slide_data]
+        rows = classify_tme_quantile(rows)
+        # Write back TME phenotype into the scores dicts
+        for i, (_, _, scores, _) in enumerate(slide_data):
+            scores["tme_phenotype"] = rows[i]["tme_phenotype"]
+        logger.info("\nQuantile TME thresholds applied (70th / 20th percentile)")
+    else:
+        # Single-sample run: can't compute cohort percentiles, use fixed fallback
+        rows = [{k: v for k, v in s.items() if not k.startswith("_")}
+                for _, _, s, _ in slide_data]
+        logger.warning("Single-sample run: using fixed thresholds (0.07 / 0.03) for TME")
+        for row, (_, _, scores, _) in zip(rows, slide_data):
+            d = row["til_density"]
+            if d >= 0.07:
+                tme = "Inflamed"
+            elif d >= 0.03:
+                tme = "Excluded"
+            else:
+                tme = "Desert"
+            row["tme_phenotype"] = tme
+            scores["tme_phenotype"] = tme
+
+    # ── Write per-patient TSVs and figures ────────────────────────────────────
+    all_scores = []
+    for (img_path, case_id, scores, report_path), row in zip(slide_data, rows):
+        case_out    = OUT_DIR / case_id
+        scores_path = case_out / f"{case_id}_pathology_scores.tsv"
+
+        pd.DataFrame([row]).to_csv(scores_path, sep="\t", index=False)
+
+        # Regenerate figure with final TME label
+        make_pathology_report(scores, report_path)
+        logger.info(f"  [{case_id}] TME={row['tme_phenotype']}  "
+                    f"TIL={row['til_density']:.3f}  → {report_path.name}")
+        all_scores.append(row)
 
     # Save cohort-level summary
     if all_scores:
@@ -554,7 +608,7 @@ def main():
         for k, v in tme_counts.items():
             logger.info(f"  {k}: {v} ({v/len(all_scores):.1%})")
 
-    logger.info(f"\n[Module 08 Complete] Success: {success}  Failed: {failed}")
+    logger.info(f"\n[Module 05 Complete] Success: {success}  Failed: {failed}")
     logger.info(f"Output → {OUT_DIR}")
 
 
