@@ -1761,7 +1761,7 @@ elif page == "09 · Multimodal Integration":
 
 elif page == "08 · IO ML":
     st.header("08 · Immunotherapy ML")
-    st.caption("CoxNet survival model · TIS · IMPRES · CYT · M04 TME · STK11/KEAP1 resistance · C-index 0.634")
+    st.caption("270 immune genes · TIL density (M05) · STK11/KEAP1 mutations · C-index 0.724")
 
     scores_path = OUTPUT / "08_io_ml" / "io_scores.tsv"
 
@@ -1861,8 +1861,8 @@ elif page == "08 · IO ML":
 | **CYT** | Cytolytic activity — √(GZMA × PRF1) | Rooney et al., Cell 2015 |
 | **M04 ssGSEA** | CD8 T, Treg, NK, M1/M2 macrophage fractions | Kim et al., Nat Commun 2020 |
 | **STK11 / KEAP1** | LUAD-specific IO resistance mutations | Skoulidis et al., NEJM 2018 |
-| **Model** | CoxNet — Elastic Net Cox PH, α=0.017, l₁=0.1 | scikit-survival |
-| **Validation** | Bootstrap C-index 0.634 (95% CI 0.597–0.673), KM log-rank p<0.001 | TCGA-LUAD n=443 |
+| **Model** | CoxNet — Elastic Net Cox PH, α=0.207, l₁=0.1, 56 genes selected | scikit-survival |
+| **Validation** | Bootstrap C-index 0.724 (95% CI 0.683–0.768), KM log-rank p<0.001 | TCGA-LUAD n=443 |
             """)
     else:
         st.info("IO ML scores not yet generated. Run:\n```\npython modules/08_io_ml/luad_io_ml.py\n```")
