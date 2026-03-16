@@ -1760,80 +1760,112 @@ elif page == "09 · Multimodal Integration":
 # ══════════════════════════════════════════════════════════════════════════════
 
 elif page == "08 · IO ML":
-    st.header("08 · IO ML — Immunotherapy Response Prediction")
-    st.caption("TIS · CYT · TIDE · IMPRES · Composite IO Score · IO Resistance")
+    st.header("08 · Immunotherapy ML")
+    st.caption("CoxNet survival model · TIS · IMPRES · CYT · M04 TME · STK11/KEAP1 resistance · C-index 0.634")
 
-    cohort_path = OUTPUT / "08_io_ml" / "io_cohort_scores.tsv"
+    scores_path = OUTPUT / "08_io_ml" / "io_scores.tsv"
 
-    if cohort_path.exists():
-        df_io = pd.read_csv(cohort_path, sep="\t")
+    if scores_path.exists():
+        df_io = pd.read_csv(scores_path, sep="\t", index_col=0)
+        df_io.index.name = "sample_id"
         n = len(df_io)
-        cls_counts = df_io["io_class"].value_counts() if "io_class" in df_io.columns else {}
+        grp_counts = df_io["io_group"].value_counts() if "io_group" in df_io.columns else {}
 
-        c1, c2, c3 = st.columns(3)
-        c1.metric("🟢 Likely Responder",     str(cls_counts.get("Likely_Responder", 0)),
-                  f"{100*cls_counts.get('Likely_Responder',0)/n:.0f}%")
-        c2.metric("🟡 Uncertain",            str(cls_counts.get("Uncertain", 0)),
-                  f"{100*cls_counts.get('Uncertain',0)/n:.0f}%")
-        c3.metric("🔴 Likely Non-Responder", str(cls_counts.get("Likely_Non_Responder", 0)),
-                  f"{100*cls_counts.get('Likely_Non_Responder',0)/n:.0f}%")
+        # ── Cohort summary metrics ────────────────────────────────────────────
+        c1, c2, c3, c4 = st.columns(4)
+        c1.metric("Patients scored", n)
+        c2.metric("IO-High",         int(grp_counts.get("IO-High", 0)),
+                  f"{100*grp_counts.get('IO-High',0)/n:.0f}%")
+        c3.metric("IO-Intermediate", int(grp_counts.get("IO-Intermediate", 0)),
+                  f"{100*grp_counts.get('IO-Intermediate',0)/n:.0f}%")
+        c4.metric("IO-Low",          int(grp_counts.get("IO-Low", 0)),
+                  f"{100*grp_counts.get('IO-Low',0)/n:.0f}%")
 
+        # ── KM survival validation ────────────────────────────────────────────
         st.divider()
-        show_image(OUTPUT / "08_io_ml" / "io_cohort_heatmap.png",
-                   caption="Cohort IO ML — score distribution · component heatmap · class distribution")
+        st.subheader("Survival Validation (TCGA-LUAD)")
+        col_km, col_stk = st.columns(2)
+        with col_km:
+            show_image(OUTPUT / "08_io_ml" / "figures" / "km_io_score.png",
+                       caption="KM curves by IO Score tertile — log-rank p < 0.001")
+        with col_stk:
+            show_image(OUTPUT / "08_io_ml" / "figures" / "km_stk11_subgroup.png",
+                       caption="STK11 mutation × IO Score subgroup — LUAD-specific resistance")
 
+        # ── Per-patient IO profile ────────────────────────────────────────────
         st.divider()
         st.subheader("Per-Patient IO Profile")
-        _m08io_samples = patients_for_page("08 · IO ML")
-        if _m08io_samples:
-            sel = st.selectbox("Select patient", _m08io_samples, key="m08io_sample")
-            pat_path = OUTPUT / "08_io_ml" / sel / f"{sel}_io_scores.tsv"
-            if pat_path.exists():
-                df_pat = pd.read_csv(pat_path, sep="\t")
-                io_class = df_pat["io_class"].iloc[0] if "io_class" in df_pat.columns else "Unknown"
-                io_score = df_pat["io_score"].iloc[0] if "io_score" in df_pat.columns else 0
-                cls_info = {
-                    "Likely_Responder":     ("🟢", "High IO response potential"),
-                    "Uncertain":            ("🟡", "Uncertain — consider multi-modal evidence"),
-                    "Likely_Non_Responder": ("🔴", "Low IO response potential"),
-                }
-                icon, desc = cls_info.get(io_class, ("⚪", ""))
-                st.info(f"**{icon} {io_class.replace('_',' ')}** (Score: {io_score}) — {desc}")
+        _m08_samples = sorted(df_io.index.tolist())
+        if _m08_samples:
+            sel = st.selectbox("Select patient", _m08_samples, key="m08_sample")
+            row = df_io.loc[sel]
 
-                score_cols = ["tis", "cyt", "tide_net", "impres"]
-                available  = [c for c in score_cols if c in df_pat.columns and pd.notna(df_pat[c].iloc[0])]
-                if available:
-                    import matplotlib.pyplot as plt
-                    labels = {"tis": "TIS", "cyt": "CYT", "tide_net": "TIDE (net)", "impres": "IMPRES"}
-                    vals   = [float(df_pat[c].iloc[0]) for c in available]
-                    fig, ax = plt.subplots(figsize=(8, 3))
-                    ax.bar([labels.get(c, c) for c in available], vals, color="#4e79a7", edgecolor="white")
-                    ax.set_title(f"IO Algorithm Scores — {sel}", fontsize=11)
-                    ax.set_ylabel("Score")
-                    fig.tight_layout()
-                    st.pyplot(fig)
-                    plt.close(fig)
+            io_score = float(row.get("io_score", 0))
+            io_group = str(row.get("io_group", "Unknown"))
 
-                if df_pat.get("io_resistant", pd.Series([False])).iloc[0]:
-                    res_genes = df_pat["resistance_genes"].iloc[0] if "resistance_genes" in df_pat.columns else ""
-                    st.warning(f"⚠️ IO Resistance flag: {res_genes} mutation detected")
-            else:
-                st.info("Per-patient IO scores not yet generated. Run: `python modules/08_io_ml/luad_io_ml.py`")
+            group_info = {
+                "IO-High":         ("#27ae60", "High immune activity — strong IO candidate"),
+                "IO-Intermediate": ("#f39c12", "Intermediate — consider clinical context"),
+                "IO-Low":          ("#e74c3c", "Low immune activity — IO may be less effective"),
+            }
+            color, desc = group_info.get(io_group, ("#888", ""))
+            st.markdown(
+                f"<div style='background:{color}20;border-left:4px solid {color};"
+                f"padding:10px 16px;border-radius:4px;margin-bottom:8px'>"
+                f"<b style='color:{color};font-size:1.1em'>{io_group}</b> &nbsp;·&nbsp; "
+                f"IO Score: <b>{io_score:.1f}</b> / 100 &nbsp;·&nbsp; {desc}</div>",
+                unsafe_allow_html=True,
+            )
 
+            # Feature bar chart
+            feat_cols = {
+                "tis_score":    "TIS",
+                "impres_score": "IMPRES",
+                "cyt_score":    "CYT (log)",
+                "tmb":          "TMB (mut/Mb)",
+            }
+            available = {label: row[col] for col, label in feat_cols.items()
+                         if col in row.index and pd.notna(row[col])}
+            if available:
+                import matplotlib.pyplot as plt
+                import numpy as np
+                labels = list(available.keys())
+                vals   = list(available.values())
+                # Normalize each to 0-1 for radar-style bar
+                fig, ax = plt.subplots(figsize=(7, 2.8))
+                bar_colors = ["#3498db"] * len(labels)
+                ax.barh(labels, vals, color=bar_colors, height=0.5)
+                ax.set_xlabel("Score")
+                ax.set_title(f"IO Feature Profile — {sel}", fontsize=11)
+                ax.invert_yaxis()
+                fig.tight_layout()
+                st.pyplot(fig)
+                plt.close(fig)
+
+            # Resistance flags
+            res_cols = {"mut_STK11": "STK11", "mut_KEAP1": "KEAP1",
+                        "mut_EGFR": "EGFR", "mut_KRAS": "KRAS"}
+            mutated = [name for col, name in res_cols.items()
+                       if col in row.index and row[col] == 1]
+            if mutated:
+                st.warning(f"Resistance/driver mutations: **{', '.join(mutated)}**")
+
+        # ── Algorithm reference ───────────────────────────────────────────────
         st.divider()
-        with st.expander("Algorithm Reference"):
+        with st.expander("Model & Algorithm Reference"):
             st.markdown("""
-| Algorithm | Genes/Logic | Reference |
-|-----------|-------------|-----------|
-| **TIS** | 18-gene Tumor Inflammation Signature — mean log₂(TPM+1) | Ayers et al., JCI 2017 |
-| **CYT** | Cytolytic activity — mean(log₂GZMA, log₂PRF1) | Rooney et al., Cell 2015 |
-| **TIDE** | Net T-cell Dysfunction − Exclusion score | Jiang et al., Nat Med 2018 |
-| **IMPRES** | 15 checkpoint gene-pair comparisons, score 0–15 | Auslander et al., Nat Med 2019 |
-| **Resistance** | STK11 / KEAP1 / NFE2L2 somatic mutation | Skoulidis et al., Cancer Cell 2018 |
-| **Composite** | TIS×40% + IMPRES×25% + TIDE×25% + CYT×10% → 0–100 | This study |
+| Feature | Source | Reference |
+|---------|--------|-----------|
+| **TIS** | 18-gene Tumor Inflammation Signature, mean log₂(TPM+1) | Ayers et al., JCI 2017 |
+| **IMPRES** | 15 checkpoint gene-pair comparisons, fraction positive | Auslander et al., Nat Med 2018 |
+| **CYT** | Cytolytic activity — √(GZMA × PRF1) | Rooney et al., Cell 2015 |
+| **M04 ssGSEA** | CD8 T, Treg, NK, M1/M2 macrophage fractions | Kim et al., Nat Commun 2020 |
+| **STK11 / KEAP1** | LUAD-specific IO resistance mutations | Skoulidis et al., NEJM 2018 |
+| **Model** | CoxNet — Elastic Net Cox PH, α=0.017, l₁=0.1 | scikit-survival |
+| **Validation** | Bootstrap C-index 0.634 (95% CI 0.597–0.673), KM log-rank p<0.001 | TCGA-LUAD n=443 |
             """)
     else:
-        st.info("IO ML scores not yet generated. Run: `python modules/08_io_ml/luad_io_ml.py`")
+        st.info("IO ML scores not yet generated. Run:\n```\npython modules/08_io_ml/luad_io_ml.py\n```")
 
 
 # ══════════════════════════════════════════════════════════════════════════════
