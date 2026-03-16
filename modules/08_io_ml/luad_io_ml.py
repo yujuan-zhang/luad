@@ -41,29 +41,20 @@ Usage:
 
 import argparse
 import logging
+import pickle
 import warnings
 from pathlib import Path
 
-import matplotlib
-matplotlib.use("Agg")
-import matplotlib.pyplot as plt
-import matplotlib.ticker as mticker
 import numpy as np
 import pandas as pd
-import shap
-from lifelines import KaplanMeierFitter
-from lifelines.statistics import logrank_test
-from sklearn.linear_model import LogisticRegressionCV
-from sklearn.model_selection import KFold, cross_val_score
-from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import StandardScaler
-from sksurv.ensemble import RandomSurvivalForest
-from sksurv.linear_model import CoxnetSurvivalAnalysis
-from sksurv.metrics import concordance_index_censored
-from sksurv.preprocessing import OneHotEncoder
-import pickle
 
 warnings.filterwarnings("ignore")
+
+# Heavy / optional imports are deferred to function scope so that
+# --features_only mode works even in broken numpy-2.x environments.
+#   matplotlib, shap        → only needed for plotting
+#   lifelines               → only needed for KM plots
+#   sklearn, sksurv         → only needed for model training
 
 # ── Paths ──────────────────────────────────────────────────────────────────────
 SCRIPT_DIR   = Path(__file__).parent
@@ -299,12 +290,14 @@ def train_coxnet(X: pd.DataFrame, y: np.ndarray) -> tuple:
     Upgrade path:
         Replace CoxnetSurvivalAnalysis with DeepSurv for non-linear capture.
     """
+    from sklearn.model_selection import KFold
+    from sklearn.preprocessing import StandardScaler
+    from sksurv.linear_model import CoxnetSurvivalAnalysis
+    from sksurv.metrics import concordance_index_censored
+
     logger.info("Training CoxNet (Elastic Net Cox PH) ...")
 
-    # Impute missing values with column median
     X_imp = X.fillna(X.median(numeric_only=True))
-
-    # Grid of regularization strengths
     alphas    = np.logspace(-3, 1, 30)
     l1_ratios = [0.1, 0.5, 0.9]
 
@@ -355,7 +348,7 @@ def train_coxnet(X: pd.DataFrame, y: np.ndarray) -> tuple:
     return (scaler, cox_final), best_cindex
 
 
-def compute_io_scores(model_tuple: tuple, X: pd.DataFrame) -> pd.Series:
+def compute_io_scores(model_tuple: tuple, X: pd.DataFrame) -> pd.Series:  # noqa
     """
     Compute IO Score (0–100) for all patients.
 
@@ -379,6 +372,12 @@ def compute_io_scores(model_tuple: tuple, X: pd.DataFrame) -> pd.Series:
 
 def plot_km_by_tertile(io_scores: pd.Series, surv_df: pd.DataFrame) -> None:
     """KM survival curves stratified by IO Score tertile."""
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    from lifelines import KaplanMeierFitter
+    from lifelines.statistics import logrank_test
+
     merged = surv_df.join(io_scores, how="inner")
     if merged.empty:
         logger.warning("No overlap for KM plot.")
@@ -423,6 +422,7 @@ def plot_km_by_tertile(io_scores: pd.Series, surv_df: pd.DataFrame) -> None:
 def bootstrap_cindex(model_tuple: tuple, X: pd.DataFrame,
                      y: np.ndarray, n_boot: int = 200) -> tuple:
     """Bootstrap 95% CI for C-index."""
+    from sksurv.metrics import concordance_index_censored
     scaler, cox = model_tuple
     X_imp    = X.fillna(X.median(numeric_only=True))
     X_scaled = scaler.transform(X_imp)
@@ -453,6 +453,8 @@ def compute_shap(model_tuple: tuple, X: pd.DataFrame) -> pd.DataFrame:
     Compute SHAP values using linear explainer on CoxNet.
     Returns DataFrame (samples × features).
     """
+    import shap
+    from sklearn.preprocessing import StandardScaler
     scaler, cox = model_tuple
     X_imp    = X.fillna(X.median(numeric_only=True))
     X_scaled = pd.DataFrame(
@@ -468,6 +470,10 @@ def compute_shap(model_tuple: tuple, X: pd.DataFrame) -> pd.DataFrame:
 
 def plot_shap_summary(shap_df: pd.DataFrame, X: pd.DataFrame) -> None:
     """SHAP beeswarm summary plot."""
+    import shap
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
     X_imp = X.fillna(X.median(numeric_only=True))
     shap.summary_plot(
         shap_df.values, X_imp,
@@ -484,6 +490,10 @@ def plot_shap_summary(shap_df: pd.DataFrame, X: pd.DataFrame) -> None:
 def plot_stk11_subgroup(io_scores: pd.Series, surv_df: pd.DataFrame,
                         feat_df: pd.DataFrame) -> None:
     """KM plot stratified by STK11 mutation × IO Score — LUAD-specific insight."""
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    from lifelines import KaplanMeierFitter
     if "mut_STK11" not in feat_df.columns:
         return
 
@@ -568,19 +578,23 @@ def main():
     logger.info(f"Model input: {X.shape[0]} samples × {X.shape[1]} features")
 
     # ── 3. CoxNet training ────────────────────────────────────────────────────
-    model_path = OUT_DIR / "coxnet_model.pkl"
+    model_path  = OUT_DIR / "coxnet_model.pkl"
+    feature_cols = X.columns.tolist()          # columns used during training
     if model_path.exists():
         logger.info("Loading cached CoxNet model ...")
         with open(model_path, "rb") as f:
-            model_tuple = pickle.load(f)
+            saved = pickle.load(f)
+            model_tuple   = saved["model"]
+            feature_cols  = saved["feature_cols"]
     else:
         model_tuple, cv_cindex = train_coxnet(X, y)
         with open(model_path, "wb") as f:
-            pickle.dump(model_tuple, f)
+            pickle.dump({"model": model_tuple, "feature_cols": feature_cols}, f)
         logger.info(f"Model saved → {model_path}")
 
     # ── 4. IO Scores ──────────────────────────────────────────────────────────
-    io_scores = compute_io_scores(model_tuple, feat_df)
+    # Score all 517 patients using only the training feature columns
+    io_scores = compute_io_scores(model_tuple, feat_df[feature_cols])
 
     # Bootstrap C-index
     cindex_mean, cindex_lo, cindex_hi = bootstrap_cindex(model_tuple, X, y)
