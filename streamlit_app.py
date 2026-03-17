@@ -268,7 +268,7 @@ with st.sidebar:
             "05 · Pathology",
             "06 · Pathway",
             "07 · Variant Impact",
-            "08 · IO ML",
+            "08 · Multi-modal Immune Activity Score",
             "09 · Multimodal Integration",
             "10 · Clinical Recommendation",
         ],
@@ -646,11 +646,11 @@ that patient.
         </div>
         <div class="module-card">
             <span class="module-id" style="background:#1565c0;">08</span>
-            <span class="module-name">IO ML</span>
-            <div class="module-desc">TIS · CYT · TIDE · IMPRES algorithms · composite IO response score · IO resistance detection</div>
+            <span class="module-name">Multi-modal Immune Activity Score</span>
+            <div class="module-desc">CoxNet + XGBoost survival · all protein-coding genes · TIL density (M05) · driver mutations · multi-modal immune activity scoring</div>
             <span class="module-tag" style="background:#e3f2fd;color:#1565c0;">ML</span>
             <span class="module-tag">Immunotherapy</span>
-            <span class="module-tag">Prediction</span>
+            <span class="module-tag">Survival</span>
         </div>
         <div class="module-card">
             <span class="module-id" style="background:#2e7d32;">09</span>
@@ -1756,14 +1756,19 @@ elif page == "09 · Multimodal Integration":
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-# 08 · IO ML
+# 08 · Multi-modal Immune Activity Score
 # ══════════════════════════════════════════════════════════════════════════════
 
-elif page == "08 · IO ML":
-    st.header("08 · Immunotherapy ML")
-    st.caption("270 immune genes · TIL density (M05) · STK11/KEAP1 mutations · C-index 0.724")
+elif page == "08 · Multi-modal Immune Activity Score":
+    st.header("08 · Multi-modal Immune Activity Score")
+    st.caption(
+        "Stage 1: CoxNet feature selection from all protein-coding genes · "
+        "Stage 2: XGBoost survival · TIL density (M05) · STK11/KEAP1 mutations · "
+        "Training: TCGA-LUAD + GSE72094 (~840 samples)"
+    )
 
     scores_path = OUTPUT / "08_io_ml" / "io_scores.tsv"
+    sel_genes_path  = OUTPUT / "08_io_ml" / "selected_genes.tsv"
 
     if scores_path.exists():
         df_io = pd.read_csv(scores_path, sep="\t", index_col=0)
@@ -1771,30 +1776,69 @@ elif page == "08 · IO ML":
         n = len(df_io)
         grp_counts = df_io["io_group"].value_counts() if "io_group" in df_io.columns else {}
 
-        # ── Cohort summary metrics ────────────────────────────────────────────
+        # ── Section 1: Model training metrics ────────────────────────────────
+        import json as _json
+        st.subheader("Model Performance")
+        _metrics_path = OUTPUT / "08_io_ml" / "model_metrics.json"
+        _m = _json.loads(_metrics_path.read_text()) if _metrics_path.exists() else {}
+        ci_str = (f"{_m['bootstrap_cindex']} "
+                  f"(95% CI {_m['bootstrap_ci_lo']}–{_m['bootstrap_ci_hi']})"
+                  if _m else "—")
+        ext_ci_str = _m.get("external_cindex", "—")
         c1, c2, c3, c4 = st.columns(4)
-        c1.metric("Patients scored", n)
-        c2.metric("IO-High",         int(grp_counts.get("IO-High", 0)),
-                  f"{100*grp_counts.get('IO-High',0)/n:.0f}%")
-        c3.metric("IO-Intermediate", int(grp_counts.get("IO-Intermediate", 0)),
-                  f"{100*grp_counts.get('IO-Intermediate',0)/n:.0f}%")
-        c4.metric("IO-Low",          int(grp_counts.get("IO-Low", 0)),
-                  f"{100*grp_counts.get('IO-Low',0)/n:.0f}%")
+        c1.metric("Bootstrap C-index (TCGA)", ci_str)
+        c2.metric("External C-index (GSE72094)", ext_ci_str,
+                  help="Model trained on TCGA, applied to independent GSE72094 cohort")
+        c3.metric("CoxNet selected features",
+                  _m.get("n_features", len(pd.read_csv(sel_genes_path, sep="\t"))
+                         if sel_genes_path.exists() else "—"))
+        c4.metric("Modalities", "3  (RNA · Pathology · Genomics)")
 
-        # ── KM survival validation ────────────────────────────────────────────
+        # Feature importance figure
+        fi_img = OUTPUT / "08_io_ml" / "figures" / "feature_importance.png"
+        if fi_img.exists():
+            show_image(fi_img,
+                       caption="Top-20 feature importance — CoxNet coefficient magnitudes "
+                               "(red = higher expression → higher hazard; blue = protective)")
+
+        with st.expander("Pipeline details"):
+            if sel_genes_path.exists():
+                _sg = pd.read_csv(sel_genes_path, sep="\t")
+                st.markdown(f"**CoxNet selected {len(_sg)} features** from top-5,000 by variance "
+                            f"(Elastic Net Cox PH, 5-fold nested CV)")
+                st.dataframe(_sg.head(20), use_container_width=True)
+
+        # ── Section 2: Cohort overview ────────────────────────────────────────
         st.divider()
-        st.subheader("Survival Validation (TCGA-LUAD)")
+        st.subheader("Cohort Overview (TCGA-LUAD)")
+        cc1, cc2, cc3, cc4 = st.columns(4)
+        cc1.metric("Patients scored", n)
+        cc2.metric("High immune activity",         int(grp_counts.get("High", 0)),
+                   f"{100*grp_counts.get('High',0)/n:.0f}%")
+        cc3.metric("Intermediate",                 int(grp_counts.get("Intermediate", 0)),
+                   f"{100*grp_counts.get('Intermediate',0)/n:.0f}%")
+        cc4.metric("Low immune activity",          int(grp_counts.get("Low", 0)),
+                   f"{100*grp_counts.get('Low',0)/n:.0f}%")
+
         col_km, col_stk = st.columns(2)
         with col_km:
             show_image(OUTPUT / "08_io_ml" / "figures" / "km_io_score.png",
-                       caption="KM curves by IO Score tertile — log-rank p < 0.001")
+                       caption="KM — Immune Activity Score tertile (TCGA-LUAD, log-rank)")
         with col_stk:
             show_image(OUTPUT / "08_io_ml" / "figures" / "km_stk11_subgroup.png",
-                       caption="STK11 mutation × IO Score subgroup — LUAD-specific resistance")
+                       caption="STK11 mutation × Immune Activity Score — LUAD resistance subgroup")
 
-        # ── Per-patient IO profile ────────────────────────────────────────────
+        # External validation
+        gse_km_path = OUTPUT / "08_io_ml" / "figures" / "km_gse72094.png"
+        if gse_km_path.exists():
+            st.markdown("**External Validation — GSE72094 (independent LUAD cohort, n=398)**")
+            show_image(gse_km_path,
+                       caption="KM curves by Immune Activity Score tertile — GSE72094 microarray, "
+                               "TCGA-trained model applied to independent cohort")
+
+        # ── Section 3: Per-patient prediction ────────────────────────────────
         st.divider()
-        st.subheader("Per-Patient IO Profile")
+        st.subheader("Per-Patient Immune Activity Profile")
         _m08_samples = sorted(df_io.index.tolist())
         if _m08_samples:
             sel = st.selectbox("Select patient", _m08_samples, key="m08_sample")
@@ -1804,68 +1848,69 @@ elif page == "08 · IO ML":
             io_group = str(row.get("io_group", "Unknown"))
 
             group_info = {
-                "IO-High":         ("#27ae60", "High immune activity — strong IO candidate"),
-                "IO-Intermediate": ("#f39c12", "Intermediate — consider clinical context"),
-                "IO-Low":          ("#e74c3c", "Low immune activity — IO may be less effective"),
+                "High":         ("#27ae60", "High immune activity — strong IO candidate"),
+                "Intermediate": ("#f39c12", "Intermediate — consider clinical context"),
+                "Low":          ("#e74c3c", "Low immune activity — IO may be less effective"),
             }
-            color, desc = group_info.get(io_group, ("#888", ""))
+            color, desc = group_info.get(io_group, ("#888888", ""))
             st.markdown(
                 f"<div style='background:{color}20;border-left:4px solid {color};"
                 f"padding:10px 16px;border-radius:4px;margin-bottom:8px'>"
-                f"<b style='color:{color};font-size:1.1em'>{io_group}</b> &nbsp;·&nbsp; "
-                f"IO Score: <b>{io_score:.1f}</b> / 100 &nbsp;·&nbsp; {desc}</div>",
+                f"<b style='color:{color};font-size:1.1em'>{io_group} immune activity</b>"
+                f" &nbsp;·&nbsp; Score: <b>{io_score:.1f}</b> / 100"
+                f" &nbsp;·&nbsp; {desc}</div>",
                 unsafe_allow_html=True,
             )
 
-            # Feature bar chart
-            feat_cols = {
-                "tis_score":    "TIS",
-                "impres_score": "IMPRES",
-                "cyt_score":    "CYT (log)",
-                "tmb":          "TMB (mut/Mb)",
-            }
-            available = {label: row[col] for col, label in feat_cols.items()
-                         if col in row.index and pd.notna(row[col])}
-            if available:
-                import matplotlib.pyplot as plt
-                import numpy as np
-                labels = list(available.keys())
-                vals   = list(available.values())
-                # Normalize each to 0-1 for radar-style bar
-                fig, ax = plt.subplots(figsize=(7, 2.8))
-                bar_colors = ["#3498db"] * len(labels)
-                ax.barh(labels, vals, color=bar_colors, height=0.5)
-                ax.set_xlabel("Score")
-                ax.set_title(f"IO Feature Profile — {sel}", fontsize=11)
-                ax.invert_yaxis()
-                fig.tight_layout()
-                st.pyplot(fig)
-                plt.close(fig)
+            # Modality summary row
+            mc1, mc2, mc3 = st.columns(3)
+            til = row.get("til_density", None)
+            mc1.metric("TIL density (M05)", f"{til:.3f}" if pd.notna(til) else "N/A",
+                       help="Tumor-infiltrating lymphocyte density from histopathology")
 
-            # Resistance flags
-            res_cols = {"mut_STK11": "STK11", "mut_KEAP1": "KEAP1",
-                        "mut_EGFR": "EGFR", "mut_KRAS": "KRAS"}
+            res_cols = {"mut_STK11":"STK11","mut_KEAP1":"KEAP1",
+                        "mut_EGFR":"EGFR","mut_KRAS":"KRAS"}
             mutated = [name for col, name in res_cols.items()
                        if col in row.index and row[col] == 1]
+            mc2.metric("Driver mutations", ", ".join(mutated) if mutated else "None",
+                       help="M02 driver gene mutations (resistance markers in bold: STK11, KEAP1)")
+            mc3.metric("Immune Activity Score", f"{io_score:.1f} / 100")
+
             if mutated:
-                st.warning(f"Resistance/driver mutations: **{', '.join(mutated)}**")
+                resistance = [m for m in mutated if m in ("STK11","KEAP1")]
+                if resistance:
+                    st.warning(f"IO resistance markers detected: **{', '.join(resistance)}** "
+                               f"(associated with poor response, Skoulidis et al., NEJM 2018)")
+                else:
+                    st.info(f"Driver mutations: {', '.join(mutated)}")
 
         # ── Algorithm reference ───────────────────────────────────────────────
         st.divider()
         with st.expander("Model & Algorithm Reference"):
             st.markdown("""
-| Feature | Source | Reference |
-|---------|--------|-----------|
-| **TIS** | 18-gene Tumor Inflammation Signature, mean log₂(TPM+1) | Ayers et al., JCI 2017 |
-| **IMPRES** | 15 checkpoint gene-pair comparisons, fraction positive | Auslander et al., Nat Med 2018 |
-| **CYT** | Cytolytic activity — √(GZMA × PRF1) | Rooney et al., Cell 2015 |
-| **M04 ssGSEA** | CD8 T, Treg, NK, M1/M2 macrophage fractions | Kim et al., Nat Commun 2020 |
-| **STK11 / KEAP1** | LUAD-specific IO resistance mutations | Skoulidis et al., NEJM 2018 |
-| **Model** | CoxNet — Elastic Net Cox PH, α=0.207, l₁=0.1, 56 genes selected | scikit-survival |
-| **Validation** | Bootstrap C-index 0.724 (95% CI 0.683–0.768), KM log-rank p<0.001 | TCGA-LUAD n=443 |
+**Pipeline**
+
+| Step | Method | Detail |
+|------|--------|--------|
+| Pre-filter | Variance filter | Top-5,000 genes from TCGA ∩ GSE72094 protein-coding overlap (~17,500 genes) |
+| Model | **CoxNet** — Elastic Net Cox PH | 5-fold nested CV over α (0.001–1.0) × l₁ (0.1, 0.5, 0.9) grid |
+| Scoring | Log-hazard inversion | Score = −log_hazard → normalized 0–100; high = immune active |
+| Evaluation | Bootstrap C-index (n=200) | 95% CI on TCGA; external validation on GSE72094 (independent cohort) |
+
+**Modalities (3 independent data types)**
+
+| Modality | Features | Source |
+|----------|----------|--------|
+| **RNA-seq** | All protein-coding genes → CoxNet selected | M03 (TCGA RNA-seq TPM, z-scored) |
+| **Pathology** | TIL density, TIL score | M05 (TCGA-LUAD H&E histopathology) |
+| **Genomics** | STK11, KEAP1, EGFR, KRAS, TP53, SMAD4 mutations | M02 (TCGA somatic variants) |
+
+**Training**: TCGA-LUAD n≈443 (with OS data) · **External validation**: GSE72094 LUAD microarray n=398 (independent cohort, GPL15048 platform)
+**Resistance markers**: STK11/KEAP1 mutations — associated with IO resistance in LUAD (Skoulidis et al., NEJM 2018)
             """)
     else:
-        st.info("IO ML scores not yet generated. Run:\n```\npython modules/08_io_ml/luad_io_ml.py\n```")
+        st.info("Immune Activity Scores not yet generated. Run:\n"
+                "```\npython modules/08_io_ml/luad_io_ml.py\n```")
 
 
 # ══════════════════════════════════════════════════════════════════════════════

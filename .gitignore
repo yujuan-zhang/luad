@@ -41,3 +41,12 @@ dist/
 
 # ── Jupyter ────────────────────────────────────────────────────────────────
 .ipynb_checkpoints/
+
+# ── M08: large local-only files ────────────────────────────────────────────
+data/output/08_io_ml/coxnet_model.pkl
+data/output/08_io_ml/xgb_model.pkl
+data/output/08_io_ml/io_features_tcga.tsv
+data/output/08_io_ml/shap_values.tsv
+modules/08_io_ml/data/input/gse72094/gse72094_expr_zscore.tsv.gz
+modules/08_io_ml/data/input/gse72094/GSE72094_series_matrix.txt.gz
+modules/08_io_ml/data/input/gse72094/GPL15048.soft.gz
