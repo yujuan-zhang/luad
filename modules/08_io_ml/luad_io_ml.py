@@ -54,6 +54,7 @@ warnings.filterwarnings("ignore")
 # ── Paths ──────────────────────────────────────────────────────────────────────
 PROJECT_DIR  = Path(__file__).parent.parent.parent
 EXPR_DIR     = PROJECT_DIR / "data/output/03_expression"
+TME_DIR      = PROJECT_DIR / "data/output/04_single_cell"
 PATHO_DIR    = PROJECT_DIR / "data/output/05_pathology"
 VAR_DIR      = PROJECT_DIR / "data/output/02_variants"
 CLINICAL_DIR = PROJECT_DIR / "data/clinical"
@@ -67,8 +68,37 @@ logging.basicConfig(level=logging.INFO,
                     datefmt="%H:%M:%S")
 logger = logging.getLogger(__name__)
 
-DRIVER_GENES = ["STK11", "KEAP1", "EGFR", "KRAS", "TP53", "SMAD4"]
-TOP_N_GENES  = 5000   # pre-filter by variance before CoxNet
+DRIVER_GENES  = ["STK11", "KEAP1", "EGFR", "KRAS", "TP53", "SMAD4"]
+TOP_N_GENES   = 5000   # variance pre-filter
+TOP_COX_GENES = 500    # univariate Cox filter (top genes by |Wald stat|)
+
+STAGE_MAP = {
+    "Stage IA": 1, "Stage IB": 1, "Stage I": 1,
+    "Stage IIA": 2, "Stage IIB": 2, "Stage II": 2,
+    "Stage IIIA": 3, "Stage IIIB": 3, "Stage III": 3,
+    "Stage IV": 4,
+}
+
+# ── Immune signature gene sets ─────────────────────────────────────────────────
+# TIS: Tumor Inflammation Signature (Ayers et al., JCI 2017)
+TIS_GENES = ["CD3D","IDO1","CIITA","CD3E","CCL5","GZMK","CD2","HLA-DRA",
+             "CXCL13","IL2RG","NKG7","HLA-E","CXCR6","LAG3","TIGIT","CD8A",
+             "PDCD1LG2","CD27"]
+
+# IMPRES: 15 gene-pair ratios (Auslander et al., Nat Med 2018)
+# Score += 1 if expr(A) > expr(B)
+IMPRES_PAIRS = [
+    ("PDCD1","TIGIT"), ("PDCD1","BTLA"),
+    ("TIGIT","CD276"), ("TIGIT","ADORA2A"),
+    ("CTLA4","ADORA2A"), ("CTLA4","BTLA"),
+    ("LAG3","TIGIT"), ("LAG3","HAVCR2"), ("LAG3","BTLA"),
+    ("CD200","CD28"), ("CD200","CD86"), ("CD200","CD80"),
+    ("HAVCR2","BTLA"), ("CD200","LAIR1"), ("PDCD1","LAG3"),
+]
+
+# M04 TME cell-type columns
+TME_COLS = ["CD8_T_cytotoxic","Treg","CD8_T_exhausted","NK",
+            "Macrophage_M1","Macrophage_M2","B_cell"]
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -111,8 +141,91 @@ def extract_mutations(sample_id: str) -> dict:
     return {f"mut_{g}": int(g in mutated) for g in DRIVER_GENES}
 
 
-def build_tcga_matrix(samples: list, gene_set: set = None) -> pd.DataFrame:
-    """Build TCGA feature matrix with z-scored RNA + TIL + mutations."""
+def extract_clinical(sample_id: str, clinical_df: pd.DataFrame) -> dict:
+    """Extract clinical stage and age from pre-loaded clinical table."""
+    if sample_id not in clinical_df.index:
+        return {}
+    row = clinical_df.loc[sample_id]
+    result = {}
+    stage_val = STAGE_MAP.get(str(row.get("stage", "")), np.nan)
+    result["clinical_stage"] = float(stage_val) if not np.isnan(stage_val) else np.nan
+    age = row.get("age_at_diagnosis", np.nan)
+    try:
+        result["clinical_age"] = float(age)
+    except (ValueError, TypeError):
+        result["clinical_age"] = np.nan
+    return result
+
+
+def extract_tmb(sample_id: str) -> dict:
+    """Compute TMB (mutations per Mb, exome ~30 Mb) from M02 variants."""
+    path = VAR_DIR / sample_id / f"{sample_id}_variants.tsv.gz"
+    if not path.exists():
+        return {"tmb": np.nan}
+    df = pd.read_csv(path, sep="\t", compression="gzip",
+                     usecols=lambda c: c in ["Variant_Classification","VARIANT_CLASS",
+                                             "SYMBOL","Hugo_Symbol"],
+                     low_memory=False)
+    # Count non-synonymous variants only
+    nonsyn = {"Missense_Mutation","Nonsense_Mutation","Frame_Shift_Del",
+              "Frame_Shift_Ins","In_Frame_Del","In_Frame_Ins","Splice_Site",
+              "Nonstop_Mutation","Translation_Start_Site"}
+    if "Variant_Classification" in df.columns:
+        n = df["Variant_Classification"].isin(nonsyn).sum()
+    else:
+        n = len(df)   # fallback: count all variants
+    return {"tmb": float(n) / 30.0}   # per Mb (30 Mb exome)
+
+
+def extract_immune_signatures(sample_id: str) -> dict:
+    """Compute TIS, CYT, IMPRES from M03 expression data."""
+    path = EXPR_DIR / sample_id / f"{sample_id}_gene_expression.tsv.gz"
+    if not path.exists():
+        return {}
+    df = pd.read_csv(path, sep="\t", usecols=["SYMBOL","TPM_GENE","TPM_LOG2_GENE"],
+                     low_memory=False)
+    df = df.drop_duplicates("SYMBOL").set_index("SYMBOL")
+    result = {}
+
+    # TIS: mean log2-TPM across 18 TIS genes
+    avail = [g for g in TIS_GENES if g in df.index]
+    if avail:
+        result["sig_tis"] = float(df.loc[avail, "TPM_LOG2_GENE"].mean())
+
+    # CYT: geometric mean of GZMA and PRF1 raw TPM (Rooney et al., Cell 2015)
+    if "GZMA" in df.index and "PRF1" in df.index:
+        gzma = max(float(df.loc["GZMA","TPM_GENE"]), 0)
+        prf1 = max(float(df.loc["PRF1","TPM_GENE"]), 0)
+        result["sig_cyt"] = float(np.sqrt(gzma * prf1))
+
+    # IMPRES: fraction of 15 gene-pairs where pair[0] > pair[1] (Auslander 2018)
+    score, total = 0, 0
+    for ga, gb in IMPRES_PAIRS:
+        if ga in df.index and gb in df.index:
+            va = float(df.loc[ga,"TPM_LOG2_GENE"])
+            vb = float(df.loc[gb,"TPM_LOG2_GENE"])
+            score += int(va > vb)
+            total += 1
+    if total > 0:
+        result["sig_impres"] = score / total
+
+    return result
+
+
+def extract_tme_scores(sample_id: str) -> dict:
+    """Load M04 ssGSEA immune cell-type fractions."""
+    path = TME_DIR / sample_id / f"{sample_id}_tme_scores.tsv"
+    if not path.exists():
+        return {}
+    row = pd.read_csv(path, sep="\t").iloc[0]
+    return {f"tme_{c}": float(row.get(c, np.nan)) for c in TME_COLS}
+
+
+def build_tcga_matrix(samples: list, gene_set: set = None,
+                      clinical_df: pd.DataFrame = None) -> pd.DataFrame:
+    """Build TCGA feature matrix: z-scored RNA + TIL + mutations + immune sigs + TME + clinical."""
+    if clinical_df is None:
+        clinical_df = pd.DataFrame()
     logger.info("Extracting TCGA features ...")
     records = []
     for i, sid in enumerate(samples):
@@ -122,6 +235,10 @@ def build_tcga_matrix(samples: list, gene_set: set = None) -> pd.DataFrame:
         row.update(extract_tcga_expression(sid, gene_set))
         row.update(extract_til(sid))
         row.update(extract_mutations(sid))
+        row.update(extract_tmb(sid))
+        row.update(extract_immune_signatures(sid))
+        row.update(extract_tme_scores(sid))
+        row.update(extract_clinical(sid, clinical_df))
         records.append(row)
 
     df = pd.DataFrame(records).set_index("sample_id")
@@ -157,8 +274,34 @@ def load_gse72094(gene_set: set = None) -> tuple:
         keep = [c for c in expr.columns if c in gene_set]
         expr = expr[keep]
 
+    # Compute immune signatures BEFORE adding rna_ prefix (need bare gene names)
+    sig_records = {}
+    for sid in expr.index:
+        row_expr = expr.loc[sid]
+        rec = {}
+        # TIS
+        avail = [g for g in TIS_GENES if g in row_expr.index]
+        if avail:
+            rec["sig_tis"] = float(row_expr[avail].mean())
+        # CYT (z-scored, so use z-scores as proxy; sqrt not meaningful, use mean)
+        if "GZMA" in row_expr.index and "PRF1" in row_expr.index:
+            rec["sig_cyt"] = float((row_expr["GZMA"] + row_expr["PRF1"]) / 2)
+        # IMPRES
+        score, total = 0, 0
+        for ga, gb in IMPRES_PAIRS:
+            if ga in row_expr.index and gb in row_expr.index:
+                score += int(row_expr[ga] > row_expr[gb])
+                total += 1
+        if total > 0:
+            rec["sig_impres"] = score / total
+        sig_records[sid] = rec
+    sig_df = pd.DataFrame(sig_records).T
+    for col in sig_df.columns:
+        expr[col] = sig_df[col]
+
     # Add rna_ prefix to match TCGA convention
-    expr.columns = [f"rna_{c}" for c in expr.columns]
+    rna_cols = [c for c in expr.columns if not c.startswith("sig_")]
+    expr = expr.rename(columns={c: f"rna_{c}" for c in rna_cols})
 
     # Add mutation flags from metadata
     meta_path = GSE_DIR / "gse72094_survival.tsv"
@@ -169,9 +312,11 @@ def load_gse72094(gene_set: set = None) -> tuple:
         if col in meta.columns:
             expr[f"mut_{gene}"] = meta[col].map(mut_map).reindex(expr.index)
 
-    # TIL not available for GSE72094 — fill with NaN
+    # TIL and TME not available for GSE72094 — fill with NaN
     expr["til_density"] = np.nan
     expr["til_score"]   = np.nan
+    for c in TME_COLS:
+        expr[f"tme_{c}"] = np.nan
 
     # Add missing driver gene mutations as NaN
     for g in DRIVER_GENES:
@@ -205,67 +350,116 @@ def make_survival_array(event: pd.Series, time: pd.Series) -> np.ndarray:
 # 4. STAGE 1 — CoxNet feature selection
 # ══════════════════════════════════════════════════════════════════════════════
 
-def coxnet_train(X: pd.DataFrame, y: np.ndarray,
-                 top_n: int = TOP_N_GENES) -> tuple:
+def univariate_cox_filter(X: pd.DataFrame, y: np.ndarray,
+                          top_n: int = TOP_COX_GENES) -> list:
     """
-    Pre-filter by variance → CoxNet with nested CV → fit on full data.
-    Returns (scaler, model, selected_cols, coefs, cv_cindex).
+    Fast univariate Cox filter using the Wald statistic.
+    For each RNA gene, fit a single-feature CoxPH, rank by |Wald stat|.
+    Returns top_n gene column names.
     """
-    from sklearn.model_selection import KFold
+    from sksurv.linear_model import CoxPHSurvivalAnalysis
+    logger.info(f"Univariate Cox filter: testing {X.shape[1]} genes → keep top {top_n} ...")
+    stats = {}
+    for col in X.columns:
+        x = X[[col]].values
+        try:
+            m = CoxPHSurvivalAnalysis(ties="efron")
+            m.fit(x, y)
+            stats[col] = abs(m.coef_[0])
+        except Exception:
+            stats[col] = 0.0
+    ranked = sorted(stats, key=stats.get, reverse=True)
+    selected = ranked[:top_n]
+    logger.info(f"Univariate Cox filter: selected {len(selected)} genes")
+    return selected
+
+
+def _cv_cindex(X_np, y, alphas, l1_ratios, kf):
+    """Return (best_alpha, best_l1, best_cv_ci) via nested CV."""
     from sklearn.preprocessing import StandardScaler
     from sksurv.linear_model import CoxnetSurvivalAnalysis
     from sksurv.metrics import concordance_index_censored
-
-    # Pre-filter: top-N by variance (RNA cols only)
-    rna_cols   = [c for c in X.columns if c.startswith("rna_")]
-    other_cols = [c for c in X.columns if not c.startswith("rna_")]
-
-    var = X[rna_cols].var()
-    top_rna = var.nlargest(min(top_n, len(rna_cols))).index.tolist()
-    X_filtered = X[top_rna + other_cols].copy()
-    X_filtered = X_filtered.fillna(X_filtered.median(numeric_only=True))
-
-    logger.info(f"CoxNet input: {X_filtered.shape[1]} features "
-                f"({len(top_rna)} RNA + {len(other_cols)} other)")
-
-    # Nested CV: tighter alpha range to select more features
-    alphas    = np.logspace(-3, 0, 20)   # max alpha=1.0 (was 10), avoids over-regularization
-    l1_ratios = [0.1, 0.5, 0.9]
-    best_ci, best_alpha, best_l1 = -1, 0.1, 0.5
-
-    kf = KFold(n_splits=5, shuffle=True, random_state=42)
+    best_ci, best_alpha, best_l1 = -1, alphas[0], l1_ratios[0]
     for l1 in l1_ratios:
         for alpha in alphas:
             cis = []
-            for tr, te in kf.split(X_filtered):
-                sc  = StandardScaler()
-                Xtr = sc.fit_transform(X_filtered.iloc[tr])
-                Xte = sc.transform(X_filtered.iloc[te])
+            for tr, te in kf.split(X_np):
+                sc = StandardScaler()
                 try:
                     m = CoxnetSurvivalAnalysis(alphas=[alpha], l1_ratio=l1,
                                                fit_baseline_model=True, max_iter=1000)
-                    m.fit(Xtr, y[tr])
+                    m.fit(sc.fit_transform(X_np[tr]), y[tr])
                     ci = concordance_index_censored(
-                        y[te]["event"], y[te]["time"], m.predict(Xte))[0]
+                        y[te]["event"], y[te]["time"],
+                        m.predict(sc.transform(X_np[te])))[0]
                     cis.append(ci)
                 except Exception:
                     pass
             if cis and np.mean(cis) > best_ci:
                 best_ci, best_alpha, best_l1 = np.mean(cis), alpha, l1
+    return best_alpha, best_l1, best_ci
 
-    logger.info(f"CoxNet best: alpha={best_alpha:.4f}, l1={best_l1}, CV C-index={best_ci:.3f}")
 
-    # Fit on all data
-    scaler = StandardScaler()
-    Xs     = scaler.fit_transform(X_filtered)
-    model  = CoxnetSurvivalAnalysis(alphas=[best_alpha], l1_ratio=best_l1,
-                                    fit_baseline_model=True, max_iter=1000)
-    model.fit(Xs, y)
+def coxnet_train(X: pd.DataFrame, y: np.ndarray,
+                 top_n: int = TOP_N_GENES) -> tuple:
+    """
+    Two-stage multi-modal CoxNet:
+      Stage 1 — RNA only: variance pre-filter → CoxNet → select OS-predictive RNA genes
+      Stage 2 — Combined: [selected RNA + immune sigs + TME + TIL + mutations] → final CoxNet
+    Returns (scaler, model, train_cols, coefs, cv_cindex_stage2).
+    """
+    from sklearn.model_selection import KFold
+    from sklearn.preprocessing import StandardScaler
+    from sksurv.linear_model import CoxnetSurvivalAnalysis
 
-    coefs    = pd.Series(model.coef_.ravel(), index=X_filtered.columns)
-    selected = coefs[coefs != 0].sort_values(key=abs, ascending=False)
-    logger.info(f"CoxNet selected {len(selected)} / {X_filtered.shape[1]} features")
-    return scaler, model, X_filtered.columns.tolist(), selected, best_ci
+    kf = KFold(n_splits=5, shuffle=True, random_state=42)
+
+    # ── Stage 1: RNA-only CoxNet → feature selection ──────────────────────────
+    # Pre-filter: top-N by variance (avoids data leakage from supervised filters)
+    rna_cols   = [c for c in X.columns if c.startswith("rna_")]
+    non_rna    = [c for c in X.columns if not c.startswith("rna_")]
+
+    var = X[rna_cols].var()
+    top_rna = var.nlargest(min(top_n, len(rna_cols))).index.tolist()
+    X_rna = X[top_rna].fillna(X[top_rna].median(numeric_only=True))
+    logger.info(f"Stage 1 — RNA-only CoxNet: {X_rna.shape[1]} RNA features")
+
+    alphas_s1  = np.logspace(-3, 0, 20)
+    l1_ratios  = [0.1, 0.5, 0.9]
+    a1, l1_best, ci_s1 = _cv_cindex(X_rna.values, y, alphas_s1, l1_ratios, kf)
+    logger.info(f"Stage 1 best: alpha={a1:.4f}, l1={l1_best}, CV C-index={ci_s1:.3f}")
+
+    sc1 = StandardScaler()
+    m1  = CoxnetSurvivalAnalysis(alphas=[a1], l1_ratio=l1_best,
+                                 fit_baseline_model=True, max_iter=1000)
+    m1.fit(sc1.fit_transform(X_rna.values), y)
+    coefs_s1   = pd.Series(m1.coef_.ravel(), index=X_rna.columns)
+    rna_selected = coefs_s1[coefs_s1 != 0].sort_values(key=abs, ascending=False).index.tolist()
+    logger.info(f"Stage 1 selected {len(rna_selected)} RNA genes")
+
+    # ── Stage 2: combined model with all modalities ───────────────────────────
+    # Selected RNA + immune sigs + TME + TIL + mutations + TMB + clinical stage/age
+    immune_cols = [c for c in non_rna if any(c.startswith(p)
+                   for p in ("sig_","tme_","til_","mut_","tmb","clinical_"))]
+    stage2_cols = rna_selected + immune_cols
+    X_s2 = X[stage2_cols].fillna(X[stage2_cols].median(numeric_only=True))
+    logger.info(f"Stage 2 — Combined CoxNet: {len(rna_selected)} RNA + "
+                f"{len(immune_cols)} immune/TME/clinical features")
+
+    alphas_s2  = np.logspace(-4, -1, 20)   # smaller alpha = less shrinkage on combined set
+    a2, l1_s2, ci_s2 = _cv_cindex(X_s2.values, y, alphas_s2, l1_ratios, kf)
+    logger.info(f"Stage 2 best: alpha={a2:.4f}, l1={l1_s2}, CV C-index={ci_s2:.3f}")
+
+    sc2 = StandardScaler()
+    m2  = CoxnetSurvivalAnalysis(alphas=[a2], l1_ratio=l1_s2,
+                                 fit_baseline_model=True, max_iter=1000)
+    m2.fit(sc2.fit_transform(X_s2.values), y)
+
+    coefs_s2 = pd.Series(m2.coef_.ravel(), index=X_s2.columns)
+    selected = coefs_s2[coefs_s2 != 0].sort_values(key=abs, ascending=False)
+    logger.info(f"Stage 2 selected {len(selected)} / {X_s2.shape[1]} features")
+
+    return sc2, m2, X_s2.columns.tolist(), selected, ci_s2, rna_selected, coefs_s1
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -426,11 +620,15 @@ def main():
 
     # ── TCGA feature matrix ────────────────────────────────────────────────────
     feat_path = OUT_DIR / "io_features_tcga.tsv"
+    # Load clinical data for stage + age features
+    clinical_df = pd.read_csv(CLINICAL_DIR / "tcga_luad_survival.tsv",
+                              sep="\t", index_col=0)
+
     if feat_path.exists() and not args.force:
         logger.info("Loading cached TCGA features ...")
         tcga_feat = pd.read_csv(feat_path, sep="\t", index_col=0)
     else:
-        tcga_feat = build_tcga_matrix(tcga_samples, gene_set)
+        tcga_feat = build_tcga_matrix(tcga_samples, gene_set, clinical_df)
         tcga_feat.to_csv(feat_path, sep="\t")
 
     if args.features_only:
@@ -449,7 +647,7 @@ def main():
                                  tcga_surv.loc[tcga_common, "os_days"])
     logger.info(f"TCGA training set: {X_tcga.shape[0]} samples × {X_tcga.shape[1]} features")
 
-    # ── CoxNet: train on TCGA ─────────────────────────────────────────────────
+    # ── Two-stage CoxNet: train on TCGA ──────────────────────────────────────
     model_path = OUT_DIR / "coxnet_model.pkl"
     if model_path.exists() and not args.force:
         logger.info("Loading cached CoxNet model ...")
@@ -460,17 +658,22 @@ def main():
         train_cols    = saved["train_cols"]
         coxnet_coefs  = saved["coefs"]
         cv_ci         = saved["cv_ci"]
+        rna_selected  = saved.get("rna_selected", [])
+        coefs_s1      = saved.get("coefs_s1", pd.Series(dtype=float))
     else:
-        coxnet_scaler, coxnet_model, train_cols, coxnet_coefs, cv_ci = \
-            coxnet_train(X_tcga, y_tcga)
+        coxnet_scaler, coxnet_model, train_cols, coxnet_coefs, cv_ci, \
+            rna_selected, coefs_s1 = coxnet_train(X_tcga, y_tcga)
         with open(model_path, "wb") as f:
             pickle.dump({"scaler": coxnet_scaler, "model": coxnet_model,
                          "train_cols": train_cols, "coefs": coxnet_coefs,
-                         "cv_ci": cv_ci}, f)
+                         "cv_ci": cv_ci, "rna_selected": rna_selected,
+                         "coefs_s1": coefs_s1}, f)
 
-    # ── Save selected genes (non-zero CoxNet coefs) ────────────────────────────
+    # ── Save selected genes with stage label ──────────────────────────────────
     sel_df = coxnet_coefs.reset_index()
     sel_df.columns = ["feature", "coefficient"]
+    sel_df["stage"] = sel_df["feature"].apply(
+        lambda f: "Stage1-RNA" if f in rna_selected else "Stage2-immune/TME/clinical")
     sel_df.to_csv(OUT_DIR / "selected_genes.tsv", sep="\t", index=False)
 
     # Feature importance figure (CoxNet coefficients)
@@ -499,8 +702,12 @@ def main():
     out.loc[scores >= q67, "io_group"] = "High"
     out.loc[scores <  q33, "io_group"] = "Low"
     out = out.join(tcga_surv[["os_days","event"]], how="left")
-    out = out.join(tcga_feat[["til_density","til_score",
-                               "mut_STK11","mut_KEAP1","mut_EGFR","mut_KRAS"]], how="left")
+    extra_cols = ["til_density","til_score",
+                  "mut_STK11","mut_KEAP1","mut_EGFR","mut_KRAS",
+                  "tmb","clinical_stage","clinical_age",
+                  "sig_tis","sig_cyt","sig_impres"] + [f"tme_{c}" for c in TME_COLS]
+    extra_cols = [c for c in extra_cols if c in tcga_feat.columns]
+    out = out.join(tcga_feat[extra_cols], how="left")
     out.index.name = "sample_id"
     out.to_csv(OUT_DIR / "io_scores.tsv", sep="\t")
 
@@ -543,6 +750,7 @@ def main():
         "n_training":         len(tcga_common),
         "n_events":           int(tcga_surv.loc[tcga_common,"event"].sum()),
         "n_features":         int((coxnet_coefs != 0).sum()),
+        "n_rna_selected":     len(rna_selected),
         "cv_cindex":          round(float(cv_ci), 3),
         "bootstrap_cindex":   round(float(ci_mean), 3),
         "bootstrap_ci_lo":    round(float(ci_lo), 3),
