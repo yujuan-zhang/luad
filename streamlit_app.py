@@ -286,421 +286,234 @@ with st.sidebar:
 
 if page == "Home":
 
-    # ── Global CSS ──────────────────────────────────────────────────────────
+    HOME_FIGS = OUTPUT / "home_figures"
+
+    # ── Hero Banner ───────────────────────────────────────────────────────────
     st.markdown("""
     <style>
-    /* Hero banner */
     .hero-banner {
         background: linear-gradient(150deg, #0a1628 0%, #12263f 55%, #0f3460 100%);
-        border-radius: 14px;
-        padding: 52px 48px 44px 48px;
-        margin-bottom: 28px;
-        color: white;
-        position: relative;
-        overflow: hidden;
+        border-radius: 14px; padding: 52px 48px 44px 48px; margin-bottom: 24px;
+        color: white; position: relative; overflow: hidden;
     }
     .hero-accent {
-        position: absolute;
-        top: 0; left: 0; right: 0;
-        height: 4px;
+        position: absolute; top: 0; left: 0; right: 0; height: 4px;
         background: linear-gradient(90deg, #1976d2, #42a5f5, #64b5f6, #29b6f6);
         border-radius: 14px 14px 0 0;
     }
-    .hero-eyebrow {
-        font-size: 0.70rem;
-        letter-spacing: 2.5px;
-        color: #42a5f5;
-        text-transform: uppercase;
-        font-weight: 700;
-        margin-bottom: 14px;
-    }
-    .hero-title {
-        font-size: 2.75rem;
-        font-weight: 800;
-        margin: 0 0 14px 0;
-        letter-spacing: -0.8px;
-        line-height: 1.15;
-    }
-    .hero-subtitle {
-        font-size: 0.98rem;
-        color: #b0c4de;
-        margin: 0 0 28px 0;
-        font-weight: 400;
-        line-height: 1.65;
-        max-width: 680px;
-    }
-    /* Badge pills — outlined style */
-    .badge-row { margin-top: 0; display: flex; flex-wrap: wrap; gap: 8px; }
-    .badge {
-        display: inline-block;
-        padding: 4px 14px;
-        border-radius: 20px;
-        font-size: 0.74rem;
-        font-weight: 600;
-        letter-spacing: 0.4px;
-        border: 1px solid;
-    }
-    .badge-blue   { border-color: #42a5f5; color: #90caf9; }
-    .badge-green  { border-color: #66bb6a; color: #a5d6a7; }
-    .badge-purple { border-color: #ba68c8; color: #ce93d8; }
-    .badge-orange { border-color: #ffa726; color: #ffcc80; }
-    .badge-teal   { border-color: #26a69a; color: #80cbc4; }
-    /* Stat cards */
-    .stat-grid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 16px;
-        margin-bottom: 32px;
-    }
-    .stat-card {
-        background: #f8f9fa;
-        border: 1px solid #e0e0e0;
-        border-left: 5px solid #1565c0;
-        border-radius: 10px;
-        padding: 20px 18px;
-        text-align: center;
-    }
-    .stat-number { font-size: 2rem; font-weight: 800; color: #1565c0; }
-    .stat-label  { font-size: 0.82rem; color: #666; margin-top: 4px; }
-    /* Module cards */
-    .module-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 14px;
-        margin-bottom: 32px;
-    }
-    .module-card {
-        border: 1px solid #e0e0e0;
-        border-radius: 10px;
-        padding: 16px 18px;
-        background: white;
-        transition: box-shadow 0.2s;
-    }
-    .module-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-    .module-id {
-        display: inline-block;
-        background: #1565c0;
-        color: white;
-        border-radius: 6px;
-        padding: 2px 8px;
-        font-size: 0.75rem;
-        font-weight: 700;
-        margin-right: 8px;
-    }
-    .module-name { font-weight: 700; font-size: 0.97rem; color: #1a1a2e; }
-    .module-desc { font-size: 0.82rem; color: #666; margin-top: 6px; }
-    .module-tag  {
-        display: inline-block;
-        background: #e8f0fe;
-        color: #1a73e8;
-        border-radius: 4px;
-        padding: 1px 7px;
-        font-size: 0.7rem;
-        margin: 4px 3px 0 0;
-    }
-    /* Pipeline flow */
-    .flow-step {
-        display: flex;
-        align-items: flex-start;
-        gap: 16px;
-        margin-bottom: 18px;
-    }
-    .flow-num {
-        min-width: 36px;
-        height: 36px;
-        background: #1565c0;
-        color: white;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: 800;
-        font-size: 0.9rem;
-        flex-shrink: 0;
-    }
-    .flow-text strong { font-size: 0.95rem; color: #1a1a2e; }
-    .flow-text p { font-size: 0.83rem; color: #666; margin: 2px 0 0 0; }
-    /* Section headings */
-    .section-heading {
-        font-size: 1.2rem;
-        font-weight: 700;
-        color: #1a1a2e;
-        border-bottom: 2px solid #1565c0;
-        padding-bottom: 6px;
-        margin: 28px 0 18px 0;
-    }
-    /* Overview cards */
-    .overview-section {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        gap: 20px;
-        margin-bottom: 32px;
-    }
-    .overview-card {
-        border-radius: 12px;
-        padding: 22px 20px;
-    }
-    .overview-card h4 {
-        font-size: 0.95rem;
-        font-weight: 700;
-        margin: 0 0 12px 0;
-    }
-    .overview-card ul {
-        margin: 0;
-        padding-left: 18px;
-    }
-    .overview-card li {
-        font-size: 0.83rem;
-        line-height: 1.7;
-        margin-bottom: 4px;
-    }
-    .ov-bg1 { background: #e8f0fe; border-left: 4px solid #1565c0; }
-    .ov-bg1 h4 { color: #1565c0; }
-    .ov-bg2 { background: #fce8e6; border-left: 4px solid #c62828; }
-    .ov-bg2 h4 { color: #c62828; }
-    .ov-bg3 { background: #e6f4ea; border-left: 4px solid #2e7d32; }
-    .ov-bg3 h4 { color: #2e7d32; }
+    .hero-eyebrow { font-size:0.70rem; letter-spacing:2.5px; color:#42a5f5;
+        text-transform:uppercase; font-weight:700; margin-bottom:14px; }
+    .hero-title { font-size:2.6rem; font-weight:800; margin:0 0 14px 0;
+        letter-spacing:-0.8px; line-height:1.15; }
+    .hero-subtitle { font-size:0.97rem; color:#b0c4de; margin:0 0 28px 0;
+        font-weight:400; line-height:1.65; max-width:720px; }
+    .badge-row { margin-top:0; display:flex; flex-wrap:wrap; gap:8px; }
+    .badge { display:inline-block; padding:4px 14px; border-radius:20px;
+        font-size:0.74rem; font-weight:600; letter-spacing:0.4px; border:1px solid; }
+    .badge-blue   { border-color:#42a5f5; color:#90caf9; }
+    .badge-green  { border-color:#66bb6a; color:#a5d6a7; }
+    .badge-purple { border-color:#ba68c8; color:#ce93d8; }
+    .badge-orange { border-color:#ffa726; color:#ffcc80; }
+    .badge-teal   { border-color:#26a69a; color:#80cbc4; }
+    .badge-red    { border-color:#ef9a9a; color:#ef9a9a; }
     </style>
-    """, unsafe_allow_html=True)
-
-    # ── Hero Banner ──────────────────────────────────────────────────────────
-    st.markdown("""
     <div class="hero-banner">
         <div class="hero-accent"></div>
-        <div class="hero-eyebrow">Precision Oncology &nbsp;·&nbsp; Multi-Omics &nbsp;·&nbsp; TCGA-LUAD</div>
+        <div class="hero-eyebrow">Precision Oncology &nbsp;·&nbsp; Multi-Omics &nbsp;·&nbsp; TCGA-LUAD &nbsp;·&nbsp; n = 517 patients</div>
         <div class="hero-title">LUAD Precision Oncology Platform</div>
         <div class="hero-subtitle">
-            A 7-module multi-omics pipeline integrating somatic variant annotation,
-            tumor microenvironment profiling, ESM2 protein language model embeddings,
-            and evidence-based drug mapping for lung adenocarcinoma precision medicine.
+            A 10-module multi-omics pipeline integrating somatic variant annotation,
+            tumor microenvironment profiling, digital pathology, protein language model embeddings,
+            and evidence-based treatment recommendation for lung adenocarcinoma precision medicine.
         </div>
         <div class="badge-row">
-            <span class="badge badge-blue">Python 3.10+</span>
-            <span class="badge badge-green">ESM2-650M</span>
-            <span class="badge badge-purple">PCGR v2.2.5</span>
-            <span class="badge badge-orange">TCGA-LUAD</span>
-            <span class="badge badge-teal">CIViC · NCCN/FDA</span>
+            <span class="badge badge-blue">TCGA-LUAD · n=517</span>
+            <span class="badge badge-green">CoxNet · C-index 0.786</span>
+            <span class="badge badge-purple">AlphaMissense · ESM-2 650M</span>
+            <span class="badge badge-orange">OncoKB · AMP/ASCO/CAP · ESCAT</span>
+            <span class="badge badge-teal">21 Clinical Trials</span>
+            <span class="badge badge-red">STK11/KEAP1 IO Resistance</span>
         </div>
     </div>
     """, unsafe_allow_html=True)
 
-    # ── Overview (plain markdown, no HTML cards) ─────────────────────────────
-    st.markdown("---")
-    st.markdown("""
-### Overview
+    # ── Key Stats ─────────────────────────────────────────────────────────────
+    ks1, ks2, ks3, ks4, ks5 = st.columns(5)
+    ks1.metric("Analysis Modules", "10")
+    ks2.metric("TCGA-LUAD Patients", "517")
+    ks3.metric("Curated Trials (M10)", "21")
+    ks4.metric("C-index (Immune Score)", "0.786")
+    ks5.metric("Driver Genes Covered", "16+")
 
+    st.divider()
+
+    # ── Section 1: Background ─────────────────────────────────────────────────
+    st.subheader("1 · Background & Clinical Rationale")
+    st.markdown("""
 Lung adenocarcinoma (LUAD) is the most common subtype of non-small cell lung cancer (NSCLC),
-accounting for approximately 40% of all lung cancer diagnoses worldwide and remaining one of
-the leading causes of cancer-related mortality globally. Unlike many other cancer types that
-respond to a single standard-of-care protocol, LUAD is driven by highly heterogeneous somatic
-mutations — a patient harboring an *EGFR* exon 19 deletion responds dramatically to osimertinib,
-while a patient with *STK11* loss may derive little benefit from PD-1 checkpoint immunotherapy
-even when tumor mutational burden appears high. Identifying the precise molecular profile of
-each patient is therefore not optional: it is the foundation of effective treatment selection.
+accounting for ~40% of all lung cancer diagnoses and remaining a leading cause of cancer mortality.
+LUAD is driven by **highly heterogeneous somatic mutations** — a patient with *EGFR* exon 19 deletion
+responds dramatically to osimertinib, while a patient with *STK11* loss may derive little benefit
+from PD-1 checkpoint immunotherapy even with high TMB.
+Identifying the precise molecular profile of each patient is therefore the **foundation of effective treatment selection**.
 
-**What does this platform do?**
-
-This platform automatically processes each patient's somatic variant calls, bulk RNA-seq
-expression data, and clinical metadata through 7 integrated analysis modules — producing a
-structured precision medicine report that addresses four core clinical questions: who is this
-patient (survival context, stage, demographics), what mutations does their tumor carry (somatic
-variants, TMB, mutational signatures), how is their tumor behaving (gene expression outliers,
-immune microenvironment composition, dysregulated pathways), and which treatments have evidence
-of efficacy for their specific mutation profile (targeted therapy, immunotherapy, chemotherapy).
-
-**Why was this platform built — pain points addressed**
-
-Current clinical bioinformatics workflows are fragmented. A typical analysis requires running
-Ensembl VEP for variant annotation, a separate script to compute TMB, a dedicated pathway tool
-for enrichment analysis, and a manual review of NCCN guidelines and the CIViC database for drug
-matching — often across five or more disconnected tools with no shared data schema. Integrating
-results across these tools requires significant manual effort, is error-prone, and is not
-reproducible without careful bookkeeping. This platform replaces the entire toolchain with a
-single orchestration command (`python run_all.py`), with automatic inter-module dependency
-handling and a unified output structure.
-
-Beyond workflow integration, standard clinical pipelines classify mutations using rule-based
-databases (e.g., ClinVar, OncoKB) that assign a pathogenicity label but cannot capture *how
-structurally damaging* a mutation is at the protein level. This platform introduces an AI layer
-using **ESM2-650M** (Meta AI's protein language model), which extracts 1280-dimensional
-embeddings at each missense mutation site and computes masked-marginal log-odds scores —
-quantifying the degree to which the mutation is unexpected given the evolutionary context of
-the protein. These features enable downstream machine learning–based variant effect prediction
-that goes beyond binary rule-based classification.
-
-**Key technical innovations**
-
-*End-to-end automation.* A single command orchestrates all 7 modules in dependency order, with
-automatic failure handling. Module 02 (variant annotation) feeds into Module 05 (pathway
-enrichment) and Module 07 (drug mapping); if an upstream module fails, dependent modules are
-automatically skipped with a clear error message.
-
-*ESM2 protein language model embeddings (Module 06).* For every missense mutation identified
-in Module 02, the platform retrieves the canonical protein sequence from UniProt, runs
-ESM2-650M inference, and extracts the per-site 1280-dimensional hidden state for both the
-wild-type and mutant amino acid. The delta embedding (mutant minus wild-type) serves as a
-structural perturbation proxy. These features can be directly fed into supervised classifiers
-for pathogenicity prediction or used for unsupervised clustering of mutation types.
-
-*GPT-4o + PubMed literature integration (Module 07).* For each actionable variant identified
-in drug mapping, the platform automatically queries PubMed via the NCBI Entrez API for the
-most relevant clinical literature, retrieves abstracts from the top papers, and uses GPT-4o
-to generate a concise structured clinical summary — covering the mutation's known oncogenic
-role, associated therapies, and clinical evidence level. This connects the analysis directly
-to the latest published evidence without requiring manual literature review.
-
-*Single-cell tumor microenvironment characterization (Module 04).* The platform integrates
-the 57,000-cell Lung Cancer Cell Atlas (GSE131907) to quantify the composition of the tumor
-immune microenvironment — including T cell, NK cell, macrophage, dendritic cell, and cancer
-cell populations. Immune infiltration patterns are a critical determinant of immunotherapy
-response and are rarely assessed in standard clinical bioinformatics pipelines.
-
-*Clinically actionable drug report (Module 07).* All mutation findings are mapped to an
-embedded NCCN/FDA-curated knowledge base covering 16 LUAD driver genes, supplemented by
-live CIViC REST API queries for additional evidence. Immunotherapy eligibility is assessed
-based on TMB threshold (≥10 mut/Mb) and STK11/KEAP1 resistance markers, producing a
-report that directly answers which therapy regimen is supported by clinical evidence for
-that patient.
+**Three clinical challenges** this platform addresses:
+- **Fragmented tools**: Standard workflows require 5+ disconnected tools (VEP, TMB calculator, pathway tools, drug databases, literature search) — this platform unifies all into one pipeline
+- **Beyond binary classification**: AlphaMissense + ESM-2 protein language models quantify the structural damage of each missense mutation, beyond rule-based ClinVar/OncoKB labels
+- **Multi-modal immune profiling**: RNA-seq + digital pathology TIL + genomic mutation context → a CoxNet-based immune activity score that predicts IO suitability with C-index 0.786
     """)
-    st.markdown("---")
 
-    # ── Key Stats ────────────────────────────────────────────────────────────
+    _bg_fig = HOME_FIGS / "background_luad.png"
+    if _bg_fig.exists():
+        show_image(_bg_fig, caption="LUAD driver alteration frequencies (TCGA 2014 · Skoulidis 2018) and precision therapy decision map")
+    st.divider()
+
+    # ── Section 2: Data ───────────────────────────────────────────────────────
+    st.subheader("2 · Data")
+
+    dc1, dc2 = st.columns([2, 1])
+    with dc1:
+        st.markdown("""
+**Primary dataset: TCGA-LUAD** (The Cancer Genome Atlas — Lung Adenocarcinoma)
+- **n = 517 patients** with bulk RNA-seq, somatic mutations (MAF), and clinical metadata
+- **n = 272 patients** with somatic variant calls processed through PCGR v2.2.5
+- Median follow-up: 24.3 months · Events (deaths): 182 (35%)
+
+**External validation: GSE72094** (Kim et al., independent LUAD cohort)
+- n = 398 patients (113 events) · Affymetrix GPL15048 microarray platform
+- Used for external validation of M08 Immune Activity Score (C-index 0.640)
+
+**Single-cell reference: GSE131907** (Kim et al. 2020, *Nature Cancer*)
+- 57,000 cells from 58 LUAD tumor samples · 10x Genomics Chromium
+- Cell annotation: 36+ subtypes → 18 functional lineages
+- Used to derive ssGSEA cell-type signatures for TCGA deconvolution (M04)
+        """)
+    with dc2:
+        st.markdown("""
+**Key data layers per patient:**
+
+| Layer | Source | n |
+|-------|--------|---|
+| Somatic variants | PCGR/MAF | 272 |
+| RNA-seq TPM | GDC TCGA | 517 |
+| Clinical (stage, OS) | GDC | 517 |
+| H&E TIL density | M05 | 517 |
+| ssGSEA TME scores | M04 | 517 |
+| Immune activity score | M08 | 517 |
+| Drug recommendations | M09 | 271 |
+| Trial matching | M10 | 271 |
+        """)
+
+    _cohort_fig = HOME_FIGS / "cohort_overview.png"
+    if _cohort_fig.exists():
+        show_image(_cohort_fig, caption="TCGA-LUAD cohort overview: stage distribution, OS, TMB, TME phenotype, immune activity score, and top targeted drug eligibility")
+    st.divider()
+
+    # ── Section 3: Methods / Pipeline ────────────────────────────────────────
+    st.subheader("3 · Methods & Pipeline")
     st.markdown("""
-    <div class="stat-grid">
-        <div class="stat-card" style="border-left-color:#1565c0;">
-            <div class="stat-number">8</div>
-            <div class="stat-label">Analysis Modules</div>
-        </div>
-        <div class="stat-card" style="border-left-color:#2e7d32;">
-            <div class="stat-number">5</div>
-            <div class="stat-label">TCGA-LUAD Samples</div>
-        </div>
-        <div class="stat-card" style="border-left-color:#6a1b9a;">
-            <div class="stat-number">1280</div>
-            <div class="stat-label">ESM2 Embedding Dims</div>
-        </div>
-        <div class="stat-card" style="border-left-color:#e65100;">
-            <div class="stat-number">~20K</div>
-            <div class="stat-label">Genes Covered (RNA-seq)</div>
-        </div>
+The platform is organized into **10 analysis modules** across three functional layers:
+
+- **Molecular characterization (M01–M07)**: Independent modules running in parallel — patient survival context, somatic variant annotation (VEP/PCGR), bulk RNA-seq expression, single-cell TME deconvolution (ssGSEA), digital pathology (H&E/TIL), pathway enrichment (ORA/GSEA), and protein variant impact (AlphaMissense + ESM-2)
+- **Immune activity scoring (M08)**: Two-stage CoxNet pipeline — genome-wide RNA variance filter → univariate Cox Wald test → CoxNet feature selection → final multi-modal model with TIS/CYT/IMPRES signatures + ssGSEA TME + TIL + mutations + clinical covariates · Bootstrap C-index 0.786 · External validation 0.640
+- **Clinical translation (M09–M10)**: Multi-omics evidence integration with OncoKB/AMP-ASCO-CAP/ESCAT grading → ranked treatment recommendations → clinical trial matching (21 curated LUAD trials) + MDT report
+    """)
+
+    _pipe_fig = HOME_FIGS / "pipeline_figure.png"
+    if _pipe_fig.exists():
+        show_image(_pipe_fig, caption="10-module pipeline architecture — from raw genomic/transcriptomic data to clinical treatment recommendation")
+    st.divider()
+
+    # ── Section 4: Module overview ────────────────────────────────────────────
+    st.subheader("4 · Analysis Modules")
+    st.markdown("""
+    <style>
+    .mod-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin-bottom:20px; }
+    .mod-card { border:1px solid #e0e0e0; border-radius:10px; padding:14px 16px;
+                background:white; }
+    .mod-id   { display:inline-block; color:white; border-radius:6px;
+                padding:2px 9px; font-size:0.75rem; font-weight:700; margin-right:8px; }
+    .mod-name { font-weight:700; font-size:0.96rem; color:#1a1a2e; }
+    .mod-desc { font-size:0.82rem; color:#555; margin-top:6px; line-height:1.55; }
+    .mod-tag  { display:inline-block; background:#e8f0fe; color:#1a73e8;
+                border-radius:4px; padding:1px 7px; font-size:0.7rem; margin:4px 3px 0 0; }
+    </style>
+    <div class="mod-grid">
+
+      <div class="mod-card">
+        <span class="mod-id" style="background:#546e7a;">01</span>
+        <span class="mod-name">Patient Context</span>
+        <div class="mod-desc">GDC clinical data retrieval · Kaplan-Meier survival analysis · per-patient summary card (stage, age, OS)</div>
+        <span class="mod-tag">Clinical</span><span class="mod-tag">Survival</span>
+      </div>
+
+      <div class="mod-card">
+        <span class="mod-id" style="background:#1565c0;">02</span>
+        <span class="mod-name">Variant Annotation</span>
+        <div class="mod-desc">VEP/PCGR somatic variant annotation · tumor mutational burden (TMB) · SBS mutational signatures · driver gene identification</div>
+        <span class="mod-tag">Genomics</span><span class="mod-tag">TMB</span><span class="mod-tag">PCGR</span>
+      </div>
+
+      <div class="mod-card">
+        <span class="mod-id" style="background:#1565c0;">03</span>
+        <span class="mod-name">Expression Analysis</span>
+        <div class="mod-desc">Bulk RNA-seq TPM normalization · GTEx z-score outlier detection · clinical gene panel · variant–expression correlation</div>
+        <span class="mod-tag">RNA-seq</span><span class="mod-tag">Outlier</span><span class="mod-tag">GTEx</span>
+      </div>
+
+      <div class="mod-card">
+        <span class="mod-id" style="background:#1565c0;">04</span>
+        <span class="mod-name">Single-Cell TME</span>
+        <div class="mod-desc">GSE131907 scRNA-seq reference (57k cells, 58 LUAD samples) · ssGSEA deconvolution of TCGA bulk RNA-seq · immune phenotype classification (Inflamed / Excluded / Desert)</div>
+        <span class="mod-tag">scRNA</span><span class="mod-tag">ssGSEA</span><span class="mod-tag">TME</span>
+      </div>
+
+      <div class="mod-card">
+        <span class="mod-id" style="background:#6a1b9a;">05</span>
+        <span class="mod-name">Digital Pathology</span>
+        <div class="mod-desc">H&E whole-slide image analysis · tissue segmentation · TIL density scoring · stromal/immune ratio · TME phenotype classification</div>
+        <span class="mod-tag">H&E</span><span class="mod-tag">TIL</span><span class="mod-tag">WSI</span>
+      </div>
+
+      <div class="mod-card">
+        <span class="mod-id" style="background:#1565c0;">06</span>
+        <span class="mod-name">Pathway Enrichment</span>
+        <div class="mod-desc">Over-representation analysis (ORA) on mutated driver genes · GSEA prerank on expression fold-changes · KEGG/Reactome pathways</div>
+        <span class="mod-tag">ORA</span><span class="mod-tag">GSEA</span><span class="mod-tag">KEGG</span>
+      </div>
+
+      <div class="mod-card">
+        <span class="mod-id" style="background:#e65100;">07</span>
+        <span class="mod-name">Variant Impact</span>
+        <div class="mod-desc">AlphaMissense (Google DeepMind) pathogenicity scoring · ESM-2 650M protein language model embeddings · missense variant structural impact quantification</div>
+        <span class="mod-tag">AlphaMissense</span><span class="mod-tag">ESM-2</span><span class="mod-tag">DL</span>
+      </div>
+
+      <div class="mod-card">
+        <span class="mod-id" style="background:#2e7d32;">08</span>
+        <span class="mod-name">Multi-modal Immune Activity Score</span>
+        <div class="mod-desc">Two-stage CoxNet pipeline · RNA-seq + TIS/CYT/IMPRES + ssGSEA TME + TIL density + driver mutations + clinical stage · Bootstrap C-index 0.786 · External C-index 0.640 (GSE72094) · 35 features selected</div>
+        <span class="mod-tag">CoxNet</span><span class="mod-tag">Survival ML</span><span class="mod-tag">Multi-modal</span>
+      </div>
+
+      <div class="mod-card">
+        <span class="mod-id" style="background:#283593;">09</span>
+        <span class="mod-name">Multi-omics Integration</span>
+        <div class="mod-desc">Integrates M02+M03+M04+M05+M08 · OncoKB / AMP-ASCO-CAP / ESCAT / CIViC evidence grading · confidence-scored targeted / IO / combination / chemo recommendations</div>
+        <span class="mod-tag">Integration</span><span class="mod-tag">OncoKB</span><span class="mod-tag">CIViC</span>
+      </div>
+
+      <div class="mod-card">
+        <span class="mod-id" style="background:#1b5e20;">10</span>
+        <span class="mod-name">Clinical Recommendation</span>
+        <div class="mod-desc">21 curated LUAD clinical trials (Phase I–III) · mutation/TMB/TME-based trial matching · Eligible vs Potentially Eligible · one-page MDT report (7-panel figure)</div>
+        <span class="mod-tag">Trial Matching</span><span class="mod-tag">MDT Report</span><span class="mod-tag">NCCN</span>
+      </div>
+
     </div>
     """, unsafe_allow_html=True)
 
-    # ── Module Cards ─────────────────────────────────────────────────────────
-    st.markdown('<div class="section-heading">Analysis Modules</div>', unsafe_allow_html=True)
-    st.markdown("""
-    <div class="module-grid">
-        <div class="module-card">
-            <span class="module-id">01</span>
-            <span class="module-name">Patients</span>
-            <div class="module-desc">GDC clinical data retrieval · Kaplan-Meier survival curves · patient summary card</div>
-            <span class="module-tag">Clinical</span>
-            <span class="module-tag">Survival</span>
-        </div>
-        <div class="module-card">
-            <span class="module-id">02</span>
-            <span class="module-name">Variants</span>
-            <div class="module-desc">VEP/PCGR somatic annotation · tumor mutational burden (TMB) · SBS mutational spectrum</div>
-            <span class="module-tag">Genomics</span>
-            <span class="module-tag">TMB</span>
-            <span class="module-tag">VEP</span>
-        </div>
-        <div class="module-card">
-            <span class="module-id">03</span>
-            <span class="module-name">Expression</span>
-            <div class="module-desc">Bulk RNA-seq TPM normalization · cohort-level outlier gene detection · clinical gene panel</div>
-            <span class="module-tag">RNA-seq</span>
-            <span class="module-tag">Outlier</span>
-        </div>
-        <div class="module-card">
-            <span class="module-id">04</span>
-            <span class="module-name">Single-cell TME</span>
-            <div class="module-desc">ssGSEA cell-type deconvolution · GSE131907 reference · immune phenotype (Inflamed / Excluded / Desert)</div>
-            <span class="module-tag">scRNA</span>
-            <span class="module-tag">Immune</span>
-            <span class="module-tag">TME</span>
-        </div>
-        <div class="module-card">
-            <span class="module-id" style="background:#6a1b9a;">05</span>
-            <span class="module-name">Pathology</span>
-            <div class="module-desc">H&E slide analysis · tissue segmentation · TIL density scoring · TME phenotype classification</div>
-            <span class="module-tag" style="background:#f3e5f5;color:#6a1b9a;">Pathology</span>
-            <span class="module-tag">H&amp;E</span>
-            <span class="module-tag">TIL</span>
-            <span class="module-tag">WSI</span>
-        </div>
-        <div class="module-card">
-            <span class="module-id">06</span>
-            <span class="module-name">Pathway</span>
-            <div class="module-desc">Over-representation analysis (ORA) on mutated genes · GSEA prerank on expression fold-changes</div>
-            <span class="module-tag">ORA</span>
-            <span class="module-tag">GSEA</span>
-        </div>
-        <div class="module-card">
-            <span class="module-id" style="background:#e65100;">07</span>
-            <span class="module-name">ESM2</span>
-            <div class="module-desc">Per-site 1280-dim protein embeddings · masked-marginal log-odds · variant effect prediction <em>(GPU recommended)</em></div>
-            <span class="module-tag" style="background:#fff3e0;color:#e65100;">GPU</span>
-            <span class="module-tag">ESM2</span>
-            <span class="module-tag">Embeddings</span>
-        </div>
-        <div class="module-card">
-            <span class="module-id" style="background:#1565c0;">08</span>
-            <span class="module-name">Multi-modal Immune Activity Score</span>
-            <div class="module-desc">CoxNet + XGBoost survival · all protein-coding genes · TIL density (M05) · driver mutations · multi-modal immune activity scoring</div>
-            <span class="module-tag" style="background:#e3f2fd;color:#1565c0;">ML</span>
-            <span class="module-tag">Immunotherapy</span>
-            <span class="module-tag">Survival</span>
-        </div>
-        <div class="module-card">
-            <span class="module-id" style="background:#2e7d32;">09</span>
-            <span class="module-name">Multimodal Integration</span>
-            <div class="module-desc">Multi-omics evidence integration · M02+M03+M04+M05+M08 · treatment confidence scoring</div>
-            <span class="module-tag" style="background:#e8f5e9;color:#2e7d32;">Integration</span>
-            <span class="module-tag">Multi-omics</span>
-        </div>
-        <div class="module-card">
-            <span class="module-id" style="background:#b71c1c;">10</span>
-            <span class="module-name">Clinical Recommendation</span>
-            <div class="module-desc">OncoKB · AMP/ASCO/CAP · ESCAT evidence grading · ranked targeted / IO / combination therapy</div>
-            <span class="module-tag" style="background:#ffebee;color:#b71c1c;">Clinical</span>
-            <span class="module-tag">NCCN</span>
-            <span class="module-tag">CIViC</span>
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
-
-    # ── Sample Coverage Table ────────────────────────────────────────────────
-    st.markdown('<div class="section-heading">Demo Samples</div>', unsafe_allow_html=True)
-    _demo_ids = (SAMPLES[:5] if len(SAMPLES) >= 5
-                 else SAMPLES + ["—"] * (5 - len(SAMPLES)))
-    demo_data = {
-        "Sample ID":  _demo_ids,
-        "Variants":   ["✅", "✅", "—", "✅", "—"],
-        "RNA-seq":    ["✅", "—", "✅", "—", "✅"],
-        "Pathway":    ["✅", "✅", "✅", "✅", "✅"],
-        "Drug Report":["✅", "✅", "—", "✅", "—"],
-        "ESM2":       ["⏳ GPU", "—", "—", "—", "—"],
-        "Pathology":  ["—", "—", "—", "—", "✅"],
-    }
-    st.dataframe(pd.DataFrame(demo_data), use_container_width=True, hide_index=True)
-
-    # ── Quick Start ──────────────────────────────────────────────────────────
-    st.markdown('<div class="section-heading">Quick Start</div>', unsafe_allow_html=True)
-    st.code("""# Run full pipeline (all samples, skip ESM2)
-python run_all.py
-
-# Run a single sample
-python run_all.py --sample TCGA-86-A4D0
-
-# Include ESM2 inference (requires GPU)
-python run_all.py --include_esm2
-
-# Validate inputs without running analysis
-python run_all.py --dry_run
-""", language="bash")
-
-    # ── Footer ───────────────────────────────────────────────────────────────
+    # ── Footer ────────────────────────────────────────────────────────────────
     st.divider()
     st.markdown("""
     <div style="text-align:center; color:#666; font-size:0.85rem; padding: 8px 0 16px 0;">
