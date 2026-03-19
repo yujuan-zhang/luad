@@ -1588,17 +1588,32 @@ elif page == "05 · Pathology":
 
 elif page == "09 · Multimodal Integration":
     st.header("09 · Multimodal Integration")
-    st.caption("M02 variants + M08 TME phenotype → rule-based treatment recommendations")
+    st.caption(
+        "Multi-omics evidence integration · M02 somatic variants + M03 expression + "
+        "M04 ssGSEA TME + M05 TIL + M08 Immune Activity Score · "
+        "OncoKB / AMP-ASCO-CAP / ESCAT evidence grading · confidence 0–100"
+    )
 
-    st.markdown("""
-    **Integration logic (NCCN NSCLC 2024 + FDA approvals):**
-
-    | Priority | Signal | Action |
-    |----------|--------|--------|
-    | 1 | Targetable driver mutation (EGFR/KRAS/ALK/ROS1/RET/MET/BRAF/ERBB2/NTRK) | Matched targeted therapy |
-    | 2 | Inflamed TME or High TMB (≥10 mut/Mb) | Immunotherapy (Pembrolizumab) |
-    | 3 | No driver + Desert TME | Platinum-based chemotherapy |
-    """)
+    with st.expander("Integration framework (click to expand)"):
+        c1, c2 = st.columns(2)
+        with c1:
+            st.markdown("""
+**Evidence sources per recommendation**
+- **Targeted therapy**: M02 variant (VAF, clonality) + M07 drug mapping + M03 target expression + CIViC resistance
+- **Immunotherapy**: TMB (M02) + TME phenotype (M04/M08) + PD-L1 RNA proxy + IFN-γ signature + TIDE score
+- **Combination**: Co-mutation context + TME remodelling rationale
+- **Chemotherapy**: Standard fallback with TMB/TME context
+""")
+        with c2:
+            st.markdown("""
+**Evidence grading system**
+| Tier | Meaning |
+|------|---------|
+| OncoKB Level 1 / AMP Tier I-A | FDA-approved, same cancer type |
+| OncoKB Level 2 / AMP Tier I-B | FDA-approved, different cancer |
+| OncoKB Level 3A / ESCAT Tier V | Investigational / combination |
+| Confidence 0–100 | Data-layer weighted score |
+""")
 
     st.divider()
 
@@ -1631,37 +1646,44 @@ elif page == "09 · Multimodal Integration":
 
         st.divider()
 
-        # IO score distribution
-        if "io_score" in df_sum.columns:
-            st.subheader("Immunotherapy Score Distribution")
-            import matplotlib
-            matplotlib.use("Agg")
-            import matplotlib.pyplot as plt
-            fig, ax = plt.subplots(figsize=(8, 3))
-            ax.hist(df_sum["io_score"].dropna(), bins=20, color="#1a9850", alpha=0.8,
-                    edgecolor="white")
-            ax.axvline(x=50, color="#d73027", linestyle="--", linewidth=1.2,
-                       label="Score = 50")
-            ax.set_xlabel("IO Score (0-100)", fontsize=10)
-            ax.set_ylabel("Patients", fontsize=10)
-            ax.set_title("Multi-Dimensional Immunotherapy Score\n"
-                         "(TMB + TME + PD-L1 + IFN-γ signature)", fontsize=10)
-            ax.legend(fontsize=9)
-            fig.tight_layout()
-            st.pyplot(fig, use_container_width=False)
-            plt.close()
+        import matplotlib
+        matplotlib.use("Agg")
+        import matplotlib.pyplot as plt
 
-        st.divider()
+        fig_c1, fig_c2 = st.columns(2)
 
-        # Top targeted drugs
-        st.subheader("Top Targeted Drug Distribution")
-        if "top_targeted_drug" in df_sum.columns:
-            drug_counts = df_sum["top_targeted_drug"].value_counts()
-            drug_counts = drug_counts[drug_counts.index != "None"]
-            if not drug_counts.empty:
-                drug_df = drug_counts.reset_index()
-                drug_df.columns = ["Drug", "Patients"]
-                st.dataframe(drug_df, use_container_width=False, hide_index=True)
+        # Immune Activity Score distribution
+        with fig_c1:
+            if "io_score" in df_sum.columns:
+                st.markdown("**Immune Activity Score Distribution**")
+                fig, ax = plt.subplots(figsize=(5, 3))
+                ax.hist(df_sum["io_score"].dropna(), bins=25, color="#1a9850",
+                        alpha=0.8, edgecolor="white")
+                ax.axvline(x=50, color="#d73027", linestyle="--", linewidth=1.2,
+                           label="Score = 50")
+                ax.set_xlabel("Immune Activity Score (0–100)", fontsize=9)
+                ax.set_ylabel("Patients", fontsize=9)
+                ax.legend(fontsize=8)
+                fig.tight_layout()
+                st.pyplot(fig, use_container_width=True)
+                plt.close()
+
+        # Top targeted drugs bar chart
+        with fig_c2:
+            if "top_targeted_drug" in df_sum.columns:
+                st.markdown("**Top Targeted Drug Distribution**")
+                drug_counts = df_sum["top_targeted_drug"].value_counts()
+                drug_counts = drug_counts[drug_counts.index.isin(["None", "nan", ""]) == False].head(10)
+                if not drug_counts.empty:
+                    fig2, ax2 = plt.subplots(figsize=(5, 3))
+                    colors = plt.cm.Set2.colors[:len(drug_counts)]
+                    ax2.barh(drug_counts.index[::-1], drug_counts.values[::-1],
+                             color=list(colors)[::-1], edgecolor="white")
+                    ax2.set_xlabel("Patients", fontsize=9)
+                    ax2.tick_params(axis="y", labelsize=8)
+                    fig2.tight_layout()
+                    st.pyplot(fig2, use_container_width=True)
+                    plt.close()
 
         st.divider()
 
@@ -1790,15 +1812,32 @@ elif page == "08 · Multi-modal Immune Activity Score":
 
             # ── 1a Feature Selection ─────────────────────────────────────────
             st.subheader("Feature Selection")
-            fa1, fa2, fa3 = st.columns(3)
-            fa1.metric("Stage 1 RNA filter",
-                       f"Variance → top 5,000 → Cox Wald → top {_m.get('n_rna_selected','500')} genes",
-                       help="Two-step: variance pre-filter then univariate Cox Wald statistic filter")
-            fa2.metric("Stage 2 final features", _m.get("n_features", "—"),
-                       help="CoxNet on Stage-1 RNA genes + all immune/clinical modalities")
-            fa3.metric("Clinical / immune modalities",
-                       "Stage · Age · TMB · TIS · CYT · IMPRES · 7×TME · TIL · 6 driver mutations",
-                       help="Added in Stage 2: M02 variants+TMB · M03 immune sigs · M04 TME · M05 TIL · Clinical stage/age")
+            n_rna  = _m.get("n_rna_selected", "—")
+            n_feat = _m.get("n_features", "—")
+
+            fs_c1, fs_c2 = st.columns(2)
+            with fs_c1:
+                st.markdown("**Stage 1 — RNA gene selection**")
+                st.markdown(
+                    f"1. Variance pre-filter → top 5,000 genes\n"
+                    f"2. Univariate Cox Wald test\n"
+                    f"3. CoxNet (Elastic Net Cox PH, 5-fold CV)\n\n"
+                    f"**→ {n_rna} RNA genes selected**"
+                )
+            with fs_c2:
+                st.markdown("**Stage 2 — Multi-modal final model**")
+                st.markdown(
+                    f"Stage-1 RNA genes + immune signatures\n"
+                    f"+ ssGSEA TME + TIL + somatic mutations\n"
+                    f"+ TMB + pathologic stage + age\n\n"
+                    f"**→ {n_feat} features in final CoxNet**"
+                )
+
+            st.markdown("**Input modalities**")
+            md1, md2, md3 = st.columns(3)
+            md1.info("**🧬 RNA-seq (M03)**\n\nCoxNet-selected genes\n\nTIS · CYT · IMPRES")
+            md2.info("**🔬 TME + Pathology (M04/M05)**\n\nCD8 T · Treg · NK · M1/M2 · B cell\n\nTIL density · TIL score")
+            md3.info("**🏥 Genomics + Clinical (M02)**\n\nSTK11 · KEAP1 · EGFR · KRAS · TMB\n\nStage (I–IV) · Age")
 
             if sel_genes_path.exists():
                 _sg = pd.read_csv(sel_genes_path, sep="\t")
