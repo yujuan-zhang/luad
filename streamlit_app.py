@@ -2061,39 +2061,90 @@ elif page == "08 · Multi-modal Immune Activity Score":
 
 elif page == "10 · Clinical Recommendation":
     st.header("10 · Clinical Recommendation")
-    st.caption("Multi-omics–guided treatment recommendations · OncoKB · AMP/ASCO/CAP · ESCAT")
-
-    _m10_samples = patients_for_page("10 · Clinical Recommendation")
-    sel_sample = st.selectbox(
-        "Select patient", _m10_samples or [],
-        key="m10_sample",
-        index=_m10_samples.index("TCGA-86-A4D0") if _m10_samples and "TCGA-86-A4D0" in _m10_samples else 0,
+    st.caption(
+        "Clinical trial matching · MDT report · "
+        "21 curated LUAD trials (Phase I–III) · "
+        "Matched on mutation / TMB / TME phenotype"
     )
 
-    if sel_sample:
-        rec_tsv = OUTPUT / "09_integration" / sel_sample / f"{sel_sample}_recommendation.tsv"
-        rep_img = OUTPUT / "09_integration" / sel_sample / f"{sel_sample}_integration_report.png"
+    M10_DIR = OUTPUT / "10_clinical_rec"
+    _m10_available = sorted([
+        d.name for d in M10_DIR.iterdir()
+        if d.is_dir() and d.name.startswith("TCGA")
+        and (M10_DIR / d.name / f"{d.name}_mdt_report.png").exists()
+    ]) if M10_DIR.exists() else []
 
-        show_image(rep_img, caption=f"Integration report — {sel_sample}")
+    if not _m10_available:
+        st.info(
+            "M10 reports not yet generated. Run:\n"
+            "```bash\npython modules/10_clinical_rec/luad_clinical_rec.py\n```"
+        )
+    else:
+        sel_m10 = st.selectbox("Select patient", _m10_available, key="m10_sel")
 
-        if rec_tsv.exists():
-            st.subheader("Treatment Recommendations")
-            df_rec = pd.read_csv(rec_tsv, sep="\t")
-            ICONS = {
-                "Targeted Therapy":    "🔵",
-                "Immunotherapy":       "🟢",
-                "Combination Therapy": "🟣",
-                "Chemotherapy":        "🔴",
-            }
-            df_rec["category"] = df_rec["category"].apply(lambda c: f"{ICONS.get(c,'⚪')} {c}")
-            display_cols = [
-                "rank", "category", "drug", "drug_class",
-                "oncokb_level", "amp_tier", "evidence", "line",
-                "confidence", "data_layers", "rationale",
-            ]
-            st.dataframe(
-                df_rec[[c for c in display_cols if c in df_rec.columns]],
-                use_container_width=True, hide_index=True,
-            )
-        else:
-            st.info("Recommendations not yet generated. Run M09 integration pipeline first.")
+        tab_mdt, tab_trials = st.tabs(["📋  MDT Report", "🔬  Clinical Trial Matching"])
+
+        # ── MDT Report ───────────────────────────────────────────────────────
+        with tab_mdt:
+            mdt_png = M10_DIR / sel_m10 / f"{sel_m10}_mdt_report.png"
+            if mdt_png.exists():
+                show_image(mdt_png, caption=f"MDT Clinical Report — {sel_m10}")
+            else:
+                st.warning("MDT report image not found.")
+
+        # ── Clinical Trial Matching ───────────────────────────────────────────
+        with tab_trials:
+            trial_tsv = M10_DIR / sel_m10 / f"{sel_m10}_matched_trials.tsv"
+            if trial_tsv.exists():
+                df_trials = pd.read_csv(trial_tsv, sep="\t")
+
+                n_elig = (df_trials["match_level"] == "Eligible").sum()
+                n_pot  = (df_trials["match_level"] == "Potentially Eligible").sum()
+
+                tc1, tc2, tc3 = st.columns(3)
+                tc1.metric("Eligible trials",            n_elig)
+                tc2.metric("Potentially eligible trials", n_pot)
+                tc3.metric("Total matched",               n_elig + n_pot)
+
+                st.divider()
+
+                # Color-code by match level
+                def _trial_row_style(row):
+                    color = "#d4efdf" if row["match_level"] == "Eligible" else "#fdebd0"
+                    return [f"background-color: {color}"] * len(row)
+
+                display_cols = [
+                    "name", "nct_id", "drug", "target", "phase", "status",
+                    "line", "match_level", "match_basis", "key_result", "reference",
+                ]
+                df_show = df_trials[[c for c in display_cols if c in df_trials.columns]]
+
+                st.dataframe(
+                    df_show.style.apply(_trial_row_style, axis=1),
+                    use_container_width=True,
+                    hide_index=True,
+                )
+
+                with st.expander("About the trial database"):
+                    st.markdown("""
+**21 curated LUAD clinical trials** covering:
+
+| Target | Trials |
+|--------|--------|
+| KRAS G12C | CodeBreaK 200, KRYSTAL-12, KRYSTAL-7 |
+| EGFR | FLAURA2, PAPILLON, MARIPOSA |
+| ALK | CROWN, ALEX |
+| RET fusion | LIBRETTO-431 |
+| MET exon14 | GEOMETRY, VISION |
+| ERBB2/HER2 | DESTINY-Lung02 |
+| NTRK | LOXO-TRK-14001 |
+| BRAF V600E | BRF113928 |
+| TMB-high | KEYNOTE-158, CheckMate 227 |
+| Inflamed TME | KEYNOTE-010, KEYNOTE-024, SKYSCRAPER-01 |
+| No driver | TROPION-Lung08 |
+| KRAS+STK11 | CodeBreaK 101 |
+
+**Match criteria**: Eligible = required mutation/TMB/TME present; Potentially Eligible = partial match (e.g., mutation present but TME suboptimal).
+                    """)
+            else:
+                st.info(f"No matched trials found for {sel_m10}.")
