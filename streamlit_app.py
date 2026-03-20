@@ -649,17 +649,10 @@ elif page == "03 · Expression":
             st.info("Detailed outlier table available in local pipeline output only.")
         st.divider()
         st.subheader("Cohort-level Overview")
-        col1, col2 = st.columns(2)
-        with col1:
-            show_image(
-                OUTPUT / "03_expression" / "cohort_clinical_genes_heatmap.png",
-                caption="Clinical gene Z-scores — 517 patients × 21 genes",
-            )
-        with col2:
-            show_image(
-                OUTPUT / "03_expression" / "cohort_outlier_distribution.png",
-                caption="Outlier gene counts per patient vs GTEx Normal Lung",
-            )
+        show_image(
+            OUTPUT / "03_expression" / "cohort_outlier_distribution.png",
+            caption="Outlier gene counts per patient vs GTEx Normal Lung (n=517)",
+        )
 
     with tab2:
         show_image(
