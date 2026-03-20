@@ -1081,10 +1081,12 @@ elif page == "07 · Variant Impact":
         ax.set_ylim(-0.05, 1.2)
         ax.set_xlabel("Amino acid position", fontsize=9)
         ax.set_ylabel("AlphaMissense score", fontsize=9)
-        ax.set_title(f"{gene}  —  mutation pathogenicity map", fontsize=10)
         ax.spines[["top", "right"]].set_visible(False)
         patches = [mpatches.Patch(color=v, label=k.capitalize()) for k, v in color_map.items()]
         ax.legend(handles=patches, fontsize=8, loc="upper right")
+        ax.set_title("")   # no top title
+        fig.text(0.5, -0.02, f"{gene}  —  mutation pathogenicity map",
+                 ha="center", fontsize=10, color="#333")
         plt.tight_layout()
         return fig
 
