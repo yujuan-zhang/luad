@@ -437,16 +437,26 @@ def make_pathology_report(scores: dict, out_path: Path):
 
     bars = ax_radar.barh(score_names, score_vals, color=bar_colors,
                          alpha=0.85, edgecolor="white", height=0.5)
-    ax_radar.set_xlim(-0.05, 1.18)  # negative left gives labels room
+    ax_radar.set_xlim(0, 1.18)
     ax_radar.axvline(x=1.0, color="gray", linestyle="--", linewidth=0.8, alpha=0.5)
     ax_radar.set_xlabel("Score (0–1)", fontsize=9)
     ax_radar.set_title("Pathology Scores", fontsize=11, fontweight="bold")
     ax_radar.spines["top"].set_visible(False)
     ax_radar.spines["right"].set_visible(False)
-    ax_radar.tick_params(axis="y", labelsize=9)
-    for bar, val in zip(bars, score_vals):
-        ax_radar.text(val + 0.02, bar.get_y() + bar.get_height() / 2,
-                      f"{val:.2f}", va="center", ha="left", fontsize=9)
+    # Remove y-axis tick labels — category names go inside bars
+    ax_radar.set_yticks([])
+    for bar, name, val in zip(bars, score_names, score_vals):
+        cy = bar.get_y() + bar.get_height() / 2
+        if val >= 0.18:
+            # Wide bar: name inside (white), value just outside right end
+            ax_radar.text(0.03, cy, name, va="center", ha="left",
+                          fontsize=8.5, color="white", fontweight="bold")
+            ax_radar.text(val + 0.03, cy, f"{val:.2f}", va="center",
+                          ha="left", fontsize=9, color="#333")
+        else:
+            # Narrow bar: name + value both outside to the right
+            ax_radar.text(val + 0.03, cy, f"{name}  {val:.2f}",
+                          va="center", ha="left", fontsize=8.5, color="#333")
 
     # ── Panel E: Summary table ────────────────────────────────────────────────
     ax_summary.axis("off")
