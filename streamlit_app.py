@@ -375,13 +375,17 @@ Identifying the precise molecular profile of each patient is therefore the **fou
     with dc1:
         st.markdown("""
 **Primary dataset: TCGA-LUAD** (The Cancer Genome Atlas — Lung Adenocarcinoma)
-- **n = 517 patients** with bulk RNA-seq, somatic mutations (MAF), and clinical metadata
-- **n = 272 patients** with somatic variant calls processed through PCGR v2.2.5
+- **n = 585 patients** with clinical metadata (M01: stage, OS, demographics)
+- **n = 517 patients** with bulk RNA-seq TPM (M03 expression analysis)
+- **n = 272 patients** with somatic variant calls processed through PCGR v2.2.5 (M02)
 - Median follow-up: 24.3 months · Events (deaths): 182 (35%)
 
-**External validation: GSE72094** (Kim et al., independent LUAD cohort)
-- n = 398 patients (113 events) · Affymetrix GPL15048 microarray platform
-- Used for external validation of M08 Immune Activity Score (C-index 0.640)
+**External reference databases:**
+- **GTEx Lung** (n = 287 normal lung samples): baseline for M03 expression Z-scores
+  (Z = patient log₂TPM − GTEx mean) / GTEx SD — positive Z = over-expressed vs normal lung
+- **TCGA-LUAD PCGR reference** (n = 541 samples): subtype similarity scoring in M03
+  (Spearman correlation of patient expression profile vs PCGR internal TCGA cohort)
+- **GSE72094** (Kim et al., n = 398): external validation of M08 Immune Activity Score (C-index 0.640)
 
 **Single-cell reference: GSE131907** (Kim et al. 2020, *Nature Cancer*)
 - 57,000 cells from 58 LUAD tumor samples · 10x Genomics Chromium
@@ -392,16 +396,20 @@ Identifying the precise molecular profile of each patient is therefore the **fou
         st.markdown("""
 **Key data layers per patient:**
 
-| Layer | Source | n |
-|-------|--------|---|
-| Somatic variants | PCGR/MAF | 272 |
-| RNA-seq TPM | GDC TCGA | 517 |
-| Clinical (stage, OS) | GDC | 517 |
-| H&E TIL density | M05 | 517 |
-| ssGSEA TME scores | M04 | 517 |
-| Immune activity score | M08 | 517 |
-| Drug recommendations | M09 | 271 |
-| Trial matching | M10 | 271 |
+| Module | Layer | Source | Patients |
+|--------|-------|--------|----------|
+| M01 | Clinical metadata (stage, OS, demographics) | GDC TCGA | 585 |
+| M02 | Somatic variants (VEP/PCGR, TMB, SBS) | MAF / PCGR | 272 |
+| M03 | RNA-seq TPM expression | GDC TCGA | 517 |
+| M03 | Expression Z-score baseline | GTEx Lung | 287 ref |
+| M03 | Subtype similarity reference | PCGR TCGA | 541 ref |
+| M04 | ssGSEA TME deconvolution | GSE131907 ref | 517 |
+| M05 | H&E TIL density (digital pathology) | GDC TCGA | 517 |
+| M06 | Pathway enrichment (ORA/GSEA) | MSigDB/KEGG | 517 |
+| M07 | Variant impact (AlphaMissense/ESM-2) | MAF | 272 |
+| M08 | Multi-modal immune activity score | M02–M05 | 517 |
+| M09 | Treatment recommendation | M02–M08 | 271 |
+| M10 | Clinical trial matching + MDT report | M09 | 271 |
         """)
 
     _cohort_fig = HOME_FIGS / "cohort_overview.png"
