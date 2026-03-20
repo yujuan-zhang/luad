@@ -380,10 +380,10 @@ def make_pathology_report(scores: dict, out_path: Path):
     case_id     = scores["sample_id"]
     tme         = scores["tme_phenotype"]
 
-    fig = plt.figure(figsize=(14, 10))
+    fig = plt.figure(figsize=(16, 10))
     fig.patch.set_facecolor("#fafafa")
-    gs = GridSpec(2, 3, figure=fig, hspace=0.40, wspace=0.35,
-                  width_ratios=[1.2, 1.2, 0.8])
+    gs = GridSpec(2, 3, figure=fig, hspace=0.40, wspace=0.50,
+                  width_ratios=[1.1, 1.1, 1.0])
 
     ax_orig    = fig.add_subplot(gs[0, 0])   # Original thumbnail
     ax_tissue  = fig.add_subplot(gs[0, 1])   # Tissue + TIL overlay
@@ -427,7 +427,7 @@ def make_pathology_report(scores: dict, out_path: Path):
                     fontsize=11, fontweight="bold")
     plt.colorbar(
         plt.cm.ScalarMappable(cmap="Blues", norm=plt.Normalize(0, 1)),
-        ax=ax_he, fraction=0.035, pad=0.03, label="Intensity"
+        ax=ax_he, fraction=0.025, pad=0.02, label="Intensity"
     )
 
     # ── Panel D: Score bar chart ──────────────────────────────────────────────
@@ -437,7 +437,7 @@ def make_pathology_report(scores: dict, out_path: Path):
 
     bars = ax_radar.barh(score_names, score_vals, color=bar_colors,
                          alpha=0.85, edgecolor="white", height=0.5)
-    ax_radar.set_xlim(0, 1.15)
+    ax_radar.set_xlim(-0.05, 1.18)  # negative left gives labels room
     ax_radar.axvline(x=1.0, color="gray", linestyle="--", linewidth=0.8, alpha=0.5)
     ax_radar.set_xlabel("Score (0–1)", fontsize=9)
     ax_radar.set_title("Pathology Scores", fontsize=11, fontweight="bold")
@@ -466,8 +466,9 @@ def make_pathology_report(scores: dict, out_path: Path):
 
     tbl = ax_summary.table(
         cellText=summary_rows,
-        loc="center",
+        loc="upper center",
         cellLoc="left",
+        bbox=[0.0, 0.30, 1.0, 0.68],   # [left, bottom, width, height] in axes coords
     )
     tbl.auto_set_font_size(False)
     tbl.set_fontsize(9)
