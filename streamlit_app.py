@@ -377,7 +377,7 @@ Identifying the precise molecular profile of each patient is therefore the **fou
 **Primary dataset: TCGA-LUAD** (The Cancer Genome Atlas — Lung Adenocarcinoma)
 - **n = 585 patients** with clinical metadata (M01: stage, OS, demographics)
 - **n = 517 patients** with bulk RNA-seq TPM (M03 expression analysis)
-- **n = 272 patients** with somatic variant calls processed through PCGR v2.2.5 (M02)
+- **n = 271 patients** with somatic variant calls processed through PCGR v2.2.5 (M02)
 - Median follow-up: 24.3 months · Events (deaths): 182 (35%)
 
 **External reference databases:**
@@ -399,17 +399,19 @@ Identifying the precise molecular profile of each patient is therefore the **fou
 | Module | Layer | Source | Patients |
 |--------|-------|--------|----------|
 | M01 | Clinical metadata (stage, OS, demographics) | GDC TCGA | 585 |
-| M02 | Somatic variants (VEP/PCGR, TMB, SBS) | MAF / PCGR | 272 |
+| M02 | Somatic variants (VEP/PCGR, TMB, SBS) | MAF / PCGR | 271 |
 | M03 | RNA-seq TPM expression | GDC TCGA | 517 |
 | M03 | Expression Z-score baseline | GTEx Lung | 287 ref |
 | M03 | Subtype similarity reference | PCGR TCGA | 541 ref |
 | M04 | ssGSEA TME deconvolution | GSE131907 ref | 517 |
 | M05 | H&E TIL density (digital pathology) | GDC TCGA | 517 |
 | M06 | Pathway enrichment (ORA/GSEA) | MSigDB/KEGG | 517 |
-| M07 | Variant impact (AlphaMissense/ESM-2) | MAF | 272 |
+| M07 | Variant impact (AlphaMissense/ESM-2) | MAF | 241 ¹ |
 | M08 | Multi-modal immune activity score | M02–M05 | 517 |
 | M09 | Treatment recommendation | M02–M08 | 271 |
 | M10 | Clinical trial matching + MDT report | M09 | 271 |
+
+¹ M07 only scores samples carrying protein-altering mutations in druggable genes (KRAS, EGFR, ALK, etc.)
         """)
 
     _cohort_fig = HOME_FIGS / "cohort_overview.png"
