@@ -20,7 +20,8 @@ Data inputs (all optional except M02):
   M02  → somatic variants, TMB            (272 patients)
   M07  → all targeted drug mappings       (103 patients)
   M03  → gene expression, IFN-γ, PD-L1   (517 patients)
-  M08  → TME phenotype, TIL density       (478 patients)
+  M04  → ssGSEA TME phenotype             (517 patients)
+  M05  → H&E TIL density, TME phenotype  (478 patients)
   CIViC→ variant-drug resistance evidence (local: data/databases/civic_evidence.tsv.gz)
 
 Key references:
@@ -193,7 +194,7 @@ def load_expression(case_id: str) -> pd.DataFrame:
 
 
 def load_tme(case_id: str) -> dict:
-    """Load TME phenotype and TIL scores from M08 (pathology)."""
+    """Load TME phenotype and TIL scores from M05 (H&E pathology)."""
     path = PATHOLOGY_DIR / case_id / f"{case_id}_pathology_scores.tsv"
     if not path.exists():
         return {}
@@ -219,51 +220,51 @@ def load_ssgsea_phenotype(case_id: str) -> str | None:
     return str(df["immune_phenotype"].iloc[0])
 
 
-def combine_tme_evidence(m08_tme: dict, ssgsea_phenotype: str | None) -> dict:
+def combine_tme_evidence(m05_tme: dict, ssgsea_phenotype: str | None) -> dict:
     """
-    Combine M08 pathology TME and M04 ssGSEA phenotype into a consensus call.
+    Combine M05 H&E pathology TME and M04 ssGSEA phenotype into a consensus call.
 
     Scoring rationale (TME component, 0-35):
       Both sources agree    → high confidence (+5 bonus)
         Inflamed + Inflamed → 35
         Excluded + Excluded → 20
         Desert   + Desert   → 0
-      Sources disagree      → M08 preferred (has spatial info), score reduced by 5
-      Only M08 available    → standard scores (30/15/0/8)
+      Sources disagree      → M05 preferred (has spatial info), score reduced by 5
+      Only M05 available    → standard scores (30/15/0/8)
       Only M04 available    → reduced scores (20/10/0/5) — no spatial validation
       Neither available     → Unknown → 8
     """
-    m08_phenotype = m08_tme.get("tme_phenotype", "Unknown") if m08_tme else "Unknown"
-    has_m08 = m08_phenotype not in ("Unknown", "")
+    m05_phenotype = m05_tme.get("tme_phenotype", "Unknown") if m05_tme else "Unknown"
+    has_m05 = m05_phenotype not in ("Unknown", "")
     has_m04 = ssgsea_phenotype is not None
 
-    BASE_M08  = {"Inflamed": 30, "Excluded": 15, "Desert": 0, "Unknown": 8}
+    BASE_M05  = {"Inflamed": 30, "Excluded": 15, "Desert": 0, "Unknown": 8}
     BASE_M04  = {"Inflamed": 20, "Excluded": 10, "Desert": 0, "Unknown": 5}
     CONCORDANT_BONUS = 5
 
-    if has_m08 and has_m04:
-        if m08_phenotype == ssgsea_phenotype:
+    if has_m05 and has_m04:
+        if m05_phenotype == ssgsea_phenotype:
             # Concordant: high confidence
-            base = BASE_M08.get(m08_phenotype, 8)
+            base = BASE_M05.get(m05_phenotype, 8)
             tme_score = min(35, base + CONCORDANT_BONUS)
-            consensus = m08_phenotype
-            confidence_note = f"M04+M08 concordant: {consensus}"
-            source = "M04+M08"
+            consensus = m05_phenotype
+            confidence_note = f"M04+M05 concordant: {consensus}"
+            source = "M04+M05"
         else:
-            # Discordant: M08 preferred, penalise confidence
-            base = BASE_M08.get(m08_phenotype, 8)
+            # Discordant: M05 preferred, penalise confidence
+            base = BASE_M05.get(m05_phenotype, 8)
             tme_score = max(0, base - 5)
-            consensus = m08_phenotype           # M08 wins (spatial info)
+            consensus = m05_phenotype           # M05 wins (spatial info)
             confidence_note = (
-                f"M04/M08 discordant (M08={m08_phenotype}, M04={ssgsea_phenotype}; "
-                f"M08 preferred — spatial data)"
+                f"M04/M05 discordant (M05={m05_phenotype}, M04={ssgsea_phenotype}; "
+                f"M05 preferred — spatial data)"
             )
-            source = "M04+M08"
-    elif has_m08:
-        tme_score = BASE_M08.get(m08_phenotype, 8)
-        consensus = m08_phenotype
-        confidence_note = f"M08 only: {m08_phenotype}"
-        source = "M08"
+            source = "M04+M05"
+    elif has_m05:
+        tme_score = BASE_M05.get(m05_phenotype, 8)
+        consensus = m05_phenotype
+        confidence_note = f"M05 only: {m05_phenotype}"
+        source = "M05"
     elif has_m04:
         tme_score = BASE_M04.get(ssgsea_phenotype, 5)
         consensus = ssgsea_phenotype
@@ -275,7 +276,7 @@ def combine_tme_evidence(m08_tme: dict, ssgsea_phenotype: str | None) -> dict:
         confidence_note = "TME: no data"
         source = ""
 
-    result = dict(m08_tme) if m08_tme else {}
+    result = dict(m05_tme) if m05_tme else {}
     result.update({
         "tme_phenotype":    consensus,
         "tme_score":        tme_score,
@@ -650,7 +651,7 @@ def score_immunotherapy(
     layers = []
     if not np.isnan(tmb):          layers.append("M02")
     tme_source = tme.get("tme_source", "")
-    for src in ("M04", "M08"):
+    for src in ("M04", "M05"):
         if src in tme_source:
             layers.append(src)
     if pdl1_tpm is not None:       layers.append("M03")
@@ -695,7 +696,7 @@ def evaluate_combination_therapy(
 
     Confidence:
       High (≥60): FDA-approved individual components + prospective data
-      Medium (40-59): preclinical/early clinical rationale + M02+M08 support
+      Medium (40-59): preclinical/early clinical rationale + M02+M05 support
       Low (<40): purely biological rationale, limited data
     """
     combos = []
@@ -761,7 +762,7 @@ def evaluate_combination_therapy(
                            "to Inflamed → sequential PD-1 blockade"),
             "escat_tier": "Tier V",
             "conf_score": 48,
-            "data_layers":"M02+M07+M08",
+            "data_layers":"M02+M07+M05",
         })
 
     # KRAS G12C + Inflamed TME (no IO resistance) → dual targeting
@@ -774,7 +775,7 @@ def evaluate_combination_therapy(
                 "logic":      "KRAS G12C + Inflamed TME (no IO resistance genes): concurrent dual targeting",
                 "escat_tier": "Tier V",
                 "conf_score": 55,
-                "data_layers":"M02+M07+M08",
+                "data_layers":"M02+M07+M05",
             })
 
     return combos
@@ -890,7 +891,7 @@ def generate_all_recommendations(
             "line":             "Investigational",
             "confidence":       combo["conf_score"],
             "tmb_support":      "N/A",
-            "tme_support":      tme_phenotype if "M08" in combo["data_layers"] else "N/A",
+            "tme_support":      tme_phenotype if "M05" in combo["data_layers"] else "N/A",
             "data_layers":      combo["data_layers"],
             "rationale":        combo["logic"],
             "combination_basis":combo["basis"],
@@ -1001,7 +1002,7 @@ def make_integration_report(
 
     # TME
     add_block(
-        "TME Phenotype (M08)",
+        "TME Phenotype (M05)",
         [f"{tme_phenotype}  (TIL score: {tme.get('til_score', 0):.2f})"],
         tme_color,
     )
@@ -1020,7 +1021,7 @@ def make_integration_report(
     if io_scoring["io_penalty"] < 0:
         io_items.append(f"⚠ IO resistance penalty: {io_scoring['io_penalty']}")
     io_items.append(f"→  IO total score: {io_scoring['total_score']} / 100")
-    add_block("Immunotherapy Scoring (M02+M08+M03+TIDE)", io_items, "#1a9850")
+    add_block("Immunotherapy Scoring (M02+M05+M03+TIDE)", io_items, "#1a9850")
 
     # TME colour badge
     if y > 0.07:
@@ -1145,19 +1146,19 @@ def run_patient(case_id: str, logger) -> dict | None:
         return None
 
     tmb            = load_tmb(case_id)
-    m08_tme        = load_tme(case_id)
+    m05_tme        = load_tme(case_id)
     ssgsea_pheno   = load_ssgsea_phenotype(case_id)
-    tme            = combine_tme_evidence(m08_tme, ssgsea_pheno)
+    tme            = combine_tme_evidence(m05_tme, ssgsea_pheno)
     m07_drugs      = load_m07_drugs(case_id)
     expr_df        = load_expression(case_id)
 
     has_m07 = not m07_drugs.empty
-    has_m08 = bool(m08_tme)
+    has_m05 = bool(m05_tme)
     has_m04 = ssgsea_pheno is not None
     has_m03 = not expr_df.empty
     logger.info(
         f"  Data: M02✓ M07{'✓' if has_m07 else '✗'} "
-        f"M08{'✓' if has_m08 else '✗'} M04{'✓' if has_m04 else '✗'} "
+        f"M05{'✓' if has_m05 else '✗'} M04{'✓' if has_m04 else '✗'} "
         f"M03{'✓' if has_m03 else '✗'} | TME={tme['tme_phenotype']} "
         f"({tme.get('tme_confidence','')[:40]})"
     )
@@ -1198,7 +1199,7 @@ def run_patient(case_id: str, logger) -> dict | None:
     top_t = next((r for r in recs if r["category"] == "Targeted Therapy"), None)
     return {
         "sample_id":          case_id,
-        "data_layers":        sum([True, has_m07, has_m08, has_m03]),
+        "data_layers":        sum([True, has_m07, has_m05, has_m03]),
         "n_targeted":         n_targeted,
         "n_immunotherapy":    sum(1 for r in recs if r["category"] == "Immunotherapy"),
         "n_combination":      n_combo,
