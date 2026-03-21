@@ -1982,7 +1982,7 @@ elif page == "10 · Trial Matching & MDT Report":
             profile_json_m10 = OUTPUT / "09_integration" / sel_m10 / f"{sel_m10}_molecular_profile.json"
             trial_tsv_m10    = M10_DIR / sel_m10 / f"{sel_m10}_matched_trials.tsv"
 
-            clin_path = PROJECT_ROOT / "data" / "clinical" / "tcga_luad_survival.tsv"
+            clin_path = OUTPUT.parent / "clinical" / "tcga_luad_survival.tsv"
             clin_df   = pd.read_csv(clin_path, sep="\t") if clin_path.exists() else pd.DataFrame()
             clin_row  = clin_df[clin_df["sample_id"] == sel_m10].iloc[0] if not clin_df.empty and sel_m10 in clin_df["sample_id"].values else {}
 
