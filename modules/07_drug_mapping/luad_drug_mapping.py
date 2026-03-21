@@ -173,6 +173,30 @@ DRUG_KB = {
              "level": "FDA-Approved", "pattern": r"fusion|.*"},
         ],
     },
+    "NTRK2": {
+        "category": "Oncogene",
+        "color": "#8e44ad",
+        "drugs": [
+            {"drug": "Larotrectinib","class": "pan-NTRK inhibitor",     "line": "1L",
+             "level": "FDA-Approved", "pattern": r"fusion|.*"},
+            {"drug": "Entrectinib",  "class": "NTRK/ROS1/ALK inhibitor","line": "1L",
+             "level": "FDA-Approved", "pattern": r"fusion|.*"},
+            {"drug": "Selitrectinib","class": "2nd-gen NTRK inhibitor", "line": "2L",
+             "level": "Phase II",     "pattern": r"fusion|G595R|G639R"},
+        ],
+    },
+    "NTRK3": {
+        "category": "Oncogene",
+        "color": "#8e44ad",
+        "drugs": [
+            {"drug": "Larotrectinib","class": "pan-NTRK inhibitor",     "line": "1L",
+             "level": "FDA-Approved", "pattern": r"fusion|.*"},
+            {"drug": "Entrectinib",  "class": "NTRK/ROS1/ALK inhibitor","line": "1L",
+             "level": "FDA-Approved", "pattern": r"fusion|.*"},
+            {"drug": "Repotrectinib","class": "next-gen NTRK/ROS1/ALK inhibitor","line": "2L",
+             "level": "FDA-Approved", "pattern": r"fusion|G623R|G696A"},
+        ],
+    },
     "FGFR1": {
         "category": "Oncogene",
         "color": "#d35400",
