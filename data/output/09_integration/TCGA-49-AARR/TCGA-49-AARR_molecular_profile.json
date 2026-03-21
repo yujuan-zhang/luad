@@ -1,0 +1,22 @@
+{
+  "case_id": "TCGA-49-AARR",
+  "drivers": [],
+  "tumor_suppressors": [],
+  "tmb": 0.03,
+  "tmb_high": false,
+  "tme_phenotype": "Inflamed",
+  "tme_source": "M04+M05",
+  "tme_confidence": "M04/M05 discordant (M05=Inflamed, M04=Excluded; M05 preferred \u2014 spatial data)",
+  "til_score": 0.1837,
+  "io_total": 34,
+  "io_tmb": 0,
+  "io_tmb_label": "Very low (0.0 mut/Mb)",
+  "io_tme": 25,
+  "io_tme_label": "M04/M05 discordant (M05=Inflamed, M04=Excluded; M05 preferred \u2014 spatial data)",
+  "io_pdl1": 5,
+  "io_pdl1_label": "Intermediate (TPM=10.8, RNA proxy)",
+  "io_ifng": 2,
+  "io_ifng_label": "Low (4.30)",
+  "io_penalty": 0,
+  "io_res_label": ""
+}

@@ -1,0 +1,28 @@
+{
+  "case_id": "TCGA-53-7626",
+  "drivers": [],
+  "tumor_suppressors": [
+    {
+      "gene": "TP53",
+      "hgvsp": "p.M237I",
+      "impact": "MODERATE"
+    }
+  ],
+  "tmb": 7.71,
+  "tmb_high": false,
+  "tme_phenotype": "Excluded",
+  "tme_source": "M04+M05",
+  "tme_confidence": "M04+M05 concordant: Excluded",
+  "til_score": 0.1382,
+  "io_total": 51,
+  "io_tmb": 18,
+  "io_tmb_label": "Intermediate (7.7 mut/Mb)",
+  "io_tme": 20,
+  "io_tme_label": "M04+M05 concordant: Excluded",
+  "io_pdl1": 5,
+  "io_pdl1_label": "Intermediate (TPM=9.4, RNA proxy)",
+  "io_ifng": 8,
+  "io_ifng_label": "Medium (5.90)",
+  "io_penalty": 0,
+  "io_res_label": ""
+}

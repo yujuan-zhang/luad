@@ -1,0 +1,28 @@
+{
+  "case_id": "TCGA-44-2655",
+  "drivers": [],
+  "tumor_suppressors": [
+    {
+      "gene": "KEAP1",
+      "hgvsp": "p.S144F",
+      "impact": "MODERATE"
+    }
+  ],
+  "tmb": 3.71,
+  "tmb_high": false,
+  "tme_phenotype": "Excluded",
+  "tme_source": "M04+M05",
+  "tme_confidence": "M04+M05 concordant: Excluded",
+  "til_score": 0.1314,
+  "io_total": 10,
+  "io_tmb": 8,
+  "io_tmb_label": "Low (3.7 mut/Mb)",
+  "io_tme": 20,
+  "io_tme_label": "M04+M05 concordant: Excluded",
+  "io_pdl1": 0,
+  "io_pdl1_label": "Low (TPM=3.4, RNA proxy)",
+  "io_ifng": 2,
+  "io_ifng_label": "Low (3.89)",
+  "io_penalty": -20,
+  "io_res_label": "IO resistance: KEAP1"
+}

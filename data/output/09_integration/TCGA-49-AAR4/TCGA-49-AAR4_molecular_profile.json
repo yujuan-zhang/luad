@@ -1,0 +1,34 @@
+{
+  "case_id": "TCGA-49-AAR4",
+  "drivers": [
+    {
+      "gene": "ROS1",
+      "mutation": "p.X1557_splice",
+      "drug": "Entrectinib"
+    }
+  ],
+  "tumor_suppressors": [
+    {
+      "gene": "TP53",
+      "hgvsp": "p.G105C",
+      "impact": "MODERATE"
+    }
+  ],
+  "tmb": 11.26,
+  "tmb_high": true,
+  "tme_phenotype": "Desert",
+  "tme_source": "M04+M05",
+  "tme_confidence": "M04/M05 discordant (M05=Desert, M04=Inflamed; M05 preferred \u2014 spatial data)",
+  "til_score": 0.1129,
+  "io_total": 48,
+  "io_tmb": 30,
+  "io_tmb_label": "High (11.3 mut/Mb)",
+  "io_tme": 0,
+  "io_tme_label": "M04/M05 discordant (M05=Desert, M04=Inflamed; M05 preferred \u2014 spatial data)",
+  "io_pdl1": 5,
+  "io_pdl1_label": "Intermediate (TPM=15.3, RNA proxy)",
+  "io_ifng": 8,
+  "io_ifng_label": "Medium (5.94)",
+  "io_penalty": 0,
+  "io_res_label": ""
+}

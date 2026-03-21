@@ -1,0 +1,28 @@
+{
+  "case_id": "TCGA-55-6980",
+  "drivers": [],
+  "tumor_suppressors": [
+    {
+      "gene": "TP53",
+      "hgvsp": "p.A138Cfs*27",
+      "impact": "HIGH"
+    }
+  ],
+  "tmb": 0.18,
+  "tmb_high": false,
+  "tme_phenotype": "Excluded",
+  "tme_source": "M04+M05",
+  "tme_confidence": "M04+M05 concordant: Excluded",
+  "til_score": 0.1531,
+  "io_total": 33,
+  "io_tmb": 0,
+  "io_tmb_label": "Very low (0.2 mut/Mb)",
+  "io_tme": 20,
+  "io_tme_label": "M04+M05 concordant: Excluded",
+  "io_pdl1": 5,
+  "io_pdl1_label": "Intermediate (TPM=10.7, RNA proxy)",
+  "io_ifng": 8,
+  "io_ifng_label": "Medium (5.20)",
+  "io_penalty": 0,
+  "io_res_label": ""
+}

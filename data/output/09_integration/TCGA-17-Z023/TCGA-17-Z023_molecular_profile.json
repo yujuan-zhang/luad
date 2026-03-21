@@ -1,0 +1,44 @@
+{
+  "case_id": "TCGA-17-Z023",
+  "drivers": [
+    {
+      "gene": "ROS1",
+      "mutation": "p.I1849M",
+      "drug": "Entrectinib"
+    }
+  ],
+  "tumor_suppressors": [
+    {
+      "gene": "CDKN2A",
+      "hgvsp": "p.R112Vfs*34",
+      "impact": "HIGH"
+    },
+    {
+      "gene": "NFE2L2",
+      "hgvsp": "p.E79*",
+      "impact": "HIGH"
+    },
+    {
+      "gene": "TP53",
+      "hgvsp": "p.E198*",
+      "impact": "HIGH"
+    }
+  ],
+  "tmb": 8.47,
+  "tmb_high": false,
+  "tme_phenotype": "Unknown",
+  "tme_source": "",
+  "tme_confidence": "TME: no data",
+  "til_score": 0.0,
+  "io_total": 6,
+  "io_tmb": 18,
+  "io_tmb_label": "Intermediate (8.5 mut/Mb)",
+  "io_tme": 8,
+  "io_tme_label": "TME: no data",
+  "io_pdl1": 0,
+  "io_pdl1_label": "N/A",
+  "io_ifng": 0,
+  "io_ifng_label": "N/A",
+  "io_penalty": -20,
+  "io_res_label": "IO resistance: NFE2L2"
+}

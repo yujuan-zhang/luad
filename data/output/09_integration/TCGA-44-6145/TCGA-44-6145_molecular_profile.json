@@ -1,0 +1,39 @@
+{
+  "case_id": "TCGA-44-6145",
+  "drivers": [
+    {
+      "gene": "RET",
+      "mutation": "p.P560H",
+      "drug": "Selpercatinib"
+    }
+  ],
+  "tumor_suppressors": [
+    {
+      "gene": "RB1",
+      "hgvsp": "p.F528_I536del",
+      "impact": "MODERATE"
+    },
+    {
+      "gene": "TP53",
+      "hgvsp": "p.X332_splice",
+      "impact": "HIGH"
+    }
+  ],
+  "tmb": 6.53,
+  "tmb_high": false,
+  "tme_phenotype": "Inflamed",
+  "tme_source": "M04+M05",
+  "tme_confidence": "M04+M05 concordant: Inflamed",
+  "til_score": 0.2477,
+  "io_total": 71,
+  "io_tmb": 18,
+  "io_tmb_label": "Intermediate (6.5 mut/Mb)",
+  "io_tme": 35,
+  "io_tme_label": "M04+M05 concordant: Inflamed",
+  "io_pdl1": 10,
+  "io_pdl1_label": "High (TPM=21.6, RNA proxy)",
+  "io_ifng": 8,
+  "io_ifng_label": "Medium (6.42)",
+  "io_penalty": 0,
+  "io_res_label": ""
+}

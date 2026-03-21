@@ -1,0 +1,33 @@
+{
+  "case_id": "TCGA-17-Z015",
+  "drivers": [],
+  "tumor_suppressors": [
+    {
+      "gene": "NFE2L2",
+      "hgvsp": "p.G412V",
+      "impact": "MODERATE"
+    },
+    {
+      "gene": "TP53",
+      "hgvsp": "p.R110L",
+      "impact": "MODERATE"
+    }
+  ],
+  "tmb": 10.79,
+  "tmb_high": true,
+  "tme_phenotype": "Unknown",
+  "tme_source": "",
+  "tme_confidence": "TME: no data",
+  "til_score": 0.0,
+  "io_total": 18,
+  "io_tmb": 30,
+  "io_tmb_label": "High (10.8 mut/Mb)",
+  "io_tme": 8,
+  "io_tme_label": "TME: no data",
+  "io_pdl1": 0,
+  "io_pdl1_label": "N/A",
+  "io_ifng": 0,
+  "io_ifng_label": "N/A",
+  "io_penalty": -20,
+  "io_res_label": "IO resistance: NFE2L2"
+}

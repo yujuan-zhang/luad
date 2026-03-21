@@ -1,0 +1,39 @@
+{
+  "case_id": "TCGA-44-6778",
+  "drivers": [
+    {
+      "gene": "MAP2K1",
+      "mutation": "p.M256T",
+      "drug": "Trametinib"
+    }
+  ],
+  "tumor_suppressors": [
+    {
+      "gene": "KEAP1",
+      "hgvsp": "p.M110V",
+      "impact": "MODERATE"
+    },
+    {
+      "gene": "TP53",
+      "hgvsp": "p.I232F",
+      "impact": "MODERATE"
+    }
+  ],
+  "tmb": 8.09,
+  "tmb_high": false,
+  "tme_phenotype": "Inflamed",
+  "tme_source": "M04+M05",
+  "tme_confidence": "M04/M05 discordant (M05=Inflamed, M04=Excluded; M05 preferred \u2014 spatial data)",
+  "til_score": 0.235,
+  "io_total": 43,
+  "io_tmb": 18,
+  "io_tmb_label": "Intermediate (8.1 mut/Mb)",
+  "io_tme": 25,
+  "io_tme_label": "M04/M05 discordant (M05=Inflamed, M04=Excluded; M05 preferred \u2014 spatial data)",
+  "io_pdl1": 10,
+  "io_pdl1_label": "High (TPM=29.2, RNA proxy)",
+  "io_ifng": 8,
+  "io_ifng_label": "Medium (6.74)",
+  "io_penalty": -20,
+  "io_res_label": "IO resistance: KEAP1"
+}

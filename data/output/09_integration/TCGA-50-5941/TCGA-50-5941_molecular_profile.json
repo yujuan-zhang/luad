@@ -1,0 +1,28 @@
+{
+  "case_id": "TCGA-50-5941",
+  "drivers": [],
+  "tumor_suppressors": [
+    {
+      "gene": "TP53",
+      "hgvsp": "p.V73Wfs*50",
+      "impact": "HIGH"
+    }
+  ],
+  "tmb": 7.35,
+  "tmb_high": false,
+  "tme_phenotype": "Inflamed",
+  "tme_source": "M04",
+  "tme_confidence": "M04 only (ssGSEA): Inflamed",
+  "til_score": 0.0,
+  "io_total": 56,
+  "io_tmb": 18,
+  "io_tmb_label": "Intermediate (7.4 mut/Mb)",
+  "io_tme": 20,
+  "io_tme_label": "M04 only (ssGSEA): Inflamed",
+  "io_pdl1": 10,
+  "io_pdl1_label": "High (TPM=23.4, RNA proxy)",
+  "io_ifng": 8,
+  "io_ifng_label": "Medium (6.86)",
+  "io_penalty": 0,
+  "io_res_label": ""
+}

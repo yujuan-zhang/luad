@@ -1,0 +1,43 @@
+{
+  "case_id": "TCGA-17-Z026",
+  "drivers": [],
+  "tumor_suppressors": [
+    {
+      "gene": "CDKN2A",
+      "hgvsp": "p.L104Q",
+      "impact": "MODERATE"
+    },
+    {
+      "gene": "KEAP1",
+      "hgvsp": "p.Q163H",
+      "impact": "MODERATE"
+    },
+    {
+      "gene": "NFE2L2",
+      "hgvsp": "p.D27H",
+      "impact": "MODERATE"
+    },
+    {
+      "gene": "TP53",
+      "hgvsp": "p.G266*",
+      "impact": "HIGH"
+    }
+  ],
+  "tmb": 18.76,
+  "tmb_high": true,
+  "tme_phenotype": "Unknown",
+  "tme_source": "",
+  "tme_confidence": "TME: no data",
+  "til_score": 0.0,
+  "io_total": 18,
+  "io_tmb": 30,
+  "io_tmb_label": "High (18.8 mut/Mb)",
+  "io_tme": 8,
+  "io_tme_label": "TME: no data",
+  "io_pdl1": 0,
+  "io_pdl1_label": "N/A",
+  "io_ifng": 0,
+  "io_ifng_label": "N/A",
+  "io_penalty": -20,
+  "io_res_label": "IO resistance: KEAP1/NFE2L2"
+}

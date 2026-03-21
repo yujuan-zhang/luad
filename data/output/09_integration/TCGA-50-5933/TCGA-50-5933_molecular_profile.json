@@ -1,0 +1,28 @@
+{
+  "case_id": "TCGA-50-5933",
+  "drivers": [],
+  "tumor_suppressors": [
+    {
+      "gene": "TP53",
+      "hgvsp": "p.X187_splice",
+      "impact": "HIGH"
+    }
+  ],
+  "tmb": 10.26,
+  "tmb_high": true,
+  "tme_phenotype": "Excluded",
+  "tme_source": "M04",
+  "tme_confidence": "M04 only (ssGSEA): Excluded",
+  "til_score": 0.0,
+  "io_total": 58,
+  "io_tmb": 30,
+  "io_tmb_label": "High (10.3 mut/Mb)",
+  "io_tme": 10,
+  "io_tme_label": "M04 only (ssGSEA): Excluded",
+  "io_pdl1": 10,
+  "io_pdl1_label": "High (TPM=66.6, RNA proxy)",
+  "io_ifng": 8,
+  "io_ifng_label": "Medium (5.68)",
+  "io_penalty": 0,
+  "io_res_label": ""
+}

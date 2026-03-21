@@ -1,0 +1,34 @@
+{
+  "case_id": "TCGA-50-6595",
+  "drivers": [
+    {
+      "gene": "EGFR",
+      "mutation": "p.G719A",
+      "drug": "Osimertinib"
+    }
+  ],
+  "tumor_suppressors": [
+    {
+      "gene": "CDKN2A",
+      "hgvsp": "p.R22Gfs*4",
+      "impact": "HIGH"
+    }
+  ],
+  "tmb": 1.68,
+  "tmb_high": false,
+  "tme_phenotype": "Excluded",
+  "tme_source": "M04",
+  "tme_confidence": "M04 only (ssGSEA): Excluded",
+  "til_score": 0.0,
+  "io_total": 37,
+  "io_tmb": 8,
+  "io_tmb_label": "Low (1.7 mut/Mb)",
+  "io_tme": 10,
+  "io_tme_label": "M04 only (ssGSEA): Excluded",
+  "io_pdl1": 10,
+  "io_pdl1_label": "High (TPM=64.7, RNA proxy)",
+  "io_ifng": 8,
+  "io_ifng_label": "Medium (6.52)",
+  "io_penalty": 0,
+  "io_res_label": ""
+}

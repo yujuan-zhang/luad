@@ -1,0 +1,28 @@
+{
+  "case_id": "TCGA-44-8119",
+  "drivers": [
+    {
+      "gene": "ROS1",
+      "mutation": "p.X1750_splice",
+      "drug": "Entrectinib"
+    }
+  ],
+  "tumor_suppressors": [],
+  "tmb": 13.56,
+  "tmb_high": true,
+  "tme_phenotype": "Inflamed",
+  "tme_source": "M04+M05",
+  "tme_confidence": "M04/M05 discordant (M05=Inflamed, M04=Excluded; M05 preferred \u2014 spatial data)",
+  "til_score": 0.2493,
+  "io_total": 69,
+  "io_tmb": 30,
+  "io_tmb_label": "High (13.6 mut/Mb)",
+  "io_tme": 25,
+  "io_tme_label": "M04/M05 discordant (M05=Inflamed, M04=Excluded; M05 preferred \u2014 spatial data)",
+  "io_pdl1": 5,
+  "io_pdl1_label": "Intermediate (TPM=6.3, RNA proxy)",
+  "io_ifng": 8,
+  "io_ifng_label": "Medium (5.12)",
+  "io_penalty": 0,
+  "io_res_label": ""
+}

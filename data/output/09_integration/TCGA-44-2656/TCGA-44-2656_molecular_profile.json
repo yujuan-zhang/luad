@@ -1,0 +1,39 @@
+{
+  "case_id": "TCGA-44-2656",
+  "drivers": [
+    {
+      "gene": "ALK",
+      "mutation": "p.Q453H",
+      "drug": "Alectinib"
+    },
+    {
+      "gene": "ERBB2",
+      "mutation": "p.S310F",
+      "drug": "Trastuzumab deruxtecan"
+    }
+  ],
+  "tumor_suppressors": [
+    {
+      "gene": "TP53",
+      "hgvsp": "p.V73Wfs*50",
+      "impact": "HIGH"
+    }
+  ],
+  "tmb": 16.71,
+  "tmb_high": true,
+  "tme_phenotype": "Desert",
+  "tme_source": "M04+M05",
+  "tme_confidence": "M04/M05 discordant (M05=Desert, M04=Inflamed; M05 preferred \u2014 spatial data)",
+  "til_score": 0.0566,
+  "io_total": 50,
+  "io_tmb": 30,
+  "io_tmb_label": "High (16.7 mut/Mb)",
+  "io_tme": 0,
+  "io_tme_label": "M04/M05 discordant (M05=Desert, M04=Inflamed; M05 preferred \u2014 spatial data)",
+  "io_pdl1": 10,
+  "io_pdl1_label": "High (TPM=49.9, RNA proxy)",
+  "io_ifng": 8,
+  "io_ifng_label": "Medium (6.71)",
+  "io_penalty": 0,
+  "io_res_label": ""
+}

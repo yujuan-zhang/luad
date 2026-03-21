@@ -1,0 +1,28 @@
+{
+  "case_id": "TCGA-50-5936",
+  "drivers": [],
+  "tumor_suppressors": [
+    {
+      "gene": "KEAP1",
+      "hgvsp": "p.Q46*",
+      "impact": "HIGH"
+    }
+  ],
+  "tmb": 2.5,
+  "tmb_high": false,
+  "tme_phenotype": "Excluded",
+  "tme_source": "M04",
+  "tme_confidence": "M04 only (ssGSEA): Excluded",
+  "til_score": 0.0,
+  "io_total": 0,
+  "io_tmb": 8,
+  "io_tmb_label": "Low (2.5 mut/Mb)",
+  "io_tme": 10,
+  "io_tme_label": "M04 only (ssGSEA): Excluded",
+  "io_pdl1": 0,
+  "io_pdl1_label": "Low (TPM=4.4, RNA proxy)",
+  "io_ifng": 2,
+  "io_ifng_label": "Low (4.11)",
+  "io_penalty": -20,
+  "io_res_label": "IO resistance: KEAP1"
+}

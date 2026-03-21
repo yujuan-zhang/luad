@@ -1,0 +1,34 @@
+{
+  "case_id": "TCGA-50-5944",
+  "drivers": [
+    {
+      "gene": "EGFR",
+      "mutation": "p.L858R",
+      "drug": "Osimertinib"
+    }
+  ],
+  "tumor_suppressors": [
+    {
+      "gene": "TP53",
+      "hgvsp": "p.E285*",
+      "impact": "HIGH"
+    }
+  ],
+  "tmb": 1.18,
+  "tmb_high": false,
+  "tme_phenotype": "Desert",
+  "tme_source": "M04",
+  "tme_confidence": "M04 only (ssGSEA): Desert",
+  "til_score": 0.0,
+  "io_total": 10,
+  "io_tmb": 8,
+  "io_tmb_label": "Low (1.2 mut/Mb)",
+  "io_tme": 0,
+  "io_tme_label": "M04 only (ssGSEA): Desert",
+  "io_pdl1": 0,
+  "io_pdl1_label": "Low (TPM=3.9, RNA proxy)",
+  "io_ifng": 2,
+  "io_ifng_label": "Low (2.93)",
+  "io_penalty": 0,
+  "io_res_label": ""
+}

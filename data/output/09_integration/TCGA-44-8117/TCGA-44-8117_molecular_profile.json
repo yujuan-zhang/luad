@@ -1,0 +1,28 @@
+{
+  "case_id": "TCGA-44-8117",
+  "drivers": [],
+  "tumor_suppressors": [
+    {
+      "gene": "TP53",
+      "hgvsp": "p.E171*",
+      "impact": "HIGH"
+    }
+  ],
+  "tmb": 15.88,
+  "tmb_high": true,
+  "tme_phenotype": "Excluded",
+  "tme_source": "M04",
+  "tme_confidence": "M04 only (ssGSEA): Excluded",
+  "til_score": 0.0,
+  "io_total": 47,
+  "io_tmb": 30,
+  "io_tmb_label": "High (15.9 mut/Mb)",
+  "io_tme": 10,
+  "io_tme_label": "M04 only (ssGSEA): Excluded",
+  "io_pdl1": 5,
+  "io_pdl1_label": "Intermediate (TPM=12.2, RNA proxy)",
+  "io_ifng": 2,
+  "io_ifng_label": "Low (4.80)",
+  "io_penalty": 0,
+  "io_res_label": ""
+}

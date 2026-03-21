@@ -1,0 +1,28 @@
+{
+  "case_id": "TCGA-44-3918_3",
+  "drivers": [],
+  "tumor_suppressors": [
+    {
+      "gene": "TP53",
+      "hgvsp": "p.X307_splice",
+      "impact": "HIGH"
+    }
+  ],
+  "tmb": 18.97,
+  "tmb_high": true,
+  "tme_phenotype": "Unknown",
+  "tme_source": "",
+  "tme_confidence": "TME: no data",
+  "til_score": 0.0,
+  "io_total": 38,
+  "io_tmb": 30,
+  "io_tmb_label": "High (19.0 mut/Mb)",
+  "io_tme": 8,
+  "io_tme_label": "TME: no data",
+  "io_pdl1": 0,
+  "io_pdl1_label": "N/A",
+  "io_ifng": 0,
+  "io_ifng_label": "N/A",
+  "io_penalty": 0,
+  "io_res_label": ""
+}

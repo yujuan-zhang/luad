@@ -1,0 +1,34 @@
+{
+  "case_id": "TCGA-05-5423",
+  "drivers": [
+    {
+      "gene": "EGFR",
+      "mutation": "p.L861Q",
+      "drug": "Osimertinib"
+    }
+  ],
+  "tumor_suppressors": [
+    {
+      "gene": "TP53",
+      "hgvsp": "p.R249M",
+      "impact": "MODERATE"
+    }
+  ],
+  "tmb": 3.21,
+  "tmb_high": false,
+  "tme_phenotype": "Desert",
+  "tme_source": "M04+M05",
+  "tme_confidence": "M04/M05 discordant (M05=Desert, M04=Excluded; M05 preferred \u2014 spatial data)",
+  "til_score": 0.0679,
+  "io_total": 15,
+  "io_tmb": 8,
+  "io_tmb_label": "Low (3.2 mut/Mb)",
+  "io_tme": 0,
+  "io_tme_label": "M04/M05 discordant (M05=Desert, M04=Excluded; M05 preferred \u2014 spatial data)",
+  "io_pdl1": 5,
+  "io_pdl1_label": "Intermediate (TPM=5.8, RNA proxy)",
+  "io_ifng": 2,
+  "io_ifng_label": "Low (4.88)",
+  "io_penalty": 0,
+  "io_res_label": ""
+}

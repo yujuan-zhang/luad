@@ -1,0 +1,33 @@
+{
+  "case_id": "TCGA-49-4507_3",
+  "drivers": [],
+  "tumor_suppressors": [
+    {
+      "gene": "KEAP1",
+      "hgvsp": "p.R470C",
+      "impact": "MODERATE"
+    },
+    {
+      "gene": "STK11",
+      "hgvsp": "p.D176A",
+      "impact": "MODERATE"
+    }
+  ],
+  "tmb": 4.21,
+  "tmb_high": false,
+  "tme_phenotype": "Unknown",
+  "tme_source": "",
+  "tme_confidence": "TME: no data",
+  "til_score": 0.0,
+  "io_total": 0,
+  "io_tmb": 8,
+  "io_tmb_label": "Low (4.2 mut/Mb)",
+  "io_tme": 8,
+  "io_tme_label": "TME: no data",
+  "io_pdl1": 0,
+  "io_pdl1_label": "N/A",
+  "io_ifng": 0,
+  "io_ifng_label": "N/A",
+  "io_penalty": -20,
+  "io_res_label": "IO resistance: KEAP1/STK11"
+}

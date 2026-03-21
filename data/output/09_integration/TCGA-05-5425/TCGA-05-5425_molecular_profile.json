@@ -1,0 +1,34 @@
+{
+  "case_id": "TCGA-05-5425",
+  "drivers": [
+    {
+      "gene": "MAP2K1",
+      "mutation": "p.G128V",
+      "drug": "Trametinib"
+    }
+  ],
+  "tumor_suppressors": [
+    {
+      "gene": "TP53",
+      "hgvsp": "p.E68*",
+      "impact": "HIGH"
+    }
+  ],
+  "tmb": 11.29,
+  "tmb_high": true,
+  "tme_phenotype": "Inflamed",
+  "tme_source": "M04+M05",
+  "tme_confidence": "M04+M05 concordant: Inflamed",
+  "til_score": 0.2825,
+  "io_total": 81,
+  "io_tmb": 30,
+  "io_tmb_label": "High (11.3 mut/Mb)",
+  "io_tme": 35,
+  "io_tme_label": "M04+M05 concordant: Inflamed",
+  "io_pdl1": 5,
+  "io_pdl1_label": "Intermediate (TPM=10.4, RNA proxy)",
+  "io_ifng": 8,
+  "io_ifng_label": "Medium (6.53)",
+  "io_penalty": 0,
+  "io_res_label": ""
+}

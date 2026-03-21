@@ -1,0 +1,38 @@
+{
+  "case_id": "TCGA-53-A4EZ",
+  "drivers": [],
+  "tumor_suppressors": [
+    {
+      "gene": "CDKN2A",
+      "hgvsp": "p.G101V",
+      "impact": "MODERATE"
+    },
+    {
+      "gene": "KEAP1",
+      "hgvsp": "p.G417V",
+      "impact": "MODERATE"
+    },
+    {
+      "gene": "TP53",
+      "hgvsp": "p.V157F",
+      "impact": "MODERATE"
+    }
+  ],
+  "tmb": 10.38,
+  "tmb_high": true,
+  "tme_phenotype": "Desert",
+  "tme_source": "M04+M05",
+  "tme_confidence": "M04+M05 concordant: Desert",
+  "til_score": 0.0897,
+  "io_total": 17,
+  "io_tmb": 30,
+  "io_tmb_label": "High (10.4 mut/Mb)",
+  "io_tme": 5,
+  "io_tme_label": "M04+M05 concordant: Desert",
+  "io_pdl1": 0,
+  "io_pdl1_label": "Low (TPM=4.3, RNA proxy)",
+  "io_ifng": 2,
+  "io_ifng_label": "Low (3.43)",
+  "io_penalty": -20,
+  "io_res_label": "IO resistance: KEAP1"
+}

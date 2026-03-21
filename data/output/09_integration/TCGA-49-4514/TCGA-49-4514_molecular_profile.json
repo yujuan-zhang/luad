@@ -1,0 +1,39 @@
+{
+  "case_id": "TCGA-49-4514",
+  "drivers": [
+    {
+      "gene": "TP53",
+      "mutation": "p.R175H",
+      "drug": "Eprenetapopt (APR-246)"
+    }
+  ],
+  "tumor_suppressors": [
+    {
+      "gene": "KEAP1",
+      "hgvsp": "p.R470S",
+      "impact": "MODERATE"
+    },
+    {
+      "gene": "TP53",
+      "hgvsp": "p.R175H",
+      "impact": "MODERATE"
+    }
+  ],
+  "tmb": 6.32,
+  "tmb_high": false,
+  "tme_phenotype": "Desert",
+  "tme_source": "M04+M05",
+  "tme_confidence": "M04/M05 discordant (M05=Desert, M04=Inflamed; M05 preferred \u2014 spatial data)",
+  "til_score": 0.1098,
+  "io_total": 1,
+  "io_tmb": 18,
+  "io_tmb_label": "Intermediate (6.3 mut/Mb)",
+  "io_tme": 0,
+  "io_tme_label": "M04/M05 discordant (M05=Desert, M04=Inflamed; M05 preferred \u2014 spatial data)",
+  "io_pdl1": 0,
+  "io_pdl1_label": "Low (TPM=1.0, RNA proxy)",
+  "io_ifng": 2,
+  "io_ifng_label": "Low (4.27)",
+  "io_penalty": -20,
+  "io_res_label": "IO resistance: KEAP1"
+}

@@ -1,0 +1,33 @@
+{
+  "case_id": "TCGA-05-4433",
+  "drivers": [],
+  "tumor_suppressors": [
+    {
+      "gene": "CDKN2A",
+      "hgvsp": "p.H83Y",
+      "impact": "MODERATE"
+    },
+    {
+      "gene": "TP53",
+      "hgvsp": "p.R196*",
+      "impact": "HIGH"
+    }
+  ],
+  "tmb": 0.76,
+  "tmb_high": false,
+  "tme_phenotype": "Excluded",
+  "tme_source": "M04+M05",
+  "tme_confidence": "M04+M05 concordant: Excluded",
+  "til_score": 0.1281,
+  "io_total": 34,
+  "io_tmb": 0,
+  "io_tmb_label": "Very low (0.8 mut/Mb)",
+  "io_tme": 20,
+  "io_tme_label": "M04+M05 concordant: Excluded",
+  "io_pdl1": 5,
+  "io_pdl1_label": "Intermediate (TPM=6.7, RNA proxy)",
+  "io_ifng": 8,
+  "io_ifng_label": "Medium (5.37)",
+  "io_penalty": 0,
+  "io_res_label": ""
+}

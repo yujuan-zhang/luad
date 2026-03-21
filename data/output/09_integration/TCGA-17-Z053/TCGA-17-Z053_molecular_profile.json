@@ -1,0 +1,34 @@
+{
+  "case_id": "TCGA-17-Z053",
+  "drivers": [
+    {
+      "gene": "TP53",
+      "mutation": "p.R249S",
+      "drug": "Eprenetapopt (APR-246)"
+    }
+  ],
+  "tumor_suppressors": [
+    {
+      "gene": "TP53",
+      "hgvsp": "p.R249S",
+      "impact": "MODERATE"
+    }
+  ],
+  "tmb": 4.56,
+  "tmb_high": false,
+  "tme_phenotype": "Unknown",
+  "tme_source": "",
+  "tme_confidence": "TME: no data",
+  "til_score": 0.0,
+  "io_total": 16,
+  "io_tmb": 8,
+  "io_tmb_label": "Low (4.6 mut/Mb)",
+  "io_tme": 8,
+  "io_tme_label": "TME: no data",
+  "io_pdl1": 0,
+  "io_pdl1_label": "N/A",
+  "io_ifng": 0,
+  "io_ifng_label": "N/A",
+  "io_penalty": 0,
+  "io_res_label": ""
+}

@@ -1,0 +1,39 @@
+{
+  "case_id": "TCGA-05-4415",
+  "drivers": [
+    {
+      "gene": "KRAS",
+      "mutation": "p.G12C",
+      "drug": "Sotorasib"
+    }
+  ],
+  "tumor_suppressors": [
+    {
+      "gene": "RB1",
+      "hgvsp": "p.Y756C",
+      "impact": "MODERATE"
+    },
+    {
+      "gene": "STK11",
+      "hgvsp": "p.L228Rfs*33",
+      "impact": "HIGH"
+    }
+  ],
+  "tmb": 4.26,
+  "tmb_high": false,
+  "tme_phenotype": "Excluded",
+  "tme_source": "M04+M05",
+  "tme_confidence": "M04/M05 discordant (M05=Excluded, M04=Inflamed; M05 preferred \u2014 spatial data)",
+  "til_score": 0.1352,
+  "io_total": 13,
+  "io_tmb": 8,
+  "io_tmb_label": "Low (4.3 mut/Mb)",
+  "io_tme": 10,
+  "io_tme_label": "M04/M05 discordant (M05=Excluded, M04=Inflamed; M05 preferred \u2014 spatial data)",
+  "io_pdl1": 5,
+  "io_pdl1_label": "Intermediate (TPM=7.0, RNA proxy)",
+  "io_ifng": 8,
+  "io_ifng_label": "Medium (5.38)",
+  "io_penalty": -20,
+  "io_res_label": "IO resistance: STK11"
+}

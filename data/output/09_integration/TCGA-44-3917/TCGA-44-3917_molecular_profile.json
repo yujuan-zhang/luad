@@ -1,0 +1,49 @@
+{
+  "case_id": "TCGA-44-3917",
+  "drivers": [
+    {
+      "gene": "NTRK1",
+      "mutation": "p.V282I",
+      "drug": "Larotrectinib"
+    },
+    {
+      "gene": "ROS1",
+      "mutation": "p.N267I",
+      "drug": "Entrectinib"
+    },
+    {
+      "gene": "TP53",
+      "mutation": "p.R249S",
+      "drug": "Eprenetapopt (APR-246)"
+    }
+  ],
+  "tumor_suppressors": [
+    {
+      "gene": "KEAP1",
+      "hgvsp": "p.G333D",
+      "impact": "MODERATE"
+    },
+    {
+      "gene": "TP53",
+      "hgvsp": "p.R249S",
+      "impact": "MODERATE"
+    }
+  ],
+  "tmb": 4.53,
+  "tmb_high": false,
+  "tme_phenotype": "Excluded",
+  "tme_source": "M04+M05",
+  "tme_confidence": "M04/M05 discordant (M05=Excluded, M04=Desert; M05 preferred \u2014 spatial data)",
+  "til_score": 0.1458,
+  "io_total": 12,
+  "io_tmb": 8,
+  "io_tmb_label": "Low (4.5 mut/Mb)",
+  "io_tme": 10,
+  "io_tme_label": "M04/M05 discordant (M05=Excluded, M04=Desert; M05 preferred \u2014 spatial data)",
+  "io_pdl1": 5,
+  "io_pdl1_label": "Intermediate (TPM=13.9, RNA proxy)",
+  "io_ifng": 8,
+  "io_ifng_label": "Medium (5.55)",
+  "io_penalty": -20,
+  "io_res_label": "IO resistance: KEAP1"
+}

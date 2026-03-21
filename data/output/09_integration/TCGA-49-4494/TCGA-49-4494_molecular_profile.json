@@ -1,0 +1,33 @@
+{
+  "case_id": "TCGA-49-4494",
+  "drivers": [
+    {
+      "gene": "NTRK1",
+      "mutation": "p.L644M",
+      "drug": "Larotrectinib"
+    },
+    {
+      "gene": "EGFR",
+      "mutation": "p.T790M",
+      "drug": "Osimertinib"
+    }
+  ],
+  "tumor_suppressors": [],
+  "tmb": 3.82,
+  "tmb_high": false,
+  "tme_phenotype": "Excluded",
+  "tme_source": "M04+M05",
+  "tme_confidence": "M04/M05 discordant (M05=Excluded, M04=Inflamed; M05 preferred \u2014 spatial data)",
+  "til_score": 0.1311,
+  "io_total": 31,
+  "io_tmb": 8,
+  "io_tmb_label": "Low (3.8 mut/Mb)",
+  "io_tme": 10,
+  "io_tme_label": "M04/M05 discordant (M05=Excluded, M04=Inflamed; M05 preferred \u2014 spatial data)",
+  "io_pdl1": 5,
+  "io_pdl1_label": "Intermediate (TPM=7.7, RNA proxy)",
+  "io_ifng": 8,
+  "io_ifng_label": "Medium (5.15)",
+  "io_penalty": 0,
+  "io_res_label": ""
+}

@@ -1,0 +1,33 @@
+{
+  "case_id": "TCGA-49-6745",
+  "drivers": [
+    {
+      "gene": "MET",
+      "mutation": "p.X1010_splice",
+      "drug": "Tepotinib"
+    },
+    {
+      "gene": "RET",
+      "mutation": "p.S891*",
+      "drug": "Selpercatinib"
+    }
+  ],
+  "tumor_suppressors": [],
+  "tmb": 2.47,
+  "tmb_high": false,
+  "tme_phenotype": "Desert",
+  "tme_source": "M04+M05",
+  "tme_confidence": "M04/M05 discordant (M05=Desert, M04=Inflamed; M05 preferred \u2014 spatial data)",
+  "til_score": 0.0691,
+  "io_total": 26,
+  "io_tmb": 8,
+  "io_tmb_label": "Low (2.5 mut/Mb)",
+  "io_tme": 0,
+  "io_tme_label": "M04/M05 discordant (M05=Desert, M04=Inflamed; M05 preferred \u2014 spatial data)",
+  "io_pdl1": 10,
+  "io_pdl1_label": "High (TPM=105.1, RNA proxy)",
+  "io_ifng": 8,
+  "io_ifng_label": "Medium (5.97)",
+  "io_penalty": 0,
+  "io_res_label": ""
+}

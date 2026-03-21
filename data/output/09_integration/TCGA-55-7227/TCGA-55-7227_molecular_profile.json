@@ -1,0 +1,34 @@
+{
+  "case_id": "TCGA-55-7227",
+  "drivers": [
+    {
+      "gene": "MAP2K1",
+      "mutation": "p.E102_I103del",
+      "drug": "Trametinib"
+    }
+  ],
+  "tumor_suppressors": [
+    {
+      "gene": "TP53",
+      "hgvsp": "p.V157F",
+      "impact": "MODERATE"
+    }
+  ],
+  "tmb": 3.38,
+  "tmb_high": false,
+  "tme_phenotype": "Excluded",
+  "tme_source": "M04+M05",
+  "tme_confidence": "M04+M05 concordant: Excluded",
+  "til_score": 0.1772,
+  "io_total": 46,
+  "io_tmb": 8,
+  "io_tmb_label": "Low (3.4 mut/Mb)",
+  "io_tme": 20,
+  "io_tme_label": "M04+M05 concordant: Excluded",
+  "io_pdl1": 10,
+  "io_pdl1_label": "High (TPM=20.9, RNA proxy)",
+  "io_ifng": 8,
+  "io_ifng_label": "Medium (5.51)",
+  "io_penalty": 0,
+  "io_res_label": ""
+}

@@ -1,0 +1,38 @@
+{
+  "case_id": "TCGA-86-A4D0",
+  "drivers": [],
+  "tumor_suppressors": [
+    {
+      "gene": "KEAP1",
+      "hgvsp": "p.G480W",
+      "impact": "MODERATE"
+    },
+    {
+      "gene": "STK11",
+      "hgvsp": "p.D53Gfs*110",
+      "impact": "HIGH"
+    },
+    {
+      "gene": "TP53",
+      "hgvsp": "p.G244V",
+      "impact": "MODERATE"
+    }
+  ],
+  "tmb": 5.24,
+  "tmb_high": false,
+  "tme_phenotype": "Desert",
+  "tme_source": "M04+M05",
+  "tme_confidence": "M04/M05 discordant (M05=Desert, M04=Inflamed; M05 preferred \u2014 spatial data)",
+  "til_score": 0.0888,
+  "io_total": 2,
+  "io_tmb": 18,
+  "io_tmb_label": "Intermediate (5.2 mut/Mb)",
+  "io_tme": 0,
+  "io_tme_label": "M04/M05 discordant (M05=Desert, M04=Inflamed; M05 preferred \u2014 spatial data)",
+  "io_pdl1": 0,
+  "io_pdl1_label": "Low (TPM=4.1, RNA proxy)",
+  "io_ifng": 2,
+  "io_ifng_label": "Low (4.15)",
+  "io_penalty": -20,
+  "io_res_label": "IO resistance: KEAP1/STK11"
+}

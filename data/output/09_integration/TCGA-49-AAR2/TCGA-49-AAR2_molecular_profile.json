@@ -1,0 +1,28 @@
+{
+  "case_id": "TCGA-49-AAR2",
+  "drivers": [],
+  "tumor_suppressors": [
+    {
+      "gene": "KEAP1",
+      "hgvsp": "p.V271L",
+      "impact": "MODERATE"
+    }
+  ],
+  "tmb": 8.21,
+  "tmb_high": false,
+  "tme_phenotype": "Excluded",
+  "tme_source": "M04+M05",
+  "tme_confidence": "M04/M05 discordant (M05=Excluded, M04=Inflamed; M05 preferred \u2014 spatial data)",
+  "til_score": 0.161,
+  "io_total": 10,
+  "io_tmb": 18,
+  "io_tmb_label": "Intermediate (8.2 mut/Mb)",
+  "io_tme": 10,
+  "io_tme_label": "M04/M05 discordant (M05=Excluded, M04=Inflamed; M05 preferred \u2014 spatial data)",
+  "io_pdl1": 0,
+  "io_pdl1_label": "Low (TPM=1.1, RNA proxy)",
+  "io_ifng": 2,
+  "io_ifng_label": "Low (3.45)",
+  "io_penalty": -20,
+  "io_res_label": "IO resistance: KEAP1"
+}

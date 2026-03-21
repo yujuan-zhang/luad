@@ -1,0 +1,44 @@
+{
+  "case_id": "TCGA-05-4397",
+  "drivers": [
+    {
+      "gene": "ALK",
+      "mutation": "p.L80M",
+      "drug": "Alectinib"
+    },
+    {
+      "gene": "PIK3CA",
+      "mutation": "p.E545K",
+      "drug": "Alpelisib"
+    }
+  ],
+  "tumor_suppressors": [
+    {
+      "gene": "RB1",
+      "hgvsp": "p.D697E",
+      "impact": "MODERATE"
+    },
+    {
+      "gene": "TP53",
+      "hgvsp": "p.R249Gfs*96",
+      "impact": "HIGH"
+    }
+  ],
+  "tmb": 17.65,
+  "tmb_high": true,
+  "tme_phenotype": "Excluded",
+  "tme_source": "M04+M05",
+  "tme_confidence": "M04/M05 discordant (M05=Excluded, M04=Desert; M05 preferred \u2014 spatial data)",
+  "til_score": 0.1587,
+  "io_total": 42,
+  "io_tmb": 30,
+  "io_tmb_label": "High (17.6 mut/Mb)",
+  "io_tme": 10,
+  "io_tme_label": "M04/M05 discordant (M05=Excluded, M04=Desert; M05 preferred \u2014 spatial data)",
+  "io_pdl1": 0,
+  "io_pdl1_label": "Low (TPM=4.4, RNA proxy)",
+  "io_ifng": 2,
+  "io_ifng_label": "Low (4.80)",
+  "io_penalty": 0,
+  "io_res_label": ""
+}

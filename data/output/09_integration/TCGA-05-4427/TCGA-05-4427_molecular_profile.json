@@ -1,0 +1,28 @@
+{
+  "case_id": "TCGA-05-4427",
+  "drivers": [],
+  "tumor_suppressors": [
+    {
+      "gene": "TP53",
+      "hgvsp": "p.D281N",
+      "impact": "MODERATE"
+    }
+  ],
+  "tmb": 21.35,
+  "tmb_high": true,
+  "tme_phenotype": "Desert",
+  "tme_source": "M04+M05",
+  "tme_confidence": "M04/M05 discordant (M05=Desert, M04=Inflamed; M05 preferred \u2014 spatial data)",
+  "til_score": 0.1135,
+  "io_total": 48,
+  "io_tmb": 30,
+  "io_tmb_label": "High (21.4 mut/Mb)",
+  "io_tme": 0,
+  "io_tme_label": "M04/M05 discordant (M05=Desert, M04=Inflamed; M05 preferred \u2014 spatial data)",
+  "io_pdl1": 10,
+  "io_pdl1_label": "High (TPM=42.3, RNA proxy)",
+  "io_ifng": 8,
+  "io_ifng_label": "Medium (5.38)",
+  "io_penalty": 0,
+  "io_res_label": ""
+}

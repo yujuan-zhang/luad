@@ -1,0 +1,28 @@
+{
+  "case_id": "TCGA-55-7728",
+  "drivers": [
+    {
+      "gene": "ALK",
+      "mutation": "p.G875R",
+      "drug": "Alectinib"
+    }
+  ],
+  "tumor_suppressors": [],
+  "tmb": 1.94,
+  "tmb_high": false,
+  "tme_phenotype": "Excluded",
+  "tme_source": "M04+M05",
+  "tme_confidence": "M04+M05 concordant: Excluded",
+  "til_score": 0.1378,
+  "io_total": 36,
+  "io_tmb": 8,
+  "io_tmb_label": "Low (1.9 mut/Mb)",
+  "io_tme": 20,
+  "io_tme_label": "M04+M05 concordant: Excluded",
+  "io_pdl1": 5,
+  "io_pdl1_label": "Intermediate (TPM=7.7, RNA proxy)",
+  "io_ifng": 2,
+  "io_ifng_label": "Low (4.48)",
+  "io_penalty": 0,
+  "io_res_label": ""
+}

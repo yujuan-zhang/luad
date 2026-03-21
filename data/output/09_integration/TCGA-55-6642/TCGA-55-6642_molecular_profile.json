@@ -1,0 +1,22 @@
+{
+  "case_id": "TCGA-55-6642",
+  "drivers": [],
+  "tumor_suppressors": [],
+  "tmb": 2.38,
+  "tmb_high": false,
+  "tme_phenotype": "Excluded",
+  "tme_source": "M04+M05",
+  "tme_confidence": "M04+M05 concordant: Excluded",
+  "til_score": 0.1759,
+  "io_total": 31,
+  "io_tmb": 8,
+  "io_tmb_label": "Low (2.4 mut/Mb)",
+  "io_tme": 20,
+  "io_tme_label": "M04+M05 concordant: Excluded",
+  "io_pdl1": 0,
+  "io_pdl1_label": "Low (TPM=4.1, RNA proxy)",
+  "io_ifng": 2,
+  "io_ifng_label": "Low (4.65)",
+  "io_penalty": 0,
+  "io_res_label": ""
+}

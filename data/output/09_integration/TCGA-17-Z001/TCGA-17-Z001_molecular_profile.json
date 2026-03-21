@@ -1,0 +1,33 @@
+{
+  "case_id": "TCGA-17-Z001",
+  "drivers": [],
+  "tumor_suppressors": [
+    {
+      "gene": "KEAP1",
+      "hgvsp": "p.R415H",
+      "impact": "MODERATE"
+    },
+    {
+      "gene": "TP53",
+      "hgvsp": "p.S127F",
+      "impact": "MODERATE"
+    }
+  ],
+  "tmb": 4.0,
+  "tmb_high": false,
+  "tme_phenotype": "Unknown",
+  "tme_source": "",
+  "tme_confidence": "TME: no data",
+  "til_score": 0.0,
+  "io_total": 0,
+  "io_tmb": 8,
+  "io_tmb_label": "Low (4.0 mut/Mb)",
+  "io_tme": 8,
+  "io_tme_label": "TME: no data",
+  "io_pdl1": 0,
+  "io_pdl1_label": "N/A",
+  "io_ifng": 0,
+  "io_ifng_label": "N/A",
+  "io_penalty": -20,
+  "io_res_label": "IO resistance: KEAP1"
+}

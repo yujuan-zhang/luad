@@ -1,0 +1,28 @@
+{
+  "case_id": "TCGA-44-A47B",
+  "drivers": [
+    {
+      "gene": "ERBB2",
+      "mutation": "p.Y772_A775dup",
+      "drug": "Trastuzumab deruxtecan"
+    }
+  ],
+  "tumor_suppressors": [],
+  "tmb": 0.88,
+  "tmb_high": false,
+  "tme_phenotype": "Desert",
+  "tme_source": "M04+M05",
+  "tme_confidence": "M04+M05 concordant: Desert",
+  "til_score": 0.1034,
+  "io_total": 16,
+  "io_tmb": 0,
+  "io_tmb_label": "Very low (0.9 mut/Mb)",
+  "io_tme": 5,
+  "io_tme_label": "M04+M05 concordant: Desert",
+  "io_pdl1": 0,
+  "io_pdl1_label": "Low (TPM=3.9, RNA proxy)",
+  "io_ifng": 8,
+  "io_ifng_label": "Medium (5.19)",
+  "io_penalty": 0,
+  "io_res_label": ""
+}

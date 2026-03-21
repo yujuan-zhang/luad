@@ -1,0 +1,22 @@
+{
+  "case_id": "TCGA-50-5935",
+  "drivers": [],
+  "tumor_suppressors": [],
+  "tmb": 1.71,
+  "tmb_high": false,
+  "tme_phenotype": "Inflamed",
+  "tme_source": "M04",
+  "tme_confidence": "M04 only (ssGSEA): Inflamed",
+  "til_score": 0.0,
+  "io_total": 41,
+  "io_tmb": 8,
+  "io_tmb_label": "Low (1.7 mut/Mb)",
+  "io_tme": 20,
+  "io_tme_label": "M04 only (ssGSEA): Inflamed",
+  "io_pdl1": 5,
+  "io_pdl1_label": "Intermediate (TPM=6.0, RNA proxy)",
+  "io_ifng": 8,
+  "io_ifng_label": "Medium (5.20)",
+  "io_penalty": 0,
+  "io_res_label": ""
+}

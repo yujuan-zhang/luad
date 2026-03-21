@@ -1,0 +1,22 @@
+{
+  "case_id": "TCGA-05-5429",
+  "drivers": [],
+  "tumor_suppressors": [],
+  "tmb": 0.59,
+  "tmb_high": false,
+  "tme_phenotype": "Desert",
+  "tme_source": "M04+M05",
+  "tme_confidence": "M04/M05 discordant (M05=Desert, M04=Excluded; M05 preferred \u2014 spatial data)",
+  "til_score": 0.0384,
+  "io_total": 2,
+  "io_tmb": 0,
+  "io_tmb_label": "Very low (0.6 mut/Mb)",
+  "io_tme": 0,
+  "io_tme_label": "M04/M05 discordant (M05=Desert, M04=Excluded; M05 preferred \u2014 spatial data)",
+  "io_pdl1": 0,
+  "io_pdl1_label": "Low (TPM=1.0, RNA proxy)",
+  "io_ifng": 2,
+  "io_ifng_label": "Low (2.70)",
+  "io_penalty": 0,
+  "io_res_label": ""
+}

@@ -1,0 +1,28 @@
+{
+  "case_id": "TCGA-44-3918",
+  "drivers": [],
+  "tumor_suppressors": [
+    {
+      "gene": "TP53",
+      "hgvsp": "p.X307_splice",
+      "impact": "HIGH"
+    }
+  ],
+  "tmb": 19.35,
+  "tmb_high": true,
+  "tme_phenotype": "Excluded",
+  "tme_source": "M04+M05",
+  "tme_confidence": "M04/M05 discordant (M05=Excluded, M04=Desert; M05 preferred \u2014 spatial data)",
+  "til_score": 0.1714,
+  "io_total": 58,
+  "io_tmb": 30,
+  "io_tmb_label": "High (19.4 mut/Mb)",
+  "io_tme": 10,
+  "io_tme_label": "M04/M05 discordant (M05=Excluded, M04=Desert; M05 preferred \u2014 spatial data)",
+  "io_pdl1": 10,
+  "io_pdl1_label": "High (TPM=95.4, RNA proxy)",
+  "io_ifng": 8,
+  "io_ifng_label": "Medium (6.52)",
+  "io_penalty": 0,
+  "io_res_label": ""
+}

@@ -1,0 +1,28 @@
+{
+  "case_id": "TCGA-55-6987",
+  "drivers": [],
+  "tumor_suppressors": [
+    {
+      "gene": "KEAP1",
+      "hgvsp": "p.R116W",
+      "impact": "MODERATE"
+    }
+  ],
+  "tmb": 3.59,
+  "tmb_high": false,
+  "tme_phenotype": "Excluded",
+  "tme_source": "M04+M05",
+  "tme_confidence": "M04/M05 discordant (M05=Excluded, M04=Inflamed; M05 preferred \u2014 spatial data)",
+  "til_score": 0.1808,
+  "io_total": 13,
+  "io_tmb": 8,
+  "io_tmb_label": "Low (3.6 mut/Mb)",
+  "io_tme": 10,
+  "io_tme_label": "M04/M05 discordant (M05=Excluded, M04=Inflamed; M05 preferred \u2014 spatial data)",
+  "io_pdl1": 5,
+  "io_pdl1_label": "Intermediate (TPM=18.6, RNA proxy)",
+  "io_ifng": 8,
+  "io_ifng_label": "Medium (6.59)",
+  "io_penalty": -20,
+  "io_res_label": "IO resistance: KEAP1"
+}

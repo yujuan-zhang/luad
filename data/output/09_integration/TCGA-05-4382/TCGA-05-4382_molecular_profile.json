@@ -1,0 +1,34 @@
+{
+  "case_id": "TCGA-05-4382",
+  "drivers": [
+    {
+      "gene": "ROS1",
+      "mutation": "p.V797F",
+      "drug": "Entrectinib"
+    }
+  ],
+  "tumor_suppressors": [
+    {
+      "gene": "TP53",
+      "hgvsp": "p.V272G",
+      "impact": "MODERATE"
+    }
+  ],
+  "tmb": 35.41,
+  "tmb_high": true,
+  "tme_phenotype": "Excluded",
+  "tme_source": "M04+M05",
+  "tme_confidence": "M04+M05 concordant: Excluded",
+  "til_score": 0.1567,
+  "io_total": 63,
+  "io_tmb": 30,
+  "io_tmb_label": "High (35.4 mut/Mb)",
+  "io_tme": 20,
+  "io_tme_label": "M04+M05 concordant: Excluded",
+  "io_pdl1": 5,
+  "io_pdl1_label": "Intermediate (TPM=11.8, RNA proxy)",
+  "io_ifng": 8,
+  "io_ifng_label": "Medium (5.15)",
+  "io_penalty": 0,
+  "io_res_label": ""
+}

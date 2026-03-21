@@ -1,0 +1,33 @@
+{
+  "case_id": "TCGA-44-6144",
+  "drivers": [],
+  "tumor_suppressors": [
+    {
+      "gene": "STK11",
+      "hgvsp": "p.K108*",
+      "impact": "HIGH"
+    },
+    {
+      "gene": "TP53",
+      "hgvsp": "p.R337L",
+      "impact": "MODERATE"
+    }
+  ],
+  "tmb": 4.79,
+  "tmb_high": false,
+  "tme_phenotype": "Excluded",
+  "tme_source": "M05",
+  "tme_confidence": "M05 only: Excluded",
+  "til_score": 0.1618,
+  "io_total": 3,
+  "io_tmb": 8,
+  "io_tmb_label": "Low (4.8 mut/Mb)",
+  "io_tme": 15,
+  "io_tme_label": "M05 only: Excluded",
+  "io_pdl1": 0,
+  "io_pdl1_label": "N/A",
+  "io_ifng": 0,
+  "io_ifng_label": "N/A",
+  "io_penalty": -20,
+  "io_res_label": "IO resistance: STK11"
+}

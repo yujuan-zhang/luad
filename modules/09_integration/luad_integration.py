@@ -944,43 +944,38 @@ def make_integration_report(
     m07_drugs: pd.DataFrame,
     out_path: Path,
 ):
-    """Generate comprehensive 2-panel integration report."""
-    n_recs  = len(recs)
-    fig_h   = max(10, min(20, 3.5 + n_recs * 0.85))
-
-    fig = plt.figure(figsize=(17, fig_h), facecolor="#fafafa")
+    """Generate Molecular Profile summary card (left panel only).
+    Recommendations table is rendered natively in Streamlit."""
+    # Fixed height — enough for all blocks regardless of n_recs
+    fig = plt.figure(figsize=(10, 13), facecolor="#fafafa")
     fig.suptitle(
-        f"Multi-Omics Treatment Recommendation Report  —  {case_id}",
-        fontsize=13, fontweight="bold", y=0.99,
+        f"Molecular Profile  —  {case_id}",
+        fontsize=14, fontweight="bold", y=0.99,
     )
 
-    gs = fig.add_gridspec(
-        1, 2, width_ratios=[1, 2.5],
-        left=0.02, right=0.98, top=0.95, bottom=0.03, wspace=0.06,
-    )
+    gs = fig.add_gridspec(1, 1, left=0.04, right=0.96, top=0.95, bottom=0.02)
     ax_l = fig.add_subplot(gs[0])
-    ax_r = fig.add_subplot(gs[1])
+    ax_r = ax_l          # keep reference so rest of function compiles
     ax_l.axis("off")
-    ax_r.axis("off")
 
     tme_phenotype = tme.get("tme_phenotype", "Unknown")
     tme_color     = TME_COLORS.get(tme_phenotype, "#999999")
     tmb_str       = f"{tmb:.1f} mut/Mb" if not np.isnan(tmb) else "N/A"
 
     # ── LEFT PANEL: Molecular Profile ─────────────────────────────────────────
-    ax_l.set_title("Molecular Profile", fontsize=11, fontweight="bold", pad=8)
+    ax_l.set_title("")   # title already in suptitle
     y = 0.97
 
     def add_block(title, items, color="#333333"):
         nonlocal y
-        ax_l.text(0.04, y, title, transform=ax_l.transAxes,
-                  fontsize=9, fontweight="bold", color=color)
-        y -= 0.05
+        ax_l.text(0.03, y, title, transform=ax_l.transAxes,
+                  fontsize=13, fontweight="bold", color=color)
+        y -= 0.06
         for item in items:
-            ax_l.text(0.07, y, f"• {item}", transform=ax_l.transAxes,
-                      fontsize=8.5, color="#555555")
-            y -= 0.048
-        y -= 0.012
+            ax_l.text(0.05, y, f"• {item}", transform=ax_l.transAxes,
+                      fontsize=11.5, color="#444444")
+            y -= 0.056
+        y -= 0.018
 
     # Targetable drivers
     if not m07_drugs.empty:
@@ -1032,105 +1027,12 @@ def make_integration_report(
             transform=ax_l.transAxes, clip_on=False,
         ))
         ax_l.text(0.50, by + 0.032, f"TME: {tme_phenotype}",
-                  transform=ax_l.transAxes, fontsize=11, fontweight="bold",
+                  transform=ax_l.transAxes, fontsize=13, fontweight="bold",
                   color=tme_color, ha="center", va="center")
 
-    # ── RIGHT PANEL: Recommendations Table ────────────────────────────────────
-    ax_r.set_title(
-        "All Treatment Recommendations  (sorted by confidence score)",
-        fontsize=11, fontweight="bold", pad=8,
-    )
+    # Right panel removed — recommendations rendered as Streamlit table
 
-    # Column positions
-    cx = [0.00, 0.18, 0.43, 0.59, 0.72, 0.84]
-    headers = ["Category", "Drug / Class", "OncoKB / AMP", "Evidence", "Score", "Data"]
-    for xi, h in zip(cx, headers):
-        ax_r.text(xi, 0.975, h, transform=ax_r.transAxes,
-                  fontsize=8.5, fontweight="bold", color="#333333")
-    ax_r.axhline(y=0.968, xmin=0, xmax=1, color="#cccccc", linewidth=0.8)
-
-    row_h = min(0.085, 0.93 / max(len(recs), 1))
-    y2    = 0.955
-
-    for rec in recs:
-        if y2 < 0.02:
-            break
-        cat   = rec["category"]
-        color = CATEGORY_COLORS.get(cat, "#555555")
-        conf  = rec["confidence"]
-
-        # Category badge
-        cat_short = {
-            "Targeted Therapy":   "Targeted",
-            "Immunotherapy":      "Immuno",
-            "Combination Therapy":"Combo",
-            "Chemotherapy":       "Chemo",
-        }.get(cat, cat)
-        ax_r.add_patch(mpatches.FancyBboxPatch(
-            (cx[0], y2 - row_h * 0.58), 0.165, row_h * 0.68,
-            boxstyle="round,pad=0.01", facecolor=color + "22", edgecolor=color,
-            transform=ax_r.transAxes, clip_on=False, linewidth=1.0,
-        ))
-        ax_r.text(cx[0] + 0.083, y2 - row_h * 0.2, cat_short,
-                  transform=ax_r.transAxes, fontsize=7.5, fontweight="bold",
-                  color=color, ha="center", va="center")
-
-        # Drug name + class
-        drug_display = rec["drug"]
-        if len(drug_display) > 32:
-            drug_display = drug_display[:30] + "…"
-        ax_r.text(cx[1], y2, drug_display, transform=ax_r.transAxes,
-                  fontsize=9, fontweight="bold", color="#111111", va="top")
-        ax_r.text(cx[1], y2 - row_h * 0.44, rec["drug_class"][:32],
-                  transform=ax_r.transAxes, fontsize=7.5, color="#777777", va="top")
-
-        # OncoKB + AMP tier
-        ax_r.text(cx[2], y2, rec["oncokb_level"],
-                  transform=ax_r.transAxes, fontsize=8.5, color="#333333", va="top")
-        ax_r.text(cx[2], y2 - row_h * 0.44, rec["amp_tier"],
-                  transform=ax_r.transAxes, fontsize=7.5, color="#999999", va="top")
-
-        # Evidence + line
-        ax_r.text(cx[3], y2, rec["evidence"],
-                  transform=ax_r.transAxes, fontsize=8.5, color="#333333", va="top")
-        ax_r.text(cx[3], y2 - row_h * 0.44, rec.get("line", ""),
-                  transform=ax_r.transAxes, fontsize=7.5, color="#999999", va="top")
-
-        # Confidence score bar
-        bar_w = 0.10
-        bar_h = row_h * 0.45
-        ax_r.add_patch(mpatches.FancyBboxPatch(
-            (cx[4], y2 - row_h * 0.58), bar_w, bar_h,
-            boxstyle="round,pad=0.005", facecolor="#eeeeee", edgecolor="#cccccc",
-            transform=ax_r.transAxes, clip_on=False, linewidth=0.5,
-        ))
-        ax_r.add_patch(mpatches.FancyBboxPatch(
-            (cx[4], y2 - row_h * 0.58), bar_w * conf / 100, bar_h,
-            boxstyle="round,pad=0.005", facecolor=color, edgecolor="none",
-            transform=ax_r.transAxes, clip_on=False,
-        ))
-        ax_r.text(cx[4] + bar_w + 0.01, y2 - row_h * 0.30,
-                  str(conf), transform=ax_r.transAxes,
-                  fontsize=8.5, fontweight="bold", color=color, va="center")
-
-        # Data layers
-        ax_r.text(cx[5], y2 - row_h * 0.22, rec["data_layers"],
-                  transform=ax_r.transAxes, fontsize=7.5, color="#888888", va="center")
-
-        # Rationale (truncated)
-        rat = rec["rationale"]
-        if len(rat) > 72:
-            rat = rat[:70] + "…"
-        ax_r.text(cx[1], y2 - row_h * 0.76,
-                  f"↳ {rat}", transform=ax_r.transAxes,
-                  fontsize=7, color="#aaaaaa", va="top", style="italic")
-
-        # Row separator
-        ax_r.plot([0, 1], [y2 - row_h * 0.97, y2 - row_h * 0.97],
-                  color="#eeeeee", linewidth=0.6, transform=ax_r.transAxes)
-        y2 -= row_h
-
-    plt.savefig(out_path, dpi=150, bbox_inches="tight", facecolor=fig.get_facecolor())
+    plt.savefig(out_path, dpi=200, bbox_inches="tight", facecolor=fig.get_facecolor())
     plt.close()
 
 
@@ -1182,11 +1084,38 @@ def run_patient(case_id: str, logger) -> dict | None:
     rec_df = rec_df[[c for c in col_order if c in rec_df.columns]]
     rec_df.to_csv(case_out / f"{case_id}_recommendation.tsv", sep="\t", index=False)
 
-    # Save figure
-    make_integration_report(
-        case_id, recs, ts_genes, tmb, tme, io_scoring, m07_drugs,
-        case_out / f"{case_id}_integration_report.png",
-    )
+    # Save molecular profile JSON (replaces PNG — rendered as HTML in Streamlit)
+    import json, math
+    profile = {
+        "case_id": case_id,
+        "drivers": [
+            {"gene": r["gene"], "mutation": r["mutation"], "drug": r["drug"]}
+            for _, r in m07_drugs.drop_duplicates("gene").iterrows()
+        ] if not m07_drugs.empty else [],
+        "tumor_suppressors": [
+            {"gene": t["gene"], "hgvsp": t.get("hgvsp", ""), "impact": t.get("impact", "")}
+            for t in ts_genes
+        ],
+        "tmb": None if (isinstance(tmb, float) and math.isnan(tmb)) else round(float(tmb), 2),
+        "tmb_high": bool((not (isinstance(tmb, float) and math.isnan(tmb))) and tmb >= TMB_HIGH_THRESHOLD),
+        "tme_phenotype": tme.get("tme_phenotype", "Unknown"),
+        "tme_source":    tme.get("tme_source", ""),
+        "tme_confidence": tme.get("tme_confidence", ""),
+        "til_score":     float(tme.get("til_score", 0)),
+        "io_total":      int(io_scoring["total_score"]),
+        "io_tmb":        int(io_scoring["tmb_component"]),
+        "io_tmb_label":  io_scoring.get("tmb_label", ""),
+        "io_tme":        int(io_scoring["tme_component"]),
+        "io_tme_label":  io_scoring.get("tme_label", ""),
+        "io_pdl1":       int(io_scoring["pdl1_component"]),
+        "io_pdl1_label": io_scoring.get("pdl1_label", ""),
+        "io_ifng":       int(io_scoring["ifng_component"]),
+        "io_ifng_label": io_scoring.get("ifng_label", ""),
+        "io_penalty":    int(io_scoring.get("io_penalty", 0)),
+        "io_res_label":  io_scoring.get("io_res_label", ""),
+    }
+    with open(case_out / f"{case_id}_molecular_profile.json", "w") as f:
+        json.dump(profile, f, indent=2)
 
     n_targeted = sum(1 for r in recs if r["category"] == "Targeted Therapy")
     n_combo    = sum(1 for r in recs if r["category"] == "Combination Therapy")

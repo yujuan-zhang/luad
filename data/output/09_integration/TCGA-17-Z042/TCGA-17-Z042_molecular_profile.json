@@ -1,0 +1,39 @@
+{
+  "case_id": "TCGA-17-Z042",
+  "drivers": [
+    {
+      "gene": "KRAS",
+      "mutation": "p.G12C",
+      "drug": "Sotorasib"
+    }
+  ],
+  "tumor_suppressors": [
+    {
+      "gene": "RB1",
+      "hgvsp": "p.S780*",
+      "impact": "HIGH"
+    },
+    {
+      "gene": "TP53",
+      "hgvsp": "p.S215I",
+      "impact": "MODERATE"
+    }
+  ],
+  "tmb": 9.59,
+  "tmb_high": false,
+  "tme_phenotype": "Unknown",
+  "tme_source": "",
+  "tme_confidence": "TME: no data",
+  "til_score": 0.0,
+  "io_total": 26,
+  "io_tmb": 18,
+  "io_tmb_label": "Intermediate (9.6 mut/Mb)",
+  "io_tme": 8,
+  "io_tme_label": "TME: no data",
+  "io_pdl1": 0,
+  "io_pdl1_label": "N/A",
+  "io_ifng": 0,
+  "io_ifng_label": "N/A",
+  "io_penalty": 0,
+  "io_res_label": ""
+}

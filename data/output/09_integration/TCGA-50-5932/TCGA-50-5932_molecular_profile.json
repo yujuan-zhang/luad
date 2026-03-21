@@ -1,0 +1,28 @@
+{
+  "case_id": "TCGA-50-5932",
+  "drivers": [
+    {
+      "gene": "KRAS",
+      "mutation": "p.G12C",
+      "drug": "Sotorasib"
+    }
+  ],
+  "tumor_suppressors": [],
+  "tmb": 1.65,
+  "tmb_high": false,
+  "tme_phenotype": "Desert",
+  "tme_source": "M04",
+  "tme_confidence": "M04 only (ssGSEA): Desert",
+  "til_score": 0.0,
+  "io_total": 10,
+  "io_tmb": 8,
+  "io_tmb_label": "Low (1.6 mut/Mb)",
+  "io_tme": 0,
+  "io_tme_label": "M04 only (ssGSEA): Desert",
+  "io_pdl1": 0,
+  "io_pdl1_label": "Low (TPM=3.3, RNA proxy)",
+  "io_ifng": 2,
+  "io_ifng_label": "Low (3.21)",
+  "io_penalty": 0,
+  "io_res_label": ""
+}
