@@ -97,7 +97,7 @@ def patients_for_page(page: str) -> list:
     idx = load_cohort_index()
     if page in ("07 · Variant Impact",):
         return idx[idx.has_wes]["sample_id"].tolist()
-    if page in ("09 · Multimodal Integration", "10 · Clinical Recommendation"):
+    if page in ("09 · Treatment Recommendation", "10 · Trial Matching & MDT Report"):
         return idx[idx.has_wes & idx.has_rnaseq]["sample_id"].tolist()
     if page in ("05 · Pathology",):
         return idx[idx.has_pathology]["sample_id"].tolist()
@@ -231,7 +231,7 @@ def make_pipeline_figure():
         size=8.5, bold=True, color="#e65100", ha="left")
     fbox(4.4, 3.20, bw, 0.95, "white", "#e65100", lw=1.5)
     txt(4.4 + bw / 2, 3.20 + 0.95 * 0.70, "M06", size=10, bold=True, color="#e65100")
-    txt(4.4 + bw / 2, 3.20 + 0.95 * 0.28, "ESM2\nEmbeddings", size=7.5, color="#333")
+    txt(4.4 + bw / 2, 3.20 + 0.95 * 0.28, "AlphaMissense\nScoring", size=7.5, color="#333")
     arrow_dn(5.6, 3.05, 2.37)
 
     # DASHBOARD
@@ -269,15 +269,15 @@ with st.sidebar:
             "06 · Pathway",
             "07 · Variant Impact",
             "08 · Multi-modal Immune Activity Score",
-            "09 · Multimodal Integration",
-            "10 · Clinical Recommendation",
+            "09 · Treatment Recommendation",
+            "10 · Trial Matching & MDT Report",
         ],
         label_visibility="collapsed",
     )
 
     st.divider()
     st.caption("Data: TCGA-LUAD · GSE131907")
-    st.caption("Model: ESM2-650M · PCGR v2.2.5")
+    st.caption("Model: AlphaMissense · PCGR v2.2.5")
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -317,6 +317,14 @@ if page == "Home":
     .badge-teal   { border-color:#26a69a; color:#80cbc4; }
     .badge-red    { border-color:#ef9a9a; color:#ef9a9a; }
     </style>
+    <div style="text-align:right; font-size:0.80rem; color:#555;
+                line-height:1.7; margin-bottom:8px;">
+        Any questions please contact
+        <strong>Yujuan Zhang, PhD | Professor</strong>
+        &nbsp;·&nbsp;
+        <a href="mailto:yujuan.zhang418@gmail.com"
+           style="color:#1565c0; text-decoration:none;">yujuan.zhang418@gmail.com</a>
+    </div>
     <div class="hero-banner">
         <div class="hero-accent"></div>
         <div class="hero-eyebrow">Precision Oncology &nbsp;·&nbsp; Multi-Omics &nbsp;·&nbsp; TCGA-LUAD &nbsp;·&nbsp; n = 517 patients</div>
@@ -329,7 +337,7 @@ if page == "Home":
         <div class="badge-row">
             <span class="badge badge-blue">TCGA-LUAD · n=517</span>
             <span class="badge badge-green">CoxNet · C-index 0.786</span>
-            <span class="badge badge-purple">AlphaMissense · ESM-2 650M</span>
+            <span class="badge badge-purple">AlphaMissense</span>
             <span class="badge badge-orange">OncoKB · AMP/ASCO/CAP · ESCAT</span>
             <span class="badge badge-teal">21 Clinical Trials</span>
             <span class="badge badge-red">STK11/KEAP1 IO Resistance</span>
@@ -355,12 +363,12 @@ accounting for ~40% of all lung cancer diagnoses and remaining a leading cause o
 LUAD is driven by **highly heterogeneous somatic mutations** — a patient with *EGFR* exon 19 deletion
 responds dramatically to osimertinib, while a patient with *STK11* loss may derive little benefit
 from PD-1 checkpoint immunotherapy even with high TMB.
-Identifying the precise molecular profile of each patient is therefore the **foundation of effective treatment selection**.
+Identifying the precise **molecular and histopathological profile** of each patient — spanning genomics, transcriptomics, and imaging — is therefore the **foundation of effective treatment selection**.
 
 **Three clinical challenges** this platform addresses:
 - **Fragmented tools**: Standard workflows require 5+ disconnected tools (VEP, TMB calculator, pathway tools, drug databases, literature search) — this platform unifies all into one pipeline
-- **Beyond binary classification**: AlphaMissense + ESM-2 protein language models quantify the structural damage of each missense mutation, beyond rule-based ClinVar/OncoKB labels
-- **Multi-modal immune profiling**: RNA-seq + digital pathology TIL + genomic mutation context → a CoxNet-based immune activity score that predicts IO suitability with C-index 0.786
+- **Beyond binary classification**: AlphaMissense quantifies the structural damage of each missense mutation, beyond rule-based ClinVar/OncoKB labels
+- **Multi-modal immune profiling**: RNA-seq (ssGSEA TME deconvolution) + H&E digital pathology imaging (TIL density and spatial distribution) + genomic mutation context (TMB, STK11/KEAP1) → comprehensive immune microenvironment characterization to guide IO treatment decisions
     """)
 
     _bg_fig = HOME_FIGS / "background_luad.png"
@@ -406,10 +414,10 @@ Identifying the precise molecular profile of each patient is therefore the **fou
 | M04 | ssGSEA TME deconvolution | GSE131907 ref | 517 |
 | M05 | H&E TIL density (digital pathology) | GDC TCGA | 517 |
 | M06 | Pathway enrichment (ORA/GSEA) | MSigDB/KEGG | 517 |
-| M07 | Variant impact (AlphaMissense/ESM-2) | MAF | 241 ¹ |
+| M07 | Variant impact (AlphaMissense) | MAF | 241 ¹ |
 | M08 | Multi-modal immune activity score | M02–M05 | 517 |
-| M09 | Treatment recommendation | M02–M08 | 271 |
-| M10 | Clinical trial matching + MDT report | M09 | 271 |
+| M09 | Treatment recommendation | M02–M05, M07 | 271 |
+| M10 | Trial matching & MDT report | M09 | 271 |
 
 ¹ M07 only scores samples carrying protein-altering mutations in druggable genes (KRAS, EGFR, ALK, etc.)
         """)
@@ -424,9 +432,9 @@ Identifying the precise molecular profile of each patient is therefore the **fou
     st.markdown("""
 The platform is organized into **10 analysis modules** across three functional layers:
 
-- **Molecular characterization (M01–M07)**: Independent modules running in parallel — patient survival context, somatic variant annotation (VEP/PCGR), bulk RNA-seq expression, single-cell TME deconvolution (ssGSEA), digital pathology (H&E/TIL), pathway enrichment (ORA/GSEA), and protein variant impact (AlphaMissense + ESM-2)
-- **Immune activity scoring (M08)**: Two-stage CoxNet pipeline — genome-wide RNA variance filter → univariate Cox Wald test → CoxNet feature selection → final multi-modal model with TIS/CYT/IMPRES signatures + ssGSEA TME + TIL + mutations + clinical covariates · Bootstrap C-index 0.786 · External validation 0.640
-- **Clinical translation (M09–M10)**: Multi-omics evidence integration with OncoKB/AMP-ASCO-CAP/ESCAT grading → ranked treatment recommendations → clinical trial matching (21 curated LUAD trials) + MDT report
+- **Molecular characterization (M01–M07)**: Independent modules running in parallel — patient survival context, somatic variant annotation (VEP/PCGR), bulk RNA-seq expression, single-cell TME deconvolution (ssGSEA), digital pathology (H&E/TIL), pathway enrichment (ORA/GSEA), and protein variant impact (AlphaMissense)
+- **Prognostic modeling (M08)**: Multi-modal prognostic risk score — two-stage CoxNet pipeline integrating RNA signatures (TIS/CYT/IMPRES) + ssGSEA TME + TIL density + mutations + clinical covariates · Bootstrap C-index 0.786 · External validation GSE72094 C-index 0.640
+- **Clinical translation (M09–M10)**: Treatment recommendation engine (OncoKB/AMP-ASCO-CAP/ESCAT/CIViC evidence grading → ranked targeted / IO / chemo recommendations) → clinical trial matching (21 curated LUAD trials) + one-page MDT report
     """)
 
     _pipe_fig = HOME_FIGS / "pipeline_figure.png"
@@ -495,8 +503,8 @@ The platform is organized into **10 analysis modules** across three functional l
       <div class="mod-card">
         <span class="mod-id" style="background:#e65100;">07</span>
         <span class="mod-name">Variant Impact</span>
-        <div class="mod-desc">AlphaMissense (Google DeepMind) pathogenicity scoring · ESM-2 650M protein language model embeddings · missense variant structural impact quantification</div>
-        <span class="mod-tag">AlphaMissense</span><span class="mod-tag">ESM-2</span><span class="mod-tag">DL</span>
+        <div class="mod-desc">AlphaMissense pathogenicity scoring · missense variant structural impact quantification · position-specific pathogenicity map</div>
+        <span class="mod-tag">AlphaMissense</span><span class="mod-tag">Variant Impact</span>
       </div>
 
       <div class="mod-card">
@@ -508,14 +516,14 @@ The platform is organized into **10 analysis modules** across three functional l
 
       <div class="mod-card">
         <span class="mod-id" style="background:#283593;">09</span>
-        <span class="mod-name">Multi-omics Integration</span>
-        <div class="mod-desc">Integrates M02+M03+M04+M05+M08 · OncoKB / AMP-ASCO-CAP / ESCAT / CIViC evidence grading · confidence-scored targeted / IO / combination / chemo recommendations</div>
-        <span class="mod-tag">Integration</span><span class="mod-tag">OncoKB</span><span class="mod-tag">CIViC</span>
+        <span class="mod-name">Treatment Recommendation</span>
+        <div class="mod-desc">Integrates M02+M03+M04+M05 · OncoKB / AMP-ASCO-CAP / ESCAT / CIViC evidence grading · confidence-scored targeted / IO / combination / chemo recommendations</div>
+        <span class="mod-tag">Treatment Strategy</span><span class="mod-tag">OncoKB</span><span class="mod-tag">CIViC</span>
       </div>
 
       <div class="mod-card">
         <span class="mod-id" style="background:#1b5e20;">10</span>
-        <span class="mod-name">Clinical Recommendation</span>
+        <span class="mod-name">Trial Matching & MDT Report</span>
         <div class="mod-desc">21 curated LUAD clinical trials (Phase I–III) · mutation/TMB/TME-based trial matching · Eligible vs Potentially Eligible · one-page MDT report (7-panel figure)</div>
         <span class="mod-tag">Trial Matching</span><span class="mod-tag">MDT Report</span><span class="mod-tag">NCCN</span>
       </div>
@@ -525,15 +533,6 @@ The platform is organized into **10 analysis modules** across three functional l
 
     # ── Footer ────────────────────────────────────────────────────────────────
     st.divider()
-    st.markdown("""
-    <div style="text-align:center; color:#666; font-size:0.85rem; padding: 8px 0 16px 0;">
-        Any questions please contact <strong>Yujuan Zhang, PhD</strong>
-        &nbsp;·&nbsp;
-        <a href="mailto:yujuan.zhang418@gmail.com" style="color:#1565c0; text-decoration:none;">
-            yujuan.zhang418@gmail.com
-        </a>
-    </div>
-    """, unsafe_allow_html=True)
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -1404,8 +1403,8 @@ elif page == "05 · Pathology":
 # 09 · MULTIMODAL INTEGRATION
 # ══════════════════════════════════════════════════════════════════════════════
 
-elif page == "09 · Multimodal Integration":
-    st.header("09 · Multimodal Integration")
+elif page == "09 · Treatment Recommendation":
+    st.header("09 · Treatment Recommendation")
     st.caption(
         "Multi-omics evidence integration · M02 somatic variants + M03 expression + "
         "M04 ssGSEA TME + M05 TIL + M08 Immune Activity Score · "
@@ -1528,7 +1527,7 @@ elif page == "09 · Multimodal Integration":
     st.subheader("Per-Patient Recommendation")
 
     integration_dir = OUTPUT / "09_integration"
-    _m09_all = patients_for_page("09 · Multimodal Integration")
+    _m09_all = patients_for_page("09 · Treatment Recommendation")
     available = sorted([
         s for s in _m09_all
         if (integration_dir / s / f"{s}_recommendation.tsv").exists()
@@ -1877,8 +1876,8 @@ elif page == "08 · Multi-modal Immune Activity Score":
 # 10 · CLINICAL RECOMMENDATION
 # ══════════════════════════════════════════════════════════════════════════════
 
-elif page == "10 · Clinical Recommendation":
-    st.header("10 · Clinical Recommendation")
+elif page == "10 · Trial Matching & MDT Report":
+    st.header("10 · Trial Matching & MDT Report")
     st.caption(
         "Clinical trial matching · MDT report · "
         "21 curated LUAD trials (Phase I–III) · "
