@@ -275,8 +275,6 @@ with st.sidebar:
     )
 
     st.divider()
-    st.caption("Data: TCGA-LUAD · GSE131907")
-    st.caption("Model: AlphaMissense · PCGR v2.2.5")
 
 
 # ══════════════════════════════════════════════════════════════════════════════
