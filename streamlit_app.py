@@ -97,7 +97,7 @@ def patients_for_page(page: str) -> list:
     idx = load_cohort_index()
     if page in ("07 · Variant Impact",):
         return idx[idx.has_wes]["sample_id"].tolist()
-    if page in ("09 · Treatment Recommendation", "10 · Trial Matching & MDT Report"):
+    if page in ("09 · Treatment Recommendation",):
         return idx[idx.has_wes & idx.has_rnaseq]["sample_id"].tolist()
     if page in ("05 · Pathology",):
         return idx[idx.has_pathology]["sample_id"].tolist()
@@ -270,7 +270,6 @@ with st.sidebar:
             "07 · Variant Impact",
             "08 · Multi-modal Immune Activity Score",
             "09 · Treatment Recommendation",
-            "10 · Trial Matching & MDT Report",
         ],
         label_visibility="collapsed",
     )
@@ -347,9 +346,9 @@ if page == "Home":
 
     # ── Key Stats ─────────────────────────────────────────────────────────────
     ks1, ks2, ks3, ks4, ks5 = st.columns(5)
-    ks1.metric("Analysis Modules", "10")
+    ks1.metric("Analysis Modules", "9")
     ks2.metric("TCGA-LUAD Patients", "517")
-    ks3.metric("Curated Trials (M10)", "21")
+    ks3.metric("Curated Trials (M09)", "21")
     ks4.metric("C-index (Immune Score)", "0.786")
     ks5.metric("Driver Genes Covered", "16+")
 
@@ -416,8 +415,7 @@ Identifying the precise **molecular and histopathological profile** of each pati
 | M06 | Pathway enrichment (ORA/GSEA) | MSigDB/KEGG | 517 |
 | M07 | Variant impact (AlphaMissense) | MAF | 241 ¹ |
 | M08 | Multi-modal immune activity score | M02–M05 | 517 |
-| M09 | Treatment recommendation | M02–M05, M07 | 271 |
-| M10 | Trial matching & MDT report | M09 | 271 |
+| M09 | Treatment recommendation · trial matching · MDT report | M02–M05, M07 | 271 |
 
 ¹ M07 only scores samples carrying protein-altering mutations in druggable genes (KRAS, EGFR, ALK, etc.)
         """)
@@ -434,7 +432,7 @@ The platform is organized into **10 analysis modules** across three functional l
 
 - **Molecular characterization (M01–M07)**: Independent modules running in parallel — patient survival context, somatic variant annotation (VEP/PCGR), bulk RNA-seq expression, single-cell TME deconvolution (ssGSEA), digital pathology (H&E/TIL), pathway enrichment (ORA/GSEA), and protein variant impact (AlphaMissense)
 - **Prognostic modeling (M08)**: Multi-modal prognostic risk score — two-stage CoxNet pipeline integrating RNA signatures (TIS/CYT/IMPRES) + ssGSEA TME + TIL density + mutations + clinical covariates · Bootstrap C-index 0.786 · External validation GSE72094 C-index 0.640
-- **Clinical translation (M09–M10)**: Treatment recommendation engine (OncoKB/AMP-ASCO-CAP/ESCAT/CIViC evidence grading → ranked targeted / IO / chemo recommendations) → clinical trial matching (21 curated LUAD trials) + one-page MDT report
+- **Clinical translation (M09)**: Treatment recommendation engine (OncoKB/AMP-ASCO-CAP/ESCAT/CIViC evidence grading → ranked targeted / IO / chemo recommendations) · clinical trial matching (21 curated LUAD trials) · one-page MDT report
     """)
 
     _pipe_fig = HOME_FIGS / "pipeline_figure.png"
@@ -516,17 +514,11 @@ The platform is organized into **10 analysis modules** across three functional l
 
       <div class="mod-card">
         <span class="mod-id" style="background:#283593;">09</span>
-        <span class="mod-name">Treatment Recommendation</span>
-        <div class="mod-desc">Integrates M02+M03+M04+M05 · OncoKB / AMP-ASCO-CAP / ESCAT / CIViC evidence grading · confidence-scored targeted / IO / combination / chemo recommendations</div>
-        <span class="mod-tag">Treatment Strategy</span><span class="mod-tag">OncoKB</span><span class="mod-tag">CIViC</span>
+        <span class="mod-name">Treatment Recommendation & Trial Matching</span>
+        <div class="mod-desc">Integrates M02+M03+M04+M05 · OncoKB / AMP-ASCO-CAP / ESCAT / CIViC evidence grading · confidence-scored targeted / IO / combination / chemo recommendations · 21 curated LUAD trials · MDT report</div>
+        <span class="mod-tag">Treatment Strategy</span><span class="mod-tag">OncoKB</span><span class="mod-tag">Trial Matching</span><span class="mod-tag">MDT Report</span>
       </div>
 
-      <div class="mod-card">
-        <span class="mod-id" style="background:#1b5e20;">10</span>
-        <span class="mod-name">Trial Matching & MDT Report</span>
-        <div class="mod-desc">21 curated LUAD clinical trials (Phase I–III) · mutation/TMB/TME-based trial matching · Eligible vs Potentially Eligible · one-page MDT report (7-panel figure)</div>
-        <span class="mod-tag">Trial Matching</span><span class="mod-tag">MDT Report</span><span class="mod-tag">NCCN</span>
-      </div>
 
     </div>
     """, unsafe_allow_html=True)
@@ -1539,56 +1531,58 @@ elif page == "09 · Treatment Recommendation":
 
         rec_tsv      = integration_dir / selected / f"{selected}_recommendation.tsv"
         profile_json = integration_dir / selected / f"{selected}_molecular_profile.json"
+        M10_DIR      = OUTPUT / "10_clinical_rec"
+        trial_tsv    = M10_DIR / selected / f"{selected}_matched_trials.tsv"
 
-        # ── Molecular Profile card (HTML) ──────────────────────────────────────
-        if profile_json.exists():
-            p = _json.loads(profile_json.read_text())
-            TME_COL = {"Inflamed": "#d73027", "Excluded": "#fc8d59",
-                       "Desert": "#4575b4", "Unknown": "#888888"}
-            tme_col = TME_COL.get(p["tme_phenotype"], "#888888")
+        tab_rec, tab_trials, tab_mdt = st.tabs(
+            ["💊 Drug Recommendations", "🔬 Open Trials", "📋 MDT Report"])
 
-            def _rows(items, empty="None detected"):
-                if not items: return f"<li style='color:#888'>{empty}</li>"
-                return "".join(f"<li>{x}</li>" for x in items)
+        # ── Tab 1: Drug Recommendations ───────────────────────────────────────
+        with tab_rec:
+            if profile_json.exists():
+                p = _json.loads(profile_json.read_text())
+                TME_COL = {"Inflamed": "#d73027", "Excluded": "#fc8d59",
+                           "Desert": "#4575b4", "Unknown": "#888888"}
+                tme_col = TME_COL.get(p["tme_phenotype"], "#888888")
 
-            driver_items = [f"<b>{d['gene']}</b> {d['mutation']} → {d['drug']}"
-                            for d in p["drivers"]] if p["drivers"] else []
-            ts_items     = [f"<b>{t['gene']}</b> {t['hgvsp']} [{t['impact']}]"
-                            for t in p["tumor_suppressors"]]
-            tmb_str  = f"{p['tmb']} mut/Mb" if p["tmb"] is not None else "N/A"
-            tmb_flag = " <span style='color:#c62828;font-weight:bold'>▲ HIGH</span>" if p["tmb_high"] else ""
+                def _rows(items, empty="None detected"):
+                    if not items: return f"<li style='color:#888'>{empty}</li>"
+                    return "".join(f"<li>{x}</li>" for x in items)
 
-            io_rows = [
-                f"<tr><td>TMB</td><td>{p['io_tmb_label']}</td><td><b>+{p['io_tmb']}</b></td></tr>",
-                f"<tr><td>TME</td><td>{p['io_tme_label']}</td><td><b>+{p['io_tme']}</b></td></tr>",
-                f"<tr><td>PD-L1 (RNA)</td><td>{p['io_pdl1_label']}</td><td><b>+{p['io_pdl1']}</b></td></tr>",
-                f"<tr><td>IFN-γ sig.</td><td>{p['io_ifng_label']}</td><td><b>+{p['io_ifng']}</b></td></tr>",
-            ]
-            if p["io_penalty"] < 0:
-                io_rows.append(f"<tr><td colspan=2 style='color:#c62828'>⚠ IO resistance ({p['io_res_label']})</td><td style='color:#c62828'><b>{p['io_penalty']}</b></td></tr>")
+                driver_items = [f"<b>{d['gene']}</b> {d['mutation']} → {d['drug']}"
+                                for d in p["drivers"]] if p["drivers"] else []
+                ts_items     = [f"<b>{t['gene']}</b> {t['hgvsp']} [{t['impact']}]"
+                                for t in p["tumor_suppressors"]]
+                tmb_str  = f"{p['tmb']} mut/Mb" if p["tmb"] is not None else "N/A"
+                tmb_flag = " <span style='color:#c62828;font-weight:bold'>▲ HIGH</span>" if p["tmb_high"] else ""
 
-            st.markdown(f"""
+                io_rows = [
+                    f"<tr><td>TMB</td><td>{p['io_tmb_label']}</td><td><b>+{p['io_tmb']}</b></td></tr>",
+                    f"<tr><td>TME</td><td>{p['io_tme_label']}</td><td><b>+{p['io_tme']}</b></td></tr>",
+                    f"<tr><td>PD-L1 (RNA)</td><td>{p['io_pdl1_label']}</td><td><b>+{p['io_pdl1']}</b></td></tr>",
+                    f"<tr><td>IFN-γ sig.</td><td>{p['io_ifng_label']}</td><td><b>+{p['io_ifng']}</b></td></tr>",
+                ]
+                if p["io_penalty"] < 0:
+                    io_rows.append(f"<tr><td colspan=2 style='color:#c62828'>⚠ IO resistance ({p['io_res_label']})</td><td style='color:#c62828'><b>{p['io_penalty']}</b></td></tr>")
+
+                st.markdown(f"""
 <div style="background:#f8f9fa; border-radius:12px; padding:20px 28px;
             border:1px solid #e0e0e0; margin-bottom:16px; font-size:15px; line-height:1.7;">
   <div style="font-size:18px; font-weight:700; color:#1a1a2e; margin-bottom:14px;">
     🧬 Molecular Profile — {selected}
   </div>
-
   <div style="margin-bottom:12px;">
     <span style="font-weight:700; color:#1565c0; font-size:15px;">Targetable Drivers (M02+M07)</span>
     <ul style="margin:4px 0 0 16px; color:#333;">{_rows(driver_items)}</ul>
   </div>
-
   <div style="margin-bottom:12px;">
     <span style="font-weight:700; color:#8c510a; font-size:15px;">Tumor Suppressors (M02)</span>
     <ul style="margin:4px 0 0 16px; color:#333;">{_rows(ts_items)}</ul>
   </div>
-
   <div style="margin-bottom:12px;">
     <span style="font-weight:700; color:#444; font-size:15px;">Tumor Mutational Burden</span>
     <div style="margin:4px 0 0 16px;">{tmb_str}{tmb_flag}</div>
   </div>
-
   <div style="margin-bottom:14px;">
     <span style="font-weight:700; font-size:15px; color:{tme_col};">
       TME Phenotype: {p["tme_phenotype"]}
@@ -1597,7 +1591,6 @@ elif page == "09 · Treatment Recommendation":
       TIL score {p["til_score"]:.2f} · {p["tme_source"]}
     </span>
   </div>
-
   <div style="background:#fff; border-radius:8px; padding:12px 16px;
               border-left:4px solid #2e7d32;">
     <div style="font-weight:700; color:#2e7d32; font-size:15px; margin-bottom:8px;">
@@ -1614,30 +1607,29 @@ elif page == "09 · Treatment Recommendation":
   </div>
 </div>
 """, unsafe_allow_html=True)
-        else:
-            st.info("Molecular profile not found. Re-run M09.")
+            else:
+                st.info("Molecular profile not found. Re-run M09.")
 
-        # ── Recommendations table ──────────────────────────────────────────────
-        st.markdown("#### Treatment Recommendations")
-        if rec_tsv.exists():
-            df_rec = pd.read_csv(rec_tsv, sep="\t")
-            ICONS = {"Targeted Therapy": "🔵", "Immunotherapy": "🟢",
-                     "Combination Therapy": "🟣", "Chemotherapy": "🔴"}
-            df_display = df_rec.copy()
-            df_display["category"] = df_display["category"].apply(
-                lambda c: f"{ICONS.get(c,'⚪')} {c}")
-            if "confidence" in df_display.columns:
-                df_display["confidence"] = df_display["confidence"].apply(
-                    lambda s: f"{'█'*int(round(s/10))}{'░'*(10-int(round(s/10)))}  {s}")
-            display_cols = ["rank","category","drug","drug_class",
-                            "oncokb_level","amp_tier","evidence","line",
-                            "confidence","data_layers","rationale"]
-            st.dataframe(
-                df_display[[c for c in display_cols if c in df_display.columns]],
-                use_container_width=True, hide_index=True)
+            st.markdown("#### Treatment Recommendations")
+            if rec_tsv.exists():
+                df_rec = pd.read_csv(rec_tsv, sep="\t")
+                ICONS = {"Targeted Therapy": "🔵", "Immunotherapy": "🟢",
+                         "Combination Therapy": "🟣", "Chemotherapy": "🔴"}
+                df_display = df_rec.copy()
+                df_display["category"] = df_display["category"].apply(
+                    lambda c: f"{ICONS.get(c,'⚪')} {c}")
+                if "confidence" in df_display.columns:
+                    df_display["confidence"] = df_display["confidence"].apply(
+                        lambda s: f"{'█'*int(round(s/10))}{'░'*(10-int(round(s/10)))}  {s}")
+                display_cols = ["rank","category","drug","drug_class",
+                                "oncokb_level","amp_tier","evidence","line",
+                                "confidence","data_layers","rationale"]
+                st.dataframe(
+                    df_display[[c for c in display_cols if c in df_display.columns]],
+                    use_container_width=True, hide_index=True)
 
-            with st.expander("Evidence Grading Reference"):
-                st.markdown("""
+                with st.expander("Evidence Grading Reference"):
+                    st.markdown("""
 | OncoKB | AMP Tier | Meaning |
 |---|---|---|
 | Level 1 | Tier I-A | FDA-approved, same tumor type |
@@ -1646,9 +1638,219 @@ elif page == "09 · Treatment Recommendation":
 | Level 4 | Tier II-D | Preclinical evidence |
 
 **IO Score** = TMB + TME + PD-L1 (RNA) + IFN-γ − STK11/KEAP1 penalty
+                    """)
+            else:
+                st.info("Recommendation file not found. Re-run M09.")
+
+        # ── Tab 2: Open Trials (Active/Recruiting only) ───────────────────────
+        with tab_trials:
+            if trial_tsv.exists():
+                df_trials = pd.read_csv(trial_tsv, sep="\t")
+                df_open = df_trials[df_trials["status"].str.lower().isin(
+                    ["active", "recruiting", "not yet recruiting"]
+                )] if "status" in df_trials.columns else pd.DataFrame()
+
+                if df_open.empty:
+                    st.info(
+                        "No currently open/recruiting trials matched for this patient. "
+                        "All matched trials are from completed studies (drugs already FDA-approved — see Drug Recommendations tab)."
+                    )
+                    with st.expander("Show all matched trials (including completed)"):
+                        st.dataframe(df_trials, use_container_width=True, hide_index=True)
+                else:
+                    n_elig = (df_open["match_level"] == "Eligible").sum()
+                    n_pot  = (df_open["match_level"] == "Potentially Eligible").sum()
+                    st.markdown(f"""
+<div style="display:flex; gap:16px; margin-bottom:16px;">
+  <div style="flex:1; background:#d4efdf; border-radius:10px; padding:14px;
+              text-align:center; border:1px solid #a9dfbf;">
+    <div style="font-size:32px; font-weight:800; color:#1e8449;">{n_elig}</div>
+    <div style="color:#1e8449; font-weight:600; font-size:14px;">Eligible</div>
+  </div>
+  <div style="flex:1; background:#fdebd0; border-radius:10px; padding:14px;
+              text-align:center; border:1px solid #f0b27a;">
+    <div style="font-size:32px; font-weight:800; color:#d35400;">{n_pot}</div>
+    <div style="color:#d35400; font-weight:600; font-size:14px;">Potentially Eligible</div>
+  </div>
+</div>
+""", unsafe_allow_html=True)
+                    for _, t in df_open.iterrows():
+                        lvl_col = "#1e8449" if t["match_level"] == "Eligible" else "#d35400"
+                        st.markdown(f"""
+<div style="background:white; border-radius:8px; padding:12px 16px; margin-bottom:10px;
+            border-left:4px solid {lvl_col}; border:1px solid #eee;">
+  <div style="font-weight:700; font-size:15px;">{t['name']}</div>
+  <div style="color:#555; font-size:13px; margin-top:2px;">
+    {t['nct_id']} · Phase {t['phase']} · {t.get('drug','')}
+  </div>
+  <div style="color:#888; font-size:12px; margin-top:4px;">{t.get('key_result','')}</div>
+  <div style="font-size:13px; color:{lvl_col}; font-weight:600; margin-top:6px;">
+    {t['match_level']} · Basis: {t.get('match_basis','')}
+  </div>
+</div>
+""", unsafe_allow_html=True)
+
+                    with st.expander("Show all matched trials (including completed)"):
+                        st.dataframe(df_trials, use_container_width=True, hide_index=True)
+            else:
+                st.info("No trial matching data found for this patient. Run M09 trial matching.")
+
+            with st.expander("About the trial database"):
+                st.markdown("""
+**21 curated LUAD clinical trials** from [ClinicalTrials.gov](https://clinicaltrials.gov):
+
+| Target | Trials |
+|--------|--------|
+| KRAS G12C | CodeBreaK 200, KRYSTAL-12, KRYSTAL-7 |
+| EGFR | FLAURA2, PAPILLON, MARIPOSA |
+| ALK | CROWN, ALEX |
+| RET fusion | LIBRETTO-431 |
+| MET exon14 | GEOMETRY, VISION |
+| ERBB2/HER2 | DESTINY-Lung02 |
+| NTRK | LOXO-TRK-14001 |
+| BRAF V600E | BRF113928 |
+| TMB-high | KEYNOTE-158, CheckMate 227 |
+| Inflamed TME | KEYNOTE-010, KEYNOTE-024, SKYSCRAPER-01 |
+| No driver | TROPION-Lung08 |
+| KRAS+STK11 | CodeBreaK 101 |
+
+**Match criteria**: Eligible = required mutation/TMB/TME present; Potentially Eligible = partial match.
                 """)
-        else:
-            st.info("Recommendation file not found. Re-run M09.")
+
+        # ── Tab 3: MDT Report ─────────────────────────────────────────────────
+        with tab_mdt:
+            import json as _json_mdt
+            clin_path = OUTPUT.parent / "clinical" / "tcga_luad_survival.tsv"
+            clin_df   = pd.read_csv(clin_path, sep="\t") if clin_path.exists() else pd.DataFrame()
+            clin_row  = clin_df[clin_df["sample_id"] == selected].iloc[0].to_dict() \
+                        if not clin_df.empty and selected in clin_df["sample_id"].values else {}
+
+            summ_row = {}
+            int_summary_path = OUTPUT / "09_integration" / "integration_summary.tsv"
+            if int_summary_path.exists():
+                df_s = pd.read_csv(int_summary_path, sep="\t")
+                if selected in df_s["sample_id"].values:
+                    summ_row = df_s[df_s["sample_id"] == selected].iloc[0].to_dict()
+
+            profile_mdt = _json_mdt.loads(profile_json.read_text()) if profile_json.exists() else {}
+            df_trials_mdt = pd.read_csv(trial_tsv, sep="\t") if trial_tsv.exists() else pd.DataFrame()
+            df_recs_mdt   = pd.read_csv(rec_tsv,   sep="\t") if rec_tsv.exists()   else pd.DataFrame()
+
+            def _g(d, *keys, default="—"):
+                for k in keys:
+                    v = d.get(k) if isinstance(d, dict) else None
+                    if v is not None and str(v) not in ("nan", "None", ""):
+                        return v
+                return default
+
+            col_ov, col_io = st.columns([1, 1], gap="large")
+            with col_ov:
+                stage  = _g(clin_row, "stage", default="—")
+                age    = _g(clin_row, "age_at_diagnosis", default="—")
+                gender = _g(clin_row, "gender", default="—")
+                os_mo  = _g(clin_row, "os_months", default="—")
+                event  = "Deceased" if _g(clin_row, "event") == 1 else "Alive/Censored"
+                tmb_v  = _g(summ_row, "tmb", default="—")
+                tme_ph = _g(summ_row, "tme_phenotype", default="—")
+                TME_C  = {"Inflamed":"#d73027","Excluded":"#fc8d59","Desert":"#4575b4"}
+                tme_c  = TME_C.get(str(tme_ph), "#888")
+                st.markdown(f"""
+<div style="background:#f8f9fa; border-radius:12px; padding:20px 24px;
+            border:1px solid #e0e0e0; font-size:15px; line-height:1.9;">
+  <div style="font-weight:700; font-size:17px; color:#1a1a2e; margin-bottom:12px;">
+    👤 Patient Overview
+  </div>
+  <table style="width:100%; border-collapse:collapse;">
+    <tr><td style="color:#666; width:42%">Stage</td><td><b>{stage}</b></td></tr>
+    <tr><td style="color:#666">Age</td><td><b>{age} yrs</b></td></tr>
+    <tr><td style="color:#666">Gender</td><td><b>{gender}</b></td></tr>
+    <tr><td style="color:#666">Overall Survival</td><td><b>{os_mo} mo</b> · {event}</td></tr>
+    <tr><td style="color:#666">TMB</td><td><b>{tmb_v} mut/Mb</b></td></tr>
+    <tr><td style="color:#666">TME Phenotype</td>
+        <td><b style="color:{tme_c}">{tme_ph}</b></td></tr>
+  </table>
+</div>
+""", unsafe_allow_html=True)
+
+            with col_io:
+                if profile_mdt:
+                    io_total   = profile_mdt.get("io_total", "—")
+                    io_penalty = profile_mdt.get("io_penalty", 0)
+                    io_color   = "#27ae60" if isinstance(io_total, (int,float)) and io_total >= 60 \
+                                 else "#e67e22" if isinstance(io_total, (int,float)) and io_total >= 40 \
+                                 else "#c0392b"
+                    res_warn = f"<div style='color:#c62828; margin-top:8px; font-size:13px;'>⚠ IO resistance: {profile_mdt.get('io_res_label','')}</div>" \
+                               if io_penalty < 0 else ""
+                    st.markdown(f"""
+<div style="background:#f8f9fa; border-radius:12px; padding:20px 24px;
+            border:1px solid #e0e0e0; font-size:15px; line-height:1.9;">
+  <div style="font-weight:700; font-size:17px; color:#1a1a2e; margin-bottom:12px;">
+    🧫 Immune Activity (IO Score)
+  </div>
+  <div style="font-size:42px; font-weight:800; color:{io_color}; text-align:center; margin:8px 0;">
+    {io_total}<span style="font-size:20px; color:#888"> / 100</span>
+  </div>
+  <table style="width:100%; border-collapse:collapse; font-size:14px;">
+    <tr><td style="color:#666">TMB</td><td>+{profile_mdt.get('io_tmb',0)}</td>
+        <td style="color:#666">TME</td><td>+{profile_mdt.get('io_tme',0)}</td></tr>
+    <tr><td style="color:#666">PD-L1</td><td>+{profile_mdt.get('io_pdl1',0)}</td>
+        <td style="color:#666">IFN-γ</td><td>+{profile_mdt.get('io_ifng',0)}</td></tr>
+  </table>
+  {res_warn}
+</div>
+""", unsafe_allow_html=True)
+                else:
+                    st.info("IO profile not available.")
+
+            st.divider()
+            col_rec, col_tr = st.columns([3, 2], gap="large")
+
+            with col_rec:
+                st.markdown("**💊 Top Treatment Recommendations**")
+                if not df_recs_mdt.empty:
+                    ICONS_M = {"Targeted Therapy":"🔵","Immunotherapy":"🟢",
+                               "Combination Therapy":"🟣","Chemotherapy":"🔴"}
+                    top5 = df_recs_mdt.head(5).copy()
+                    top5["category"] = top5["category"].apply(lambda c: f"{ICONS_M.get(c,'⚪')} {c}")
+                    st.dataframe(
+                        top5[[c for c in ["rank","category","drug","oncokb_level","evidence","confidence"]
+                              if c in top5.columns]],
+                        use_container_width=True, hide_index=True)
+                else:
+                    st.info("No recommendations found.")
+
+            with col_tr:
+                st.markdown("**🔬 Clinical Trial Summary**")
+                if not df_trials_mdt.empty:
+                    n_elig = (df_trials_mdt["match_level"] == "Eligible").sum()
+                    n_pot  = (df_trials_mdt["match_level"] == "Potentially Eligible").sum()
+                    st.markdown(f"""
+<div style="display:flex; gap:16px; margin-bottom:12px;">
+  <div style="flex:1; background:#d4efdf; border-radius:10px; padding:14px;
+              text-align:center; border:1px solid #a9dfbf;">
+    <div style="font-size:32px; font-weight:800; color:#1e8449;">{n_elig}</div>
+    <div style="color:#1e8449; font-weight:600; font-size:14px;">Eligible</div>
+  </div>
+  <div style="flex:1; background:#fdebd0; border-radius:10px; padding:14px;
+              text-align:center; border:1px solid #f0b27a;">
+    <div style="font-size:32px; font-weight:800; color:#d35400;">{n_pot}</div>
+    <div style="color:#d35400; font-weight:600; font-size:14px;">Potentially Eligible</div>
+  </div>
+</div>
+""", unsafe_allow_html=True)
+                    for _, t in df_trials_mdt.head(3).iterrows():
+                        lvl_col = "#1e8449" if t["match_level"] == "Eligible" else "#d35400"
+                        st.markdown(f"""
+<div style="background:white; border-radius:8px; padding:10px 14px; margin-bottom:8px;
+            border-left:4px solid {lvl_col}; border:1px solid #eee;">
+  <div style="font-weight:700; font-size:14px;">{t['name']}</div>
+  <div style="color:#888; font-size:12px;">{t['nct_id']} · Phase {t['phase']} · {t.get('drug','')}</div>
+  <div style="font-size:12px; color:{lvl_col}; font-weight:600; margin-top:4px;">{t['match_level']}</div>
+</div>
+""", unsafe_allow_html=True)
+                else:
+                    st.info("No trial data.")
+
     else:
         st.caption("No per-patient integration reports found. Run M09 to generate them.")
 
@@ -1929,249 +2131,3 @@ elif page == "08 · Multi-modal Immune Activity Score":
     else:
         st.info("Immune Activity Scores not yet generated. Run:\n"
                 "```\npython modules/08_io_ml/luad_io_ml.py\n```")
-
-
-# ══════════════════════════════════════════════════════════════════════════════
-# 10 · CLINICAL RECOMMENDATION
-# ══════════════════════════════════════════════════════════════════════════════
-
-elif page == "10 · Trial Matching & MDT Report":
-    st.header("10 · Trial Matching & MDT Report")
-
-    # ── Introduction ──────────────────────────────────────────────────────────
-    st.markdown("""
-**临床试验匹配（Clinical Trial Matching）** 是指根据病人的分子特征——驱动基因突变、肿瘤突变负荷（TMB）、
-免疫微环境表型（TME）——自动筛查哪些正在进行的临床试验符合该病人的入组条件。
-
-**本平台使用的试验库**：来自 [ClinicalTrials.gov](https://clinicaltrials.gov) 的 **21 个精选 LUAD 临床试验**
-（Phase I–III，包括已完成及招募中），覆盖 KRAS G12C、EGFR、ALK、RET、MET exon14、HER2、BRAF、NTRK
-靶向治疗，以及 TMB-high 和 Inflamed TME 免疫治疗试验。
-
-**匹配规则**：
-- ✅ **Eligible（符合）**：病人携带试验要求的突变/TMB/TME，满足主要入组标准
-- ⚠️ **Potentially Eligible（可能符合）**：部分满足（如有靶向突变但 TME 不理想），需临床医生进一步评估
-
-**MDT Report** 是将 M01–M09 各模块的关键结果整合为一页临床摘要，供多学科会诊（Multidisciplinary Team）使用。
-    """)
-    st.divider()
-
-    M10_DIR = OUTPUT / "10_clinical_rec"
-    _m10_available = sorted([
-        d.name for d in M10_DIR.iterdir()
-        if d.is_dir() and d.name.startswith("TCGA")
-        and (M10_DIR / d.name / f"{d.name}_matched_trials.tsv").exists()
-    ]) if M10_DIR.exists() else []
-
-    if not _m10_available:
-        st.info(
-            "M10 reports not yet generated. Run:\n"
-            "```bash\npython modules/10_clinical_rec/luad_clinical_rec.py\n```"
-        )
-    else:
-        sel_m10 = st.selectbox("Select patient", _m10_available, key="m10_sel")
-
-        tab_mdt, tab_trials = st.tabs(["📋  MDT Report", "🔬  Clinical Trial Matching"])
-
-        # ── MDT Report (HTML native) ──────────────────────────────────────────
-        with tab_mdt:
-            import json as _json10
-
-            # Load data
-            int_summary_path = OUTPUT / "09_integration" / "integration_summary.tsv"
-            rec_tsv_m10      = OUTPUT / "09_integration" / sel_m10 / f"{sel_m10}_recommendation.tsv"
-            profile_json_m10 = OUTPUT / "09_integration" / sel_m10 / f"{sel_m10}_molecular_profile.json"
-            trial_tsv_m10    = M10_DIR / sel_m10 / f"{sel_m10}_matched_trials.tsv"
-
-            clin_path = OUTPUT.parent / "clinical" / "tcga_luad_survival.tsv"
-            clin_df   = pd.read_csv(clin_path, sep="\t") if clin_path.exists() else pd.DataFrame()
-            clin_row  = clin_df[clin_df["sample_id"] == sel_m10].iloc[0] if not clin_df.empty and sel_m10 in clin_df["sample_id"].values else {}
-
-            summ_row = {}
-            if int_summary_path.exists():
-                df_s = pd.read_csv(int_summary_path, sep="\t")
-                if sel_m10 in df_s["sample_id"].values:
-                    summ_row = df_s[df_s["sample_id"] == sel_m10].iloc[0].to_dict()
-
-            profile_m10 = {}
-            if profile_json_m10.exists():
-                profile_m10 = _json10.loads(profile_json_m10.read_text())
-
-            df_trials_mdt = pd.read_csv(trial_tsv_m10, sep="\t") if trial_tsv_m10.exists() else pd.DataFrame()
-            df_recs_mdt   = pd.read_csv(rec_tsv_m10,   sep="\t") if rec_tsv_m10.exists()   else pd.DataFrame()
-
-            # ── Row 1: Patient Overview + IO Score ───────────────────────────
-            col_ov, col_io = st.columns([1, 1], gap="large")
-
-            with col_ov:
-                def _g(d, *keys, default="—"):
-                    for k in keys:
-                        v = d.get(k) if isinstance(d, dict) else getattr(d, k, None)
-                        if v is not None and str(v) not in ("nan", "None", ""):
-                            return v
-                    return default
-
-                stage  = _g(clin_row, "stage", default="—")
-                age    = _g(clin_row, "age_at_diagnosis", default="—")
-                gender = _g(clin_row, "gender", default="—")
-                os_mo  = _g(clin_row, "os_months", default="—")
-                event  = "Deceased" if _g(clin_row, "event") == 1 else "Alive/Censored"
-                tmb_v  = _g(summ_row, "tmb", default="—")
-                tme_ph = _g(summ_row, "tme_phenotype", default="—")
-                TME_COL10 = {"Inflamed":"#d73027","Excluded":"#fc8d59","Desert":"#4575b4"}
-                tme_c = TME_COL10.get(str(tme_ph), "#888")
-
-                st.markdown(f"""
-<div style="background:#f8f9fa; border-radius:12px; padding:20px 24px;
-            border:1px solid #e0e0e0; font-size:15px; line-height:1.9;">
-  <div style="font-weight:700; font-size:17px; color:#1a1a2e; margin-bottom:12px;">
-    👤 Patient Overview
-  </div>
-  <table style="width:100%; border-collapse:collapse;">
-    <tr><td style="color:#666; width:42%">Stage</td><td><b>{stage}</b></td></tr>
-    <tr><td style="color:#666">Age</td><td><b>{age} yrs</b></td></tr>
-    <tr><td style="color:#666">Gender</td><td><b>{gender}</b></td></tr>
-    <tr><td style="color:#666">Overall Survival</td><td><b>{os_mo} mo</b> · {event}</td></tr>
-    <tr><td style="color:#666">TMB</td><td><b>{tmb_v} mut/Mb</b></td></tr>
-    <tr><td style="color:#666">TME Phenotype</td>
-        <td><b style="color:{tme_c}">{tme_ph}</b></td></tr>
-  </table>
-</div>
-""", unsafe_allow_html=True)
-
-            with col_io:
-                if profile_m10:
-                    io_total = profile_m10.get("io_total", "—")
-                    io_penalty = profile_m10.get("io_penalty", 0)
-                    io_color = "#27ae60" if isinstance(io_total, int) and io_total >= 60 \
-                               else "#e67e22" if isinstance(io_total, int) and io_total >= 40 \
-                               else "#c0392b"
-                    res_warn = f"<div style='color:#c62828; margin-top:8px; font-size:13px;'>⚠ IO resistance: {profile_m10.get('io_res_label','')}</div>" if io_penalty < 0 else ""
-                    st.markdown(f"""
-<div style="background:#f8f9fa; border-radius:12px; padding:20px 24px;
-            border:1px solid #e0e0e0; font-size:15px; line-height:1.9;">
-  <div style="font-weight:700; font-size:17px; color:#1a1a2e; margin-bottom:12px;">
-    🧫 Immune Activity (IO Score)
-  </div>
-  <div style="font-size:42px; font-weight:800; color:{io_color}; text-align:center; margin:8px 0;">
-    {io_total}<span style="font-size:20px; color:#888"> / 100</span>
-  </div>
-  <table style="width:100%; border-collapse:collapse; font-size:14px;">
-    <tr><td style="color:#666">TMB</td><td>+{profile_m10.get('io_tmb',0)}</td>
-        <td style="color:#666">TME</td><td>+{profile_m10.get('io_tme',0)}</td></tr>
-    <tr><td style="color:#666">PD-L1</td><td>+{profile_m10.get('io_pdl1',0)}</td>
-        <td style="color:#666">IFN-γ</td><td>+{profile_m10.get('io_ifng',0)}</td></tr>
-  </table>
-  {res_warn}
-</div>
-""", unsafe_allow_html=True)
-                else:
-                    st.info("IO profile not found. Re-run M09.")
-
-            st.divider()
-
-            # ── Row 2: Top Recommendations + Trial Summary ────────────────────
-            col_rec, col_tr = st.columns([3, 2], gap="large")
-
-            with col_rec:
-                st.markdown("**💊 Top Treatment Recommendations (M09)**")
-                if not df_recs_mdt.empty:
-                    ICONS10 = {"Targeted Therapy":"🔵","Immunotherapy":"🟢",
-                               "Combination Therapy":"🟣","Chemotherapy":"🔴"}
-                    top5 = df_recs_mdt.head(5).copy()
-                    top5["category"] = top5["category"].apply(lambda c: f"{ICONS10.get(c,'⚪')} {c}")
-                    st.dataframe(
-                        top5[[c for c in ["rank","category","drug","oncokb_level","evidence","confidence"]
-                              if c in top5.columns]],
-                        use_container_width=True, hide_index=True)
-                else:
-                    st.info("Run M09 to generate recommendations.")
-
-            with col_tr:
-                st.markdown("**🔬 Clinical Trial Match Summary**")
-                if not df_trials_mdt.empty:
-                    n_elig = (df_trials_mdt["match_level"] == "Eligible").sum()
-                    n_pot  = (df_trials_mdt["match_level"] == "Potentially Eligible").sum()
-                    st.markdown(f"""
-<div style="display:flex; gap:16px; margin-bottom:12px;">
-  <div style="flex:1; background:#d4efdf; border-radius:10px; padding:14px;
-              text-align:center; border:1px solid #a9dfbf;">
-    <div style="font-size:32px; font-weight:800; color:#1e8449;">{n_elig}</div>
-    <div style="color:#1e8449; font-weight:600; font-size:14px;">Eligible</div>
-  </div>
-  <div style="flex:1; background:#fdebd0; border-radius:10px; padding:14px;
-              text-align:center; border:1px solid #f0b27a;">
-    <div style="font-size:32px; font-weight:800; color:#d35400;">{n_pot}</div>
-    <div style="color:#d35400; font-weight:600; font-size:14px;">Potentially Eligible</div>
-  </div>
-</div>
-""", unsafe_allow_html=True)
-                    top3 = df_trials_mdt.head(3)
-                    for _, t in top3.iterrows():
-                        lvl_col = "#1e8449" if t["match_level"] == "Eligible" else "#d35400"
-                        st.markdown(f"""
-<div style="background:white; border-radius:8px; padding:10px 14px; margin-bottom:8px;
-            border-left:4px solid {lvl_col}; border:1px solid #eee;">
-  <div style="font-weight:700; font-size:14px;">{t['name']}</div>
-  <div style="color:#888; font-size:12px;">{t['nct_id']} · Phase {t['phase']} · {t.get('drug','')}</div>
-  <div style="font-size:12px; color:{lvl_col}; font-weight:600; margin-top:4px;">{t['match_level']}</div>
-</div>
-""", unsafe_allow_html=True)
-                else:
-                    st.info("No matched trials.")
-
-        # ── Clinical Trial Matching ───────────────────────────────────────────
-        with tab_trials:
-            trial_tsv = M10_DIR / sel_m10 / f"{sel_m10}_matched_trials.tsv"
-            if trial_tsv.exists():
-                df_trials = pd.read_csv(trial_tsv, sep="\t")
-
-                n_elig = (df_trials["match_level"] == "Eligible").sum()
-                n_pot  = (df_trials["match_level"] == "Potentially Eligible").sum()
-
-                tc1, tc2, tc3 = st.columns(3)
-                tc1.metric("Eligible trials",            n_elig)
-                tc2.metric("Potentially eligible trials", n_pot)
-                tc3.metric("Total matched",               n_elig + n_pot)
-
-                st.divider()
-
-                # Color-code by match level
-                def _trial_row_style(row):
-                    color = "#d4efdf" if row["match_level"] == "Eligible" else "#fdebd0"
-                    return [f"background-color: {color}"] * len(row)
-
-                display_cols = [
-                    "name", "nct_id", "drug", "target", "phase", "status",
-                    "line", "match_level", "match_basis", "key_result", "reference",
-                ]
-                df_show = df_trials[[c for c in display_cols if c in df_trials.columns]]
-
-                st.dataframe(
-                    df_show.style.apply(_trial_row_style, axis=1),
-                    use_container_width=True,
-                    hide_index=True,
-                )
-
-                with st.expander("About the trial database"):
-                    st.markdown("""
-**21 curated LUAD clinical trials** covering:
-
-| Target | Trials |
-|--------|--------|
-| KRAS G12C | CodeBreaK 200, KRYSTAL-12, KRYSTAL-7 |
-| EGFR | FLAURA2, PAPILLON, MARIPOSA |
-| ALK | CROWN, ALEX |
-| RET fusion | LIBRETTO-431 |
-| MET exon14 | GEOMETRY, VISION |
-| ERBB2/HER2 | DESTINY-Lung02 |
-| NTRK | LOXO-TRK-14001 |
-| BRAF V600E | BRF113928 |
-| TMB-high | KEYNOTE-158, CheckMate 227 |
-| Inflamed TME | KEYNOTE-010, KEYNOTE-024, SKYSCRAPER-01 |
-| No driver | TROPION-Lung08 |
-| KRAS+STK11 | CodeBreaK 101 |
-
-**Match criteria**: Eligible = required mutation/TMB/TME present; Potentially Eligible = partial match (e.g., mutation present but TME suboptimal).
-                    """)
-            else:
-                st.info(f"No matched trials found for {sel_m10}.")
