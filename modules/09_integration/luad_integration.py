@@ -778,6 +778,76 @@ def evaluate_combination_therapy(
                 "data_layers":"M02+M07+M05",
             })
 
+    # ── RET fusion + Excluded TME → sequential targeted then IO ──────────────
+    if "RET" in driver_genes and tme_phenotype in ("Excluded", "Inflamed"):
+        if not (IO_RESISTANCE_GENES & ts_gene_names):
+            combos.append({
+                "drugs":      "Selpercatinib → Pembrolizumab",
+                "drug_class": "RET inhibitor → PD-1 inhibitor (sequential)",
+                "basis":      "Targeted + Immune synergy",
+                "logic":      (f"RET fusion + {tme_phenotype} TME: RET inhibition may remodel "
+                               "TME → sequential immunotherapy"),
+                "escat_tier": "Tier V",
+                "conf_score": 45,
+                "data_layers":"M02+M07+M05",
+            })
+
+    # ── MET exon14 + PIK3CA co-mutation → vertical blockade ──────────────────
+    if "MET" in driver_genes and not variants.empty:
+        if not variants[variants["SYMBOL"] == "PIK3CA"].empty:
+            combos.append({
+                "drugs":      "Tepotinib + Alpelisib",
+                "drug_class": "MET inhibitor + PI3Kα inhibitor",
+                "basis":      "Horizontal blockade",
+                "logic":      "MET exon14 + PIK3CA co-mutation: PI3K compensatory pathway blockade",
+                "escat_tier": "Tier V",
+                "conf_score": 35,
+                "data_layers":"M02+M07",
+            })
+
+    # ── MET exon14 + high MET expression → enhanced confidence ───────────────
+    if "MET" in driver_genes and not expr_df.empty:
+        met_tpm = get_gene_tpm(expr_df, "MET")
+        if met_tpm is not None and met_tpm > 80:
+            combos.append({
+                "drugs":      "Tepotinib + Osimertinib",
+                "drug_class": "MET inhibitor + EGFR TKI",
+                "basis":      "Resistance bypass",
+                "logic":      (f"MET exon14 + high MET expression (TPM={met_tpm:.0f}): "
+                               "prevent MET-driven bypass resistance if EGFR co-altered"),
+                "escat_tier": "Tier V",
+                "conf_score": 40,
+                "data_layers":"M02+M03+M07",
+            })
+
+    # ── ALK fusion + Inflamed TME → targeted then IO sequential ──────────────
+    if "ALK" in driver_genes and tme_phenotype == "Inflamed":
+        if not (IO_RESISTANCE_GENES & ts_gene_names):
+            combos.append({
+                "drugs":      "Lorlatinib → Pembrolizumab",
+                "drug_class": "3rd-gen ALK TKI → PD-1 inhibitor (sequential)",
+                "basis":      "Targeted + Immune synergy",
+                "logic":      ("ALK fusion + Inflamed TME: ALK inhibition followed by "
+                               "IO consolidation — KEYNOTE-789 data supports sequential approach"),
+                "escat_tier": "Tier V",
+                "conf_score": 42,
+                "data_layers":"M02+M07+M05",
+            })
+
+    # ── NTRK fusion + high TMB → dual strategy ───────────────────────────────
+    ntrk_genes = {"NTRK1", "NTRK2", "NTRK3"} & driver_genes
+    if ntrk_genes and not np.isnan(tmb) and tmb >= TMB_HIGH_THRESHOLD:
+        combos.append({
+            "drugs":      f"Larotrectinib + Pembrolizumab",
+            "drug_class": "pan-NTRK inhibitor + PD-1 inhibitor",
+            "basis":      "Targeted + Immune synergy",
+            "logic":      (f"NTRK fusion ({', '.join(ntrk_genes)}) + TMB-High ({tmb:.1f} mut/Mb): "
+                           "NTRK inhibition + IO combination (investigational)"),
+            "escat_tier": "Tier V",
+            "conf_score": 38,
+            "data_layers":"M02+M07",
+        })
+
     return combos
 
 

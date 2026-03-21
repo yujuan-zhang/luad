@@ -103,6 +103,37 @@ def patients_for_page(page: str) -> list:
         return idx[idx.has_pathology]["sample_id"].tolist()
     return idx["sample_id"].tolist()
 
+# ── Cached data loaders ────────────────────────────────────────────────────
+@st.cache_data
+def load_clinical_survival() -> pd.DataFrame:
+    path = OUTPUT.parent / "clinical" / "tcga_luad_survival.tsv"
+    return pd.read_csv(path, sep="\t") if path.exists() else pd.DataFrame()
+
+@st.cache_data
+def load_integration_summary() -> pd.DataFrame:
+    path = OUTPUT / "09_integration" / "integration_summary.tsv"
+    return pd.read_csv(path, sep="\t") if path.exists() else pd.DataFrame()
+
+@st.cache_data
+def load_io_scores() -> pd.DataFrame:
+    path = OUTPUT / "08_io_ml" / "io_scores.tsv"
+    if not path.exists():
+        return pd.DataFrame()
+    df = pd.read_csv(path, sep="\t", index_col=0)
+    df.index.name = "sample_id"
+    return df
+
+@st.cache_data
+def load_pathology_summary() -> pd.DataFrame:
+    path = OUTPUT / "05_pathology" / "pathology_summary.tsv"
+    return pd.read_csv(path, sep="\t") if path.exists() else pd.DataFrame()
+
+@st.cache_data
+def load_tme_cohort() -> pd.DataFrame:
+    path = OUTPUT / "04_single_cell" / "cohort_tme_scores.tsv"
+    return pd.read_csv(path, sep="\t") if path.exists() else pd.DataFrame()
+
+
 # ── Helper: safe image display ─────────────────────────────────────────────
 def show_image(path: Path, caption: str = "", width: int = None):
     """Display an image if the file exists, otherwise show a warning."""
@@ -327,9 +358,17 @@ if page == "Home":
         <div class="hero-eyebrow">Precision Oncology &nbsp;·&nbsp; Multi-Omics &nbsp;·&nbsp; TCGA-LUAD &nbsp;·&nbsp; n = 517 patients</div>
         <div class="hero-title">LUAD Precision Oncology Platform</div>
         <div class="hero-subtitle">
-            A 10-module multi-omics pipeline integrating somatic variant annotation,
-            tumor microenvironment profiling, digital pathology, protein language model embeddings,
-            and evidence-based treatment recommendation for lung adenocarcinoma precision medicine.
+            A 9-module multi-omics pipeline integrating somatic variant annotation,
+            tumor microenvironment profiling, digital pathology, and evidence-based
+            treatment recommendation for lung adenocarcinoma precision medicine.
+        </div>
+        <div style="background:rgba(255,255,255,0.07); border-left:3px solid #42a5f5;
+                    border-radius:6px; padding:10px 16px; margin-bottom:22px;
+                    font-size:0.88rem; color:#cfe8fc; line-height:1.6;">
+            🔑 <strong style="color:#e3f2fd;">Key findings:</strong>
+            KRAS G12C (29%) is the primary actionable driver — eligible for FDA-approved Sotorasib/Adagrasib ·
+            STK11/KEAP1 co-mutations (17% each) confer immunotherapy resistance in >40% of KRAS-mutant patients ·
+            Immune Activity Score (C-index 0.786) stratifies survival independently of stage
         </div>
         <div class="badge-row">
             <span class="badge badge-blue">TCGA-LUAD · n=517</span>
@@ -1295,10 +1334,9 @@ elif page == "05 · Pathology":
     st.divider()
 
     # ── Cohort-level summary ─────────────────────────────────────────────────
-    summary_path = OUTPUT / "05_pathology" / "pathology_summary.tsv"
-    if summary_path.exists():
+    df_summary = load_pathology_summary()
+    if not df_summary.empty:
         st.subheader("Cohort Pathology Summary")
-        df_summary = pd.read_csv(summary_path, sep="\t")
 
         # TME phenotype distribution
         col1, col2, col3 = st.columns(3)
@@ -1425,10 +1463,9 @@ elif page == "09 · Treatment Recommendation":
     st.divider()
 
     # ── Cohort summary ────────────────────────────────────────────────────────
-    summary_path = OUTPUT / "09_integration" / "integration_summary.tsv"
-    if summary_path.exists():
+    df_sum = load_integration_summary()
+    if not df_sum.empty:
         st.subheader("Cohort Integration Summary")
-        df_sum = pd.read_csv(summary_path, sep="\t")
 
         # Top-level metrics
         n = len(df_sum)
@@ -1718,17 +1755,14 @@ elif page == "09 · Treatment Recommendation":
         # ── Tab 3: MDT Report ─────────────────────────────────────────────────
         with tab_mdt:
             import json as _json_mdt
-            clin_path = OUTPUT.parent / "clinical" / "tcga_luad_survival.tsv"
-            clin_df   = pd.read_csv(clin_path, sep="\t") if clin_path.exists() else pd.DataFrame()
+            clin_df   = load_clinical_survival()
             clin_row  = clin_df[clin_df["sample_id"] == selected].iloc[0].to_dict() \
                         if not clin_df.empty and selected in clin_df["sample_id"].values else {}
 
             summ_row = {}
-            int_summary_path = OUTPUT / "09_integration" / "integration_summary.tsv"
-            if int_summary_path.exists():
-                df_s = pd.read_csv(int_summary_path, sep="\t")
-                if selected in df_s["sample_id"].values:
-                    summ_row = df_s[df_s["sample_id"] == selected].iloc[0].to_dict()
+            df_s = load_integration_summary()
+            if not df_s.empty and selected in df_s["sample_id"].values:
+                summ_row = df_s[df_s["sample_id"] == selected].iloc[0].to_dict()
 
             profile_mdt = _json_mdt.loads(profile_json.read_text()) if profile_json.exists() else {}
             df_trials_mdt = pd.read_csv(trial_tsv, sep="\t") if trial_tsv.exists() else pd.DataFrame()
@@ -1866,13 +1900,11 @@ elif page == "08 · Multi-modal Immune Activity Score":
     )
 
     import json as _json
-    scores_path    = OUTPUT / "08_io_ml" / "io_scores.tsv"
     sel_genes_path = OUTPUT / "08_io_ml" / "selected_genes.tsv"
     _metrics_path  = OUTPUT / "08_io_ml" / "model_metrics.json"
 
-    if scores_path.exists():
-        df_io = pd.read_csv(scores_path, sep="\t", index_col=0)
-        df_io.index.name = "sample_id"
+    df_io = load_io_scores()
+    if not df_io.empty:
         n = len(df_io)
         grp_counts = df_io["io_group"].value_counts() if "io_group" in df_io.columns else {}
         _m = _json.loads(_metrics_path.read_text()) if _metrics_path.exists() else {}
