@@ -133,6 +133,56 @@ def load_tme_cohort() -> pd.DataFrame:
     path = OUTPUT / "04_single_cell" / "cohort_tme_scores.tsv"
     return pd.read_csv(path, sep="\t") if path.exists() else pd.DataFrame()
 
+@st.cache_data(ttl=86400)   # refresh every 24 hours
+def fetch_clinicaltrials(search_terms: tuple, condition: str = "lung adenocarcinoma") -> list:
+    """
+    Query ClinicalTrials.gov API v2 for open/recruiting LUAD trials.
+    Results cached for 24 hours to avoid repeated network requests.
+    Returns list of trial dicts, or [] on network error.
+    """
+    import requests
+    results = []
+    seen = set()
+    for term in search_terms:
+        try:
+            resp = requests.get(
+                "https://clinicaltrials.gov/api/v2/studies",
+                params={
+                    "query.cond": condition,
+                    "query.term": term,
+                    "filter.overallStatus": "RECRUITING,ACTIVE_NOT_RECRUITING,NOT_YET_RECRUITING",
+                    "pageSize": 8,
+                    "fields": ("NCTId,BriefTitle,Phase,OverallStatus,"
+                               "LeadSponsorName,InterventionName,StartDate"),
+                },
+                timeout=6,
+            )
+            resp.raise_for_status()
+            for s in resp.json().get("studies", []):
+                proto = s.get("protocolSection", {})
+                nct = proto.get("identificationModule", {}).get("nctId", "")
+                if not nct or nct in seen:
+                    continue
+                seen.add(nct)
+                phases = proto.get("designModule", {}).get("phases", [])
+                interventions = proto.get("armsInterventionsModule", {}).get("interventions", [])
+                drugs = ", ".join(
+                    i.get("name", "") for i in interventions if i.get("type") == "DRUG"
+                )[:100]
+                results.append({
+                    "nct_id":   nct,
+                    "title":    proto.get("identificationModule", {}).get("briefTitle", "")[:120],
+                    "phase":    ", ".join(phases) if phases else "N/A",
+                    "status":   proto.get("statusModule", {}).get("overallStatus", ""),
+                    "sponsor":  proto.get("identificationModule", {})
+                                    .get("organization", {}).get("fullName", "")[:60],
+                    "drugs":    drugs,
+                    "search_term": term,
+                })
+        except Exception:
+            continue   # network unavailable or timeout — fail silently
+    return results
+
 
 # ── Helper: safe image display ─────────────────────────────────────────────
 def show_image(path: Path, caption: str = "", width: int = None):
@@ -452,7 +502,7 @@ Identifying the precise **molecular and histopathological profile** of each pati
 | M06 | Pathway enrichment (ORA/GSEA) | MSigDB/KEGG | 517 |
 | M07 | Variant impact (AlphaMissense) | MAF | 241 ¹ |
 | M08 | Multi-modal immune activity score | M02–M05 | 517 |
-| M09 | Treatment recommendation · trial matching · MDT report | M02–M05, M07 | 271 |
+| M09 | Treatment recommendation · trial matching (curated + live API) · MDT report | M02–M05, M07 | 271 |
 
 ¹ M07 only scores samples carrying protein-altering mutations in druggable genes (KRAS, EGFR, ALK, etc.)
         """)
@@ -469,7 +519,7 @@ The platform is organized into **10 analysis modules** across three functional l
 
 - **Molecular characterization (M01–M07)**: Independent modules running in parallel — patient survival context, somatic variant annotation (VEP/PCGR), bulk RNA-seq expression, single-cell TME deconvolution (ssGSEA), digital pathology (H&E/TIL), pathway enrichment (ORA/GSEA), and protein variant impact (AlphaMissense)
 - **Prognostic modeling (M08)**: Multi-modal prognostic risk score — two-stage CoxNet pipeline integrating RNA signatures (TIS/CYT/IMPRES) + ssGSEA TME + TIL density + mutations + clinical covariates · Bootstrap C-index 0.786 · External validation GSE72094 C-index 0.640
-- **Clinical translation (M09)**: Treatment recommendation engine (OncoKB/AMP-ASCO-CAP/ESCAT/CIViC evidence grading → ranked targeted / IO / chemo recommendations) · clinical trial matching (21 curated LUAD trials) · one-page MDT report
+- **Clinical translation (M09)**: Treatment recommendation engine (OncoKB/AMP-ASCO-CAP/ESCAT/CIViC evidence grading → ranked targeted / IO / chemo recommendations) · clinical trial matching (21 curated LUAD trials + **real-time ClinicalTrials.gov API**, refreshed every 24h) · one-page MDT report
     """)
 
     _pipe_fig = HOME_FIGS / "pipeline_figure.png"
@@ -552,8 +602,8 @@ The platform is organized into **10 analysis modules** across three functional l
       <div class="mod-card">
         <span class="mod-id" style="background:#283593;">09</span>
         <span class="mod-name">Treatment Recommendation & Trial Matching</span>
-        <div class="mod-desc">Integrates M02+M03+M04+M05 · OncoKB / AMP-ASCO-CAP / ESCAT / CIViC evidence grading · confidence-scored targeted / IO / combination / chemo recommendations · 21 curated LUAD trials · MDT report</div>
-        <span class="mod-tag">Treatment Strategy</span><span class="mod-tag">OncoKB</span><span class="mod-tag">Trial Matching</span><span class="mod-tag">MDT Report</span>
+        <div class="mod-desc">Integrates M02+M03+M04+M05 · OncoKB / AMP-ASCO-CAP / ESCAT / CIViC evidence grading · confidence-scored targeted / IO / combination / chemo recommendations · 21 curated LUAD trials + real-time ClinicalTrials.gov API · MDT report</div>
+        <span class="mod-tag">Treatment Strategy</span><span class="mod-tag">OncoKB</span><span class="mod-tag">Trial Matching</span><span class="mod-tag">Live API</span><span class="mod-tag">MDT Report</span>
       </div>
 
 
@@ -1677,8 +1727,10 @@ elif page == "09 · Treatment Recommendation":
             else:
                 st.info("Recommendation file not found. Re-run M09.")
 
-        # ── Tab 2: Open Trials (Active/Recruiting only) ───────────────────────
+        # ── Tab 2: Open Trials (curated + real-time ClinicalTrials.gov) ──────────
         with tab_trials:
+            # ── Section A: Curated matched trials ────────────────────────────
+            st.markdown("##### Curated Trial Matching (21 LUAD trials)")
             if trial_tsv.exists():
                 df_trials = pd.read_csv(trial_tsv, sep="\t")
                 df_open = df_trials[df_trials["status"].str.lower().isin(
@@ -1687,8 +1739,8 @@ elif page == "09 · Treatment Recommendation":
 
                 if df_open.empty:
                     st.info(
-                        "No currently open/recruiting trials matched for this patient. "
-                        "All matched trials are from completed studies (drugs already FDA-approved — see Drug Recommendations tab)."
+                        "No currently open/recruiting trials in the curated database for this patient. "
+                        "See Live Search below for additional options."
                     )
                     with st.expander("Show all matched trials (including completed)"):
                         st.dataframe(df_trials, use_container_width=True, hide_index=True)
@@ -1724,15 +1776,74 @@ elif page == "09 · Treatment Recommendation":
   </div>
 </div>
 """, unsafe_allow_html=True)
-
                     with st.expander("Show all matched trials (including completed)"):
                         st.dataframe(df_trials, use_container_width=True, hide_index=True)
             else:
                 st.info("No trial matching data found for this patient. Run M09 trial matching.")
 
-            with st.expander("About the trial database"):
+            st.divider()
+
+            # ── Section B: Real-time ClinicalTrials.gov query ─────────────────
+            st.markdown("##### 🌐 Live Search — ClinicalTrials.gov *(refreshed every 24h)*")
+            st.caption("Queries the ClinicalTrials.gov API v2 in real time for open/recruiting LUAD trials "
+                       "matching this patient's molecular profile. Results are cached for 24 hours.")
+
+            # Build search terms from molecular profile
+            import json as _json_trials
+            search_terms = []
+            if profile_json.exists():
+                _p = _json_trials.loads(profile_json.read_text())
+                for d in _p.get("drivers", []):
+                    gene = d.get("gene", "")
+                    mut  = d.get("mutation", "").replace("p.", "").split()[0]
+                    if gene:
+                        search_terms.append(f"{gene} {mut}".strip() if mut else gene)
+                if _p.get("tmb_high"):
+                    search_terms.append("TMB-high tumor mutational burden")
+                if _p.get("tme_phenotype") == "Inflamed":
+                    search_terms.append("PD-L1 pembrolizumab lung")
+            if not search_terms:
+                search_terms = ["lung adenocarcinoma targeted therapy"]
+            search_terms = tuple(dict.fromkeys(search_terms))[:4]  # deduplicate, max 4 queries
+
+            with st.spinner("Querying ClinicalTrials.gov..."):
+                live_trials = fetch_clinicaltrials(search_terms)
+
+            if not live_trials:
+                st.warning("Live search unavailable (network timeout or no results). "
+                           "Visit [ClinicalTrials.gov](https://clinicaltrials.gov) directly.")
+            else:
+                st.success(f"Found **{len(live_trials)}** open/recruiting trials matching this patient's profile")
+                STATUS_LABEL = {
+                    "RECRUITING":             ("🟢", "#1e8449"),
+                    "ACTIVE_NOT_RECRUITING":  ("🟡", "#d35400"),
+                    "NOT_YET_RECRUITING":     ("🔵", "#1565c0"),
+                }
+                for t in live_trials:
+                    icon, col = STATUS_LABEL.get(t["status"], ("⚪", "#888"))
+                    nct_url = f"https://clinicaltrials.gov/study/{t['nct_id']}"
+                    st.markdown(f"""
+<div style="background:#fafafa; border-radius:8px; padding:12px 16px; margin-bottom:10px;
+            border-left:4px solid {col}; border:1px solid #e8e8e8;">
+  <div style="font-weight:700; font-size:14px;">
+    <a href="{nct_url}" target="_blank" style="color:#1565c0; text-decoration:none;">
+      {t['title']}
+    </a>
+  </div>
+  <div style="color:#555; font-size:12px; margin-top:4px;">
+    {t['nct_id']} · {t['phase']} · <span style="color:{col}; font-weight:600;">{icon} {t['status'].replace('_',' ').title()}</span>
+  </div>
+  <div style="color:#777; font-size:12px; margin-top:3px;">
+    💊 {t['drugs'] or 'N/A'} &nbsp;·&nbsp; 🏢 {t['sponsor'] or 'N/A'}
+  </div>
+  <div style="color:#aaa; font-size:11px; margin-top:3px;">Search match: <i>{t['search_term']}</i></div>
+</div>
+""", unsafe_allow_html=True)
+
+            with st.expander("About the trial database & live search"):
                 st.markdown("""
-**21 curated LUAD clinical trials** from [ClinicalTrials.gov](https://clinicaltrials.gov):
+**Curated database**: 21 manually curated LUAD trials from [ClinicalTrials.gov](https://clinicaltrials.gov)
+with pre-defined match criteria (mutation/TMB/TME):
 
 | Target | Trials |
 |--------|--------|
@@ -1746,10 +1857,10 @@ elif page == "09 · Treatment Recommendation":
 | BRAF V600E | BRF113928 |
 | TMB-high | KEYNOTE-158, CheckMate 227 |
 | Inflamed TME | KEYNOTE-010, KEYNOTE-024, SKYSCRAPER-01 |
-| No driver | TROPION-Lung08 |
-| KRAS+STK11 | CodeBreaK 101 |
 
-**Match criteria**: Eligible = required mutation/TMB/TME present; Potentially Eligible = partial match.
+**Live search**: Queries ClinicalTrials.gov API v2 in real time using the patient's driver genes,
+TMB, and TME phenotype as search keywords. Results show only open/recruiting trials.
+Cached for 24 hours. Click any trial title to view full details on ClinicalTrials.gov.
                 """)
 
         # ── Tab 3: MDT Report ─────────────────────────────────────────────────
