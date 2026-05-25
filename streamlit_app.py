@@ -452,7 +452,7 @@ from PD-1 checkpoint immunotherapy even with high TMB.
 Identifying the precise **molecular and histopathological profile** of each patient — spanning genomics, transcriptomics, and imaging — is therefore the **foundation of effective treatment selection**.
 
 **Three clinical challenges** this platform addresses:
-- **Fragmented tools**: Standard workflows require 5+ disconnected tools (VEP, TMB calculator, pathway tools, drug databases, literature search) — this platform unifies all into one pipeline
+- **Fragmented tools**: Standard workflows require 5+ disconnected tools (variant annotation, TMB calculator, pathway tools, drug databases, literature search) — this platform unifies all into one pipeline
 - **Beyond binary classification**: AlphaMissense quantifies the structural damage of each missense mutation, beyond rule-based ClinVar/OncoKB labels
 - **Multi-modal immune profiling**: RNA-seq (ssGSEA TME deconvolution) + H&E digital pathology imaging (TIL density and spatial distribution) + genomic mutation context (TMB, STK11/KEAP1) → comprehensive immune microenvironment characterization to guide IO treatment decisions
     """)
@@ -493,12 +493,12 @@ Identifying the precise **molecular and histopathological profile** of each pati
 | Module | Layer | Source | Patients |
 |--------|-------|--------|----------|
 | M01 | Clinical metadata (stage, OS, demographics) | GDC TCGA | 585 |
-| M02 | Somatic variants (VEP/PCGR, TMB, SBS) | MAF / PCGR | 271 |
+| M02 | Somatic variants (PCGR, TMB, SBS) | GDC TCGA MAF | 272 |
 | M03 | RNA-seq TPM expression | GDC TCGA | 517 |
 | M03 | Expression Z-score baseline | GTEx Lung | 287 ref |
 | M03 | Subtype similarity reference | PCGR TCGA | 541 ref |
 | M04 | ssGSEA TME deconvolution | GSE131907 ref | 517 |
-| M05 | H&E TIL density (digital pathology) | GDC TCGA | 517 |
+| M05 | H&E TIL density (digital pathology) | GDC TCGA | 478 |
 | M06 | Pathway enrichment (ORA/GSEA) | MSigDB/KEGG | 517 |
 | M07 | Variant impact (AlphaMissense) | MAF | 241 ¹ |
 | M08 | Multi-modal immune activity score | M02–M05 | 517 |
@@ -553,7 +553,7 @@ The platform is organized into **10 analysis modules** across three functional l
       <div class="mod-card">
         <span class="mod-id" style="background:#1565c0;">02</span>
         <span class="mod-name">Variant Annotation</span>
-        <div class="mod-desc">VEP/PCGR somatic variant annotation · tumor mutational burden (TMB) · SBS mutational signatures · driver gene identification</div>
+        <div class="mod-desc">PCGR somatic variant annotation (GDC pre-annotated MAF) · tumor mutational burden (TMB) · SBS mutational signatures · driver gene identification</div>
         <span class="mod-tag">Genomics</span><span class="mod-tag">TMB</span><span class="mod-tag">PCGR</span>
       </div>
 
@@ -653,7 +653,7 @@ elif page == "01 · Patients":
 
 elif page == "02 · Variants":
     st.header("02 · Variants")
-    st.caption("Somatic variants annotated with VEP/PCGR · tumor mutational burden · SBS spectrum")
+    st.caption("Somatic variants (GDC pre-annotated MAF) processed with PCGR · tumor mutational burden · SBS spectrum")
 
     _m02_samples = discover_module_samples(OUTPUT / "02_variants", "_variants.tsv.gz")
     sample = st.selectbox("Patient", _m02_samples or SAMPLES, key="sel_m02",
