@@ -114,14 +114,6 @@ def load_integration_summary() -> pd.DataFrame:
     path = OUTPUT / "09_integration" / "integration_summary.tsv"
     return pd.read_csv(path, sep="\t") if path.exists() else pd.DataFrame()
 
-@st.cache_data
-def load_io_scores() -> pd.DataFrame:
-    path = OUTPUT / "08_io_ml" / "io_scores.tsv"
-    if not path.exists():
-        return pd.DataFrame()
-    df = pd.read_csv(path, sep="\t", index_col=0)
-    df.index.name = "sample_id"
-    return df
 
 @st.cache_data
 def load_pathology_summary() -> pd.DataFrame:
@@ -263,7 +255,7 @@ def make_pipeline_figure():
         size=7.5, color="#777")
     arrow_dn(6.0, 10.05, 9.32)
 
-    # STAGE 1 — M01–M04 molecular + M08 imaging (parallel)
+    # STAGE 1 — M01–M04 molecular + M05 imaging (parallel)
     fbox(0.2, 7.60, 11.6, 1.70, "#e3f2fd", "#1565c0", lw=2)
     txt(0.55, 9.13, "STAGE 1  —  Independent modules (run in parallel)",
         size=8.5, bold=True, color="#1565c0", ha="left")
@@ -279,9 +271,9 @@ def make_pipeline_figure():
         txt(xi + bw / 2, 7.75 + bh1 * 0.70, f"M{num}", size=10, bold=True, color="#1565c0")
         txt(xi + bw / 2, 7.75 + bh1 * 0.28, name, size=7.5, color="#333")
 
-    # M08 — imaging module (purple, same stage)
+    # M05 — computational pathology (purple, same stage)
     fbox(9.6, 7.75, bw, bh1, "#f3e5f5", "#6a1b9a", lw=1.8)
-    txt(9.6 + bw / 2, 7.75 + bh1 * 0.70, "M08", size=10, bold=True, color="#6a1b9a")
+    txt(9.6 + bw / 2, 7.75 + bh1 * 0.70, "M05", size=10, bold=True, color="#6a1b9a")
     txt(9.6 + bw / 2, 7.75 + bh1 * 0.28, "Computational\nPathology", size=7.5, color="#333")
 
     arrow_dn(5.6, 7.60, 6.87)
@@ -298,10 +290,10 @@ def make_pipeline_figure():
         txt(xi + bw / 2, 5.37 + bh2 * 0.70, f"M{num}", size=10, bold=True, color="#2e7d32")
         txt(xi + bw / 2, 5.37 + bh2 * 0.28, name, size=7.5, color="#333")
 
-    # M08 feeds into Stage 2 via arrow
+    # M05 pathology report feeds into Stage 2 via arrow
     arrow_rt(10.6, 9.7, 6.28)
     fbox(9.6, 5.37, bw, bh2, "#f3e5f5", "#6a1b9a", lw=1.5)
-    txt(9.6 + bw / 2, 5.37 + bh2 * 0.70, "M08", size=10, bold=True, color="#6a1b9a")
+    txt(9.6 + bw / 2, 5.37 + bh2 * 0.70, "M05", size=10, bold=True, color="#6a1b9a")
     txt(9.6 + bw / 2, 5.37 + bh2 * 0.28, "Pathology\nReport", size=7.5, color="#333")
 
     arrow_dn(5.6, 5.20, 4.52)
@@ -349,7 +341,6 @@ with st.sidebar:
             "05 · Pathology",
             "06 · Pathway",
             "07 · Variant Impact",
-            "08 · Multi-modal Immune Activity Score",
             "09 · Treatment Recommendation",
         ],
         label_visibility="collapsed",
@@ -408,7 +399,7 @@ if page == "Home":
         <div class="hero-eyebrow">Precision Oncology &nbsp;·&nbsp; Multi-Omics &nbsp;·&nbsp; TCGA-LUAD &nbsp;·&nbsp; n = 517 patients</div>
         <div class="hero-title">LUAD Precision Oncology Platform</div>
         <div class="hero-subtitle">
-            A 9-module multi-omics pipeline integrating somatic variant annotation,
+            An 8-module multi-omics pipeline integrating somatic variant annotation,
             tumor microenvironment profiling, digital pathology, and evidence-based
             treatment recommendation for lung adenocarcinoma precision medicine.
         </div>
@@ -418,11 +409,11 @@ if page == "Home":
             🔑 <strong style="color:#e3f2fd;">Key findings:</strong>
             KRAS G12C (29%) is the primary actionable driver — eligible for FDA-approved Sotorasib/Adagrasib ·
             STK11/KEAP1 co-mutations (17% each) confer immunotherapy resistance in >40% of KRAS-mutant patients ·
-            Immune Activity Score (C-index 0.786) stratifies survival independently of stage
+            Inflamed TME (CD8-high, TIL-high) identifies IO-eligible patients independently of stage
         </div>
         <div class="badge-row">
             <span class="badge badge-blue">TCGA-LUAD · n=517</span>
-            <span class="badge badge-green">CoxNet · C-index 0.786</span>
+            <span class="badge badge-green">ssGSEA TME · Inflamed / Excluded / Desert</span>
             <span class="badge badge-purple">AlphaMissense</span>
             <span class="badge badge-orange">OncoKB · AMP/ASCO/CAP · ESCAT</span>
             <span class="badge badge-teal">21 Clinical Trials</span>
@@ -479,7 +470,7 @@ Identifying the precise **molecular and histopathological profile** of each pati
   (Z = patient log₂TPM − GTEx mean) / GTEx SD — positive Z = over-expressed vs normal lung
 - **TCGA-LUAD PCGR reference** (n = 541 samples): subtype similarity scoring in M03
   (Spearman correlation of patient expression profile vs PCGR internal TCGA cohort)
-- **GSE72094** (Kim et al., n = 398): external validation of M08 Immune Activity Score (C-index 0.640)
+- **GSE72094** (Lee et al., n = 398): independent early-stage LUAD cohort — used as data reference
 
 **Single-cell reference: GSE131907** (Kim et al. 2020, *Nature Cancer*)
 - 57,000 cells from 58 LUAD tumor samples · 10x Genomics Chromium
@@ -501,7 +492,7 @@ Identifying the precise **molecular and histopathological profile** of each pati
 | M05 | H&E TIL density (digital pathology) | GDC TCGA | 478 |
 | M06 | Pathway enrichment (ORA/GSEA) | MSigDB/KEGG | 517 |
 | M07 | Variant impact (AlphaMissense) | MAF | 241 ¹ |
-| M08 | Multi-modal immune activity score | M02–M05 | 517 |
+| M08 | *(removed — TME phenotyping integrated into M04 and M09)* | — | — |
 | M09 | Treatment recommendation · trial matching (curated + live API) · MDT report | M02–M05, M07 | 271 |
 
 ¹ M07 only scores samples carrying protein-altering mutations in druggable genes (KRAS, EGFR, ALK, etc.)
@@ -515,16 +506,16 @@ Identifying the precise **molecular and histopathological profile** of each pati
     # ── Section 3: Methods / Pipeline ────────────────────────────────────────
     st.subheader("3 · Methods & Pipeline")
     st.markdown("""
-The platform is organized into **10 analysis modules** across three functional layers:
+The platform is organized into **8 analysis modules** across three functional layers:
 
 - **Molecular characterization (M01–M07)**: Independent modules running in parallel — patient survival context, somatic variant annotation (VEP/PCGR), bulk RNA-seq expression, single-cell TME deconvolution (ssGSEA), digital pathology (H&E/TIL), pathway enrichment (ORA/GSEA), and protein variant impact (AlphaMissense)
-- **Prognostic modeling (M08)**: Multi-modal prognostic risk score — two-stage CoxNet pipeline integrating RNA signatures (TIS/CYT/IMPRES) + ssGSEA TME + TIL density + mutations + clinical covariates · Bootstrap C-index 0.786 · External validation GSE72094 C-index 0.640
+- **TME immune phenotyping (M04+M05)**: ssGSEA TME fractions (CD8, Treg, NK, M1/M2) + TIL density · Rule-based classification: Inflamed / Excluded / Desert · Directly informs IO eligibility in M09
 - **Clinical translation (M09)**: Treatment recommendation engine (OncoKB/AMP-ASCO-CAP/ESCAT/CIViC evidence grading → ranked targeted / IO / chemo recommendations) · clinical trial matching (21 curated LUAD trials + **real-time ClinicalTrials.gov API**, refreshed every 24h) · one-page MDT report
     """)
 
     _pipe_fig = HOME_FIGS / "pipeline_figure.png"
     if _pipe_fig.exists():
-        show_image(_pipe_fig, caption="10-module pipeline architecture — from raw genomic/transcriptomic data to clinical treatment recommendation")
+        show_image(_pipe_fig, caption="8-module pipeline architecture — from raw genomic/transcriptomic data to clinical treatment recommendation")
     st.divider()
 
     # ── Section 4: Module overview ────────────────────────────────────────────
@@ -594,9 +585,9 @@ The platform is organized into **10 analysis modules** across three functional l
 
       <div class="mod-card">
         <span class="mod-id" style="background:#2e7d32;">08</span>
-        <span class="mod-name">Multi-modal Immune Activity Score</span>
-        <div class="mod-desc">Two-stage CoxNet pipeline · RNA-seq + TIS/CYT/IMPRES + ssGSEA TME + TIL density + driver mutations + clinical stage · Bootstrap C-index 0.786 · External C-index 0.640 (GSE72094) · 35 features selected</div>
-        <span class="mod-tag">CoxNet</span><span class="mod-tag">Survival ML</span><span class="mod-tag">Multi-modal</span>
+        <span class="mod-name">TME Immune Phenotyping</span>
+        <div class="mod-desc">ssGSEA TME fractions (M04) + TIL density (M05) · Inflamed / Excluded / Desert classification · Feeds directly into M09 IO scoring</div>
+        <span class="mod-tag">TME</span><span class="mod-tag">Rule-based</span><span class="mod-tag">IO Eligibility</span>
       </div>
 
       <div class="mod-card">
@@ -1404,7 +1395,7 @@ elif page == "05 · Pathology":
         st.dataframe(df_summary, use_container_width=True, hide_index=True)
     else:
         st.info(
-            "No cohort summary yet. Run M08 to generate:\n"
+            "No cohort summary yet. Run M05 to generate:\n"
             "```bash\npython modules/05_pathology/luad_pathology.py\n```"
         )
 
@@ -1456,7 +1447,7 @@ elif page == "05 · Pathology":
             "No pathology reports generated yet.\n\n"
             "**Step 1:** Download WSI thumbnails:\n"
             "```bash\npython data/scripts/download_wsi.py --thumbnail --test\n```\n\n"
-            "**Step 2:** Run M08 analysis:\n"
+            "**Step 2:** Run M05 pathology analysis:\n"
             "```bash\npython modules/05_pathology/luad_pathology.py\n```"
         )
 
@@ -1485,7 +1476,7 @@ elif page == "09 · Treatment Recommendation":
     st.header("09 · Treatment Recommendation")
     st.caption(
         "Multi-omics evidence integration · M02 somatic variants + M03 expression + "
-        "M04 ssGSEA TME + M05 TIL + M08 Immune Activity Score · "
+        "M04 ssGSEA TME + M05 TIL · "
         "OncoKB / AMP-ASCO-CAP / ESCAT evidence grading · confidence 0–100"
     )
 
@@ -1495,7 +1486,7 @@ elif page == "09 · Treatment Recommendation":
             st.markdown("""
 **Evidence sources per recommendation**
 - **Targeted therapy**: M02 variant (VAF, clonality) + M07 drug mapping + M03 target expression + CIViC resistance
-- **Immunotherapy**: TMB (M02) + TME phenotype (M04/M08) + PD-L1 RNA proxy + IFN-γ signature + TIDE score
+- **Immunotherapy**: TMB (M02) + TME phenotype (M04) + TIL density (M05) + PD-L1 RNA proxy + IFN-γ signature + TIDE score
 - **Combination**: Co-mutation context + TME remodelling rationale
 - **Chemotherapy**: Standard fallback with TMB/TME context
 """)
@@ -1522,16 +1513,16 @@ elif page == "09 · Treatment Recommendation":
         n_targeted  = (df_sum["n_targeted"] > 0).sum() if "n_targeted" in df_sum.columns else 0
         n_tmb_high  = df_sum["tmb_high"].sum()           if "tmb_high"  in df_sum.columns else 0
         n_combo     = (df_sum["n_combination"] > 0).sum() if "n_combination" in df_sum.columns else 0
-        mean_io     = df_sum["io_score"].mean()           if "io_score"  in df_sum.columns else 0
 
         col1, col2, col3, col4 = st.columns(4)
         col1.metric("Total Patients",       n)
         col2.metric("With Targeted Drugs",  f"{n_targeted} ({n_targeted/n:.0%})")
         col3.metric("High TMB (≥10 mut/Mb)",f"{n_tmb_high} ({n_tmb_high/n:.0%})")
-        col4.metric("Mean IO Score",        f"{mean_io:.1f} / 100")
+        col4.metric("With Combo Therapy",    f"{n_combo} ({n_combo/n:.0%})")
 
         col5, col6, col7 = st.columns(3)
-        col5.metric("With Combo Therapy Suggestions", f"{n_combo} ({n_combo/n:.0%})")
+        col5.metric("With Combo Therapy Suggestions", f"{n_combo} ({n_combo/n:.0%})",
+                    help="Patients with combination therapy suggestions")
         if "tme_phenotype" in df_sum.columns:
             n_inflamed = (df_sum["tme_phenotype"] == "Inflamed").sum()
             n_excluded = (df_sum["tme_phenotype"] == "Excluded").sum()
@@ -1544,40 +1535,20 @@ elif page == "09 · Treatment Recommendation":
         matplotlib.use("Agg")
         import matplotlib.pyplot as plt
 
-        fig_c1, fig_c2 = st.columns(2)
-
-        # Immune Activity Score distribution
-        with fig_c1:
-            if "io_score" in df_sum.columns:
-                st.markdown("**Immune Activity Score Distribution**")
-                fig, ax = plt.subplots(figsize=(5, 3))
-                ax.hist(df_sum["io_score"].dropna(), bins=25, color="#1a9850",
-                        alpha=0.8, edgecolor="white")
-                ax.axvline(x=50, color="#d73027", linestyle="--", linewidth=1.2,
-                           label="Score = 50")
-                ax.set_xlabel("Immune Activity Score (0–100)", fontsize=9)
-                ax.set_ylabel("Patients", fontsize=9)
-                ax.legend(fontsize=8)
-                fig.tight_layout()
-                st.pyplot(fig, use_container_width=True)
+        if "top_targeted_drug" in df_sum.columns:
+            st.markdown("**Top Targeted Drug Distribution**")
+            drug_counts = df_sum["top_targeted_drug"].value_counts()
+            drug_counts = drug_counts[drug_counts.index.isin(["None", "nan", ""]) == False].head(10)
+            if not drug_counts.empty:
+                fig2, ax2 = plt.subplots(figsize=(7, 3))
+                colors = plt.cm.Set2.colors[:len(drug_counts)]
+                ax2.barh(drug_counts.index[::-1], drug_counts.values[::-1],
+                         color=list(colors)[::-1], edgecolor="white")
+                ax2.set_xlabel("Patients", fontsize=9)
+                ax2.tick_params(axis="y", labelsize=8)
+                fig2.tight_layout()
+                st.pyplot(fig2, use_container_width=True)
                 plt.close()
-
-        # Top targeted drugs bar chart
-        with fig_c2:
-            if "top_targeted_drug" in df_sum.columns:
-                st.markdown("**Top Targeted Drug Distribution**")
-                drug_counts = df_sum["top_targeted_drug"].value_counts()
-                drug_counts = drug_counts[drug_counts.index.isin(["None", "nan", ""]) == False].head(10)
-                if not drug_counts.empty:
-                    fig2, ax2 = plt.subplots(figsize=(5, 3))
-                    colors = plt.cm.Set2.colors[:len(drug_counts)]
-                    ax2.barh(drug_counts.index[::-1], drug_counts.values[::-1],
-                             color=list(colors)[::-1], edgecolor="white")
-                    ax2.set_xlabel("Patients", fontsize=9)
-                    ax2.tick_params(axis="y", labelsize=8)
-                    fig2.tight_layout()
-                    st.pyplot(fig2, use_container_width=True)
-                    plt.close()
 
         st.divider()
 
@@ -1590,7 +1561,7 @@ elif page == "09 · Treatment Recommendation":
             "Integration summary not yet generated.\n\n"
             "**Step 1:** Run M02 variant annotation:\n"
             "```bash\npython modules/02_variants/luad_pcgr.py\n```\n\n"
-            "**Step 2:** Run M07, M08, M03 (optional, for richer scoring):\n"
+            "**Step 2:** Run M07, M05, M03 (optional, for richer scoring):\n"
             "```bash\npython modules/07_drug_mapping/luad_drug_mapping.py\n"
             "python modules/05_pathology/luad_pathology.py\n"
             "python modules/03_expression/luad_expression.py\n```\n\n"
@@ -1998,277 +1969,5 @@ Cached for 24 hours. Click any trial title to view full details on ClinicalTrial
         st.caption("No per-patient integration reports found. Run M09 to generate them.")
 
 
-# ══════════════════════════════════════════════════════════════════════════════
-# 08 · Multi-modal Immune Activity Score
-# ══════════════════════════════════════════════════════════════════════════════
-
-elif page == "08 · Multi-modal Immune Activity Score":
-    st.header("08 · Multi-modal Immune Activity Score")
-    st.caption(
-        "CoxNet (Elastic Net Cox PH) · RNA-seq + immune signatures (TIS/CYT/IMPRES) + "
-        "ssGSEA TME (M04) + TIL density (M05) + driver mutations (M02) · "
-        "Train: TCGA-LUAD · External validation: GSE72094"
-    )
-
-    import json as _json
-    sel_genes_path = OUTPUT / "08_io_ml" / "selected_genes.tsv"
-    _metrics_path  = OUTPUT / "08_io_ml" / "model_metrics.json"
-
-    df_io = load_io_scores()
-    if not df_io.empty:
-        n = len(df_io)
-        grp_counts = df_io["io_group"].value_counts() if "io_group" in df_io.columns else {}
-        _m = _json.loads(_metrics_path.read_text()) if _metrics_path.exists() else {}
-
-        tab1, tab2, tab3 = st.tabs([
-            "🔬  Model Training",
-            "👥  Cohort Overview",
-            "👤  Per-Patient Profile",
-        ])
-
-        # ══════════════════════════════════════════════════════════════════════
-        with tab1:
-
-            # ── 1a Feature Selection ─────────────────────────────────────────
-            st.subheader("Feature Selection")
-            n_rna  = _m.get("n_rna_selected", "—")
-            n_feat = _m.get("n_features", "—")
-
-            fs_c1, fs_c2 = st.columns(2)
-            with fs_c1:
-                st.markdown("**Stage 1 — RNA gene selection**")
-                st.markdown(
-                    f"1. Variance pre-filter → top 5,000 genes\n"
-                    f"2. Univariate Cox Wald test\n"
-                    f"3. CoxNet (Elastic Net Cox PH, 5-fold CV)\n\n"
-                    f"**→ {n_rna} RNA genes selected**"
-                )
-            with fs_c2:
-                st.markdown("**Stage 2 — Multi-modal final model**")
-                st.markdown(
-                    f"Stage-1 RNA genes + immune signatures\n"
-                    f"+ ssGSEA TME + TIL + somatic mutations\n"
-                    f"+ TMB + pathologic stage + age\n\n"
-                    f"**→ {n_feat} features in final CoxNet**"
-                )
-
-            st.markdown("**Input modalities**")
-            md1, md2, md3 = st.columns(3)
-            md1.info("**🧬 RNA-seq (M03)**\n\nCoxNet-selected genes\n\nTIS · CYT · IMPRES")
-            md2.info("**🔬 TME + Pathology (M04/M05)**\n\nCD8 T · Treg · NK · M1/M2 · B cell\n\nTIL density · TIL score")
-            md3.info("**🏥 Genomics + Clinical (M02)**\n\nSTK11 · KEAP1 · EGFR · KRAS · TMB\n\nStage (I–IV) · Age")
-
-            if sel_genes_path.exists():
-                _sg = pd.read_csv(sel_genes_path, sep="\t")
-                with st.expander(f"View all {len(_sg)} selected features (CoxNet non-zero coefficients)"):
-                    st.dataframe(_sg, use_container_width=True)
-
-            st.divider()
-
-            # ── 1b Model Performance ─────────────────────────────────────────
-            st.subheader("Model Performance")
-            ci_str = (f"{_m['bootstrap_cindex']}  "
-                      f"(95% CI {_m['bootstrap_ci_lo']}–{_m['bootstrap_ci_hi']})"
-                      if _m else "—")
-            ext_ci  = _m.get("external_cindex", "—")
-            cv_ci   = _m.get("cv_cindex", "—")
-            n_train = _m.get("n_training", "—")
-
-            mc1, mc2, mc3, mc4 = st.columns(4)
-            mc1.metric("Bootstrap C-index (TCGA)", ci_str,
-                       help="Bootstrap resampling n=200; higher = better discrimination")
-            mc2.metric("5-fold CV C-index (TCGA)", str(cv_ci),
-                       help="Nested cross-validation during hyperparameter search")
-            mc3.metric("External C-index (GSE72094)", ext_ci,
-                       help="TCGA-trained model applied to independent LUAD microarray cohort")
-            mc4.metric("Training samples", f"{n_train} (TCGA-LUAD)",
-                       help="Samples with OS data used for model training")
-
-            st.markdown("""
-**Algorithm**: CoxNet — Elastic Net regularized Cox Proportional Hazards model (`scikit-survival`)
-**Hyperparameter tuning**: 5-fold nested cross-validation over grid:
-- α ∈ {0.001, …, 1.0} × 20 log-spaced points
-- l₁ ratio ∈ {0.1, 0.5, 0.9}
-
-**Scoring**: Linear predictor (Σ βᵢ · xᵢ) from final CoxNet model, inverted (−log_hazard) and normalized to 0–100. High score = low hazard = high immune activity.
-            """)
-
-            col_km, col_stk = st.columns(2)
-            with col_km:
-                show_image(OUTPUT / "08_io_ml" / "figures" / "km_io_score.png",
-                           caption="Kaplan-Meier — Immune Activity Score tertile (TCGA-LUAD, log-rank)")
-            with col_stk:
-                show_image(OUTPUT / "08_io_ml" / "figures" / "km_stk11_subgroup.png",
-                           caption="STK11 × Immune Activity Score subgroup")
-
-            gse_km = OUTPUT / "08_io_ml" / "figures" / "km_gse72094.png"
-            if gse_km.exists():
-                st.markdown("**External validation — GSE72094 (independent LUAD cohort, n=398)**")
-                show_image(gse_km,
-                           caption="TCGA-trained model applied to GSE72094 microarray (GPL15048). "
-                                   "Kaplan-Meier by Immune Activity Score tertile.")
-
-            st.divider()
-
-            # ── 1c Model Interpretability ────────────────────────────────────
-            st.subheader("Model Interpretability")
-            fi_img = OUTPUT / "08_io_ml" / "figures" / "feature_importance.png"
-            if fi_img.exists():
-                show_image(fi_img,
-                           caption="CoxNet coefficient magnitudes — "
-                                   "red = higher expression → higher hazard (worse prognosis); "
-                                   "blue = protective")
-            st.markdown("""
-**Interpretation**: Each coefficient βᵢ represents the log-hazard change per unit increase in that feature (after standardization). Positive → higher expression = higher risk. Negative → protective.
-
-**Modalities included in model**
-
-| Modality | Features | Module |
-|----------|----------|--------|
-| RNA-seq (Stage 1) | Variance filter → Cox Wald filter → CoxNet selected genes | M03 |
-| Immune signatures | TIS (18-gene), CYT (√GZMA×PRF1), IMPRES (15 gene-pairs) | M03 computed |
-| ssGSEA TME | CD8 T cytotoxic, Treg, CD8 exhausted, NK, M1/M2, B cell | M04 |
-| Histopathology | TIL density, TIL score | M05 |
-| Genomics | STK11, KEAP1, EGFR, KRAS, TP53, SMAD4 mutations · TMB | M02 |
-| Clinical | Pathologic stage (I–IV), age at diagnosis | TCGA clinical |
-            """)
-
-        # ══════════════════════════════════════════════════════════════════════
-        with tab2:
-            st.subheader("Cohort Overview — TCGA-LUAD")
-            cc1, cc2, cc3, cc4 = st.columns(4)
-            cc1.metric("Patients scored", n)
-            cc2.metric("High immune activity",  int(grp_counts.get("High", 0)),
-                       f"{100*grp_counts.get('High',0)/n:.0f}%")
-            cc3.metric("Intermediate",           int(grp_counts.get("Intermediate", 0)),
-                       f"{100*grp_counts.get('Intermediate',0)/n:.0f}%")
-            cc4.metric("Low immune activity",    int(grp_counts.get("Low", 0)),
-                       f"{100*grp_counts.get('Low',0)/n:.0f}%")
-
-            st.divider()
-
-            # Score distribution
-            import matplotlib.pyplot as plt
-            import matplotlib; matplotlib.use("Agg")
-            if "io_score" in df_io.columns:
-                fig, ax = plt.subplots(figsize=(8, 3))
-                colors_map = df_io["io_group"].map(
-                    {"High":"#27ae60","Intermediate":"#f39c12","Low":"#e74c3c"})
-                ax.hist(df_io["io_score"].dropna(), bins=40,
-                        color="#1565c0", alpha=0.75, edgecolor="white")
-                q33 = df_io["io_score"].quantile(0.333)
-                q67 = df_io["io_score"].quantile(0.667)
-                ax.axvline(q33, color="#e74c3c", lw=1.5, ls="--", label="Low/Int boundary")
-                ax.axvline(q67, color="#27ae60", lw=1.5, ls="--", label="Int/High boundary")
-                ax.set_xlabel("Immune Activity Score (0–100)")
-                ax.set_ylabel("Patients")
-                ax.set_title("Score distribution across TCGA-LUAD cohort")
-                ax.legend(fontsize=8)
-                fig.tight_layout()
-                st.pyplot(fig)
-                plt.close(fig)
-
-            # TIL density by group
-            if "til_density" in df_io.columns and df_io["til_density"].notna().sum() > 10:
-                fig, ax = plt.subplots(figsize=(6, 3))
-                for grp, col in [("High","#27ae60"),("Intermediate","#f39c12"),("Low","#e74c3c")]:
-                    vals = df_io[df_io["io_group"]==grp]["til_density"].dropna()
-                    if len(vals): ax.hist(vals, bins=25, alpha=0.6, color=col, label=grp)
-                ax.set_xlabel("TIL density (M05)"); ax.set_ylabel("Patients")
-                ax.set_title("TIL density by Immune Activity group")
-                ax.legend(); fig.tight_layout()
-                st.pyplot(fig); plt.close(fig)
-
-        # ══════════════════════════════════════════════════════════════════════
-        with tab3:
-            st.subheader("Per-Patient Immune Activity Profile")
-            _m08_samples = sorted(df_io.index.tolist())
-            if _m08_samples:
-                sel = st.selectbox("Select patient", _m08_samples, key="m08_sample")
-                row = df_io.loc[sel]
-
-                io_score = float(row.get("io_score", 0))
-                io_group = str(row.get("io_group", "Unknown"))
-                group_info = {
-                    "High":         ("#27ae60", "High immune activity — strong IO candidate"),
-                    "Intermediate": ("#f39c12", "Intermediate — consider clinical context"),
-                    "Low":          ("#e74c3c", "Low immune activity — IO may be less effective"),
-                }
-                color, desc = group_info.get(io_group, ("#888888", ""))
-                st.markdown(
-                    f"<div style='background:{color}20;border-left:4px solid {color};"
-                    f"padding:12px 18px;border-radius:6px;margin-bottom:12px'>"
-                    f"<b style='color:{color};font-size:1.15em'>{io_group} immune activity</b>"
-                    f" &nbsp;·&nbsp; Score: <b>{io_score:.1f}</b> / 100"
-                    f"<br><span style='color:#555;font-size:0.9em'>{desc}</span></div>",
-                    unsafe_allow_html=True,
-                )
-
-                # 3-modality summary
-                pc1, pc2, pc3 = st.columns(3)
-                til = row.get("til_density", None)
-                pc1.metric("TIL density (M05 · Pathology)",
-                           f"{til:.3f}" if pd.notna(til) else "N/A")
-
-                # Immune signatures
-                sig_vals = {k: row.get(k, None)
-                            for k in ["sig_tis","sig_cyt","sig_impres"]
-                            if k in row.index}
-                sig_str = "  ·  ".join(
-                    f"{k.replace('sig_','').upper()}: {v:.2f}"
-                    for k, v in sig_vals.items() if pd.notna(v)
-                ) if sig_vals else "N/A"
-                pc2.metric("Immune signatures (M03)", sig_str,
-                           help="TIS = Tumor Inflammation Signature; CYT = Cytolytic Activity; IMPRES = checkpoint gene-pair score")
-
-                res_cols_map = {"mut_STK11":"STK11","mut_KEAP1":"KEAP1",
-                                "mut_EGFR":"EGFR","mut_KRAS":"KRAS"}
-                mutated = [name for col, name in res_cols_map.items()
-                           if col in row.index and row[col] == 1]
-                pc3.metric("Driver mutations (M02)", ", ".join(mutated) if mutated else "None")
-
-                # Clinical features row
-                cl1, cl2, cl3 = st.columns(3)
-                stage_val = row.get("clinical_stage", None)
-                stage_map_inv = {1:"I", 2:"II", 3:"III", 4:"IV"}
-                stage_str = stage_map_inv.get(int(stage_val), "Unknown") if pd.notna(stage_val) else "Unknown"
-                cl1.metric("Pathologic Stage", f"Stage {stage_str}")
-                age_val = row.get("clinical_age", None)
-                cl2.metric("Age at diagnosis", f"{age_val:.0f} yrs" if pd.notna(age_val) else "N/A")
-                tmb_val = row.get("tmb", None)
-                cl3.metric("TMB (mut/Mb)", f"{tmb_val:.1f}" if pd.notna(tmb_val) else "N/A",
-                           help="Tumor Mutational Burden — higher TMB may predict IO response")
-
-                # TME bar chart (M04 ssGSEA)
-                tme_present = {c.replace("tme_","").replace("_"," "): row.get(f"tme_{c}", None)
-                               for c in ["CD8_T_cytotoxic","NK","Macrophage_M1",
-                                         "Macrophage_M2","Treg","B_cell"]}
-                tme_vals = {k: v for k, v in tme_present.items() if pd.notna(v)}
-                if tme_vals:
-                    import matplotlib.pyplot as plt
-                    labels = list(tme_vals.keys())
-                    vals   = list(tme_vals.values())
-                    bar_colors = ["#e74c3c" if "M2" in l or "Treg" in l else "#3498db"
-                                  for l in labels]
-                    fig, ax = plt.subplots(figsize=(7, 2.5))
-                    ax.barh(labels, vals, color=bar_colors, height=0.5)
-                    ax.set_xlabel("ssGSEA score")
-                    ax.set_title(f"TME immune cell composition (M04) — {sel}", fontsize=10)
-                    ax.invert_yaxis()
-                    fig.tight_layout()
-                    st.pyplot(fig)
-                    plt.close(fig)
-
-                if mutated:
-                    resistance = [m for m in mutated if m in ("STK11","KEAP1")]
-                    if resistance:
-                        st.warning(
-                            f"IO resistance markers: **{', '.join(resistance)}** — "
-                            "associated with poor immunotherapy response in LUAD "
-                            "(Skoulidis et al., NEJM 2018)")
-                    else:
-                        st.info(f"Driver mutations detected: {', '.join(mutated)}")
-
-    else:
-        st.info("Immune Activity Scores not yet generated. Run:\n"
-                "```\npython modules/08_io_ml/luad_io_ml.py\n```")
+# M08 removed — TME immune phenotyping is captured by M04 (Inflamed/Excluded/Desert)
+# and TIL density in M05; both feed directly into M09 treatment recommendations.
