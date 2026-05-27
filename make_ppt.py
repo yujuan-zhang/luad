@@ -36,11 +36,6 @@ FIGS = {
     "tme_overview": BASE / "data/output/04_single_cell/luad_tme_overview.png",
     "tme_heatmap":  BASE / "data/output/04_single_cell/tme_cohort_heatmap.png",
     "drug_heatmap": BASE / "data/output/07_drug_mapping/drug_actionability_heatmap.png",
-    "km_io":        BASE / "data/output/08_io_ml/figures/km_io_score.png",
-    "km_stk11":     BASE / "data/output/08_io_ml/figures/km_stk11_subgroup.png",
-    "km_gse":       BASE / "data/output/08_io_ml/figures/km_gse72094.png",
-    "feat_imp":     BASE / "data/output/08_io_ml/figures/feature_importance.png",
-    "shap":         BASE / "data/output/08_io_ml/figures/shap_summary.png",
     "variant_sum":  BASE / "data/output/02_variants/TCGA-86-A4D0/TCGA-86-A4D0_variant_summary.png",
     "gsea":         BASE / "data/output/06_pathway/TCGA-86-A4D0/TCGA-86-A4D0_gsea.png",
     "patient_card": BASE / "data/output/01_patients/TCGA-86-A4D0_patient_card.png",
@@ -201,7 +196,7 @@ slide_header(sl, "Outline")
 
 sections = [
     ("01", "Background",       "LUAD epidemiology, clinical challenges, precision oncology rationale"),
-    ("02", "Data & Methods",   "Cohort, 9-module pipeline, technology stack"),
+    ("02", "Data & Methods",   "Cohort, 8-module pipeline, technology stack"),
     ("03", "Results",          "Variant landscape, TME, IO scoring, drug mapping, integration"),
     ("04", "Discussion",       "Key findings, limitations, future directions"),
 ]
@@ -318,7 +313,7 @@ gaps    = [
     ["Faster, reproducible molecular tumour boards",
      "Statistically anchored clinical decisions",
      "Evidence-graded therapy recommendations",
-     "Validated IO stratification (GSE72094, n=398)"],
+     "Inflamed/Excluded/Desert TME classification (M04+M05)"],
 ]
 for i in range(3):
     x = Inches(0.4 + i * 4.28)
@@ -360,10 +355,6 @@ datasets = [
       "44 LUAD / LUSC / normal tissue samples",
       "~200,000 single cells (10x Chromium)",
       "Used for TME cell-type deconvolution (M04)"]),
-    ("GSE72094 — External Validation",
-     ["Early-stage LUAD (n = 398, Lee et al., 2016)",
-      "Used to validate Immune Activity Score (M08)",
-      "Independent cohort for survival model transferability"]),
 ]
 y_pos = Inches(1.35)
 for i, (title, bullets) in enumerate(datasets):
@@ -507,7 +498,7 @@ tech_rows = [
     ("Pathway Enrichment",  "GSEApy (ORA + GSEA prerank) · MSigDB C2/C5 gene sets"),
     ("Protein Language AI", "ESM2-650M (facebook/esm2_t33_650M_UR50D) · PyTorch · HuggingFace Transformers"),
     ("Drug Knowledge Base", "Curated NCCN/FDA KB · CIViC REST API · OncoKB evidence levels"),
-    ("ML / Statistics",     "scikit-learn · lifelines CoxPH · CoxNet Elastic Net · SHAP"),
+    ("ML / Statistics",     "scipy · lifelines · statsmodels · log-rank test"),
     ("Visualization",       "matplotlib · seaborn · plotly (Streamlit)"),
     ("Dashboard",           "Streamlit · Deployed on Streamlit Community Cloud"),
     ("Containerisation",    "Docker · conda (PCGR env) · Python 3.10+"),
@@ -639,58 +630,33 @@ bullet_block(sl, [
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-# SLIDE 16 – Immune Activity Score
+# SLIDE 16 – TME Phenotyping (M04 + M05)
 # ══════════════════════════════════════════════════════════════════════════════
 sl = prs.slides.add_slide(blank_layout)
-slide_header(sl, "M08: Multi-Modal Immune Activity Score (IAS)",
-             "CoxNet survival model integrating RNA-seq, genomics, and pathology")
+slide_header(sl, "M04 + M05: TME Immune Phenotyping",
+             "ssGSEA TME fractions (M04) + TIL density (M05) → Inflamed / Excluded / Desert")
 
-# 2 figures top row, 1 bottom row
-add_image_safe(sl, FIGS["km_io"],
-               Inches(0.3), Inches(1.3), Inches(4.1), Inches(2.9))
-add_image_safe(sl, FIGS["km_stk11"],
-               Inches(4.55), Inches(1.3), Inches(4.1), Inches(2.9))
-add_image_safe(sl, FIGS["km_gse"],
-               Inches(8.8), Inches(1.3), Inches(4.2), Inches(2.9))
+add_image_safe(sl, FIGS["tme_overview"],
+               Inches(0.3), Inches(1.3), Inches(6.3), Inches(5.7))
+add_image_safe(sl, FIGS["tme_heatmap"],
+               Inches(6.8), Inches(1.3), Inches(6.2), Inches(5.7))
 
-add_textbox(sl, "TCGA-LUAD: IAS high vs. low",
-            Inches(0.3), Inches(4.2), Inches(4.1), Inches(0.3),
+add_textbox(sl, "TME phenotype distribution across TCGA-LUAD (n=517)",
+            Inches(0.3), Inches(7.0), Inches(6.3), Inches(0.3),
             font_size=10, italic=True, color=TEXT_MED, align=PP_ALIGN.CENTER)
-add_textbox(sl, "STK11 subgroup analysis",
-            Inches(4.55), Inches(4.2), Inches(4.1), Inches(0.3),
-            font_size=10, italic=True, color=TEXT_MED, align=PP_ALIGN.CENTER)
-add_textbox(sl, "External validation: GSE72094 (n=398)",
-            Inches(8.8), Inches(4.2), Inches(4.2), Inches(0.3),
+add_textbox(sl, "Cohort-wide ssGSEA immune cell-type heatmap",
+            Inches(6.8), Inches(7.0), Inches(6.2), Inches(0.3),
             font_size=10, italic=True, color=TEXT_MED, align=PP_ALIGN.CENTER)
 
 bullet_block(sl, [
-    "CoxNet (Elastic Net Cox PH) selects ~50–150 prognostic RNA features from top-5,000 variance genes",
-    "Training: TCGA-LUAD n≈443 · External validation: GSE72094 n=398 · Nested 5-fold CV",
-    "IAS high (top tertile) → significantly better OS (p<0.01, log-rank) in both cohorts",
-    "STK11-mutant patients remain IO-low even with high TMB — captured by IAS",
-    "SHAP analysis identifies IFN-γ signature genes as top predictors",
+    "ssGSEA applied to 10 immune cell types using GSE131907 Lung Cell Atlas gene sets",
+    "TIL density quantified from H&E WSI via color-deconvolution and nuclear density scoring (M05)",
+    "Inflamed (top 30% TIL): CD8-high, NK-high — likely IO responder → Pembrolizumab",
+    "Excluded (middle 50% TIL): mixed TME — consider IO + anti-VEGF combination",
+    "Desert (bottom 20% TIL): immune-cold — targeted therapy / chemotherapy preferred",
+    "STK11/KEAP1 co-mutation strongly associated with Desert / Excluded phenotype",
 ], Inches(0.3), Inches(4.6), Inches(13.0), Inches(2.6),
-   font_size=13, color=TEXT_DARK, title="Model Performance", title_color=MID_BLUE)
-
-
-# ══════════════════════════════════════════════════════════════════════════════
-# SLIDE 17 – Feature Importance / SHAP
-# ══════════════════════════════════════════════════════════════════════════════
-sl = prs.slides.add_slide(blank_layout)
-slide_header(sl, "M08: Feature Importance & SHAP Analysis",
-             "Interpretable multi-modal predictors of immune activity")
-
-add_image_safe(sl, FIGS["feat_imp"],
-               Inches(0.3), Inches(1.3), Inches(6.3), Inches(5.7))
-add_image_safe(sl, FIGS["shap"],
-               Inches(6.8), Inches(1.3), Inches(6.2), Inches(5.7))
-
-add_textbox(sl, "Top CoxNet-selected gene coefficients",
-            Inches(0.3), Inches(7.0), Inches(6.3), Inches(0.3),
-            font_size=10, italic=True, color=TEXT_MED, align=PP_ALIGN.CENTER)
-add_textbox(sl, "SHAP beeswarm: contribution of each feature to IAS",
-            Inches(6.8), Inches(7.0), Inches(6.2), Inches(0.3),
-            font_size=10, italic=True, color=TEXT_MED, align=PP_ALIGN.CENTER)
+   font_size=13, color=TEXT_DARK, title="Classification Logic & Clinical Interpretation", title_color=MID_BLUE)
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -715,8 +681,8 @@ info_cols = [
       "Returns eligible + potentially eligible trials"]),
     (ACCENT_ORANGE, "③ MDT Report",
      ["Structured one-page clinical summary per patient",
-      "Integrates M02 variants + M03 RNA + M04 TME",
-      "M08 Immune Activity Score + IO group label",
+      "Integrates M02 variants + M03 RNA + M04 TME + M05 TIL",
+      "TME phenotype (Inflamed/Excluded/Desert) + IO eligibility",
       "Ranked treatment list with evidence tier",
       "Exportable PNG / JSON for tumour board use"]),
 ]
@@ -744,13 +710,13 @@ section_divider("04  Discussion",
 # ══════════════════════════════════════════════════════════════════════════════
 sl = prs.slides.add_slide(blank_layout)
 slide_header(sl, "Key Findings",
-             "Biological insights emerging from the 9-module integrated analysis")
+             "Biological insights emerging from the 8-module integrated analysis")
 
 findings = [
-    (ACCENT_TEAL, "01", "STK11/KEAP1 Co-Mutation as IO Resistance Marker",
-     "STK11 loss robustly predicts immune-excluded TME phenotype and low IAS regardless of TMB or PD-L1 status. This dual STK11/KEAP1 co-mutation pattern was the strongest negative predictor in both TCGA-LUAD and GSE72094 validation cohorts."),
-    (MID_BLUE, "02", "Multi-Modal IAS Outperforms Single-Biomarker IO Prediction",
-     "Integrating RNA immune signatures with genomic and pathology features yields a more stable survival stratification than TMB or PD-L1 alone. The CoxNet model transfers to an independent cohort (GSE72094, n=398), confirming generalisation."),
+    (ACCENT_TEAL, "01", "STK11/KEAP1 Co-Mutation Drives Immune-Desert TME",
+     "STK11 loss robustly predicts immune-excluded / desert TME phenotype regardless of TMB or PD-L1 status. Dual STK11/KEAP1 co-mutation was the strongest negative predictor of IO response in the TCGA-LUAD cohort, corroborated by significantly lower TIL density (M05)."),
+    (MID_BLUE, "02", "Inflamed TME (CD8-high, TIL-high) Identifies IO-Eligible Patients Independently of Stage",
+     "ssGSEA-derived CD8 T-cell fractions combined with H&E TIL density (M05) classify 30% of TCGA-LUAD as Inflamed — a clinically actionable IO-eligible subgroup not captured by TMB or PD-L1 alone."),
     (ACCENT_ORANGE, "03", "Targetable Driver Genes Found in >65% of Profiled Patients",
      "With a 24-drug knowledge base and CIViC evidence grading, the platform identified ≥1 FDA-approved targeted therapy in the majority of variant-profiled patients. KRAS G12C (Sotorasib/Adagrasib) was the most frequent actionable alteration."),
     (RGBColor(0x7D, 0x3C, 0x98), "04", "Cohort-Level Benchmarking Enables Personalised Expression Outlier Detection",
@@ -782,14 +748,14 @@ lims = [
      ["TCGA samples are retrospective snap-shots; no longitudinal resistance tracking",
       "Bulk RNA-seq TME deconvolution is a proxy — spatial context not captured",
       "Clinical metadata completeness varies across TCGA batches (survival data ~80%)",
-      "No fresh prospective validation cohort beyond GSE72094"]),
+      "No prospective validation cohort for treatment outcomes"]),
     ("Methodological Limitations",
-     ["ESM2 embeddings computed without true AlphaFold3 structural context",
+     ["Bulk RNA-seq ssGSEA is a proxy for TME — spatial context not captured",
       "Drug sensitivity predictions rely on genomic biomarkers, not functional assays",
-      "CoxNet feature selection is stochastic — minor instability across random seeds",
+      "TME phenotype thresholds (percentile-based) are cohort-specific — may not generalise",
       "Clinical trial eligibility is rule-based, not validated by oncologist review"]),
     ("Platform Limitations",
-     ["ESM2 module (M07b) requires GPU; disabled by default in cloud deployment",
+     ["AlphaMissense lookup limited to pre-computed variants in DeepMind table",
       "PCGR/VEP annotation requires local Docker install; not available on Streamlit Cloud",
       "CIViC and ClinicalTrials.gov data fetched at build time — real-world lag possible",
       "Dashboard is read-only; does not support user-uploaded VCF/BAM files yet"]),
@@ -854,12 +820,12 @@ add_textbox(sl, "Conclusion",
 
 conclusions = [
     ("End-to-end integration",
-     "The LUAD Precision Oncology Platform integrates 9 analysis modules — somatic variants, "
-     "RNA-seq, single-cell TME, pathology, protein AI (ESM2 + AlphaMissense), and clinical evidence "
+     "The LUAD Precision Oncology Platform integrates 8 analysis modules — somatic variants, "
+     "RNA-seq, single-cell TME, digital pathology, protein variant impact (AlphaMissense), and clinical evidence "
      "— into a single reproducible, patient-facing Streamlit dashboard."),
-    ("Validated IO stratification",
-     "The multi-modal Immune Activity Score stratifies LUAD patients by immunotherapy suitability "
-     "with external validation (GSE72094), capturing STK11/KEAP1-driven IO resistance "
+    ("Biologically-grounded IO stratification",
+     "Combining ssGSEA TME fractions (M04) with H&E TIL density (M05) classifies patients into "
+     "Inflamed / Excluded / Desert phenotypes — capturing STK11/KEAP1-driven IO resistance "
      "not detectable by TMB or PD-L1 alone."),
     ("Actionable clinical outputs",
      "For >65% of molecularly profiled patients, the platform identifies ≥1 FDA-approved targeted "
@@ -890,7 +856,6 @@ add_textbox(sl, "Data & Resources",
 acks = [
     "TCGA Research Network (NIH/NCI) — patient genomic and clinical data",
     "GSE131907 — Kim et al. (2020) Lung Cancer Cell Atlas, Nat Commun",
-    "GSE72094  — Lee et al. (2016) Early-stage LUAD cohort, Genome Biol",
     "PCGR/VEP  — Sigven Nakken et al., Genome Med (VEP v113, PCGR v2.2.5)",
     "ESM2      — Lin et al. (2023) Meta AI, Science (ESM2-650M)",
     "CIViC     — Griffith et al. (2017) Nat Genet",

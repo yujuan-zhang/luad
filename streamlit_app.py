@@ -284,13 +284,13 @@ def make_pipeline_figure():
         size=8.5, bold=True, color="#2e7d32", ha="left")
     bh2 = 1.08
     for (num, name), xi in zip(
-        [("05", "Pathway\nEnrichment"), ("07", "Drug\nMapping")], [2.5, 5.9]
+        [("06", "Pathway\nEnrichment"), ("07", "Variant\nImpact")], [2.5, 5.9]
     ):
         fbox(xi, 5.37, bw, bh2, "white", "#2e7d32", lw=1.5)
         txt(xi + bw / 2, 5.37 + bh2 * 0.70, f"M{num}", size=10, bold=True, color="#2e7d32")
         txt(xi + bw / 2, 5.37 + bh2 * 0.28, name, size=7.5, color="#333")
 
-    # M05 pathology report feeds into Stage 2 via arrow
+    # M05 pathology report feeds into integration via arrow
     arrow_rt(10.6, 9.7, 6.28)
     fbox(9.6, 5.37, bw, bh2, "#f3e5f5", "#6a1b9a", lw=1.5)
     txt(9.6 + bw / 2, 5.37 + bh2 * 0.70, "M05", size=10, bold=True, color="#6a1b9a")
@@ -298,13 +298,13 @@ def make_pipeline_figure():
 
     arrow_dn(5.6, 5.20, 4.52)
 
-    # STAGE 3
-    fbox(2.8, 3.05, 5.4, 1.45, "#fff3e0", "#e65100", lw=2)
-    txt(3.10, 4.35, "STAGE 3  —  GPU recommended (optional)",
-        size=8.5, bold=True, color="#e65100", ha="left")
-    fbox(4.4, 3.20, bw, 0.95, "white", "#e65100", lw=1.5)
-    txt(4.4 + bw / 2, 3.20 + 0.95 * 0.70, "M06", size=10, bold=True, color="#e65100")
-    txt(4.4 + bw / 2, 3.20 + 0.95 * 0.28, "AlphaMissense\nScoring", size=7.5, color="#333")
+    # STAGE 3 — Integration
+    fbox(2.8, 3.05, 5.4, 1.45, "#e8eaf6", "#283593", lw=2)
+    txt(3.10, 4.35, "STAGE 3  —  Integration",
+        size=8.5, bold=True, color="#283593", ha="left")
+    fbox(4.4, 3.20, bw, 0.95, "white", "#283593", lw=1.5)
+    txt(4.4 + bw / 2, 3.20 + 0.95 * 0.70, "M08", size=10, bold=True, color="#283593")
+    txt(4.4 + bw / 2, 3.20 + 0.95 * 0.28, "Treatment\nRecommendation", size=7.5, color="#333")
     arrow_dn(5.6, 3.05, 2.37)
 
     # DASHBOARD
@@ -470,8 +470,6 @@ Identifying the precise **molecular and histopathological profile** of each pati
   (Z = patient log₂TPM − GTEx mean) / GTEx SD — positive Z = over-expressed vs normal lung
 - **TCGA-LUAD PCGR reference** (n = 541 samples): subtype similarity scoring in M03
   (Spearman correlation of patient expression profile vs PCGR internal TCGA cohort)
-- **GSE72094** (Lee et al., n = 398): independent early-stage LUAD cohort — used as data reference
-
 **Single-cell reference: GSE131907** (Kim et al. 2020, *Nature Cancer*)
 - 57,000 cells from 58 LUAD tumor samples · 10x Genomics Chromium
 - Cell annotation: 36+ subtypes → 18 functional lineages
