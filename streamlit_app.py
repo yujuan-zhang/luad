@@ -97,7 +97,7 @@ def patients_for_page(page: str) -> list:
     idx = load_cohort_index()
     if page in ("07 · Variant Impact",):
         return idx[idx.has_wes]["sample_id"].tolist()
-    if page in ("09 · Treatment Recommendation",):
+    if page in ("08 · Treatment Recommendation",):
         return idx[idx.has_wes & idx.has_rnaseq]["sample_id"].tolist()
     if page in ("05 · Pathology",):
         return idx[idx.has_pathology]["sample_id"].tolist()
@@ -341,7 +341,7 @@ with st.sidebar:
             "05 · Pathology",
             "06 · Pathway",
             "07 · Variant Impact",
-            "09 · Treatment Recommendation",
+            "08 · Treatment Recommendation",
         ],
         label_visibility="collapsed",
     )
@@ -424,10 +424,10 @@ if page == "Home":
 
     # ── Key Stats ─────────────────────────────────────────────────────────────
     ks1, ks2, ks3, ks4, ks5 = st.columns(5)
-    ks1.metric("Analysis Modules", "9")
+    ks1.metric("Analysis Modules", "8")
     ks2.metric("TCGA-LUAD Patients", "517")
-    ks3.metric("Curated Trials (M09)", "21")
-    ks4.metric("C-index (Immune Score)", "0.786")
+    ks3.metric("Curated Trials (M08)", "21")
+    ks4.metric("Evidence Tiers Covered", "I–IV (AMP/ASCO/CAP)")
     ks5.metric("Driver Genes Covered", "16+")
 
     st.divider()
@@ -492,8 +492,7 @@ Identifying the precise **molecular and histopathological profile** of each pati
 | M05 | H&E TIL density (digital pathology) | GDC TCGA | 478 |
 | M06 | Pathway enrichment (ORA/GSEA) | MSigDB/KEGG | 517 |
 | M07 | Variant impact (AlphaMissense) | MAF | 241 ¹ |
-| M08 | *(removed — TME phenotyping integrated into M04 and M09)* | — | — |
-| M09 | Treatment recommendation · trial matching (curated + live API) · MDT report | M02–M05, M07 | 271 |
+| M08 | Treatment recommendation · trial matching (curated + live API) · MDT report | M02–M05, M07 | 271 |
 
 ¹ M07 only scores samples carrying protein-altering mutations in druggable genes (KRAS, EGFR, ALK, etc.)
         """)
@@ -509,8 +508,8 @@ Identifying the precise **molecular and histopathological profile** of each pati
 The platform is organized into **8 analysis modules** across three functional layers:
 
 - **Molecular characterization (M01–M07)**: Independent modules running in parallel — patient survival context, somatic variant annotation (VEP/PCGR), bulk RNA-seq expression, single-cell TME deconvolution (ssGSEA), digital pathology (H&E/TIL), pathway enrichment (ORA/GSEA), and protein variant impact (AlphaMissense)
-- **TME immune phenotyping (M04+M05)**: ssGSEA TME fractions (CD8, Treg, NK, M1/M2) + TIL density · Rule-based classification: Inflamed / Excluded / Desert · Directly informs IO eligibility in M09
-- **Clinical translation (M09)**: Treatment recommendation engine (OncoKB/AMP-ASCO-CAP/ESCAT/CIViC evidence grading → ranked targeted / IO / chemo recommendations) · clinical trial matching (21 curated LUAD trials + **real-time ClinicalTrials.gov API**, refreshed every 24h) · one-page MDT report
+- **TME immune phenotyping (M04+M05)**: ssGSEA TME fractions (CD8, Treg, NK, M1/M2) + TIL density · Rule-based classification: Inflamed / Excluded / Desert · Directly informs IO eligibility in M08
+- **Clinical translation (M08)**: Treatment recommendation engine (OncoKB/AMP-ASCO-CAP/ESCAT/CIViC evidence grading → ranked targeted / IO / chemo recommendations) · clinical trial matching (21 curated LUAD trials + **real-time ClinicalTrials.gov API**, refreshed every 24h) · one-page MDT report
     """)
 
     _pipe_fig = HOME_FIGS / "pipeline_figure.png"
@@ -584,14 +583,7 @@ The platform is organized into **8 analysis modules** across three functional la
       </div>
 
       <div class="mod-card">
-        <span class="mod-id" style="background:#2e7d32;">08</span>
-        <span class="mod-name">TME Immune Phenotyping</span>
-        <div class="mod-desc">ssGSEA TME fractions (M04) + TIL density (M05) · Inflamed / Excluded / Desert classification · Feeds directly into M09 IO scoring</div>
-        <span class="mod-tag">TME</span><span class="mod-tag">Rule-based</span><span class="mod-tag">IO Eligibility</span>
-      </div>
-
-      <div class="mod-card">
-        <span class="mod-id" style="background:#283593;">09</span>
+        <span class="mod-id" style="background:#283593;">08</span>
         <span class="mod-name">Treatment Recommendation & Trial Matching</span>
         <div class="mod-desc">Integrates M02+M03+M04+M05 · OncoKB / AMP-ASCO-CAP / ESCAT / CIViC evidence grading · confidence-scored targeted / IO / combination / chemo recommendations · 21 curated LUAD trials + real-time ClinicalTrials.gov API · MDT report</div>
         <span class="mod-tag">Treatment Strategy</span><span class="mod-tag">OncoKB</span><span class="mod-tag">Trial Matching</span><span class="mod-tag">Live API</span><span class="mod-tag">MDT Report</span>
@@ -1472,8 +1464,8 @@ elif page == "05 · Pathology":
 # 09 · MULTIMODAL INTEGRATION
 # ══════════════════════════════════════════════════════════════════════════════
 
-elif page == "09 · Treatment Recommendation":
-    st.header("09 · Treatment Recommendation")
+elif page == "08 · Treatment Recommendation":
+    st.header("08 · Treatment Recommendation")
     st.caption(
         "Multi-omics evidence integration · M02 somatic variants + M03 expression + "
         "M04 ssGSEA TME + M05 TIL · "
@@ -1565,7 +1557,7 @@ elif page == "09 · Treatment Recommendation":
             "```bash\npython modules/07_drug_mapping/luad_drug_mapping.py\n"
             "python modules/05_pathology/luad_pathology.py\n"
             "python modules/03_expression/luad_expression.py\n```\n\n"
-            "**Step 3:** Run M09 integration:\n"
+            "**Step 3:** Run M08 integration:\n"
             "```bash\npython modules/09_integration/luad_integration.py\n```"
         )
 
@@ -1575,7 +1567,7 @@ elif page == "09 · Treatment Recommendation":
     st.subheader("Per-Patient Recommendation")
 
     integration_dir = OUTPUT / "09_integration"
-    _m09_all = patients_for_page("09 · Treatment Recommendation")
+    _m09_all = patients_for_page("08 · Treatment Recommendation")
     available = sorted([
         s for s in _m09_all
         if (integration_dir / s / f"{s}_recommendation.tsv").exists()
@@ -1664,7 +1656,7 @@ elif page == "09 · Treatment Recommendation":
 </div>
 """, unsafe_allow_html=True)
             else:
-                st.info("Molecular profile not found. Re-run M09.")
+                st.info("Molecular profile not found. Re-run M08.")
 
             st.markdown("#### Treatment Recommendations")
             if rec_tsv.exists():
@@ -1696,7 +1688,7 @@ elif page == "09 · Treatment Recommendation":
 **IO Score** = TMB + TME + PD-L1 (RNA) + IFN-γ − STK11/KEAP1 penalty
                     """)
             else:
-                st.info("Recommendation file not found. Re-run M09.")
+                st.info("Recommendation file not found. Re-run M08.")
 
         # ── Tab 2: Open Trials (curated + real-time ClinicalTrials.gov) ──────────
         with tab_trials:
@@ -1750,7 +1742,7 @@ elif page == "09 · Treatment Recommendation":
                     with st.expander("Show all matched trials (including completed)"):
                         st.dataframe(df_trials, use_container_width=True, hide_index=True)
             else:
-                st.info("No trial matching data found for this patient. Run M09 trial matching.")
+                st.info("No trial matching data found for this patient. Run M08 trial matching.")
 
             st.divider()
 
@@ -1966,8 +1958,8 @@ Cached for 24 hours. Click any trial title to view full details on ClinicalTrial
                     st.info("No trial data.")
 
     else:
-        st.caption("No per-patient integration reports found. Run M09 to generate them.")
+        st.caption("No per-patient integration reports found. Run M08 to generate them.")
 
 
 # M08 removed — TME immune phenotyping is captured by M04 (Inflamed/Excluded/Desert)
-# and TIL density in M05; both feed directly into M09 treatment recommendations.
+# and TIL density in M05; both feed directly into M08 treatment recommendations.
