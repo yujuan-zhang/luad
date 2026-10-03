@@ -82,23 +82,29 @@ Input: TCGA LUAD samples
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/your-org/luad_workflow.git
-cd luad_workflow
+git clone https://github.com/yujuan-zhang/luad.git
+cd luad
 ```
 
-### 2. Create conda environment
+### 2. Create a Python environment
 
 ```bash
-conda env create -f packages/conda/env/yml/pcgr.yml
-conda activate pcgr
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
 ```
 
-### 3. Install Python dependencies
+The previous `packages/conda/env/yml/pcgr.yml` path is not included in this
+checkout. The requirements file installs the listed Python dependencies;
+it does not provision every external analysis tool. Module 02 imports the external `pcgr` package, which is not installed by this
+requirements file or bundled as Python source in this checkout. Install PCGR
+in an environment compatible with its own dependencies before running module 02.
+Check module-specific requirements before running the full pipeline.
+
+### 3. Optional ESM2 dependencies
 
 ```bash
-pip install streamlit pandas numpy matplotlib seaborn scipy requests biopython
-# For ESM2 (module 06, optional):
-pip install torch transformers fair-esm
+python -m pip install torch transformers fair-esm
 ```
 
 ### 4. Download input data
@@ -133,26 +139,31 @@ python run_all.py --include_esm2
 # Resume from a specific module
 python run_all.py --from_module 05
 
-# Dry run — validate inputs without computation
+# Dry run — invoke each selected module's input checks (dependencies still required)
 python run_all.py --dry_run
 ```
+
+Module IDs in `run_all.py` are logical workflow IDs, not directory numbers:
+`05` runs `modules/06_pathway`, and `06` runs `modules/07_variant_impact`.
+Use a sample that is present in your downloaded inputs. `--dry_run` still imports
+each module and requires its dependencies; it is not a dependency-free check.
 
 ### Run individual modules
 
 ```bash
-python modules/01_patient_context/luad_patient_context.py --sample TCGA-86-A4D0
-python modules/02_variation_annotation/luad_pcgr.py       --sample TCGA-86-A4D0
+python modules/01_patients/luad_patient_context.py --sample TCGA-86-A4D0
+python modules/02_variants/luad_pcgr.py       --sample TCGA-86-A4D0
 python modules/03_expression/luad_expression.py           --sample TCGA-86-A4D0
 python modules/04_single_cell/luad_singlecell.py
-python modules/05_pathway/luad_pathway.py                 --sample TCGA-86-A4D0
-python modules/06_esm/luad_esm2.py                        --sample TCGA-86-A4D0  # GPU
+python modules/06_pathway/luad_pathway.py                 --sample TCGA-86-A4D0
+python modules/07_variant_impact/luad_esm2.py                        --sample TCGA-86-A4D0  # GPU
 python modules/07_drug_mapping/luad_drug_mapping.py       --sample TCGA-86-A4D0
 ```
 
 ### Launch the Streamlit dashboard
 
 ```bash
-streamlit run app.py
+streamlit run streamlit_app.py
 ```
 
 ---
@@ -175,10 +186,10 @@ The platform is demonstrated on **5 TCGA-LUAD samples**:
 
 ```
 data/output/
-├── 01_patient_context/
+├── 01_patients/
 │   ├── clinical_summary.tsv
 │   └── TCGA-*_patient_card.png
-├── 02_variation_annotation/
+├── 02_variants/
 │   ├── all_samples_summary.tsv
 │   └── {sample}/  *_variants.tsv.gz  *_tmb.tsv  *_variant_summary.png
 ├── 03_expression/
@@ -189,10 +200,10 @@ data/output/
 │   ├── per_sample_immune_metrics.tsv
 │   ├── per_sample_tme_fractions.tsv
 │   └── luad_tme_overview.png
-├── 05_pathway/
+├── 06_pathway/
 │   ├── all_samples_summary.tsv
 │   └── {sample}/  *_ora.tsv  *_gsea.tsv  *_gsea.png
-├── 06_esm/
+├── 07_variant_impact/
 │   └── {sample}/  site_info.csv  mutation_scores.tsv  *_esm2_summary.png
 │                  wt_features.npy  mut_features.npy  delta_features.npy
 └── 07_drug_mapping/
@@ -260,3 +271,4 @@ MIT License. See [LICENSE](LICENSE).
 - [Meta AI / ESMFold team](https://github.com/facebookresearch/esm) — ESM2 protein language model
 - [CIViC](https://civicdb.org) — clinical variant interpretation database
 - [GSE131907](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE131907) — Lung Cancer Cell Atlas
+

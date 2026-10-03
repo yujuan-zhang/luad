@@ -50,7 +50,7 @@ MODULES = [
     ("03", "Expression Analysis",    "modules/03_expression/luad_expression.py",               True),
     ("04", "Single-Cell TME",        "modules/04_single_cell/luad_singlecell.py",              False),
     ("05", "Pathway Enrichment",     "modules/06_pathway/luad_pathway.py",                     True),
-    ("06", "ESM2 Site Features",     "modules/07_esm2/luad_esm2.py",                            True),
+    ("06", "ESM2 Site Features",     "modules/07_variant_impact/luad_esm2.py",                            True),
     ("07", "Drug Mapping",           "modules/07_drug_mapping/luad_drug_mapping.py",           True),
 ]
 
@@ -329,3 +329,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
