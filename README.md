@@ -272,3 +272,23 @@ MIT License. See [LICENSE](LICENSE).
 - [CIViC](https://civicdb.org) — clinical variant interpretation database
 - [GSE131907](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE131907) — Lung Cancer Cell Atlas
 
+
+## Single-sample smoke test
+
+On 2026-10-03, the six default runner modules were executed for the included
+`TCGA-86-A4D0` sample in an isolated copy, using an existing PCGR installation,
+local PCGR GRCh38 reference data, clinical/RNA-seq/MAF files, and the GSE131907
+annotation. The analysis module sources matched this GitHub checkout.
+
+```bash
+python run_all.py --modules 01 02 03 --sample TCGA-86-A4D0
+python run_all.py --modules 04 05 07 --sample TCGA-86-A4D0
+```
+
+Both commands completed, taking about 62 and 37 seconds respectively, excluding
+environment setup and initial reference-data downloads. Non-empty clinical,
+variant, expression, TME, GSEA and drug-summary tables were checked. ORA had no
+significant pathways for this sample; GSEA emitted a warning about tied ranking
+values. These are functional smoke-test observations, not scientific validation
+or a guarantee of identical results. ESM2 inference and a clean-machine PCGR
+installation were not tested. Your runtime depends on data, references and hardware.
