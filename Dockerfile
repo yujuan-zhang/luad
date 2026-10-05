@@ -34,3 +34,4 @@ ARG PCGR_ENV_NAME="pcgr"
 # pcgr env is activated by default
 ENV PATH="/opt/mambaforge/envs/${PCGR_ENV_NAME}/bin:${PATH}"
 ENV CONDA_PREFIX="/opt/mambaforge/envs/${PCGR_ENV_NAME}"
+
